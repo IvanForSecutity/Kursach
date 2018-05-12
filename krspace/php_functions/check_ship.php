@@ -5,9 +5,6 @@
 
 // TODO: Спрятать данные страницы от всех, кроме рута!
 
-// Start the session, from which we will retrieve current ship
-session_start();
-
 require_once('php_functions/functions.php');
 
 if(!isset($_SESSION['cur_ship']))
