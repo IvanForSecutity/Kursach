@@ -8,7 +8,7 @@
 // Start the session, from which we will retrieve login and session hash of authorized users
 session_start();
 
-require_once('functions.php');
+require_once('php_functions/functions.php');
 
 // To determine whether the user is authorized,
 // we need to check whether there are records in the database for his login and session hash.

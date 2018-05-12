@@ -5,11 +5,11 @@
 //
 
 // Authorized users only!
-require_once('check_session.php');
+require_once('php_functions/check_session.php');
 
 // Connect the file with the connection parameters to the DB
-require_once('database.php');
-require_once('ships_database.php');
+require_once('php_functions/database.php');
+require_once('php_functions/ships_database.php');
 
 if(isset($_POST['btnStart']))
 {
@@ -36,7 +36,7 @@ $ships = loadUserShips($login);
 <html>
     <head>
         <title>Hangar</title>
-        <link rel="stylesheet" href="my_style.css">
+        <link rel="stylesheet" href="style/my_style.css">
     </head>
     <body>
         <div style="text-align: right; padding-right: 50px; padding-top: 10px;">

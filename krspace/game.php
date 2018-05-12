@@ -4,13 +4,13 @@
 //
 
 // Authorized users only!
-require_once('check_session.php');
+require_once('php_functions/check_session.php');
 // Spaceship should be chosen!
-require_once('check_ship.php');
+require_once('php_functions/check_ship.php');
 
 // Connect the file with the connection parameters to the DB
-require_once('database.php');
-require_once('ships_database.php');
+require_once('php_functions/database.php');
+require_once('php_functions/ships_database.php');
 
 // Get our ship
 $ship_name = $_SESSION['cur_ship'];
@@ -20,7 +20,7 @@ $hull = loadCurrentShip($ship_name);
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="my_style.css">
+        <link rel="stylesheet" href="style/my_style.css">
         <title>Spaceship test</title>
     </head>
     <body onload="startGame()" >

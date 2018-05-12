@@ -8,7 +8,7 @@
 // Start the session, from which we will retrieve current ship
 session_start();
 
-require_once('functions.php');
+require_once('php_functions/functions.php');
 
 if(!isset($_SESSION['cur_ship']))
 {

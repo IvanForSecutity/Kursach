@@ -1,6 +1,6 @@
 <?php
 
-require_once('functions.php');
+require_once('php_functions/functions.php');
 
 // TODO: Ерроры надо выводить красиво, а не через жопу, как сейчас...
 // TODO: Хэши, а не чистые пароли, соль...
@@ -35,7 +35,7 @@ if(isset($_POST['btnReg']))
 
 <html>
     <head>
-        <link rel="stylesheet" href="my_style.css">
+        <link rel="stylesheet" href="style/my_style.css">
         <title>Authorisation</title>
     </head>
     <body>

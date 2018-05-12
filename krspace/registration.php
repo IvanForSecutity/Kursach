@@ -2,7 +2,7 @@
 
 // TODO: Спрятать данные страницы от всех, кроме рута!
 
-require_once('functions.php');
+require_once('php_functions/functions.php');
 
 // TODO: Ерроры надо выводить красиво, а не через жопу, как сейчас...
 // TODO: И требования к логину/паролю - тоже
@@ -51,7 +51,7 @@ if(isset($_POST['btnSignUp']))
 <html>
 <head>
 	<title>Registration</title>
-	 <link rel="stylesheet" href="my_style.css">
+	 <link rel="stylesheet" href="style/my_style.css">
 </head>
 <body>
     <form action="" method="post">

@@ -5,11 +5,11 @@
 //
 
 // Authorized users only!
-require_once('check_session.php');
+require_once('php_functions/check_session.php');
 
 // Connect the file with the connection parameters to the DB
-require_once('database.php');
-require_once('ships_database.php');
+require_once('php_functions/database.php');
+require_once('php_functions/ships_database.php');
 
 // If game starts
 if(isset($_POST['btnStart']))
@@ -76,7 +76,7 @@ if(isset($_POST['btnStart']))
 <html>
     <head>
         <title>Spaceship smithy</title>
-        <link rel="stylesheet" href="my_style.css">
+        <link rel="stylesheet" href="style/my_style.css">
         <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
         <script type="text/javascript" src="js/jq_select.js"></script>
     </head>
