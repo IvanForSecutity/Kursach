@@ -81,6 +81,9 @@ if(isset($_POST['btnStart']))
         <script type="text/javascript" src="js/jq_select.js"></script>
     </head>
     <body>
+        <div style="text-align: right; padding-right: 50px; padding-top: 10px;">
+            <a href="logout.php">Log Out</a>
+        </div>
         <div class='circle-container'>
             <c href='#' class='center'> <img id="ship_hull" src="images/blue_1.jpg" width=10%> </a>
             

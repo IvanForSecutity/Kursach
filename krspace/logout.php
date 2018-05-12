@@ -9,13 +9,15 @@
 // after which we redirect the user to the authorization page
 //
 
-// TODO: Это не для красоты. Надо бы кнопочку везде добавить для выхода...
-// TODO: И вообще, надо как-то закрывать сессию через некоторое время. Или оно само?
-
 session_start();
 
 unset($_SESSION['login']);
 unset($_SESSION['session_hash']);
 unset($_SESSION['cur_ship']);
+
+// Delete cookies
+setcookie('login', '', time());
+setcookie('cookie_key', '', time());
+
 header('location: login.php');
 ?>

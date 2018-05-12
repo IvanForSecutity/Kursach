@@ -113,7 +113,7 @@ function registration($login, $password)
 }
 
 // User authorization function
-function authorization($login, $password)
+function authorization($login, $password, $remember)
 {
     // Initialize a variable with a possible error message
     $error = '';
@@ -146,8 +146,6 @@ function authorization($login, $password)
         return $error;
     }
 
-    // TODO: куки! А не только сессии..
- 
     // Start new session
     session_start();
     $session_hash = randHash(32);
@@ -155,6 +153,18 @@ function authorization($login, $password)
     mysqli_query($link, $sql);
     $_SESSION['login'] = $login;
     $_SESSION['session_hash'] = $session_hash;
+    
+    // Check if button "Witness me" was pressed
+    if ($remember == 1)
+    {
+        // Create cookie
+        $cookie_key = randHash(32);
+        $sql = "UPDATE users SET cookie='". $cookie_key ."' WHERE `login`='".$login."'";
+        mysql_query($sql);
+        // Life time is now + month
+        setcookie('login', $login, time()+60*60*24*30);
+        setcookie('cookie_key', $cookie_key, time()+60*60*24*30);
+    }
 
     mysqli_close($link);
 
@@ -185,6 +195,34 @@ function checkSession($login, $session_hash)
     }
 
     mysqli_close($link);	
+
+    // If all is OK - return true
+    return true;
+}
+
+function checkCookie($login, $cookie_key)
+{
+    // If strings are empty - return false
+    if(!$login || !$cookie_key)
+    {
+        return false;
+    }
+	
+    // Check if the cookies are correct
+    // Connect to DB
+    connect();
+	
+    $sql = "SELECT `id` FROM `users` WHERE `login`='".$login."' AND `cookie`='".$cookie_key."'";
+    // Execute query
+    $query = mysql_query($sql);
+
+    // If there is no user with such data, return false
+    if(mysql_num_rows($query) == 0)
+    {
+        return false;
+    }
+
+    mysql_close();	
 
     // If all is OK - return true
     return true;

@@ -15,6 +15,10 @@ require_once('functions.php');
 // To do this, we use a user-defined function
 // to verify the correctness of the data of the authorized user.
 // If this function returns false, then there is no authorization.
+
+// If where is no session data - we should check cookie.
+// If cookies are correct - start new session.
+
 // In the absence of authorization, we simply redirect the user to the authorization page.
 
 // If the session contains data about both the login and the session hash, we check them
@@ -30,8 +34,35 @@ if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['session_h
 }
 else
 {
-	// Redirect user to the authorization page
+    // Check cookie
+    if (!empty($_COOKIE['login']) and !empty($_COOKIE['cookie_key']))
+    {
+        $login = $_COOKIE['login'];
+        // If cookies are correct
+        if(checkCookie($login, $_COOKIE['cookie_key']))
+        {
+            // Start new session
+            $session_hash = randHash(32);
+            // Connect to DB
+            connect();
+            $sql = "UPDATE users SET session_hash='". $session_hash ."' WHERE `login`='".$login."'";
+            mysql_query($sql);
+            $_SESSION['login'] = $login;
+            $_SESSION['session_hash'] = $session_hash;
+            mysql_close();
+        }
+        else
+        {
+            // Redirect user to the authorization page
+            header('location: login.php');
+            exit;
+        }
+    }
+    else
+    {
+        // Redirect user to the authorization page
         header('location: login.php');
-	exit;
+        exit;
+    }
 }
 ?>

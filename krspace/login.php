@@ -9,9 +9,10 @@ if(isset($_POST['btnLogIn']))
 {
     $login = trim($_POST['login']);
     $password = trim($_POST['password']);
+    $remember = !empty($_POST['cbxRemember']) ? 1 : 0;
 
     // Authorize the user
-    $auth = authorization($login, $password);
+    $auth = authorization($login, $password, $remember);
 	
     // If the authorization was successful, inform the user
     if($auth === true)
@@ -43,6 +44,7 @@ if(isset($_POST['btnReg']))
             <form action="" method="post" >
                 <input type="text" name="login" placeholder="login" style="margin-top: 0.2em"><br>
                 <input type="password" name="password" placeholder="password" style="margin-top: 0.2em"><br>
+                <input type="checkbox" name="cbxRemember" value='1'> WITNESS ME!!!<br>
                 <input type="submit" name="btnLogIn" value="Log In" style="margin-top: 0.2em" ><br>
                 <input type="submit" name="btnReg" value="Registration" style="margin-top: 0.2em"><br>
             </form>

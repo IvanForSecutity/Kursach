@@ -40,6 +40,9 @@ $ships = loadUserShips($login);
     </head>
     <body>
         <div style="text-align: right; padding-right: 50px; padding-top: 10px;">
+            <a href="logout.php">Log Out</a>
+        </div>
+        <div style="text-align: right; padding-right: 50px; padding-top: 10px;">
             Your ships
             <form action="" method="POST">
                 <select id="available_ships" name="selAvailableShips" size="1">

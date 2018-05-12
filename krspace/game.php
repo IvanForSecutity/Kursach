@@ -5,6 +5,8 @@
 
 // Authorized users only!
 require_once('check_session.php');
+// Spaceship should be chosen!
+require_once('check_ship.php');
 
 // Connect the file with the connection parameters to the DB
 require_once('database.php');
@@ -22,6 +24,9 @@ $hull = loadCurrentShip($ship_name);
         <title>Spaceship test</title>
     </head>
     <body onload="startGame()" >
+        <div style="text-align: right; padding-right: 50px; padding-top: 10px;">
+            <a href="logout.php">Log Out</a>
+        </div>
         <div>
             <script src='js/spaceshiptest.js'></script>
         </div>
