@@ -44,12 +44,12 @@ else
             // Start new session
             $session_hash = randHash(32);
             // Connect to DB
-            connect();
+            $link = connect();
             $sql = "UPDATE users SET session_hash='". $session_hash ."' WHERE `login`='".$login."'";
-            mysql_query($sql);
+            mysqli_query($link, $sql);
             $_SESSION['login'] = $login;
             $_SESSION['session_hash'] = $session_hash;
-            mysql_close();
+            mysqli_close($link);
         }
         else
         {

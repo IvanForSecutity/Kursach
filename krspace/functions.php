@@ -160,7 +160,7 @@ function authorization($login, $password, $remember)
         // Create cookie
         $cookie_key = randHash(32);
         $sql = "UPDATE users SET cookie='". $cookie_key ."' WHERE `login`='".$login."'";
-        mysql_query($sql);
+        mysqli_query($link, $sql);
         // Life time is now + month
         setcookie('login', $login, time()+60*60*24*30);
         setcookie('cookie_key', $cookie_key, time()+60*60*24*30);
@@ -210,19 +210,19 @@ function checkCookie($login, $cookie_key)
 	
     // Check if the cookies are correct
     // Connect to DB
-    connect();
+    $link = connect();
 	
     $sql = "SELECT `id` FROM `users` WHERE `login`='".$login."' AND `cookie`='".$cookie_key."'";
     // Execute query
-    $query = mysql_query($sql);
+    $query = mysqli_query($link, $sql);
 
     // If there is no user with such data, return false
-    if(mysql_num_rows($query) == 0)
+    if(mysqli_num_rows($query) == 0)
     {
         return false;
     }
 
-    mysql_close();	
+    mysqli_close($link);	
 
     // If all is OK - return true
     return true;
