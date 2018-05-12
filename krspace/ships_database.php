@@ -9,13 +9,13 @@ function registerNewShip($ship_name, $owner, $hull, $hull_2, $hull_3)
     $error = '';
     
     // Connect to DB
-    connect();
+    $link = connect();
     
     $sql = "SELECT `id` FROM `ships` WHERE `ship_name`='" . $ship_name . "'";
     // Execute query
-    $query = mysql_query($sql);
+    $query = mysqli_query($link, $sql);
     // We look at the number of ships with this name, if there is at least one - return an error message
-    if(mysql_num_rows($query) > 0)
+    if(mysqli_num_rows($query) > 0)
     {
         $error = 'Ship with the specified name is already registered';
         return $error;
@@ -27,9 +27,9 @@ function registerNewShip($ship_name, $owner, $hull, $hull_2, $hull_3)
             ('". $ship_name ."', '". $owner ."', '". $hull ."', '". $hull_2 ."', '". $hull_3 ."');";
 
     // Execute query
-    mysql_query($sql);
+    mysqli_query($link, $sql);
 
-    mysql_close();
+    mysqli_close($link);
     
     // Return the value true, indicating successful ship registration
     return true;
@@ -39,16 +39,16 @@ function registerNewShip($ship_name, $owner, $hull, $hull_2, $hull_3)
 function loadUserShips($login)
 {
     // Connect to DB
-    connect();
+    $link = connect();
     $sql = "SELECT `ship_name` FROM `ships` WHERE `owner`='".$login."'";
-    $result = mysql_query($sql);
+    $result = mysqli_query($link,$sql);
     $ships = array();
-    while ($cur_ship = mysql_fetch_assoc($result))
+    while ($cur_ship = mysqli_fetch_assoc($result))
     {
         $ships[] = $cur_ship;
     }
 
-    mysql_close();
+    mysqli_close($link);
     
     return $ships;
 }
@@ -57,14 +57,14 @@ function loadUserShips($login)
 function loadCurrentShip($ship_name)
 {
     // Connect to DB
-    connect();
+    $link = connect();
 
     // Hull
     $sql = "SELECT hull, hull_2, hull_3 FROM `ships` WHERE `ship_name`='".$ship_name."'";
-    $result = mysql_query($sql);
-    $hull = mysql_fetch_assoc($result);
+    $result = mysqli_query($link,$sql);
+    $hull = mysqli_fetch_assoc($result);
 
-    mysql_close();
+    mysqli_close($link);
     
     return $hull;
 }

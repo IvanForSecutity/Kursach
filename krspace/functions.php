@@ -87,13 +87,13 @@ function registration($login, $password)
 
     // Check if the user is already registered
     // Connect to DB
-    connect();
+    $link = connect();
 
     $sql = "SELECT `id` FROM `users` WHERE `login`='" . $login . "'";
     // Execute query
-    $query = mysql_query($sql);
+    $query = mysqli_query($link, $sql);
     // We look at the number of users with this login, if there is at least one - return an error message
-    if(mysql_num_rows($query) > 0)
+    if(mysqli_num_rows($query) > 0)
     {
         $error = 'User with the specified login is already registered';
         return $error;
@@ -104,9 +104,9 @@ function registration($login, $password)
             (`id`,`login`,`password`) VALUES 
             (NULL, '" . $login . "','" . $password . "')";
     // Execute query
-    $query = mysql_query($sql);
+    $query = mysqli_query($link, $sql);
 
-    mysql_close();
+    mysqli_close($link);
 
     // Return the value true, indicating successful user registration
     return true;
@@ -132,15 +132,15 @@ function authorization($login, $password)
 
     // Check if the user is already registered
     // Connect to DB
-    connect();
+    $link = connect();
 
     // We need to check whether there is such a user among registered
     $sql = "SELECT `id` FROM `users` WHERE `login`='".$login."' AND `password`='".$password."'";
     // Execute query
-    $query = mysql_query($sql);
+    $query = mysqli_query($link, $sql);
 
     // If there is no user with such data, return an error message
-    if(mysql_num_rows($query) == 0)
+    if(mysqli_num_rows($query) == 0)
     {
         $error = 'User with the specified data is not registered';
         return $error;
@@ -152,11 +152,11 @@ function authorization($login, $password)
     session_start();
     $session_hash = randHash(32);
     $sql = "UPDATE users SET session_hash='". $session_hash ."' WHERE `login`='".$login."'";
-    mysql_query($sql);
+    mysqli_query($link, $sql);
     $_SESSION['login'] = $login;
     $_SESSION['session_hash'] = $session_hash;
 
-    mysql_close();
+    mysqli_close($link);
 
     // Return the value true, indicating successful user authorization
     return true;
@@ -172,19 +172,19 @@ function checkSession($login, $session_hash)
 	
     // Check if the user is authorized
     // Connect to DB
-    connect();
+    $link = connect();
 	
     $sql = "SELECT `id` FROM `users` WHERE `login`='".$login."' AND `session_hash`='".$session_hash."'";
     // Execute query
-    $query = mysql_query($sql);
+    $query = mysqli_query($link, $sql);
 
     // If there is no user with such data, return false
-    if(mysql_num_rows($query) == 0)
+    if(mysqli_num_rows($query) == 0)
     {
         return false;
     }
 
-    mysql_close();	
+    mysqli_close($link);	
 
     // If all is OK - return true
     return true;
