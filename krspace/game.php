@@ -47,5 +47,12 @@ $hull = loadCurrentShip($ship_name);
         <br>
 
         <p>Make sure the gamearea has focus, and use the arrow keys to move the red square around.</p>
+        
+        <audio controls autoplay="true" loop="true" hidden="true">
+            <source src="audio/Fly 2.ogg" type="audio/ogg; codecs=vorbis">
+            <source src="audio/Fly 2.mp3" type="audio/mpeg">
+            Тег audio не поддерживается вашим браузером.
+            <a href="audio/Fly 2.mp3">Скачайте музыку</a>.
+        </audio>
     </body>
 </html>
