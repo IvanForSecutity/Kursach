@@ -128,8 +128,8 @@ function updateGameArea() {
     myBackground.speedX = 0; 
 
     myGamePiece.moveAngle = 0;
-    var angle_tmp = 5;  
-    var speed_tmp = 10;
+    var angle_tmp = document.getElementById("angles").value; 
+    var speed_tmp = document.getElementById("speed").value; 
 
 	if(myGameArea.keys)
 	{
@@ -161,7 +161,7 @@ function updateGameArea() {
     myBackground.updateb();
     myGamePiece.newPos();
     myGamePiece.update();
-		document.getElementById("angles").value = 90;
+		
 	backgroundstars.push(new obstacle("images/spaceship.png", S_x, S_y));
 	for (var i = 0; i < backgroundstars.length; i++)
 	{
