@@ -41,7 +41,7 @@ function loadUserShips($login)
     // Connect to DB
     $link = connect();
     $sql = "SELECT `ship_name` FROM `ships` WHERE `owner`='".$login."'";
-    $result = mysqli_query($link,$sql);
+    $result = mysqli_query($link, $sql);
     $ships = array();
     while ($cur_ship = mysqli_fetch_assoc($result))
     {
@@ -61,7 +61,7 @@ function loadCurrentShip($ship_name)
 
     // Hull
     $sql = "SELECT hull, hull_2, hull_3 FROM `ships` WHERE `ship_name`='".$ship_name."'";
-    $result = mysqli_query($link,$sql);
+    $result = mysqli_query($link, $sql);
     $hull = mysqli_fetch_assoc($result);
 
     mysqli_close($link);

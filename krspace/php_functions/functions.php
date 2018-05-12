@@ -8,6 +8,18 @@ function randHash($len=32)
     return substr(md5(openssl_random_pseudo_bytes(20)), -$len);
 }
 
+// Generate random salt
+function generateSalt()
+{
+    $salt = '';
+    $salt_length = 8;
+    for($i = 0; $i < $salt_length; $i++)
+    {
+        $salt .= chr(mt_rand(33, 126)); // ASCII-symbol
+    }
+    return $salt;
+}
+
 // Connect the file with the connection parameters to the DB
 require_once('php_functions/database.php');
 
@@ -100,9 +112,14 @@ function registration($login, $password)
     }
 
     // If there is no such user - register it
+    
+    // Generate salt
+    $salt = generateSalt();
+    $salted_password = md5($password.$salt);
+    
     $sql = "INSERT INTO `users` 
-            (`id`,`login`,`password`) VALUES 
-            (NULL, '" . $login . "','" . $password . "')";
+            (`id`,`login`,`password`,`salt`) VALUES 
+            (NULL, '" . $login . "','" . $salted_password . "','" . $salt . "')";
     // Execute query
     $query = mysqli_query($link, $sql);
 
@@ -135,35 +152,47 @@ function authorization($login, $password, $remember)
     $link = connect();
 
     // We need to check whether there is such a user among registered
-    $sql = "SELECT `id` FROM `users` WHERE `login`='".$login."' AND `password`='".$password."'";
+    $sql = "SELECT * FROM `users` WHERE login='".$login."'";
     // Execute query
-    $query = mysqli_query($link, $sql);
+    $result = mysqli_query($link, $sql);
 
     // If there is no user with such data, return an error message
-    if(mysqli_num_rows($query) == 0)
+    if(mysqli_num_rows($result) == 0)
     {
-        $error = 'User with the specified data is not registered';
+        $error = "User with the specified data is not registered";
         return $error;
     }
-
-    // Start new session
-    session_start();
-    $session_hash = randHash(32);
-    $sql = "UPDATE users SET session_hash='". $session_hash ."' WHERE `login`='".$login."'";
-    mysqli_query($link, $sql);
-    $_SESSION['login'] = $login;
-    $_SESSION['session_hash'] = $session_hash;
     
-    // Check if button "Witness me" was pressed
-    if ($remember == 1)
+    // Check password
+    $user = mysqli_fetch_assoc($result);
+    $salt = $user['salt'];
+    $salted_password = md5($password.$salt);
+    if ($user['password'] == $salted_password)
     {
-        // Create cookie
-        $cookie_key = randHash(32);
-        $sql = "UPDATE users SET cookie='". $cookie_key ."' WHERE `login`='".$login."'";
+        // Start new session
+        session_start();
+        $session_hash = randHash(32);
+        $sql = "UPDATE users SET session_hash='". $session_hash ."' WHERE `login`='".$login."'";
         mysqli_query($link, $sql);
-        // Life time is now + month
-        setcookie('login', $login, time()+60*60*24*30);
-        setcookie('cookie_key', $cookie_key, time()+60*60*24*30);
+        $_SESSION['login'] = $login;
+        $_SESSION['session_hash'] = $session_hash;
+
+        // Check if button "Witness me" was pressed
+        if ($remember == 1)
+        {
+            // Create cookie
+            $cookie_key = randHash(32);
+            $sql = "UPDATE users SET cookie='". $cookie_key ."' WHERE `login`='".$login."'";
+            mysqli_query($link, $sql);
+            // Life time is now + month
+            setcookie('login', $login, time()+60*60*24*30);
+            setcookie('cookie_key', $cookie_key, time()+60*60*24*30);
+        }
+    }
+    else
+    {
+        $error = "Incorrect password!";
+        return $error;
     }
 
     mysqli_close($link);
