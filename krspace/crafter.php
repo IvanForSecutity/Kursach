@@ -70,7 +70,7 @@ if(isset($_POST['btnStart']))
             <a href="logout.php">Log Out</a>
         </div>
         <div class='circle-container'>
-            <c href='#' class='center'> <img id="ship_hull" src="images/Glader/1.png" width=100 height=175> </a>
+            <c href='#' class='center'> <img id="ship_hull" src="images/Hulls/Glader/1.png" width=100 height=175> </a>
             
             <a href='#' class='deg250'> <img src="images/stub.jpg"> </a>
             <a href='#' class='deg270'> <img src="images/stub.jpg"> </a>
@@ -90,10 +90,10 @@ if(isset($_POST['btnStart']))
         <div style="text-align: center; padding-top: 50px;">
             <form action="" method="POST">
                 <select id="selShipHull" name="selShipHull" class="select-multi" size="1">
-                    <option data-path="images/Glader/1.png" value="images/Glader/"> Glader </option>
-                    <option data-path="images/Temper (Blue)/1.png" value="images/Temper (Blue)/"> Temper (Blue) </option>
-                    <option data-path="images/Temper (Red)/1.png" value="images/Temper (Red)/"> Temper (Red) </option>
-                    <option data-path="images/Temper (Green)/1.png" value="images/Temper (Green)/"> Temper (Green) </option>
+                    <option data-path="images/Hulls/Glader/1.png" value="Glader"> Glader </option>
+                    <option data-path="images/Hulls/Temper (Blue)/1.png" value="Temper (Blue)"> Temper (Blue) </option>
+                    <option data-path="images/Hulls/Temper (Red)/1.png" value="Temper (Red)"> Temper (Red) </option>
+                    <option data-path="images/Hulls/Temper (Green)/1.png" value="Temper (Green)"> Temper (Green) </option>
                 </select>
                 
                 <br/>

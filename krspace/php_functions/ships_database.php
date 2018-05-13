@@ -62,6 +62,22 @@ function loadCurrentShip($ship_name)
     // Hull
     $sql = "SELECT hull FROM `ships` WHERE `ship_name`='".$ship_name."'";
     $result = mysqli_query($link, $sql);
+    $ship = mysqli_fetch_assoc($result);
+
+    mysqli_close($link);
+    
+    return $ship;
+}
+
+// Get ship hull.
+function loadShipHull($hull_name)
+{
+    // Connect to DB
+    $link = connect();
+
+    // Hull
+    $sql = "SELECT * FROM `hulls` WHERE `name`='".$hull_name."'";
+    $result = mysqli_query($link, $sql);
     $hull = mysqli_fetch_assoc($result);
 
     mysqli_close($link);

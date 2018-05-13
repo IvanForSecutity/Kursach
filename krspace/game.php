@@ -14,7 +14,14 @@ require_once('php_functions/ships_database.php');
 
 // Get our ship
 $ship_name = $_SESSION['cur_ship'];
-$hull = loadCurrentShip($ship_name);
+$ship = loadCurrentShip($ship_name);
+$hull = loadShipHull($ship['hull']);
+
+// Calculate parameters
+$hp = $hull['hp'];
+$capacity = $hull['capacity'];
+$speed = 5000 / $capacity;
+$maneuverability = $hull['maneuverability'];
 ?>
 
 <html>
@@ -31,15 +38,17 @@ $hull = loadCurrentShip($ship_name);
             <script src='js/spaceshiptest.js'></script>
         </div>
         
-        Speed: <input id='speed' type="number" value="20" style="margin-top: 0.2em">
+        Hp: <input id='hp' type="number" value="<?php echo $hp;?>" style="margin-top: 0.2em">
         <br>
-        Angles: <input id='angles' type="number" value="10" style="margin-top: 0.2em">
+        Speed: <input id='speed' type="number" value="<?php echo $speed;?>" style="margin-top: 0.2em">
         <br>
-        
+        Maneuverability: <input id='maneuverability' type="number" value="<?php echo $maneuverability;?>" style="margin-top: 0.2em">
+        <br>
+
         TODO:
         Это затычка, которую надо потом спрятать куда-нибудь...
         <br>
-        Hull: <input id='ship_hull' type="text" value="<?php echo $hull['hull'];?>" style="margin-top: 0.2em">
+        Hull: <input id='ship_hull' type="text" value="<?php echo $hull['image'];?>" style="margin-top: 0.2em">
         <br>
 
         <p>Make sure the gamearea has focus, and use the arrow keys to move the red square around.</p>

@@ -165,7 +165,7 @@ function updateGameArea()
     myBackground.speedX = 0; 
 
     myGamePiece.moveAngle = 0;
-    var angle_tmp = document.getElementById("angles").value; 
+    var maneuverability_tmp = document.getElementById("maneuverability").value; 
     var speed_tmp = document.getElementById("speed").value;
 
 	if(myGameArea.keys)
@@ -180,8 +180,8 @@ function updateGameArea()
 			
 			var cos_angle = Math.cos(myGamePiece.angle);
 			var sin_angle = Math.sin(myGamePiece.angle);
-			if(L)	myGamePiece.moveAngle = -1*(angle_tmp);
-			if(R)	myGamePiece.moveAngle = angle_tmp;
+			if(L)	myGamePiece.moveAngle = -1*(maneuverability_tmp);
+			if(R)	myGamePiece.moveAngle = maneuverability_tmp;
 			if(F||B)
 			{
 				var dir=1;
