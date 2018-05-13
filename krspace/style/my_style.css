@@ -76,7 +76,27 @@
     padding-top: 10px;
 
 }
-canvas {
-                border:1px solid #000000;
-                background-color: #000000;
-            }
+canvas
+{
+    border:1px solid #000000;
+    background-color: #000000;
+}
+
+table.three_columns
+{
+    width:  100%;
+    border-spacing: 0;  /* Distance between cells */
+}
+table.three_columns td
+{
+    width: 33%;
+    vertical-align: top;
+}
+td.center_col
+{ 
+    text-align: center;
+}
+td.right_col
+{ 
+    text-align: right;
+}

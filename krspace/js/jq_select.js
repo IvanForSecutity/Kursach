@@ -1,3 +1,5 @@
+// TODO: Сейчас оно не используется. Если так и не пригодится - надо удалить, вместе с jquery.
+
 $(document).ready(function()
 {
     $('#selShipHull').change(function()
