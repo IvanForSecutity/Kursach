@@ -16,12 +16,18 @@ require_once('php_functions/ships_database.php');
 $ship_name = $_SESSION['cur_ship'];
 $ship = loadCurrentShip($ship_name);
 $hull = loadShipHull($ship['hull']);
+$engine = loadShipEngine($ship['engine']);
 
 // Calculate parameters
 $hp = $hull['hp'];
-$capacity = $hull['capacity'];
-$speed = 5000 / $capacity;
+$full_capacity = $hull['capacity'];
 $maneuverability = $hull['maneuverability'];
+
+$engine_weight = $engine['weight'];
+$engine_speed = $engine['speed'];
+
+$free_capacity = $full_capacity - $engine_weight;
+$speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
 ?>
 
 <html>
@@ -49,6 +55,8 @@ $maneuverability = $hull['maneuverability'];
         Это затычка, которую надо потом спрятать куда-нибудь...
         <br>
         Hull: <input id='ship_hull' type="text" value="<?php echo $hull['image'];?>" style="margin-top: 0.2em">
+        <br>
+        Engine: <input id='ship_engine' type="text" value="<?php echo $engine['image'];?>" style="margin-top: 0.2em">
         <br>
 
         <p>Make sure the gamearea has focus, and use the arrow keys to move the red square around.</p>

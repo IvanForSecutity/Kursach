@@ -22,9 +22,12 @@ if(isset($_POST['btnStart']))
         
         // Hull was chosen
         $hull = $_POST['selShipHull'];
+        // Engine was chosen
+        $engine = $_POST['selShipEngine'];
+
 
         // Call the registration function
-        $reg = registerNewShip($ship_name, $owner, $hull);
+        $reg = registerNewShip($ship_name, $owner, $hull, $engine);
 
         // If ship successfully registered, inform the user
         if($reg === true)
@@ -63,32 +66,45 @@ $txtShipName = "";
 // Load current modules
 $hull = loadShipHull("Glader");
 $hull_image = $hull['image']."1.png";
+$engine = loadShipEngine("Jumper");
+$engine_image = $engine['image']."1.png";
 
 // Calculate parameters
 $hp = $hull['hp'];
 $full_capacity = $hull['capacity'];
-$free_capacity = $full_capacity;
-$speed = 5000 / $full_capacity;
 $maneuverability = $hull['maneuverability'];
-$cost = $hull['cost'];
 
-if(isset($_POST['selShipHull']))
+$engine_weight = $engine['weight'];
+$engine_speed = $engine['speed'];
+
+$free_capacity = $full_capacity - $engine_weight;
+$speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
+$cost = $hull['cost'] + $engine['cost'];
+
+if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']))
 {
     // Save entered values
     $selShipHull = $_POST['selShipHull'];
+    $selShipEngine = $_POST['selShipEngine'];
     $txtShipName = $_POST['txtShipName'];
     
     // Load current modules
     $hull = loadShipHull($_POST['selShipHull']);
     $hull_image = $hull['image']."1.png";
+    $engine = loadShipEngine($_POST['selShipEngine']);
+    $engine_image = $engine['image']."1.png";
 
     // Calculate parameters
     $hp = $hull['hp'];
     $full_capacity = $hull['capacity'];
-    $free_capacity = $full_capacity;
-    $speed = 5000 / $full_capacity;
     $maneuverability = $hull['maneuverability'];
-    $cost = $hull['cost'];
+
+    $engine_weight = $engine['weight'];
+    $engine_speed = $engine['speed'];
+
+    $free_capacity = $full_capacity - $engine_weight;
+    $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
+    $cost = $hull['cost'] + $engine['cost'];
 }
 ?>
 
@@ -120,6 +136,13 @@ if(isset($_POST['selShipHull']))
                         <option data-path="images/Hulls/Temper (Green)/1.png" value="Temper (Green)" <?= (isset($selShipHull) && $selShipHull == "Temper (Green)") ? " selected=\"selected\"" : "" ?>> Temper (Green) </option>
                     </select>
                     <br>
+                    Engine:
+                    <select id="selShipEngine" name="selShipEngine" class="select-multi" size="1" onchange="this.form.submit()">
+                        <option data-path="images/Engines/Jumper/1.png"    value="Jumper"    <?= (isset($selShipEngine) && $selShipEngine == "Jumper")    ? " selected=\"selected\"" : "" ?>> Jumper    </option>
+                        <option data-path="images/Engines/Pop-Uper/1.png"  value="Pop-Uper"  <?= (isset($selShipEngine) && $selShipEngine == "Pop-Uper")  ? " selected=\"selected\"" : "" ?>> Pop-Uper  </option>
+                        <option data-path="images/Engines/Turbine/1.png"   value="Turbine"   <?= (isset($selShipEngine) && $selShipEngine == "Turbine")   ? " selected=\"selected\"" : "" ?>> Turbine   </option>
+                        <option data-path="images/Engines/Turbine I/1.png" value="Turbine I" <?= (isset($selShipEngine) && $selShipEngine == "Turbine I") ? " selected=\"selected\"" : "" ?>> Turbine I </option>
+                    </select>
                     <br/>
                     Ship name: <input type="text" name="txtShipName" value="<?php echo $txtShipName;?>" style="margin-top: 0.2em">
                     <br>
@@ -137,10 +160,10 @@ if(isset($_POST['selShipHull']))
 
                     <a href='#' class='deg70'>  <img src="images/stub.jpg"> </a>
                     <a href='#' class='deg90'>  <img src="images/stub.jpg"> </a>
-
                     <a href='#' class='deg110'> <img src="images/stub.jpg"> </a>
+                    
                     <a href='#' class='deg150'> <img src="images/stub.jpg"> </a>
-                    <a href='#' class='deg210'> <img src="images/stub.jpg"> </a>
+                    <a href='#' class='deg210'> <img id="ship_engine" src="<?php echo $engine_image;?>" width=60 height=60> </a>
                     </div> 
                 </td>
                 <td class="right_col">

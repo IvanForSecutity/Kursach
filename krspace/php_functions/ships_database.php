@@ -3,7 +3,7 @@
 // TODO: Спрятать данные страницы от всех, кроме рута!
 
 // Ship registration function.
-function registerNewShip($ship_name, $owner, $hull)
+function registerNewShip($ship_name, $owner, $hull, $engine)
 {
     // Initialize a variable with a possible error message
     $error = '';
@@ -23,8 +23,8 @@ function registerNewShip($ship_name, $owner, $hull)
     
     // If there is no such ship - register it
     $sql = "INSERT INTO ships
-            (ship_name, owner, hull) VALUES
-            ('". $ship_name ."', '". $owner ."', '". $hull ."');";
+            (ship_name, owner, hull, engine) VALUES
+            ('". $ship_name ."', '". $owner ."', '". $hull ."', '". $engine ."');";
 
     // Execute query
     mysqli_query($link, $sql);
@@ -60,7 +60,7 @@ function loadCurrentShip($ship_name)
     $link = connect();
 
     // Hull
-    $sql = "SELECT hull FROM `ships` WHERE `ship_name`='".$ship_name."'";
+    $sql = "SELECT * FROM `ships` WHERE `ship_name`='".$ship_name."'";
     $result = mysqli_query($link, $sql);
     $ship = mysqli_fetch_assoc($result);
 
@@ -83,5 +83,21 @@ function loadShipHull($hull_name)
     mysqli_close($link);
     
     return $hull;
+}
+
+// Get ship engine.
+function loadShipEngine($engine_name)
+{
+    // Connect to DB
+    $link = connect();
+
+    // Hull
+    $sql = "SELECT * FROM `engines` WHERE `name`='".$engine_name."'";
+    $result = mysqli_query($link, $sql);
+    $engine = mysqli_fetch_assoc($result);
+
+    mysqli_close($link);
+    
+    return $engine;
 }
 ?>
