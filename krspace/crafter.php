@@ -21,25 +21,10 @@ if(isset($_POST['btnStart']))
         $owner = $_SESSION['login'];
         
         // Hull was chosen
-        $hull = $_POST['selShipHullColor'];
-        switch ($hull)
-        {
-        case "images/blue_1.jpg":
-            $hull_2 = "images/blue_2.jpg";
-            $hull_3 = "images/blue_3.jpg";
-            break;
-        case "images/red_1.jpg":
-            $hull_2 = "images/red_2.jpg";
-            $hull_3 = "images/red_3.jpg";
-            break;
-        case "images/green_1.jpg":
-            $hull_2 = "images/green_2.jpg";
-            $hull_3 = "images/green_3.jpg";
-            break;
-        }
+        $hull = $_POST['selShipHull'];
 
         // Call the registration function
-        $reg = registerNewShip($ship_name, $owner, $hull, $hull_2, $hull_3);
+        $reg = registerNewShip($ship_name, $owner, $hull);
 
         // If ship successfully registered, inform the user
         if($reg === true)
@@ -85,7 +70,7 @@ if(isset($_POST['btnStart']))
             <a href="logout.php">Log Out</a>
         </div>
         <div class='circle-container'>
-            <c href='#' class='center'> <img id="ship_hull" src="images/blue_1.jpg" width=10%> </a>
+            <c href='#' class='center'> <img id="ship_hull" src="images/Glader/1.png" width=100 height=175> </a>
             
             <a href='#' class='deg250'> <img src="images/stub.jpg"> </a>
             <a href='#' class='deg270'> <img src="images/stub.jpg"> </a>
@@ -104,10 +89,11 @@ if(isset($_POST['btnStart']))
         
         <div style="text-align: center; padding-top: 50px;">
             <form action="" method="POST">
-                <select id="ship_hull_color" name="selShipHullColor" class="select-multi" size="1">
-                    <option data-path="images/blue_1.jpg" value="images/blue_1.jpg" class="blue_color"> Синий </option>
-                    <option data-path="images/red_1.jpg" value="images/red_1.jpg" class="red_color"> Красный </option>
-                    <option data-path="images/green_1.jpg" value="images/green_1.jpg" class="green_color"> Зелёный </option>
+                <select id="selShipHull" name="selShipHull" class="select-multi" size="1">
+                    <option data-path="images/Glader/1.png" value="images/Glader/"> Glader </option>
+                    <option data-path="images/Temper (Blue)/1.png" value="images/Temper (Blue)/"> Temper (Blue) </option>
+                    <option data-path="images/Temper (Red)/1.png" value="images/Temper (Red)/"> Temper (Red) </option>
+                    <option data-path="images/Temper (Green)/1.png" value="images/Temper (Green)/"> Temper (Green) </option>
                 </select>
                 
                 <br/>

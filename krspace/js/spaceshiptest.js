@@ -8,10 +8,14 @@ var updateNum=0;
 var backgroundstars = [];
 var S_x=0;
 var S_y=0;
+var ship_hull = "";
 
-function startGame() {
+function startGame()
+{
+    ship_hull = document.getElementById("ship_hull").value + "1.png";
+    
     //create spaceship element
-    myGamePiece = new component(30, 30, "images/spaceship.png", FW/2, FH/2, "image");
+    myGamePiece = new component(30, 50, ship_hull, FW/2, FH/2, "image");
     myBackground = new component(3000, 9000, "images/space.png", -1500-FW/2, -8730, "image");
     myGameArea.start();
 }
@@ -95,6 +99,10 @@ function component(width, height, img, x, y, type) {
         this.y += this.speedY;
         this.y +=0.3;
     }
+    this.updateAnimation = function()
+    {
+        this.image.src = ship_hull;
+    }
 }
 function obstacle(img, x, y) {
     this.image = new Image();
@@ -122,14 +130,43 @@ function obstacle(img, x, y) {
 }
 
 //every 20 miliseconds
-function updateGameArea() {
+function updateGameArea()
+{
+    updateNum++;
+    if (updateNum == 100)
+    {
+        updateNum = 0;
+    }
+    
+    // Animation phases
+    if (updateNum < 20)
+    {
+        ship_hull = document.getElementById("ship_hull").value + "1.png";
+    }
+    if (updateNum >= 20 && updateNum < 40)
+    {
+        ship_hull = document.getElementById("ship_hull").value + "2.png";
+    }
+    if (updateNum >= 40 && updateNum < 60)
+    {
+        ship_hull = document.getElementById("ship_hull").value + "3.png";
+    }
+    if (updateNum >= 60 && updateNum < 80)
+    {
+        ship_hull = document.getElementById("ship_hull").value + "4.png";
+    }
+    if (updateNum >= 80 && updateNum < 100)
+    {
+        ship_hull = document.getElementById("ship_hull").value + "5.png";
+    }
+    
     myGameArea.clear();
     myBackground.speedY = 0; 
     myBackground.speedX = 0; 
 
     myGamePiece.moveAngle = 0;
     var angle_tmp = document.getElementById("angles").value; 
-    var speed_tmp = document.getElementById("speed").value; 
+    var speed_tmp = document.getElementById("speed").value;
 
 	if(myGameArea.keys)
 	{
@@ -151,18 +188,17 @@ function updateGameArea() {
 				if(B)dir=-1;
 				myBackground.speedX = -1*	dir*speed_tmp*sin_angle;
 				myBackground.speedY = 		dir*speed_tmp*cos_angle;
-			}
-			
-		}
-		
+			}	
+		}	
 	}
 	
     myBackground.newPosb();
     myBackground.updateb();
     myGamePiece.newPos();
     myGamePiece.update();
+    myGamePiece.updateAnimation();
 		
-	backgroundstars.push(new obstacle("images/spaceship.png", S_x, S_y));
+	backgroundstars.push(new obstacle(ship_hull, S_x, S_y));
 	for (var i = 0; i < backgroundstars.length; i++)
 	{
 		

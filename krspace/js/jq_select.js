@@ -1,7 +1,7 @@
 $(document).ready(function()
 {
-    $('#ship_hull_color').change(function()
+    $('#selShipHull').change(function()
     {
-        $('#ship_hull').attr('src', $('#ship_hull_color option:selected').attr('data-path'));
+        $('#ship_hull').attr('src', $('#selShipHull option:selected').attr('data-path'));
     });
 });
