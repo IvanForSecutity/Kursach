@@ -55,7 +55,7 @@
     width: 10em; height: 10em;
     margin: -2em;
 }
-.circle-container img { display: block; width: 100%; }
+.circle-container img { display: block; }
 .deg0 { transform: translate(12em); } /* 12em = half the width of the wrapper */
 .deg30 { transform: rotate(30deg) translate(12em) rotate(-30deg); }
 .deg70 { transform: rotate(70deg) translate(12em) rotate(-70deg); }
@@ -99,4 +99,46 @@ td.center_col
 td.right_col
 { 
     text-align: right;
+}
+
+.module_background
+{
+    position: relative;
+    border: 2px solid #0019f7;
+    border-radius: 10px;
+    background-color: #bdfffe;
+    width: 60px;
+    height: 60px;
+}
+.module_image
+{
+    position: absolute;
+    margin: auto;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    max-wigth: 60px;
+    max-height: 60px;
+}
+
+.hull_background
+{
+    position: relative;
+    border: 2px solid #0019f7;
+    border-radius: 10px;
+    background-color: #bdfffe;
+    width: 150px;
+    height: 150px;
+}
+.hull_image
+{
+    position: absolute;
+    margin: auto;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    max-wigth: 150px;
+    max-height: 150px;
 }

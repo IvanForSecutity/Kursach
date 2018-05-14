@@ -4,6 +4,8 @@
 // Result saves in database in table "ships".
 //
 
+// TODO: Нет смысла вручную заполнять все модули, корпуса... Надо все из БД подгружать.
+
 // Authorized users only!
 require_once('php_functions/check_session.php');
 
@@ -149,21 +151,29 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']))
                 </td>
                 <td class="center_col">
                     <div class='circle-container'>
-                    <c href='#' class='center'> <img id="ship_hull" src="<?php echo $hull_image;?>" width=100 height=175> </a>
+                        <c href='#' class='center'>
+                            <div class="hull_background">
+                                <img id="ship_hull" src="<?php echo $hull_image;?>" class="hull_image">
+                            </div>
+                        </a>
 
-                    <a href='#' class='deg250'> <img src="images/stub.jpg"> </a>
-                    <a href='#' class='deg270'> <img src="images/stub.jpg"> </a>
-                    <a href='#' class='deg290'> <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg250'> <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg270'> <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg290'> <img src="images/stub.jpg"> </a>
 
-                    <a href='#' class='deg330'> <img src="images/stub.jpg"> </a>
-                    <a href='#' class='deg30'>  <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg330'> <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg30'>  <img src="images/stub.jpg"> </a>
 
-                    <a href='#' class='deg70'>  <img src="images/stub.jpg"> </a>
-                    <a href='#' class='deg90'>  <img src="images/stub.jpg"> </a>
-                    <a href='#' class='deg110'> <img src="images/stub.jpg"> </a>
-                    
-                    <a href='#' class='deg150'> <img src="images/stub.jpg"> </a>
-                    <a href='#' class='deg210'> <img id="ship_engine" src="<?php echo $engine_image;?>" width=60 height=60> </a>
+                        <a href='#' class='deg70'>  <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg90'>  <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg110'> <img src="images/stub.jpg"> </a>
+
+                        <a href='#' class='deg150'> <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg210'>
+                            <div class="module_background">
+                                <img id="ship_engine" src="<?php echo $engine_image;?>" class="module_image">
+                            </div>
+                        </a>
                     </div> 
                 </td>
                 <td class="right_col">
