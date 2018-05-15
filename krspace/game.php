@@ -17,6 +17,7 @@ $ship_name = $_SESSION['cur_ship'];
 $ship = loadCurrentShip($ship_name);
 $hull = loadShipHull($ship['hull']);
 $engine = loadShipEngine($ship['engine']);
+$fuel_tank = loadShipFuelTank($ship['fuel_tank']);
 
 // Calculate parameters
 $hp = $hull['hp'];
@@ -26,7 +27,10 @@ $maneuverability = $hull['maneuverability'];
 $engine_weight = $engine['weight'];
 $engine_speed = $engine['speed'];
 
-$free_capacity = $full_capacity - $engine_weight;
+$fuel_tank_weight = $fuel_tank['weight'];
+$fuel_tank_volume = $fuel_tank['volume'];
+
+$free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight;
 $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
 ?>
 
@@ -50,6 +54,8 @@ $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_cap
         <br>
         Maneuverability: <input id='maneuverability' type="number" value="<?php echo $maneuverability;?>" style="margin-top: 0.2em">
         <br>
+        Fuel tank volume: <input id='fuel_tank_volume' type="number" value="<?php echo $fuel_tank_volume;?>" style="margin-top: 0.2em">
+        <br>
 
         TODO:
         Это затычка, которую надо потом спрятать куда-нибудь...
@@ -57,6 +63,8 @@ $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_cap
         Hull: <input id='ship_hull' type="text" value="<?php echo $hull['image'];?>" style="margin-top: 0.2em">
         <br>
         Engine: <input id='ship_engine' type="text" value="<?php echo $engine['image'];?>" style="margin-top: 0.2em">
+        <br>
+        Fuel tank: <input id='ship_fuel_tank' type="text" value="<?php echo $fuel_tank['image'];?>" style="margin-top: 0.2em">
         <br>
 
         <p>Make sure the gamearea has focus, and use the arrow keys to move the red square around.</p>

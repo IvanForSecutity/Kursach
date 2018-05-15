@@ -3,7 +3,7 @@
 // TODO: Спрятать данные страницы от всех, кроме рута!
 
 // Ship registration function.
-function registerNewShip($ship_name, $owner, $hull, $engine)
+function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank)
 {
     // Initialize a variable with a possible error message
     $error = '';
@@ -23,8 +23,8 @@ function registerNewShip($ship_name, $owner, $hull, $engine)
     
     // If there is no such ship - register it
     $sql = "INSERT INTO ships
-            (ship_name, owner, hull, engine) VALUES
-            ('". $ship_name ."', '". $owner ."', '". $hull ."', '". $engine ."');";
+            (ship_name, owner, hull, engine, fuel_tank) VALUES
+            ('". $ship_name ."', '". $owner ."', '". $hull ."', '". $engine ."', '". $fuel_tank ."');";
 
     // Execute query
     mysqli_query($link, $sql);
@@ -99,5 +99,21 @@ function loadShipEngine($engine_name)
     mysqli_close($link);
     
     return $engine;
+}
+
+// Get ship fuel tank.
+function loadShipFuelTank($fuel_tank_name)
+{
+    // Connect to DB
+    $link = connect();
+
+    // Hull
+    $sql = "SELECT * FROM `fuel_tanks` WHERE `name`='".$fuel_tank_name."'";
+    $result = mysqli_query($link, $sql);
+    $fuel_tank = mysqli_fetch_assoc($result);
+
+    mysqli_close($link);
+    
+    return $fuel_tank;
 }
 ?>

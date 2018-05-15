@@ -26,10 +26,12 @@ if(isset($_POST['btnStart']))
         $hull = $_POST['selShipHull'];
         // Engine was chosen
         $engine = $_POST['selShipEngine'];
+        // Fuel tank was chosen
+        $fuel_tank = $_POST['selShipFuelTank'];
 
 
         // Call the registration function
-        $reg = registerNewShip($ship_name, $owner, $hull, $engine);
+        $reg = registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank);
 
         // If ship successfully registered, inform the user
         if($reg === true)
@@ -70,6 +72,8 @@ $hull = loadShipHull("Glader");
 $hull_image = $hull['image']."1.png";
 $engine = loadShipEngine("Jumper");
 $engine_image = $engine['image']."1.png";
+$fuel_tank = loadShipFuelTank("Classic");
+$fuel_tank_image = $fuel_tank['image']."1.png";
 
 // Calculate parameters
 $hp = $hull['hp'];
@@ -79,15 +83,19 @@ $maneuverability = $hull['maneuverability'];
 $engine_weight = $engine['weight'];
 $engine_speed = $engine['speed'];
 
-$free_capacity = $full_capacity - $engine_weight;
-$speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
-$cost = $hull['cost'] + $engine['cost'];
+$fuel_tank_weight = $fuel_tank['weight'];
+$fuel_tank_volume = $fuel_tank['volume'];
 
-if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']))
+$free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight;
+$speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
+$cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'];
+
+if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POST['selShipFuelTank']))
 {
     // Save entered values
     $selShipHull = $_POST['selShipHull'];
     $selShipEngine = $_POST['selShipEngine'];
+    $selShipFuelTank = $_POST['selShipFuelTank'];
     $txtShipName = $_POST['txtShipName'];
     
     // Load current modules
@@ -95,6 +103,8 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']))
     $hull_image = $hull['image']."1.png";
     $engine = loadShipEngine($_POST['selShipEngine']);
     $engine_image = $engine['image']."1.png";
+    $fuel_tank = loadShipFuelTank($_POST['selShipFuelTank']);
+    $fuel_tank_image = $fuel_tank['image']."1.png";
 
     // Calculate parameters
     $hp = $hull['hp'];
@@ -104,9 +114,12 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']))
     $engine_weight = $engine['weight'];
     $engine_speed = $engine['speed'];
 
-    $free_capacity = $full_capacity - $engine_weight;
+    $fuel_tank_weight = $fuel_tank['weight'];
+    $fuel_tank_volume = $fuel_tank['volume'];
+
+    $free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight;
     $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
-    $cost = $hull['cost'] + $engine['cost'];
+    $cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'];
 }
 ?>
 
@@ -130,6 +143,9 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']))
                     Spaceship modules:
                     <br>
                     <br/>
+                    Ship name: <input type="text" name="txtShipName" value="<?php echo $txtShipName;?>" style="margin-top: 0.2em">
+                    <br>
+                    <br>
                     Hull:
                     <select id="selShipHull" name="selShipHull" class="select-multi" size="1" onchange="this.form.submit()">
                         <option data-path="images/Hulls/Glader/1.png"         value="Glader"         <?= (isset($selShipHull) && $selShipHull == "Glader")         ? " selected=\"selected\"" : "" ?>> Glader         </option>
@@ -146,8 +162,13 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']))
                         <option data-path="images/Engines/Turbine I/1.png" value="Turbine I" <?= (isset($selShipEngine) && $selShipEngine == "Turbine I") ? " selected=\"selected\"" : "" ?>> Turbine I </option>
                     </select>
                     <br/>
-                    Ship name: <input type="text" name="txtShipName" value="<?php echo $txtShipName;?>" style="margin-top: 0.2em">
-                    <br>
+                    Fuel Tank:
+                    <select id="selShipFuelTank" name="selShipFuelTank" class="select-multi" size="1" onchange="this.form.submit()">
+                        <option data-path="images/Fuel tanks/Classic/1.png" value="Classic" <?= (isset($selShipFuelTank) && $selShipFuelTank == "Classic") ? " selected=\"selected\"" : "" ?>> Classic </option>
+                        <option data-path="images/Fuel tanks/Literer/1.png" value="Literer" <?= (isset($selShipFuelTank) && $selShipFuelTank == "Literer") ? " selected=\"selected\"" : "" ?>> Literer </option>
+                        <option data-path="images/Fuel tanks/Xpacer/1.png"  value="Xpacer"  <?= (isset($selShipFuelTank) && $selShipFuelTank == "Xpacer")  ? " selected=\"selected\"" : "" ?>> Xpacer  </option>
+                    </select>
+                    <br/>
                 </td>
                 <td class="center_col">
                     <div class='circle-container'>
@@ -168,7 +189,11 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']))
                         <a href='#' class='deg90'>  <img src="images/stub.jpg"> </a>
                         <a href='#' class='deg110'> <img src="images/stub.jpg"> </a>
 
-                        <a href='#' class='deg150'> <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg150'>
+                            <div class="module_background">
+                                <img id="ship_fuel_tank" src="<?php echo $fuel_tank_image;?>" class="module_image">
+                            </div>
+                        </a>
                         <a href='#' class='deg210'>
                             <div class="module_background">
                                 <img id="ship_engine" src="<?php echo $engine_image;?>" class="module_image">
@@ -189,6 +214,8 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']))
                     Speed: <input type="text" name="txtSpeed" value="<?php echo $speed;?>" style="margin-top: 0.2em" readonly="true">
                     <br/>
                     Maneuverability: <input type="text" name="txtManeuverability" value="<?php echo $maneuverability;?>" style="margin-top: 0.2em" readonly="true">
+                    <br/>
+                    Fuel tank volume: <input type="text" name="txtFuelTankVolume" value="<?php echo $fuel_tank_volume;?>" style="margin-top: 0.2em" readonly="true">
                     <br/>
                     <br/>
                     Cost: <input type="text" name="txtCost" value="<?php echo $cost;?>" style="margin-top: 0.2em" readonly="true">
