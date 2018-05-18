@@ -57,6 +57,11 @@ $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_cap
         <br>
         Fuel tank volume: <input id='fuel_tank_volume' type="number" value="<?php echo $fuel_tank_volume;?>" style="margin-top: 0.2em">
         <br>
+        
+        X: <input id='x' type="number" value="0" style="margin-top: 0.2em">
+        <br>
+        Y: <input id='y' type="number" value="0" style="margin-top: 0.2em">
+        <br>
 
         TODO:
         Это затычка, которую надо потом спрятать куда-нибудь...

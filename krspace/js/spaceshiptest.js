@@ -39,8 +39,9 @@ var myGameArea = {
 			ctx = myGameArea.context;
 			var docElem = document.getElementById("gamediv");
 			var rect = docElem.getBoundingClientRect();
-			document.getElementById("speed").value = e.clientY;
-			document.getElementById("maneuverability").value = e.pageY;
+
+			document.getElementById("x").value = e.clientY;
+			document.getElementById("y").value = e.pageY;
 			send_rocket(0,0,e.pageX,e.pageY);
 		}, false);
 		
