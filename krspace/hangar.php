@@ -14,10 +14,11 @@ require_once('php_functions/ships_database.php');
 if(isset($_POST['btnStart']))
 {
     // Player should choose any available ship
-    if(isset($_POST['selAvailableShips']))
+    if(isset($_POST['rbtnAvailableShips']))
     {
         // Set current ship
-        $_SESSION['cur_ship'] = $_POST['selAvailableShips'];
+        $_SESSION['cur_ship'] = $_POST['rbtnAvailableShips'];
+
         header("Location: game.php");
     }
     else
@@ -25,7 +26,6 @@ if(isset($_POST['btnStart']))
         $message = '<p>You should choose any available ship to start game!</p>';
         print $message;
     }
-    header("Location: game.php");
 }
 
 // Load user's ships
@@ -42,14 +42,21 @@ $ships = loadUserShips($login);
         <div style="text-align: right; padding-right: 50px; padding-top: 10px;">
             <a href="logout.php">Log Out</a>
         </div>
-        <div style="text-align: right; padding-right: 50px; padding-top: 10px;">
+        <div style="text-align: left; padding-right: 50px; padding-top: 10px;">
             Your ships
             <form action="" method="POST">
-                <select id="available_ships" name="selAvailableShips" size="1">
+                <table  class="two_columns" cellspacing="0">
+                    <tr>
+                        <th>Ship name</th> <th>Action</th>
+                    </tr>
+
                     <?php foreach ($ships as $cur_ship) : ?>
-                        <option value="<?php echo $cur_ship['ship_name']?>"> <?php echo $cur_ship['ship_name']?> </option>
+                        <tr>
+                            <td><p> <input type="radio" name="rbtnAvailableShips" value="<?= $cur_ship['ship_name']?>" id="<?= $cur_ship['ship_name']?>"/> <label for="<?= $cur_ship['ship_name']?>"> <?= $cur_ship['ship_name']?> </label> </p></td> <td>delete</td>
+                        </tr>
                     <?php endforeach ?>
-                </select>
+                </table>
+
                 <br/>
                 
                 <input type="submit" name="btnStart" value="Start" style="margin-top: 0.2em" ><br>

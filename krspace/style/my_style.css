@@ -142,3 +142,36 @@ td.right_col
     max-wigth: 150px;
     max-height: 150px;
 }
+
+p
+{
+    margin: 0;
+    padding: 0;
+    clear: both;
+}
+p:hover
+{
+    background-color: #efefef;
+}
+
+table.two_columns
+{
+    width: 300px; /* Ширина таблицы */
+    border: 1px solid black; /* Рамка вокруг таблицы */
+    border-bottom: none; /* Убираем линию снизу */
+}
+table.two_columns td, th
+{
+    padding: 3px; /* Поля вокруг содержимого ячеек */
+}
+table.two_columns th
+{
+    text-align: left; /* Выравнивание по левому краю */
+    background: black; /* Цвет фона */
+    color: white; /* Цвет текста */
+    border: 1px solid white; /* Рамка вокруг ячеек */
+}
+table.two_columns td
+{
+    border-bottom: 1px solid black; /* Линия снизу */
+}
