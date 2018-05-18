@@ -42,7 +42,7 @@ $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_cap
 		
     </head>
     <body onload="startGame()" >
-        <div  style="text-align: right; padding-right: 50px; padding-top: 10px;">
+        <div style="text-align: right; padding-right: 50px; padding-top: 10px;">
             <a href="logout.php">Log Out</a>
         </div>
         <div id='gamediv'>
@@ -70,6 +70,7 @@ $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_cap
 
         <p>Make sure the gamearea has focus, and use the arrow keys to move the red square around.</p>
         
+        TODO: Крутить разные мелодии в рандомном порядке.
         <audio controls autoplay="true" loop="true" hidden="true">
             <source src="audio/Fly 2.ogg" type="audio/ogg; codecs=vorbis">
             <source src="audio/Fly 2.mp3" type="audio/mpeg">

@@ -40,7 +40,7 @@ var myGameArea = {
 			var docElem = document.getElementById("gamediv");
 			var rect = docElem.getBoundingClientRect();
 			document.getElementById("speed").value = e.clientY;
-			document.getElementById("angles").value = e.pageY;
+			document.getElementById("maneuverability").value = e.pageY;
 			send_rocket(0,0,e.pageX,e.pageY);
 		}, false);
 		
