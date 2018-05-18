@@ -75,7 +75,7 @@ function send_rocket(from_x,from_y,to_x,to_y)
 		
 		ctx = myGameArea.context;
 		var sticky = new Image();
-		sticky.src = "images/meteor_1.png";
+		sticky.src = "images/aim_1.png";
 		ctx.drawImage(sticky,
 					to_x,
 					to_y,
