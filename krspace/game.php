@@ -39,12 +39,13 @@ $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_cap
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" href="style/my_style.css">
         <title>Spaceship test</title>
+		
     </head>
     <body onload="startGame()" >
-        <div style="text-align: right; padding-right: 50px; padding-top: 10px;">
+        <div  style="text-align: right; padding-right: 50px; padding-top: 10px;">
             <a href="logout.php">Log Out</a>
         </div>
-        <div>
+        <div id='gamediv'>
             <script src='js/spaceshiptest.js'></script>
         </div>
         
