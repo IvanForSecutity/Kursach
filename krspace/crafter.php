@@ -5,6 +5,7 @@
 //
 
 // TODO: Нет смысла вручную заполнять все модули, корпуса... Надо все из БД подгружать.
+// TODO: Стили в Opera!
 
 // Authorized users only!
 require_once('php_functions/check_session.php');
