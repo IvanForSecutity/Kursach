@@ -1,7 +1,7 @@
 var spaceship;
 var myBackground;
-var FH = 700;
-var FW = 1200;
+var FH = document.getElementById("canvas_field").height;
+var FW = document.getElementById("canvas_field").width;
 var PIC_H = 9000;
 var PIC_W = 3000;
 var STOP = false;
@@ -105,12 +105,10 @@ function startGame() {
 
 }
 var myGameArea = {
-  canvas: document.createElement("canvas"),
+  canvas: document.getElementById("canvas_field"),
   start: function() {
-    this.canvas.width = FW;
-    this.canvas.height = FH;
     this.context = this.canvas.getContext("2d");
-    document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+    //document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.frameNo = 0;
     this.interval = setInterval(updateGameArea, 20);
     window.addEventListener('keydown', function(e) {
@@ -123,7 +121,7 @@ var myGameArea = {
 
   },
   clear: function() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.clearRect(0, 0, FW, FH);
   },
   stop: function() {
     clearInterval(this.interval);
