@@ -7,69 +7,101 @@ var PIC_W = 3000;
 var STOP = false;
 var obstacles_arr = [];
 var updateNum = 0;
-var all_drawn = false;
+var aim = [0,0];
 
 class Weapons {
   constructor() {
     this.units = [];
     this.number = 0;
   }
-  add_unit(a, b, c, d,t) {
-    this.units.push(new unit_w(a, b, c, d,t));
+  add_unit(a, b, c, d, t) {
+    this.units.push(new unit_w(a, b, c, d, t));
     this.number++;
   }
   trydraw() {
-
     if (this.number != 0) {
       this.units.forEach(function(item, i, arr) {
-        item.move();
+        for (var i = 0; i < obstacles_arr.length; i++)
+          if (obstacles_arr[i].crashWith(item)) {
+            STOP = true;
+          }
       });
+      var s = -1;
+      this.units.forEach(function(item, i, arr) {
+        if (item.move() == "r_f_e") {
+          s=i;
+        }
+      });
+      if(s!=-1) this.units.splice(s,1);
     }
+
   }
 }
 //weapon unit
 class unit_w {
-
   constructor(f_x, f_y, t_x, t_y, type) {
     this.x = f_x;
     this.y = f_y;
     this.to_x = t_x;
     this.to_y = t_y;
+    this.type = type;
+    this.height = NaN;
     if (type == "rocket") {
       /*use this if can fix проблемы с точностью чисел с плавающей запятой
       this.speedX = (t_x - f_x)/Math.abs((t_x - f_x));
       this.speedY = (t_y - f_y)/Math.abs((t_x - f_x));
       document.getElementById("helptext").innerHTML = Math.abs(t_x-t_y);
       */
+      this.ttl=100;
       this.speedX = (t_x - f_x)/100;
       this.speedY = (t_y - f_y)/100;
-      this.img = new Image();
-      this.img.src = "images/Weapon units/rocket.png";
-      var size = 20;
-      this.w = size;
-      this.h = size*this.img.naturalHeight/this.img.naturalWidth;
+      {
+        this.img = new Image();
+        this.img.src = "images/Weapon units/rocket.png";
+        var size = 20;
+        this.width = size;
+        this.height = size*4;
+      }
     }else if (type == "blaster") {
+      this.ttl=50;
       this.speedX = (t_x - f_x)/50;
       this.speedY = (t_y - f_y)/50;
       this.img = new Image();
-      this.img.src = "images/Weapon units/blaster_unit.png";
-      var blaster_unit_size = 100;
-      this.w = blaster_unit_size;
-      this.h = blaster_unit_size*this.img.naturalHeight/this.img.naturalWidth;
+      this.img.src = "images/Weapon units/blaster_unit_1.png";
+      alert("s");
+      var blaster_unit_size = 50;
+      this.width = blaster_unit_size;
+      this.height = blaster_unit_size*2;
+    }else if (type == "laser") {
+      this.ttl=5;
+      this.speedX = (t_x - f_x)/5;
+      this.speedY = (t_y - f_y)/5;
+      this.img = new Image();
+      this.img.src = "images/Weapon units/blaster_unit_1.png";
+      var blaster_unit_size = 5;
+      this.width = blaster_unit_size;
+      this.height = blaster_unit_size*200;
     }
   }
   move() {
-    ctx = myGameArea.context;
-    ctx.save();
-    ctx.translate(this.x, this.y);
-    var radians = Math.atan((this.speedY / this.speedX));
-    var degrees = radians * 180 / Math.PI + 90;
-    if (this.speedX < 0) degrees += 180;
-    ctx.rotate(degrees * Math.PI / 180);
-    ctx.drawImage(this.img, this.w / -2 + this.speedX, this.h / -2 + this.speedY, this.w, this.h)
-    this.x += this.speedX + myBackground.offset_x;
-    this.y += this.speedY + myBackground.offset_y;
-    ctx.restore();
+    if(this.ttl>0)
+    {
+      this.ttl--;
+      ctx = myGameArea.context;
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      var radians = Math.atan((this.speedY / this.speedX));
+      var degrees = radians * 180 / Math.PI + 90;
+      if (this.speedX < 0) degrees += 180;
+      ctx.rotate(degrees * Math.PI / 180);
+      if(this.type == "blaster")
+        this.img.src = "images/Weapon units/blaster_unit_"+ (this.ttl%5+1) +".png";
+      ctx.drawImage(this.img, this.width / -2 + this.speedX, this.height / -2 + this.speedY, this.width, this.height);
+      this.x += this.speedX + myBackground.offset_x;
+      this.y += this.speedY + myBackground.offset_y;
+      ctx.restore();
+    }
+    else return "r_f_e";//rocket fuel ended
   }
 }
 var weapons = new Weapons();
@@ -94,15 +126,12 @@ function startGame() {
   //handle aim movement
   myGameArea.canvas.addEventListener('mousemove', function(e) {
     if (!STOP) {
-      ctx = myGameArea.context;
-      var aim = new Image();
-      aim.src = "images/aim_1.png";
-      var w = 90;
-      var h = 90;
-      ctx.drawImage(aim,
-        e.pageX - (w / 2 + 8),
-        e.pageY - (h / 2 + 8),
-        w, h);
+      var aim1 = new Image();
+      aim1.src = "images/aim_1.png";
+      var w = aim1.naturalWidth;
+      var h = aim1.naturalHeight;
+      aim[0] = e.pageX - (w / 2 + 8);
+      aim[1] = e.pageY - (h / 2 + 40);
     }
   }, false);
   //handle gamefield click
@@ -112,8 +141,7 @@ function startGame() {
       var x_from = spaceship.x;
       var x_to = e.pageX - (45 + 8);
       var y_from = spaceship.y;
-      var y_to = e.pageY - (45 + 8);
-      document.getElementById("helptext").innerHTML = document.getElementById("WeaponType").value;
+      var y_to = e.pageY - (45 + 40);
       weapons.add_unit(x_from, y_from, x_to, y_to,""+document.getElementById("WeaponType").value);
     }
   }, false);
@@ -149,6 +177,8 @@ function component(width, height, img, x, y) {
   this.image = new Image();
   this.image.src = img;
   this.width = width;
+  this.fuel_i= Number.parseInt(document.getElementById("fuel_v").innerHTML);
+  this.fuel=this.fuel_i;
   this.height = height;
   this.speedX = 0;
   this.speedY = 0;
@@ -181,12 +211,24 @@ function component(width, height, img, x, y) {
   this.newPos = function() {
     this.angle += this.moveAngle * Math.PI / 180;
     this.A += this.moveAngle;
+    if(myBackground.speedY!=0 || myBackground.speedX!=0  ){
+      this.fuel-=0.1;
+      if(this.fuel<=0)
+      {
+        STOP=true;
+        alert("you are looser, hehe");
+      }
+      //update fuel html
+      var t = document.querySelector('.js');
+      var percent = Number((this.fuel/this.fuel_i*100).toFixed(0));
+      t.style.setProperty('--f-v',"" + percent+"%");
+      document.getElementById("percent").innerHTML = percent+"%";
+    }
     this.x += this.speedX;
     this.y += this.speedY;
   }
   this.newPosb = function() {
     this.offset_x = this.speedX;
-    //this.offset_x += this.speedX;
     this.offset_y = this.speedY;
     this.x += this.speedX;
     this.y += this.speedY;
@@ -307,8 +349,20 @@ function updateGameArea() {
       obstacles_arr[i].newPosb();
     }
   }
+  draw_aim();
 }
-
+function draw_aim()
+{
+  ctx = myGameArea.context;
+  var aim1 = new Image();
+  aim1.src = "images/aim_1.png";
+  var w = aim1.naturalWidth;
+  var h = aim1.naturalHeight;
+  ctx.drawImage(aim1,
+    aim[0],
+    aim[1],
+    w, h);
+}
 function gen_obstacles() {
   if (!STOP) {
     var o_num = obstacles_arr.length % 3;

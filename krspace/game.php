@@ -38,7 +38,7 @@ $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_cap
 
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style/my_style.css">
+      <link rel="stylesheet" href="style/game_style.css">
     <title>Spaceship test</title>
 
   </head>
@@ -54,14 +54,19 @@ $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_cap
       </div>
       <div style="border: 4px double black;display:inline">
         <button id='stop_button' type="button">STOP</button>
-        <p id='helptext'>56</p>
+        <p id='helptext'>rocket</p>
         Weapon type: <select id="WeaponType" class="select-multi" size="1" onchange="this.form.submit()">
           <option value="rocket"     > Rocket    </option>
           <option value="blaster"    > Blaster   </option>
           <option value="laser"      > Laser     </option>
-        </select><br>
-        
-        Hp: <input id='hp' type="number" value="<?php echo $hp;?>" style="margin-top: 0.2em">
+        </select>
+        <br>Weapon unit count: <p id="booms_cnt"></p>
+        <br>
+        <a>FUEL</a><a id='fuel_v'><?php echo $fuel_tank_volume;?></a></a><a>:</a>
+        <div class='container'>
+            <div class='js'><p id="percent">100%</p></div>
+        </div>
+        <br>Hp: <input id='hp' type="number" value="<?php echo $hp;?>" style="margin-top: 0.2em">
         <br> Speed: <input id='speed' type="number" value="<?php echo $speed;?>" style="margin-top: 0.2em">
         <br> Maneuverability: <input id='maneuverability' type="number" value="<?php echo $maneuverability;?>" style="margin-top: 0.2em">
         <br> Fuel tank volume: <input id='fuel_tank_volume' type="number" value="<?php echo $fuel_tank_volume;?>" style="margin-top: 0.2em">

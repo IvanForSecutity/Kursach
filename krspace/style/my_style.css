@@ -1,6 +1,6 @@
 .main_img
-{ 
-    width:80%; 
+{
+    width:80%;
     margin-left: auto;
     margin-right: auto;
     padding-left: 2em;
@@ -72,7 +72,7 @@
 .some
 {
     text-align: right;
-    padding-right: 50px;   
+    padding-right: 50px;
     padding-top: 10px;
 
 }
@@ -93,11 +93,11 @@ table.three_columns td
     vertical-align: top;
 }
 td.center_col
-{ 
+{
     text-align: center;
 }
 td.right_col
-{ 
+{
     text-align: right;
 }
 
