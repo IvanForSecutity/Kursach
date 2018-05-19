@@ -55,7 +55,12 @@ $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_cap
       <div style="border: 4px double black;display:inline">
         <button id='stop_button' type="button">STOP</button>
         <p id='helptext'>56</p>
-
+        Weapon type: <select id="WeaponType" class="select-multi" size="1" onchange="this.form.submit()">
+          <option value="rocket"     > Rocket    </option>
+          <option value="blaster"    > Blaster   </option>
+          <option value="laser"      > Laser     </option>
+        </select><br>
+        
         Hp: <input id='hp' type="number" value="<?php echo $hp;?>" style="margin-top: 0.2em">
         <br> Speed: <input id='speed' type="number" value="<?php echo $speed;?>" style="margin-top: 0.2em">
         <br> Maneuverability: <input id='maneuverability' type="number" value="<?php echo $maneuverability;?>" style="margin-top: 0.2em">

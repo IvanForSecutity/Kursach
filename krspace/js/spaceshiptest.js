@@ -14,8 +14,8 @@ class Weapons {
     this.units = [];
     this.number = 0;
   }
-  add_unit(a, b, c, d) {
-    this.units.push(new unit_w(a, b, c, d));
+  add_unit(a, b, c, d,t) {
+    this.units.push(new unit_w(a, b, c, d,t));
     this.number++;
   }
   trydraw() {
@@ -29,29 +29,44 @@ class Weapons {
 }
 //weapon unit
 class unit_w {
-  constructor(f_x, f_y, t_x, t_y) {
+
+  constructor(f_x, f_y, t_x, t_y, type) {
     this.x = f_x;
     this.y = f_y;
     this.to_x = t_x;
     this.to_y = t_y;
-    this.speedX = (t_x-f_x)/100;
-    this.speedY = (t_y-f_y)/100;
-    this.img = new Image();
-    this.img.src = "images/Weapon units/rocket.png";
-    this.w = 45;
-    this.h = 90;
-    this.a = -30;
+    if (type == "rocket") {
+      /*use this if can fix проблемы с точностью чисел с плавающей запятой
+      this.speedX = (t_x - f_x)/Math.abs((t_x - f_x));
+      this.speedY = (t_y - f_y)/Math.abs((t_x - f_x));
+      document.getElementById("helptext").innerHTML = Math.abs(t_x-t_y);
+      */
+      this.speedX = (t_x - f_x)/100;
+      this.speedY = (t_y - f_y)/100;
+      this.img = new Image();
+      this.img.src = "images/Weapon units/rocket.png";
+      var size = 20;
+      this.w = size;
+      this.h = size*this.img.naturalHeight/this.img.naturalWidth;
+    }else if (type == "blaster") {
+      this.speedX = (t_x - f_x)/50;
+      this.speedY = (t_y - f_y)/50;
+      this.img = new Image();
+      this.img.src = "images/Weapon units/blaster_unit.png";
+      var blaster_unit_size = 100;
+      this.w = blaster_unit_size;
+      this.h = blaster_unit_size*this.img.naturalHeight/this.img.naturalWidth;
+    }
   }
   move() {
     ctx = myGameArea.context;
     ctx.save();
     ctx.translate(this.x, this.y);
-    var radians = Math.atan((this.speedY/this.speedX));
-    var degrees = radians* 180 / Math.PI+90;
-    if(this.speedX<0)degrees+=180;
-    document.getElementById("helptext").innerHTML = ""+degrees;
-    ctx.rotate(degrees* Math.PI/180);
-    ctx.drawImage(this.img, this.w / -2+ this.speedX, this.h / -2 +this.speedY, this.w, this.h)
+    var radians = Math.atan((this.speedY / this.speedX));
+    var degrees = radians * 180 / Math.PI + 90;
+    if (this.speedX < 0) degrees += 180;
+    ctx.rotate(degrees * Math.PI / 180);
+    ctx.drawImage(this.img, this.w / -2 + this.speedX, this.h / -2 + this.speedY, this.w, this.h)
     this.x += this.speedX + myBackground.offset_x;
     this.y += this.speedY + myBackground.offset_y;
     ctx.restore();
@@ -60,8 +75,8 @@ class unit_w {
 var weapons = new Weapons();
 
 function startGame() {
-  spaceship = new component(30, 50, "", FW / 2, FH*4 / 5);
-  myBackground = new component(PIC_W, PIC_H, "images/space.png", - PIC_W / 2 + FW / 2, 0 - PIC_H/2 + FH/2);
+  spaceship = new component(30, 50, "", FW / 2, FH * 4 / 5);
+  myBackground = new component(PIC_W, PIC_H, "images/space.png", -PIC_W / 2 + FW / 2, 0 - PIC_H / 2 + FH / 2);
   var obstacles = {
     start: this.interval = setInterval(gen_obstacles, 1000)
   };
@@ -85,8 +100,8 @@ function startGame() {
       var w = 90;
       var h = 90;
       ctx.drawImage(aim,
-        e.pageX - (w/2 + 8),
-        e.pageY - (h/2 + 8),
+        e.pageX - (w / 2 + 8),
+        e.pageY - (h / 2 + 8),
         w, h);
     }
   }, false);
@@ -98,7 +113,8 @@ function startGame() {
       var x_to = e.pageX - (45 + 8);
       var y_from = spaceship.y;
       var y_to = e.pageY - (45 + 8);
-      weapons.add_unit(x_from, y_from, x_to, y_to);
+      document.getElementById("helptext").innerHTML = document.getElementById("WeaponType").value;
+      weapons.add_unit(x_from, y_from, x_to, y_to,""+document.getElementById("WeaponType").value);
     }
   }, false);
   myGameArea.start();
