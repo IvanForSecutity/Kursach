@@ -206,7 +206,7 @@ function component(width, height, img, x, y) {
   this.fuel=this.fuel_i;
   this.height = height;
   this.stub=0;
-  this.health_i= Number.parseInt(document.getElementById("hp").value);
+  this.health_i= Number.parseInt(document.getElementById("hp_v").innerHTML);
   this.health= this.health_i;
   this.speedX = 0;
   this.speedY = 0;
