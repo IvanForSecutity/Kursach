@@ -82,9 +82,9 @@ $fuel_tank = loadShipFuelTank("Classic");
 $fuel_tank_image = $fuel_tank['image']."1.png";
 $secondary_engines = loadShipSecondaryEngines("Turber");
 $secondary_engines_image = $secondary_engines['image']."1.png";
-$radar = loadShipRadar("1");
+$radar = loadShipRadar("Altarter");
 $radar_image = $radar['image']."1.png";
-$repair_droid = loadShipRepairDroid("1");
+$repair_droid = loadShipRepairDroid("Andr. I");
 $repair_droid_image = $repair_droid['image']."1.png";
 
 // Calculate parameters
@@ -215,14 +215,18 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
                     <br/>
                     Radar:
                     <select id="selShipRadar" name="selShipRadar" class="select-multi" size="1" onchange="this.form.submit()">
-                        <option data-path="images/Radars/1/1.png"   value="1"   <?= (isset($selShipRadar) && $selShipRadar == "1")   ? " selected=\"selected\"" : "" ?>> 1   </option>
-                        <option data-path="images/Radars/2/1.png" value="2" <?= (isset($selShipRadar) && $selShipRadar == "2") ? " selected=\"selected\"" : "" ?>> 2 </option>
+                        <option data-path="images/Radars/Altarter/1.png"  value="Altarter"  <?= (isset($selShipRadar) && $selShipRadar == "Altarter")  ? " selected=\"selected\"" : "" ?>> Altarter  </option>
+                        <option data-path="images/Radars/Clusteron/1.png" value="Clusteron" <?= (isset($selShipRadar) && $selShipRadar == "Clusteron") ? " selected=\"selected\"" : "" ?>> Clusteron </option>
+                        <option data-path="images/Radars/Mirrorer/1.png"  value="Mirrorer"  <?= (isset($selShipRadar) && $selShipRadar == "Mirrorer")  ? " selected=\"selected\"" : "" ?>> Mirrorer  </option>
+                        <option data-path="images/Radars/Olderton/1.png"  value="Olderton"  <?= (isset($selShipRadar) && $selShipRadar == "Olderton")  ? " selected=\"selected\"" : "" ?>> Olderton  </option>
                     </select>
                     <br/>
                     Repair droid:
                     <select id="selShipRepairDroid" name="selShipRepairDroid" class="select-multi" size="1" onchange="this.form.submit()">
-                        <option data-path="images/Repair droids/1/1.png"   value="1"   <?= (isset($selShipRepairDroid) && $selShipRepairDroid == "1")   ? " selected=\"selected\"" : "" ?>> 1   </option>
-                        <option data-path="images/Repair droids/2/1.png" value="2" <?= (isset($selShipRepairDroid) && $selShipRepairDroid == "2") ? " selected=\"selected\"" : "" ?>> 2 </option>
+                        <option data-path="images/Repair droids/Andr. I/1.png"        value="Andr. I"        <?= (isset($selShipRepairDroid) && $selShipRepairDroid == "Andr. I")        ? " selected=\"selected\"" : "" ?>> Andr. I        </option>
+                        <option data-path="images/Repair droids/Andr. Repairer/1.png" value="Andr. Repairer" <?= (isset($selShipRepairDroid) && $selShipRepairDroid == "Andr. Repairer") ? " selected=\"selected\"" : "" ?>> Andr. Repairer </option>
+                        <option data-path="images/Repair droids/Sith Dron/1.png"      value="Sith Dron"      <?= (isset($selShipRepairDroid) && $selShipRepairDroid == "Sith Dron")      ? " selected=\"selected\"" : "" ?>> Sith Dron      </option>
+                        <option data-path="images/Repair droids/Spideron/1.png"       value="Spideron"       <?= (isset($selShipRepairDroid) && $selShipRepairDroid == "Spideron")       ? " selected=\"selected\"" : "" ?>> Spideron       </option>
                     </select>
                     <br/>
                 </td>
