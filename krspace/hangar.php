@@ -31,6 +31,17 @@ if(isset($_POST['btnStart']))
 // Load user's ships
 $login = $_SESSION['login'];
 $ships = loadUserShips($login);
+
+// Check if delete button was pressed
+foreach ($ships as $cur_ship)
+{
+    if(isset($_POST[$cur_ship['ship_name']]))
+    {
+        $ship_name = $cur_ship['ship_name'];
+        deleteShip($ship_name);
+        header("Refresh:0");
+    }
+}
 ?>
 
 <html>
@@ -52,13 +63,17 @@ $ships = loadUserShips($login);
 
                     <?php foreach ($ships as $cur_ship) : ?>
                         <tr>
-                            <td><p> <input type="radio" name="rbtnAvailableShips" value="<?= $cur_ship['ship_name']?>" id="<?= $cur_ship['ship_name']?>"/> <label for="<?= $cur_ship['ship_name']?>"> <?= $cur_ship['ship_name']?> </label> </p></td> <td>delete</td>
+                            <td>
+                                <p> <input type="radio" name="rbtnAvailableShips" value="<?= $cur_ship['ship_name']?>" id="<?= $cur_ship['ship_name']?>"/> <label for="<?= $cur_ship['ship_name']?>"> <?= $cur_ship['ship_name']?> </label> </p>
+                            </td>
+                            <td>
+                                <button type="submit" name="<?= $cur_ship['ship_name']?>" class="input_image"><img src="images\Icons\delete.png" weight="20px" height="20px"></button>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </table>
-
                 <br/>
-                
+
                 <input type="submit" name="btnStart" value="Start" style="margin-top: 0.2em" ><br>
             </form>           
             

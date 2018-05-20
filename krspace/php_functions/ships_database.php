@@ -35,6 +35,37 @@ function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank)
     return true;
 }
 
+// Delete ship.
+function deleteShip($ship_name)
+{
+    // Initialize a variable with a possible error message
+    $error = '';
+    
+    // Connect to DB
+    $link = connect();
+    
+    $sql = "SELECT `id` FROM `ships` WHERE `ship_name`='" . $ship_name . "'";
+    // Execute query
+    $query = mysqli_query($link, $sql);
+    // If there is no such ship - return an error message
+    if(mysqli_num_rows($query) == 0)
+    {
+        $error = 'No such ship';
+        return $error;
+    }
+    
+    // If there is such ship - delete it
+    $sql = "DELETE FROM `ships` WHERE `ship_name`='" . $ship_name . "'";
+    
+    // Execute query
+    mysqli_query($link, $sql);
+
+    mysqli_close($link);
+    
+    // Return the value true, indicating successful ship registration
+    return true;
+}
+
 // Load user ships.
 function loadUserShips($login)
 {
