@@ -422,7 +422,9 @@ function updateGameArea() {
           //// TODO: for diff meteors
           var audio = new Audio('audio/auch.mp3');
           audio.play();
-          spaceship.health-=10;
+          if(obstacles_arr[i].image.src.indexOf("meteor_1")!=-1) spaceship.health-=5;
+          if(obstacles_arr[i].image.src.indexOf("meteor_2")!=-1) spaceship.health-=10;
+          if(obstacles_arr[i].image.src.indexOf("meteor_3")!=-1) spaceship.health-=20;
           //update health html
           var h = document.querySelector('.js2');
           var percent = Number((spaceship.health/spaceship.health_i*100).toFixed(0));
