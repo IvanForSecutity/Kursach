@@ -198,7 +198,6 @@ var myGameArea = {
   }
 }
 
-
 function component(width, height, img, x, y) {
   this.image = new Image();
   this.image.src = img;
@@ -225,7 +224,6 @@ function component(width, height, img, x, y) {
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
-
     ctx.drawImage(this.image, this.width / -2, this.height / -2, this.width, this.height)
     ctx.restore();
   }
@@ -339,19 +337,19 @@ function updateGameArea() {
     }
 
     // Animation phases
-    if (updateNum < 20) {
+    if (updateNum < 20 && spaceship.stub==0) {
       spaceship.ship_hull = document.getElementById("ship_hull").value + "1.png";
     }
-    if (updateNum >= 20 && updateNum < 40) {
+    if (updateNum >= 20 && updateNum < 40 && spaceship.stub==0) {
       spaceship.ship_hull = document.getElementById("ship_hull").value + "2.png";
     }
-    if (updateNum >= 40 && updateNum < 60) {
+    if (updateNum >= 40 && updateNum < 60 && spaceship.stub==0) {
       spaceship.ship_hull = document.getElementById("ship_hull").value + "3.png";
     }
-    if (updateNum >= 60 && updateNum < 80) {
+    if (updateNum >= 60 && updateNum < 80 && spaceship.stub==0) {
       spaceship.ship_hull = document.getElementById("ship_hull").value + "4.png";
     }
-    if (updateNum >= 80 && updateNum < 100) {
+    if (updateNum >= 80 && updateNum < 100 && spaceship.stub==0) {
       spaceship.ship_hull = document.getElementById("ship_hull").value + "5.png";
     }
 
@@ -393,14 +391,23 @@ function updateGameArea() {
     spaceship.updateAnimation();
     //stub for not decreasing health very fast
     if(spaceship.stub !=0 )
-      spaceship.stub++;
-    if(spaceship.stub>50)
+    {
+
+        if(spaceship.stub%5==0)
+          spaceship.ship_hull = document.getElementById("ship_hull").value + "1.png"
+        if(spaceship.stub%10==0)
+          spaceship.ship_hull = "images/Hulls/transparent_stub.png"
+        spaceship.stub++;
+    }
+    if(spaceship.stub>60)
       spaceship.stub=0;
     for (var i = 0; i < obstacles_arr.length; i++) {
       if (obstacles_arr[i].crashWith(spaceship)) {
         if(spaceship.stub==0)
         {
           //// TODO: for diff meteors
+          var audio = new Audio('audio/auch.mp3');
+          audio.play();
           spaceship.health-=10;
           document.getElementById("hp").value = spaceship.health;
           if(spaceship.health<=0)
