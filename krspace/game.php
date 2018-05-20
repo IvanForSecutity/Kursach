@@ -18,11 +18,12 @@ $ship = loadCurrentShip($ship_name);
 $hull = loadShipHull($ship['hull']);
 $engine = loadShipEngine($ship['engine']);
 $fuel_tank = loadShipFuelTank($ship['fuel_tank']);
+$secondary_engines = loadShipSecondaryEngines($ship['secondary_engines']);
 
 // Calculate parameters
 $hp = $hull['hp'];
 $full_capacity = $hull['capacity'];
-$maneuverability = $hull['maneuverability'];
+$maneuverability = $hull['maneuverability'] + $secondary_engines['maneuverability'];
 
 $engine_weight = $engine['weight'];
 $engine_speed = $engine['speed'];
@@ -30,8 +31,11 @@ $engine_speed = $engine['speed'];
 $fuel_tank_weight = $fuel_tank['weight'];
 $fuel_tank_volume = $fuel_tank['volume'];
 
-$free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight;
+$secondary_engines_weight = $secondary_engines['weight'];
+
+$free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight - $secondary_engines_weight;
 $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
+$cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engines['cost'];
 ?>
 
   <html>
@@ -78,6 +82,7 @@ $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_cap
         <br> Hull: <input id='ship_hull' type="text" value="<?php echo $hull['image'];?>" style="margin-top: 0.2em">
         <br> Engine: <input id='ship_engine' type="text" value="<?php echo $engine['image'];?>" style="margin-top: 0.2em">
         <br> Fuel tank: <input id='ship_fuel_tank' type="text" value="<?php echo $fuel_tank['image'];?>" style="margin-top: 0.2em">
+        <br> Secondary engines: <input id='ship_secondary_engines' type="text" value="<?php echo $secondary_engines['image'];?>" style="margin-top: 0.2em">
         <br>
 
       </div>

@@ -29,10 +29,11 @@ if(isset($_POST['btnStart']))
         $engine = $_POST['selShipEngine'];
         // Fuel tank was chosen
         $fuel_tank = $_POST['selShipFuelTank'];
-
+        // Secondary engines was chosen
+        $secondary_engines = $_POST['selShipSecondaryEngines'];
 
         // Call the registration function
-        $reg = registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank);
+        $reg = registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engines);
 
         // If ship successfully registered, inform the user
         if($reg === true)
@@ -75,11 +76,13 @@ $engine = loadShipEngine("Jumper");
 $engine_image = $engine['image']."1.png";
 $fuel_tank = loadShipFuelTank("Classic");
 $fuel_tank_image = $fuel_tank['image']."1.png";
+$secondary_engines = loadShipSecondaryEngines("Turber");
+$secondary_engines_image = $secondary_engines['image']."1.png";
 
 // Calculate parameters
 $hp = $hull['hp'];
 $full_capacity = $hull['capacity'];
-$maneuverability = $hull['maneuverability'];
+$maneuverability = $hull['maneuverability'] + $secondary_engines['maneuverability'];
 
 $engine_weight = $engine['weight'];
 $engine_speed = $engine['speed'];
@@ -87,16 +90,20 @@ $engine_speed = $engine['speed'];
 $fuel_tank_weight = $fuel_tank['weight'];
 $fuel_tank_volume = $fuel_tank['volume'];
 
-$free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight;
-$speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
-$cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'];
+$secondary_engines_weight = $secondary_engines['weight'];
 
-if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POST['selShipFuelTank']))
+$free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight - $secondary_engines_weight;
+$speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
+$cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engines['cost'];
+
+if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POST['selShipFuelTank']) || isset($_POST['selShipSecondaryEngines']))
 {
     // Save entered values
     $selShipHull = $_POST['selShipHull'];
     $selShipEngine = $_POST['selShipEngine'];
     $selShipFuelTank = $_POST['selShipFuelTank'];
+    $selShipSecondaryEngines = $_POST['selShipSecondaryEngines'];
+    
     $txtShipName = $_POST['txtShipName'];
     
     // Load current modules
@@ -106,11 +113,13 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
     $engine_image = $engine['image']."1.png";
     $fuel_tank = loadShipFuelTank($_POST['selShipFuelTank']);
     $fuel_tank_image = $fuel_tank['image']."1.png";
+    $secondary_engines = loadShipSecondaryEngines($_POST['selShipSecondaryEngines']);
+    $secondary_engines_image = $secondary_engines['image']."1.png";
 
     // Calculate parameters
     $hp = $hull['hp'];
     $full_capacity = $hull['capacity'];
-    $maneuverability = $hull['maneuverability'];
+    $maneuverability = $hull['maneuverability'] + $secondary_engines['maneuverability'];
 
     $engine_weight = $engine['weight'];
     $engine_speed = $engine['speed'];
@@ -118,9 +127,11 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
     $fuel_tank_weight = $fuel_tank['weight'];
     $fuel_tank_volume = $fuel_tank['volume'];
 
-    $free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight;
+    $secondary_engines_weight = $secondary_engines['weight'];
+
+    $free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight - $secondary_engines_weight;
     $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
-    $cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'];
+    $cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engines['cost'];
 }
 ?>
 
@@ -170,6 +181,12 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
                         <option data-path="images/Fuel tanks/Xpacer/1.png"  value="Xpacer"  <?= (isset($selShipFuelTank) && $selShipFuelTank == "Xpacer")  ? " selected=\"selected\"" : "" ?>> Xpacer  </option>
                     </select>
                     <br/>
+                    Secondary engines:
+                    <select id="selShipSecondaryEngines" name="selShipSecondaryEngines" class="select-multi" size="1" onchange="this.form.submit()">
+                        <option data-path="images/Secondary engines/Turber/1.png"   value="Turber"   <?= (isset($selShipSecondaryEngines) && $selShipSecondaryEngines == "Turber")   ? " selected=\"selected\"" : "" ?>> Turber   </option>
+                        <option data-path="images/Secondary engines/Windmill/1.png" value="Windmill" <?= (isset($selShipSecondaryEngines) && $selShipSecondaryEngines == "Windmill") ? " selected=\"selected\"" : "" ?>> Windmill </option>
+                    </select>
+                    <br/>
                 </td>
                 <td class="center_col">
                     <div class='circle-container'>
@@ -188,7 +205,11 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
 
                         <a href='#' class='deg70'>  <img src="images/stub.jpg"> </a>
                         <a href='#' class='deg90'>  <img src="images/stub.jpg"> </a>
-                        <a href='#' class='deg110'> <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg110'>
+                            <div class="module_background">
+                                <img id="ship_secondary_engines" src="<?php echo $secondary_engines_image;?>" class="module_image">
+                            </div>
+                        </a>
 
                         <a href='#' class='deg150'>
                             <div class="module_background">
