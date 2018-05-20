@@ -3,7 +3,7 @@
 // TODO: Спрятать данные страницы от всех, кроме рута!
 
 // Ship registration function.
-function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engines)
+function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engines, $radar, $repair_droid)
 {
     // Initialize a variable with a possible error message
     $error = '';
@@ -23,8 +23,8 @@ function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $second
     
     // If there is no such ship - register it
     $sql = "INSERT INTO ships
-            (ship_name, owner, hull, engine, fuel_tank, secondary_engines) VALUES
-            ('". $ship_name ."', '". $owner ."', '". $hull ."', '". $engine ."', '". $fuel_tank ."', '". $secondary_engines ."');";
+            (ship_name, owner, hull, engine, fuel_tank, secondary_engines, radar, repair_droid) VALUES
+            ('". $ship_name ."', '". $owner ."', '". $hull ."', '". $engine ."', '". $fuel_tank ."', '". $secondary_engines ."', '". $radar ."', '". $repair_droid ."');";
 
     // Execute query
     mysqli_query($link, $sql);
@@ -162,5 +162,37 @@ function loadShipSecondaryEngines($secondary_engines_name)
     mysqli_close($link);
     
     return $secondary_engines;
+}
+
+// Get ship radar.
+function loadShipRadar($radar_name)
+{
+    // Connect to DB
+    $link = connect();
+
+    // Hull
+    $sql = "SELECT * FROM `radars` WHERE `name`='".$radar_name."'";
+    $result = mysqli_query($link, $sql);
+    $radar = mysqli_fetch_assoc($result);
+
+    mysqli_close($link);
+    
+    return $radar;
+}
+
+// Get ship repair droid.
+function loadShipRepairDroid($repair_droid_name)
+{
+    // Connect to DB
+    $link = connect();
+
+    // Hull
+    $sql = "SELECT * FROM `repair_droids` WHERE `name`='".$repair_droid_name."'";
+    $result = mysqli_query($link, $sql);
+    $repair_droid = mysqli_fetch_assoc($result);
+
+    mysqli_close($link);
+    
+    return $repair_droid;
 }
 ?>
