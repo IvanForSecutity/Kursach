@@ -56,7 +56,7 @@ foreach ($ships as $cur_ship)
         <div style="text-align: left; padding-right: 50px; padding-top: 10px;">
             Your ships
             <form action="" method="POST">
-                <table  class="two_columns" cellspacing="0">
+                <table  class="ships_table" cellspacing="0">
                     <tr>
                         <th>Ship name</th> <th>Action</th>
                     </tr>

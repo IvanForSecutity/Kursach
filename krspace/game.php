@@ -46,19 +46,29 @@ $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_cap
 $cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engine['cost'] + $radar['cost'] + $repair_droid['cost'];
 ?>
 
-  <html>
-
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" href="style/game_style.css">
-    <title>Spaceship test</title>
-
-  </head>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style/my_style.css">
+        <link rel="stylesheet" href="style/game_style.css">
+        <title>Spaceship test</title>
+    </head>
 
   <body onload="startGame()">
-    <div style="text-align: right; padding-right: 50px; padding-top: 10px;">
-      <a href="logout.php">Log Out</a>
-    </div>
+    <table  class="two_columns" cellspacing="0">
+    <tr>
+        <td>
+            <a href="hangar.php">To hangar</a>
+        </td>
+        <td class="right_col">
+            <a href="logout.php">Log Out</a>
+        </td>
+    </tr>
+    </table>
+      
+    <br>
+    <br>
+
     <div id='gamediv' style="display:flex;">
       <div id='game_field' style="border: 4px double black;display:inline">
         <canvas id="canvas_field" width="1200" height="650"></canvas>
@@ -112,4 +122,4 @@ $cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engine
         </audio>
   </body>
 
-  </html>
+</html>

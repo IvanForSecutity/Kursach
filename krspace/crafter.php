@@ -180,9 +180,16 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
         <link rel="stylesheet" href="style/my_style.css">
     </head>
     <body>
-        <div style="text-align: right; padding-right: 50px; padding-top: 10px;">
-            <a href="logout.php">Log Out</a>
-        </div>
+        <table  class="two_columns" cellspacing="0">
+        <tr>
+            <td>
+                <a href="hangar.php">To hangar</a>
+            </td>
+            <td class="right_col">
+                <a href="logout.php">Log Out</a>
+            </td>
+        </tr>
+        </table>
         
         <br/>
         <br/>

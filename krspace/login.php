@@ -2,8 +2,11 @@
 
 require_once('php_functions/functions.php');
 
-// TODO: Ерроры надо выводить красиво, а не через жопу, как сейчас...
 // TODO: Личный кабинет (смена пароля, аватарка и прочее)
+
+// Initialize variables for possible errors
+$errors = array();
+$errors['full_error'] = '';
 
 if(isset($_POST['btnLogIn']))
 {
@@ -24,7 +27,7 @@ if(isset($_POST['btnLogIn']))
     // Otherwise, we inform the user of an error
     else
     {
-        print $auth;
+        $errors['full_error'] = $auth;
     }
 }
 if(isset($_POST['btnReg']))
@@ -48,6 +51,12 @@ if(isset($_POST['btnReg']))
                 <input type="submit" name="btnLogIn" value="Log In" style="margin-top: 0.2em" ><br>
                 <input type="submit" name="btnReg" value="Registration" style="margin-top: 0.2em"><br>
             </form>
+        </div>
+        <!-- Block for displaying error messages -->
+        <div style="align-content: center; text-align: center;">
+            <div id="full_error" class="error" style="display: <?php echo $errors['full_error'] ? 'inline-block' : 'none'; ?>;">
+                <?php echo $errors['full_error'] ? $errors['full_error'] : ''; ?>
+            </div>
         </div>
     </body>
 </html>

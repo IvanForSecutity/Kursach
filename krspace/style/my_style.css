@@ -101,6 +101,21 @@ td.right_col
     text-align: right;
 }
 
+table.two_columns
+{
+    width:  100%;
+    border-spacing: 0;
+}
+table.two_columns td
+{
+    width: 50%;
+    vertical-align: top;
+}
+td.right_col
+{
+    text-align: right;
+}
+
 .module_background
 {
     position: relative;
@@ -154,24 +169,24 @@ p:hover
     background-color: #efefef;
 }
 
-table.two_columns
+table.ships_table
 {
     width: 300px; /* Ширина таблицы */
     border: 1px solid black; /* Рамка вокруг таблицы */
     border-bottom: none; /* Убираем линию снизу */
 }
-table.two_columns td, th
+table.ships_table td, th
 {
     padding: 3px; /* Поля вокруг содержимого ячеек */
 }
-table.two_columns th
+table.ships_table th
 {
     text-align: left; /* Выравнивание по левому краю */
     background: black; /* Цвет фона */
     color: white; /* Цвет текста */
     border: 1px solid white; /* Рамка вокруг ячеек */
 }
-table.two_columns td
+table.ships_table td
 {
     border-bottom: 1px solid black; /* Линия снизу */
 }
@@ -180,4 +195,35 @@ button.input_image
 {
     border: 0px;
     padding: 0px;
+}
+
+.instruction
+{
+    font-size:0.8em;
+    color:#aaaaaa;
+    margin-left:2px;
+    cursor:default;
+}
+.error
+{
+    color:red;
+    background:yellow;
+    margin-left:3px;
+}
+
+.row
+{
+    margin: auto;
+    margin-bottom:10px;
+    width:220px;
+}
+.row label
+{
+    display:block;
+    font-weight:bold;
+}
+.row input.text
+{
+    font-size:1.2em;
+    padding:2px 5px;
 }

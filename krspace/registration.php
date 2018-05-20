@@ -4,8 +4,9 @@
 
 require_once('php_functions/functions.php');
 
-// TODO: Ерроры надо выводить красиво, а не через жопу, как сейчас...
-// TODO: И требования к логину/паролю - тоже
+// Initialize variables for possible errors
+$errors = array();
+$errors['login'] = $errors['password'] = $errors['password_again'] = $errors['full_error'] = '';
 
 if(isset($_POST['btnSignUp']))
 {
@@ -16,15 +17,15 @@ if(isset($_POST['btnSignUp']))
 
     // If the login fails the check, there will be an error message
     $error_login = checkLogin($login);
-    $error_login === true ? '' : print $error_login;
+    $errors['login'] = ($error_login === true ? '' : $error_login);
 
     // If the password fails the check, there will be an error message
     $error_password = checkPassword($password);
-    $error_password === true ? '' : print $error_password;
+    $errors['password'] = ($error_password === true ? '' : $error_password);
 
     // If the password is entered correctly, but the passwords are not identical, there will be an error message
     $error_password_again = ($password === $password_again);
-    $error_password_again === true ? '' : print 'The passwords you entered do not match';
+    $errors['password_again'] = ($error_password_again === true ? '' : 'The passwords you entered do not match');
 
     // If there are no errors, we need to add information about user to DB
     if($error_login === true && $error_password === true && $error_password_again === true)
@@ -42,44 +43,53 @@ if(isset($_POST['btnSignUp']))
         // Otherwise, we inform the user of an error
         else
         {
-            print $reg;
+            $errors['full_error'] = $reg;
         }
     }
 }
 ?>
 
 <html>
-<head>
-	<title>Registration</title>
-	 <link rel="stylesheet" href="style/my_style.css">
-</head>
-<body>
-    <form action="" method="post">
-	<div class="row">
-            <label for="login">Enter login:</label>
-            <input type="text" class="text" name="login" id="login" value="" />
-            <div class="error" id="login-error"></div>
-            <div class="instruction" id="login-instruction">В имени пользователя могут быть только символы латинского алфавита, цифры, символы '_', '-', '.'. Длина имени пользователя должна быть не короче 4 символов и не длиннее 16 символов</div>
-	</div>
-	<div class="row">
-            <label for="password">Enter password:</label>
-            <input type="password" class="text" name="password" id="password" value="" />
-            <div class="error" id="password-error"></div>
-            <div class="instruction" id="password-instruction">В пароле вы можете использовать только символы латинского алфавита, цифры, символы '_', '!', '(', ')'. Пароль должен быть не короче 6 символов и не длиннее 16 символов</div>
-	</div>
-	<div class="row">
-            <label for="password_again">Confirm password:</label>
-            <input type="password" class="text" name="password_again" id="password_again" value="" />
-            <div class="error" id="password_again-error"></div>
-            <div class="instruction" id="password_again-instruction">Повторите введенный ранее пароль</div>
-	</div>
-	<div class="row">
-            <!-- Sending form data -->
-            <input type="submit" name="btnSignUp" id="btn-submit" value="Sign Up" />
-			
-            <!-- Reset form fields to their original state -->
-            <input type="reset" name="btnReset" id="btn-reset" value="Reset" />
-	</div>
-    </form>
-</body>
+    <head>
+        <title>Registration</title>
+        <link rel="stylesheet" href="style/my_style.css">     
+    </head>
+    <body>
+        <div style="align-content: center; text-align: center; margin-top: 10em">
+            <em>Registration</em><br><br>
+            <form action="" method="post">
+                <div class="row">
+                    <label for="login">Enter login:</label>
+                    <input type="text" class="text" name="login" id="login" value="" />
+                    <div class="error" id="login-error"> <?=$errors['login'];?> </div>
+                    <div class="instruction" id="login-instruction">В имени пользователя могут быть только символы латинского алфавита, цифры, символы '_', '-', '.'. Длина имени пользователя должна быть не короче 4 символов и не длиннее 16 символов</div>
+                </div>
+                <div class="row">
+                    <label for="password">Enter password:</label>
+                    <input type="password" class="text" name="password" id="password" value="" />
+                    <div class="error" id="password-error"> <?=$errors['password'];?> </div>
+                    <div class="instruction" id="password-instruction">В пароле вы можете использовать только символы латинского алфавита, цифры, символы '_', '!', '(', ')'. Пароль должен быть не короче 6 символов и не длиннее 16 символов</div>
+                </div>
+                <div class="row">
+                    <label for="password_again">Confirm password:</label>
+                    <input type="password" class="text" name="password_again" id="password_again" value="" />
+                    <div class="error" id="password_again-error"> <?=$errors['password_again'];?> </div>
+                    <div class="instruction" id="password_again-instruction">Повторите введенный ранее пароль</div>
+                </div>
+                <div class="row">
+                    <!-- Sending form data -->
+                    <input type="submit" name="btnSignUp" id="btn-submit" value="Sign Up" />
+
+                    <!-- Reset form fields to their original state -->
+                    <input type="reset" name="btnReset" id="btn-reset" value="Reset" />
+                </div>
+            </form>
+        </div>
+        <!-- Block for displaying error messages -->
+        <div style="align-content: center; text-align: center;">
+            <div id="full_error" class="error" style="display: <?php echo $errors['full_error'] ? 'inline-block' : 'none'; ?>;">
+                <?php echo $errors['full_error'] ? $errors['full_error'] : ''; ?>
+            </div>
+        </div>
+    </body>
 </html>
