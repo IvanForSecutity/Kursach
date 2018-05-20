@@ -3,7 +3,7 @@
 // TODO: Спрятать данные страницы от всех, кроме рута!
 
 // Ship registration function.
-function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engines, $radar, $repair_droid)
+function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid)
 {
     // Initialize a variable with a possible error message
     $error = '';
@@ -23,8 +23,8 @@ function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $second
     
     // If there is no such ship - register it
     $sql = "INSERT INTO ships
-            (ship_name, owner, hull, engine, fuel_tank, secondary_engines, radar, repair_droid) VALUES
-            ('". $ship_name ."', '". $owner ."', '". $hull ."', '". $engine ."', '". $fuel_tank ."', '". $secondary_engines ."', '". $radar ."', '". $repair_droid ."');";
+            (ship_name, owner, hull, engine, fuel_tank, secondary_engine, radar, repair_droid) VALUES
+            ('". $ship_name ."', '". $owner ."', '". $hull ."', '". $engine ."', '". $fuel_tank ."', '". $secondary_engine ."', '". $radar ."', '". $repair_droid ."');";
 
     // Execute query
     mysqli_query($link, $sql);
@@ -82,6 +82,114 @@ function loadUserShips($login)
     mysqli_close($link);
     
     return $ships;
+}
+
+// Load all hulls.
+function loadHulls()
+{
+    // Connect to DB
+    $link = connect();
+    $sql = "SELECT `name` FROM `hulls`";
+    $result = mysqli_query($link, $sql);
+    $hulls = array();
+    while ($cur_hull = mysqli_fetch_assoc($result))
+    {
+        $hulls[] = $cur_hull;
+    }
+
+    mysqli_close($link);
+    
+    return $hulls;
+}
+
+// Load all engines.
+function loadEngines()
+{
+    // Connect to DB
+    $link = connect();
+    $sql = "SELECT `name` FROM `engines`";
+    $result = mysqli_query($link, $sql);
+    $engines = array();
+    while ($cur_engine = mysqli_fetch_assoc($result))
+    {
+        $engines[] = $cur_engine;
+    }
+
+    mysqli_close($link);
+    
+    return $engines;
+}
+
+// Load all fuel tanks.
+function loadFuelTanks()
+{
+    // Connect to DB
+    $link = connect();
+    $sql = "SELECT `name` FROM `fuel_tanks`";
+    $result = mysqli_query($link, $sql);
+    $fuel_tanks = array();
+    while ($cur_fuel_tank = mysqli_fetch_assoc($result))
+    {
+        $fuel_tanks[] = $cur_fuel_tank;
+    }
+
+    mysqli_close($link);
+    
+    return $fuel_tanks;
+}
+
+// Load all secondary engines.
+function loadSecondaryEngines()
+{
+    // Connect to DB
+    $link = connect();
+    $sql = "SELECT `name` FROM `secondary_engines`";
+    $result = mysqli_query($link, $sql);
+    $secondary_engines = array();
+    while ($cur_secondary_engine = mysqli_fetch_assoc($result))
+    {
+        $secondary_engines[] = $cur_secondary_engine;
+    }
+
+    mysqli_close($link);
+    
+    return $secondary_engines;
+}
+
+// Load all radars.
+function loadRadars()
+{
+    // Connect to DB
+    $link = connect();
+    $sql = "SELECT `name` FROM `radars`";
+    $result = mysqli_query($link, $sql);
+    $radars = array();
+    while ($cur_radar = mysqli_fetch_assoc($result))
+    {
+        $radars[] = $cur_radar;
+    }
+
+    mysqli_close($link);
+    
+    return $radars;
+}
+
+// Load all repair droids.
+function loadRepairDroids()
+{
+    // Connect to DB
+    $link = connect();
+    $sql = "SELECT `name` FROM `repair_droids`";
+    $result = mysqli_query($link, $sql);
+    $repair_droids = array();
+    while ($cur_repair_droid = mysqli_fetch_assoc($result))
+    {
+        $repair_droids[] = $cur_repair_droid;
+    }
+
+    mysqli_close($link);
+    
+    return $repair_droids;
 }
 
 // Get our ship.
@@ -148,20 +256,20 @@ function loadShipFuelTank($fuel_tank_name)
     return $fuel_tank;
 }
 
-// Get ship secondary engines.
-function loadShipSecondaryEngines($secondary_engines_name)
+// Get ship secondary engine.
+function loadShipSecondaryEngine($secondary_engine_name)
 {
     // Connect to DB
     $link = connect();
 
     // Hull
-    $sql = "SELECT * FROM `secondary_engines` WHERE `name`='".$secondary_engines_name."'";
+    $sql = "SELECT * FROM `secondary_engines` WHERE `name`='".$secondary_engine_name."'";
     $result = mysqli_query($link, $sql);
-    $secondary_engines = mysqli_fetch_assoc($result);
+    $secondary_engine = mysqli_fetch_assoc($result);
 
     mysqli_close($link);
     
-    return $secondary_engines;
+    return $secondary_engine;
 }
 
 // Get ship radar.

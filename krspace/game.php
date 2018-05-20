@@ -18,14 +18,14 @@ $ship = loadCurrentShip($ship_name);
 $hull = loadShipHull($ship['hull']);
 $engine = loadShipEngine($ship['engine']);
 $fuel_tank = loadShipFuelTank($ship['fuel_tank']);
-$secondary_engines = loadShipSecondaryEngines($ship['secondary_engines']);
+$secondary_engine = loadShipSecondaryEngine($ship['secondary_engine']);
 $radar = loadShipRadar($ship['radar']);
 $repair_droid = loadShipRepairDroid($ship['repair_droid']);
 
 // Calculate parameters
 $hp = $hull['hp'];
 $full_capacity = $hull['capacity'];
-$maneuverability = $hull['maneuverability'] + $secondary_engines['maneuverability'];
+$maneuverability = $hull['maneuverability'] + $secondary_engine['maneuverability'];
 
 $engine_weight = $engine['weight'];
 $engine_speed = $engine['speed'];
@@ -33,7 +33,7 @@ $engine_speed = $engine['speed'];
 $fuel_tank_weight = $fuel_tank['weight'];
 $fuel_tank_volume = $fuel_tank['volume'];
 
-$secondary_engines_weight = $secondary_engines['weight'];
+$secondary_engine_weight = $secondary_engine['weight'];
 
 $radar_weight = $radar['weight'];
 $radar_action_radius = $radar['action_radius'];
@@ -41,9 +41,9 @@ $radar_action_radius = $radar['action_radius'];
 $repair_droid_weight = $repair_droid['weight'];
 $repair_droid_health_recovery = $repair_droid['health_recovery'];
 
-$free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight - $secondary_engines_weight - $radar_weight - $repair_droid_weight;
+$free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight - $secondary_engine_weight - $radar_weight - $repair_droid_weight;
 $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
-$cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engines['cost'] + $radar['cost'] + $repair_droid['cost'];
+$cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engine['cost'] + $radar['cost'] + $repair_droid['cost'];
 ?>
 
   <html>
@@ -94,7 +94,7 @@ $cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engine
         <br> Hull: <input id='ship_hull' type="text" value="<?php echo $hull['image'];?>" style="margin-top: 0.2em">
         <br> Engine: <input id='ship_engine' type="text" value="<?php echo $engine['image'];?>" style="margin-top: 0.2em">
         <br> Fuel tank: <input id='ship_fuel_tank' type="text" value="<?php echo $fuel_tank['image'];?>" style="margin-top: 0.2em">
-        <br> Secondary engines: <input id='ship_secondary_engines' type="text" value="<?php echo $secondary_engines['image'];?>" style="margin-top: 0.2em">
+        <br> Secondary engines: <input id='ship_secondary_engine' type="text" value="<?php echo $secondary_engine['image'];?>" style="margin-top: 0.2em">
         <br> Radar: <input id='ship_radar' type="text" value="<?php echo $radar['image'];?>" style="margin-top: 0.2em">
         <br> Repair droid: <input id='ship_repair_droid' type="text" value="<?php echo $repair_droid['image'];?>" style="margin-top: 0.2em">
         <br>

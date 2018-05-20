@@ -4,8 +4,7 @@
 // Result saves in database in table "ships".
 //
 
-// TODO: Нет смысла вручную заполнять все модули, корпуса... Надо все из БД подгружать.
-// TODO: Стили в Opera!
+// TODO: Стили в Opera! Или все норм?
 
 // Authorized users only!
 require_once('php_functions/check_session.php');
@@ -30,14 +29,14 @@ if(isset($_POST['btnStart']))
         // Fuel tank was chosen
         $fuel_tank = $_POST['selShipFuelTank'];
         // Secondary engines was chosen
-        $secondary_engines = $_POST['selShipSecondaryEngines'];
+        $secondary_engine = $_POST['selShipSecondaryEngine'];
         // Radar was chosen
         $radar = $_POST['selShipRadar'];
         // Repair droid was chosen
         $repair_droid = $_POST['selShipRepairDroid'];
 
         // Call the registration function
-        $reg = registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engines, $radar, $repair_droid);
+        $reg = registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid);
 
         // If ship successfully registered, inform the user
         if($reg === true)
@@ -73,24 +72,38 @@ if(isset($_POST['btnStart']))
 // Initialization
 $txtShipName = "";
 
+// Load ships modules
+$hulls = loadHulls();
+$engines = loadEngines();
+$fuel_tanks = loadFuelTanks();
+$secondary_engines = loadSecondaryEngines();
+$radars = loadRadars();
+$repair_droids = loadRepairDroids();
+
 // Load current modules
 $hull = loadShipHull("Glader");
 $hull_image = $hull['image']."1.png";
+$selShipHull = "Glader";
 $engine = loadShipEngine("Jumper");
 $engine_image = $engine['image']."1.png";
+$selShipEngine = "Jumper";
 $fuel_tank = loadShipFuelTank("Classic");
 $fuel_tank_image = $fuel_tank['image']."1.png";
-$secondary_engines = loadShipSecondaryEngines("Turber");
-$secondary_engines_image = $secondary_engines['image']."1.png";
+$selShipFuelTank = "Classic";
+$secondary_engine = loadShipSecondaryEngine("Turber");
+$secondary_engine_image = $secondary_engine['image']."1.png";
+$selShipSecondaryEngine = "Turber";
 $radar = loadShipRadar("Altarter");
 $radar_image = $radar['image']."1.png";
+$selShipRadar = "Altarter";
 $repair_droid = loadShipRepairDroid("Andr. I");
 $repair_droid_image = $repair_droid['image']."1.png";
+$selShipRepairDroid = "Andr. I";
 
 // Calculate parameters
 $hp = $hull['hp'];
 $full_capacity = $hull['capacity'];
-$maneuverability = $hull['maneuverability'] + $secondary_engines['maneuverability'];
+$maneuverability = $hull['maneuverability'] + $secondary_engine['maneuverability'];
 
 $engine_weight = $engine['weight'];
 $engine_speed = $engine['speed'];
@@ -98,7 +111,7 @@ $engine_speed = $engine['speed'];
 $fuel_tank_weight = $fuel_tank['weight'];
 $fuel_tank_volume = $fuel_tank['volume'];
 
-$secondary_engines_weight = $secondary_engines['weight'];
+$secondary_engine_weight = $secondary_engine['weight'];
 
 $radar_weight = $radar['weight'];
 $radar_action_radius = $radar['action_radius'];
@@ -106,9 +119,9 @@ $radar_action_radius = $radar['action_radius'];
 $repair_droid_weight = $repair_droid['weight'];
 $repair_droid_health_recovery = $repair_droid['health_recovery'];
 
-$free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight - $secondary_engines_weight - $radar_weight - $repair_droid_weight;
+$free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight - $secondary_engine_weight - $radar_weight - $repair_droid_weight;
 $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
-$cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engines['cost'] + $radar['cost'] + $repair_droid['cost'];
+$cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engine['cost'] + $radar['cost'] + $repair_droid['cost'];
 
 if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POST['selShipFuelTank']) || isset($_POST['selShipSecondaryEngines']))
 {
@@ -116,7 +129,7 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
     $selShipHull = $_POST['selShipHull'];
     $selShipEngine = $_POST['selShipEngine'];
     $selShipFuelTank = $_POST['selShipFuelTank'];
-    $selShipSecondaryEngines = $_POST['selShipSecondaryEngines'];
+    $selShipSecondaryEngine = $_POST['selShipSecondaryEngine'];
     $selShipRadar = $_POST['selShipRadar'];
     $selShipRepairDroid = $_POST['selShipRepairDroid'];
     
@@ -129,8 +142,8 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
     $engine_image = $engine['image']."1.png";
     $fuel_tank = loadShipFuelTank($_POST['selShipFuelTank']);
     $fuel_tank_image = $fuel_tank['image']."1.png";
-    $secondary_engines = loadShipSecondaryEngines($_POST['selShipSecondaryEngines']);
-    $secondary_engines_image = $secondary_engines['image']."1.png";
+    $secondary_engine = loadShipSecondaryEngine($_POST['selShipSecondaryEngine']);
+    $secondary_engine_image = $secondary_engine['image']."1.png";
     $radar = loadShipRadar($_POST['selShipRadar']);
     $radar_image = $radar['image']."1.png";
     $repair_droid = loadShipRepairDroid($_POST['selShipRepairDroid']);
@@ -139,7 +152,7 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
     // Calculate parameters
     $hp = $hull['hp'];
     $full_capacity = $hull['capacity'];
-    $maneuverability = $hull['maneuverability'] + $secondary_engines['maneuverability'];
+    $maneuverability = $hull['maneuverability'] + $secondary_engine['maneuverability'];
 
     $engine_weight = $engine['weight'];
     $engine_speed = $engine['speed'];
@@ -147,7 +160,7 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
     $fuel_tank_weight = $fuel_tank['weight'];
     $fuel_tank_volume = $fuel_tank['volume'];
 
-    $secondary_engines_weight = $secondary_engines['weight'];
+    $secondary_engine_weight = $secondary_engine['weight'];
 
     $radar_weight = $radar['weight'];
     $radar_action_radius = $radar['action_radius'];
@@ -155,9 +168,9 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
     $repair_droid_weight = $repair_droid['weight'];
     $repair_droid_health_recovery = $repair_droid['health_recovery'];
 
-    $free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight - $secondary_engines_weight - $radar_weight - $repair_droid_weight;
+    $free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight - $secondary_engine_weight - $radar_weight - $repair_droid_weight;
     $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
-    $cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engines['cost'] + $radar['cost'] + $repair_droid['cost'];
+    $cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engine['cost'] + $radar['cost'] + $repair_droid['cost'];
 }
 ?>
 
@@ -186,47 +199,44 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
                     <br>
                     Hull:
                     <select id="selShipHull" name="selShipHull" class="select-multi" size="1" onchange="this.form.submit()">
-                        <option data-path="images/Hulls/Glader/1.png"         value="Glader"         <?= (isset($selShipHull) && $selShipHull == "Glader")         ? " selected=\"selected\"" : "" ?>> Glader         </option>
-                        <option data-path="images/Hulls/Temper (Blue)/1.png"  value="Temper (Blue)"  <?= (isset($selShipHull) && $selShipHull == "Temper (Blue)")  ? " selected=\"selected\"" : "" ?>> Temper (Blue)  </option>
-                        <option data-path="images/Hulls/Temper (Red)/1.png"   value="Temper (Red)"   <?= (isset($selShipHull) && $selShipHull == "Temper (Red)")   ? " selected=\"selected\"" : "" ?>> Temper (Red)   </option>
-                        <option data-path="images/Hulls/Temper (Green)/1.png" value="Temper (Green)" <?= (isset($selShipHull) && $selShipHull == "Temper (Green)") ? " selected=\"selected\"" : "" ?>> Temper (Green) </option>
+                        <?php foreach ($hulls as $cur_hull) : ?>
+                            <option data-path="images/Hulls/<?= $cur_hull['name']?>/1.png" value="<?= $cur_hull['name']?>" <?= (isset($selShipHull) && $selShipHull == $cur_hull['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_hull['name']?> </option>
+                        <?php endforeach ?>
                     </select>
                     <br>
                     Engine:
                     <select id="selShipEngine" name="selShipEngine" class="select-multi" size="1" onchange="this.form.submit()">
-                        <option data-path="images/Engines/Jumper/1.png"    value="Jumper"    <?= (isset($selShipEngine) && $selShipEngine == "Jumper")    ? " selected=\"selected\"" : "" ?>> Jumper    </option>
-                        <option data-path="images/Engines/Pop-Uper/1.png"  value="Pop-Uper"  <?= (isset($selShipEngine) && $selShipEngine == "Pop-Uper")  ? " selected=\"selected\"" : "" ?>> Pop-Uper  </option>
-                        <option data-path="images/Engines/Turbine/1.png"   value="Turbine"   <?= (isset($selShipEngine) && $selShipEngine == "Turbine")   ? " selected=\"selected\"" : "" ?>> Turbine   </option>
-                        <option data-path="images/Engines/Turbine I/1.png" value="Turbine I" <?= (isset($selShipEngine) && $selShipEngine == "Turbine I") ? " selected=\"selected\"" : "" ?>> Turbine I </option>
+                        <?php foreach ($engines as $cur_engine) : ?>
+                            <option data-path="images/Engines/<?= $cur_engine['name']?>/1.png" value="<?= $cur_engine['name']?>" <?= (isset($selShipEngine) && $selShipEngine == $cur_engine['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_engine['name']?> </option>
+                        <?php endforeach ?>
                     </select>
                     <br/>
                     Fuel Tank:
                     <select id="selShipFuelTank" name="selShipFuelTank" class="select-multi" size="1" onchange="this.form.submit()">
-                        <option data-path="images/Fuel tanks/Classic/1.png" value="Classic" <?= (isset($selShipFuelTank) && $selShipFuelTank == "Classic") ? " selected=\"selected\"" : "" ?>> Classic </option>
-                        <option data-path="images/Fuel tanks/Literer/1.png" value="Literer" <?= (isset($selShipFuelTank) && $selShipFuelTank == "Literer") ? " selected=\"selected\"" : "" ?>> Literer </option>
-                        <option data-path="images/Fuel tanks/Xpacer/1.png"  value="Xpacer"  <?= (isset($selShipFuelTank) && $selShipFuelTank == "Xpacer")  ? " selected=\"selected\"" : "" ?>> Xpacer  </option>
+                        <?php foreach ($fuel_tanks as $cur_fuel_tank) : ?>
+                            <option data-path="images/Fuel tanks/<?= $cur_fuel_tank['name']?>/1.png" value="<?= $cur_fuel_tank['name']?>" <?= (isset($selShipFuelTank) && $selShipFuelTank == $cur_fuel_tank['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_fuel_tank['name']?> </option>
+                        <?php endforeach ?>
                     </select>
                     <br/>
                     Secondary engines:
-                    <select id="selShipSecondaryEngines" name="selShipSecondaryEngines" class="select-multi" size="1" onchange="this.form.submit()">
-                        <option data-path="images/Secondary engines/Turber/1.png"   value="Turber"   <?= (isset($selShipSecondaryEngines) && $selShipSecondaryEngines == "Turber")   ? " selected=\"selected\"" : "" ?>> Turber   </option>
-                        <option data-path="images/Secondary engines/Windmill/1.png" value="Windmill" <?= (isset($selShipSecondaryEngines) && $selShipSecondaryEngines == "Windmill") ? " selected=\"selected\"" : "" ?>> Windmill </option>
+                    <select id="selShipSecondaryEngine" name="selShipSecondaryEngine" class="select-multi" size="1" onchange="this.form.submit()">
+                        <?php foreach ($secondary_engines as $cur_secondary_engine) : ?>
+                            <option data-path="images/Secondary engines/<?= $cur_secondary_engine['name']?>/1.png" value="<?= $cur_secondary_engine['name']?>" <?= (isset($selShipSecondaryEngine) && $selShipSecondaryEngine == $cur_secondary_engine['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_secondary_engine['name']?> </option>
+                        <?php endforeach ?>
                     </select>
                     <br/>
                     Radar:
                     <select id="selShipRadar" name="selShipRadar" class="select-multi" size="1" onchange="this.form.submit()">
-                        <option data-path="images/Radars/Altarter/1.png"  value="Altarter"  <?= (isset($selShipRadar) && $selShipRadar == "Altarter")  ? " selected=\"selected\"" : "" ?>> Altarter  </option>
-                        <option data-path="images/Radars/Clusteron/1.png" value="Clusteron" <?= (isset($selShipRadar) && $selShipRadar == "Clusteron") ? " selected=\"selected\"" : "" ?>> Clusteron </option>
-                        <option data-path="images/Radars/Mirrorer/1.png"  value="Mirrorer"  <?= (isset($selShipRadar) && $selShipRadar == "Mirrorer")  ? " selected=\"selected\"" : "" ?>> Mirrorer  </option>
-                        <option data-path="images/Radars/Olderton/1.png"  value="Olderton"  <?= (isset($selShipRadar) && $selShipRadar == "Olderton")  ? " selected=\"selected\"" : "" ?>> Olderton  </option>
+                        <?php foreach ($radars as $cur_radar) : ?>
+                            <option data-path="images/Radars/<?= $cur_radar['name']?>/1.png" value="<?= $cur_radar['name']?>" <?= (isset($selShipRadar) && $selShipRadar == $cur_radar['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_radar['name']?> </option>
+                        <?php endforeach ?>
                     </select>
                     <br/>
                     Repair droid:
                     <select id="selShipRepairDroid" name="selShipRepairDroid" class="select-multi" size="1" onchange="this.form.submit()">
-                        <option data-path="images/Repair droids/Andr. I/1.png"        value="Andr. I"        <?= (isset($selShipRepairDroid) && $selShipRepairDroid == "Andr. I")        ? " selected=\"selected\"" : "" ?>> Andr. I        </option>
-                        <option data-path="images/Repair droids/Andr. Repairer/1.png" value="Andr. Repairer" <?= (isset($selShipRepairDroid) && $selShipRepairDroid == "Andr. Repairer") ? " selected=\"selected\"" : "" ?>> Andr. Repairer </option>
-                        <option data-path="images/Repair droids/Sith Dron/1.png"      value="Sith Dron"      <?= (isset($selShipRepairDroid) && $selShipRepairDroid == "Sith Dron")      ? " selected=\"selected\"" : "" ?>> Sith Dron      </option>
-                        <option data-path="images/Repair droids/Spideron/1.png"       value="Spideron"       <?= (isset($selShipRepairDroid) && $selShipRepairDroid == "Spideron")       ? " selected=\"selected\"" : "" ?>> Spideron       </option>
+                        <?php foreach ($repair_droids as $cur_repair_droid) : ?>
+                            <option data-path="images/Repair droids/<?= $cur_repair_droid['name']?>/1.png" value="<?= $cur_repair_droid['name']?>" <?= (isset($selShipRepairDroid) && $selShipRepairDroid == $cur_repair_droid['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_repair_droid['name']?> </option>
+                        <?php endforeach ?>
                     </select>
                     <br/>
                 </td>
@@ -257,7 +267,7 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
                         </a>
                         <a href='#' class='deg110'>
                             <div class="module_background">
-                                <img id="ship_secondary_engines" src="<?php echo $secondary_engines_image;?>" class="module_image">
+                                <img id="ship_secondary_engines" src="<?php echo $secondary_engine_image;?>" class="module_image">
                             </div>
                         </a>
 
