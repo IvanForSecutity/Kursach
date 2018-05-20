@@ -9,23 +9,50 @@ var obstacles_arr = [];
 var updateNum = 0;
 var aim = [0,0];
 
+String.prototype.replaceAt=function(index, replacement) {
+    return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+}
 class Weapons {
   constructor() {
     this.units = [];
+    this.units_num = [10,9,8];
     this.number = 0;
   }
-  add_unit(a, b, c, d, t) {
-    this.units.push(new unit_w(a, b, c, d, t));
-    this.number++;
+  add_unit(a, b, c, d, t) {//add unit to the field
+    if(t == "rocket" && this.units_num[0]!=0){
+      this.units_num[0]--;
+      this.units.push(new unit_w(a, b, c, d, t));
+      this.number++;
+      document.getElementById("booms_rocket").innerHTML = this.units_num[0];
+    }else if (t=="blaster" && this.units_num[1]!=0) {
+      this.units_num[1]--;
+      this.units.push(new unit_w(a, b, c, d, t));
+      this.number++;
+      document.getElementById("booms_blaster").innerHTML = this.units_num[1];
+    }else if (t=="laser" && this.units_num[2]!=0) {
+      this.units_num[2]--;
+      this.units.push(new unit_w(a, b, c, d, t));
+      this.number++;
+      document.getElementById("booms_laser").innerHTML = this.units_num[2];
+    }
   }
   trydraw() {
     if (this.number != 0) {
+      var obstacles_id=-1;
       this.units.forEach(function(item, i, arr) {
         for (var i = 0; i < obstacles_arr.length; i++)
           if (obstacles_arr[i].crashWith(item)) {
-            STOP = true;
+            obstacles_id=i;
+            //STOP = true;
           }
       });
+      if(obstacles_id!=-1)
+      {
+        // explode obstacle;
+        //alert("asd");
+        obstacles_arr[obstacles_id].image.src = "images/Obstacles/output-0.png";
+      }
+      //check for ended ttl
       var s = -1;
       this.units.forEach(function(item, i, arr) {
         if (item.move() == "r_f_e") {
@@ -68,7 +95,6 @@ class unit_w {
       this.speedY = (t_y - f_y)/50;
       this.img = new Image();
       this.img.src = "images/Weapon units/blaster_unit_1.png";
-      alert("s");
       var blaster_unit_size = 50;
       this.width = blaster_unit_size;
       this.height = blaster_unit_size*2;
@@ -180,6 +206,8 @@ function component(width, height, img, x, y) {
   this.fuel_i= Number.parseInt(document.getElementById("fuel_v").innerHTML);
   this.fuel=this.fuel_i;
   this.height = height;
+  this.stub=0;
+  this.health= Number.parseInt(document.getElementById("hp").value);
   this.speedX = 0;
   this.speedY = 0;
   this.x = x;
@@ -248,8 +276,30 @@ function obstacle(w, h, img, x, y) {
   this.x = x;
   this.init = x;
   this.y = y;
+  this.ttd=0;//time to death[slow down explode anim]
   this.updates = function() {
     ctx = myGameArea.context;
+    //explode obstacle
+    if(this.image.src.indexOf("output")!=-1)
+    {
+      var num = this.image.src[this.image.src.indexOf("output")+7];
+      this.ttd++;
+      document.getElementById("helptext").innerHTML = this.ttd;
+      if(num!=4 && this.ttd==5)
+      {
+        var audio = new Audio('audio/explosion.mp3');
+        audio.play();
+        this.ttd=0;
+        num++;
+        var str =""+this.image.src;
+        var ind = str.indexOf("output")+7;
+        str = str.substr(0, ind) + num+ str.substr(ind + 1);
+        this.image.src = str;
+      }else if(this.ttd==6){
+        var  cur_i = obstacles_arr.indexOf(this);
+        obstacles_arr.splice(cur_i,1);
+      }
+    }
     ctx.drawImage(this.image,
       this.x,
       this.y,
@@ -270,14 +320,14 @@ function obstacle(w, h, img, x, y) {
     var otherright = otherobj.x + (otherobj.width);
     var othertop = otherobj.y;
     var otherbottom = otherobj.y + (otherobj.height);
-    var crash = true;
     if ((mybottom < othertop) ||
       (mytop > otherbottom) ||
       (myright < otherleft) ||
       (myleft > otherright)) {
-      crash = false;
+      return false;
+    }else {
+      return true;
     }
-    return crash;
   }
 }
 //every 20 miliseconds
@@ -341,9 +391,22 @@ function updateGameArea() {
     spaceship.newPos();
     spaceship.update();
     spaceship.updateAnimation();
+    //stub for not decreasing health very fast
+    if(spaceship.stub !=0 )
+      spaceship.stub++;
+    if(spaceship.stub>50)
+      spaceship.stub=0;
     for (var i = 0; i < obstacles_arr.length; i++) {
       if (obstacles_arr[i].crashWith(spaceship)) {
-        STOP = true;
+        if(spaceship.stub==0)
+        {
+          //// TODO: for diff meteors
+          spaceship.health-=10;
+          document.getElementById("hp").value = spaceship.health;
+          if(spaceship.health<=0)
+          STOP=true;
+          spaceship.stub++;
+        }
       }
       obstacles_arr[i].updates();
       obstacles_arr[i].newPosb();

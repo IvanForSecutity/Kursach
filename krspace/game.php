@@ -60,7 +60,11 @@ $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_cap
           <option value="blaster"    > Blaster   </option>
           <option value="laser"      > Laser     </option>
         </select>
-        <br>Weapon unit count: <p id="booms_cnt"></p>
+        <pre>Weapon unit count:
+        Rockets:    <a id="booms_rocket">10</a>
+        Blasters:   <a id="booms_blaster">9</a>
+        Laser:      <a id="booms_laser">8</a>
+        </pre>
         <br>
         <a>FUEL</a><a id='fuel_v'><?php echo $fuel_tank_volume;?></a></a><a>:</a>
         <div class='container'>
