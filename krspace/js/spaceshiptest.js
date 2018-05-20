@@ -206,7 +206,8 @@ function component(width, height, img, x, y) {
   this.fuel=this.fuel_i;
   this.height = height;
   this.stub=0;
-  this.health= Number.parseInt(document.getElementById("hp").value);
+  this.health_i= Number.parseInt(document.getElementById("hp").value);
+  this.health= this.health_i;
   this.speedX = 0;
   this.speedY = 0;
   this.x = x;
@@ -245,10 +246,10 @@ function component(width, height, img, x, y) {
         alert("you are looser, hehe");
       }
       //update fuel html
-      var t = document.querySelector('.js');
+      var t = document.querySelector('.js1');
       var percent = Number((this.fuel/this.fuel_i*100).toFixed(0));
       t.style.setProperty('--f-v',"" + percent+"%");
-      document.getElementById("percent").innerHTML = percent+"%";
+      document.getElementById("percent1").innerHTML = percent+"%";
     }
     this.x += this.speedX;
     this.y += this.speedY;
@@ -409,6 +410,12 @@ function updateGameArea() {
           var audio = new Audio('audio/auch.mp3');
           audio.play();
           spaceship.health-=10;
+          //update health html
+          var h = document.querySelector('.js2');
+          var percent = Number((spaceship.health/spaceship.health_i*100).toFixed(0));
+          h.style.setProperty('--hp-v',"" + percent+"%");
+          document.getElementById("percent2").innerHTML = percent+"%";
+          //
           document.getElementById("hp").value = spaceship.health;
           if(spaceship.health<=0)
           STOP=true;

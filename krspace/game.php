@@ -78,14 +78,16 @@ $cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engine
         Laser:      <a id="booms_laser">8</a>
         </pre>
         <br>
-        <a>FUEL</a><a id='fuel_v'><?php echo $fuel_tank_volume;?></a></a><a>:</a>
+        <a>FUEL [</a><a id='fuel_v'><?php echo $fuel_tank_volume;?></a></a><a>]:</a>
         <div class='container'>
-            <div class='js'><p id="percent">100%</p></div>
+            <div class='js1'><p id="percent1">100%</p></div>
         </div>
-        <br>Hp: <input id='hp' type="number" value="<?php echo $hp;?>" style="margin-top: 0.2em">
+        <a>HP [</a><a id='hp_v'><?php echo $hp;?></a></a><a>]:</a>
+        <div class='container'>
+            <div class='js2'><p id="percent2">100%</p></div>
+        </div>
         <br> Speed: <input id='speed' type="number" value="<?php echo $speed;?>" style="margin-top: 0.2em">
         <br> Maneuverability: <input id='maneuverability' type="number" value="<?php echo $maneuverability;?>" style="margin-top: 0.2em">
-        <br> Fuel tank volume: <input id='fuel_tank_volume' type="number" value="<?php echo $fuel_tank_volume;?>" style="margin-top: 0.2em">
        <br> Radar action radius: <input id='radar_action_radius' type="number" value="<?php echo $radar_action_radius;?>" style="margin-top: 0.2em">
        <br> Health recovery: <input id='hp' type="number" value="<?php echo $repair_droid_health_recovery;?>" style="margin-top: 0.2em">
        <br> TODO: Это затычка, которую надо потом спрятать куда-нибудь...

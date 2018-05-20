@@ -1,15 +1,23 @@
 :root{
   --f-v:100%;
+  --hp-v:100%;
 }
 .container {
   width: 90%;
   background-color: #ddd;
 }
 
-.js {
+.js1 {
  text-align: right;
   padding-right: 20px;
-  line-height: 40px;
+  line-height: 20px;
   color: white;
-  width: var(--f-v); background-color: #f44336;
+  width: var(--f-v); background-color: #7c880f;
+}
+.js2 {
+ text-align: right;
+  padding-right: 20px;
+  line-height: 20px;
+  color: white;
+  width: var(--hp-v); background-color: #f44336;
 }
