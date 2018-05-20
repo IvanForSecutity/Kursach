@@ -239,7 +239,7 @@ function component(width, height, img, x, y) {
     this.angle += this.moveAngle * Math.PI / 180;
     this.A += this.moveAngle;
     if(myBackground.speedY!=0 || myBackground.speedX!=0  ){
-      this.fuel-=0.1;
+      //this.fuel-=0.1;
       if(this.fuel<=0)
       {
         STOP=true;
@@ -265,7 +265,7 @@ function component(width, height, img, x, y) {
   }
 }
 
-function obstacle(w, h, img, x, y) {
+function obstacle(w, h, img, x, y,angle,dir,speed) {
   this.image = new Image();
   this.image.src = img;
   this.width = w;
@@ -276,6 +276,12 @@ function obstacle(w, h, img, x, y) {
   this.init = x;
   this.y = y;
   this.ttd=0;//time to death[slow down explode anim]
+  //angle changing
+  this.angle = 0;
+  this.angle_chg =angle;
+  //direction
+  this.dir = dir;
+  this.speed = speed;
   this.updates = function() {
     ctx = myGameArea.context;
     //explode obstacle
@@ -299,16 +305,23 @@ function obstacle(w, h, img, x, y) {
         obstacles_arr.splice(cur_i,1);
       }
     }
-    ctx.drawImage(this.image,
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle * Math.PI / 180);
+    ctx.drawImage(this.image, this.width / -2, this.height / -2, this.width, this.height);
+    ctx.restore();
+
+    /*ctx.drawImage(this.image,
       this.x,
       this.y,
-      this.width, this.height);
+      this.width, this.height);*/
   }
 
   this.newPosb = function() {
-    this.x += myBackground.offset_x + myBackground.offset_x;
-    this.y += 5 + myBackground.offset_y;
-
+    this.x += this.dir + myBackground.offset_x + myBackground.offset_x;
+    this.y += this.speed + myBackground.offset_y;
+    this.angle+=this.angle_chg;
+    if(this.angle==360)this.angle=0;
   }
   this.crashWith = function(otherobj) {
     var myleft = this.x;
@@ -445,13 +458,13 @@ function gen_obstacles() {
     var o_num = obstacles_arr.length % 3;
     switch (o_num) {
       case 0:
-        obstacles_arr.push(new obstacle(80, 80, "images/Obstacles/meteor_1.png", myBackground.x + gR(0, PIC_W), myBackground.y + gR(0, 1000)));
+        obstacles_arr.push(new obstacle(80, 80, "images/Obstacles/meteor_1.png", myBackground.x + gR(0, PIC_W), myBackground.y + gR(0, 1000),gR(-5,5),gR(-5,5),gR(1,5)));
         break;
       case 1:
-        obstacles_arr.push(new obstacle(100, 100, "images/Obstacles/meteor_2.png", myBackground.x + gR(0, PIC_W), myBackground.y + gR(0, 1000)));
+        obstacles_arr.push(new obstacle(100, 100, "images/Obstacles/meteor_2.png", myBackground.x + gR(0, PIC_W), myBackground.y + gR(0, 1000),gR(-5,15),gR(-5,5),gR(1,5)));
         break;
       case 2:
-        obstacles_arr.push(new obstacle(150, 150, "images/Obstacles/meteor_3.png", myBackground.x + gR(0, PIC_W), myBackground.y + gR(0, 1000)));
+        obstacles_arr.push(new obstacle(150, 150, "images/Obstacles/meteor_3.png", myBackground.x + gR(0, PIC_W), myBackground.y + gR(0, 1000),gR(-15,5),gR(-5,5),gR(1,5)));
         break;
     }
   }
