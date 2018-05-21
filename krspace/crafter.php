@@ -4,7 +4,7 @@
 // Result saves in database in table "ships".
 //
 
-// TODO: Стили в Opera! Или все норм?
+// TODO: Вынести расчет параметров в отдельную функцию, а то он в 3 местах повторяется
 
 // Authorized users only!
 require_once('php_functions/check_session.php');
@@ -22,17 +22,17 @@ if(isset($_POST['btnStart']))
         $ship_name = $_POST['txtShipName'];
         $owner = $_SESSION['login'];
         
-        // Hull was chosen
+        // Hull
         $hull = $_POST['selShipHull'];
-        // Engine was chosen
+        // Engine
         $engine = $_POST['selShipEngine'];
-        // Fuel tank was chosen
-        $fuel_tank = $_POST['selShipFuelTank'];
-        // Secondary engines was chosen
+        // Secondary engine
         $secondary_engine = $_POST['selShipSecondaryEngine'];
-        // Radar was chosen
+        // Fuel tank
+        $fuel_tank = $_POST['selShipFuelTank'];
+        // Radar
         $radar = $_POST['selShipRadar'];
-        // Repair droid was chosen
+        // Repair droid
         $repair_droid = $_POST['selShipRepairDroid'];
 
         // Call the registration function
@@ -82,46 +82,98 @@ $repair_droids = loadRepairDroids();
 
 // Load current modules
 $hull = loadShipHull("Glader");
-$hull_image = $hull['image']."1.png";
 $selShipHull = "Glader";
-$engine = loadShipEngine("Jumper");
-$engine_image = $engine['image']."1.png";
-$selShipEngine = "Jumper";
-$fuel_tank = loadShipFuelTank("Classic");
-$fuel_tank_image = $fuel_tank['image']."1.png";
-$selShipFuelTank = "Classic";
-$secondary_engine = loadShipSecondaryEngine("Turber");
-$secondary_engine_image = $secondary_engine['image']."1.png";
-$selShipSecondaryEngine = "Turber";
-$radar = loadShipRadar("Altarter");
-$radar_image = $radar['image']."1.png";
-$selShipRadar = "Altarter";
-$repair_droid = loadShipRepairDroid("Andr. I");
-$repair_droid_image = $repair_droid['image']."1.png";
-$selShipRepairDroid = "Andr. I";
+$engine = NULL;
+$selShipEngine = "";
+$secondary_engine = NULL;
+$selShipSecondaryEngine = "";
+$fuel_tank = NULL;
+$selShipFuelTank = "";
+$radar = NULL;
+$selShipRadar = "";
+$repair_droid = NULL;
+$selShipRepairDroid = "";
+
+// Get modules parameters
+$hull_hp = $hull['hp'];
+$hull_capacity = $hull['capacity'];
+$hull_maneuverability = $hull['maneuverability'];
+$hull_cost = $hull['cost'];
+
+if ($engine != NULL)
+{
+    $engine_weight = $engine['weight'];
+    $engine_speed = $engine['speed'];
+    $engine_cost = $engine['cost'];
+}
+else
+{
+    $engine_weight = 0;
+    $engine_speed = 0;
+    $engine_cost = 0;
+}
+
+if ($secondary_engine != NULL)
+{
+    $secondary_engine_maneuverability = $secondary_engine['maneuverability'];
+    $secondary_engine_weight = $secondary_engine['weight'];
+    $secondary_engine_cost = $secondary_engine['cost'];
+}
+else
+{
+    $secondary_engine_maneuverability = 0;
+    $secondary_engine_weight = 0;
+    $secondary_engine_cost = 0;
+}
+
+if ($fuel_tank != NULL)
+{
+    $fuel_tank_weight = $fuel_tank['weight'];
+    $fuel_tank_volume = $fuel_tank['volume'];
+    $fuel_tank_cost = $fuel_tank['cost'];
+}
+else
+{
+    $fuel_tank_weight = 0;
+    $fuel_tank_volume = 0;
+    $fuel_tank_cost = 0;
+}
+
+if ($radar != NULL)
+{
+    $radar_weight = $radar['weight'];
+    $radar_action_radius = $radar['action_radius'];
+    $radar_cost = $radar['cost'];
+}
+else
+{
+    $radar_weight = 0;
+    $radar_action_radius = 0;
+    $radar_cost = 0;
+}
+
+if ($repair_droid != NULL)
+{
+    $repair_droid_weight = $repair_droid['weight'];
+    $repair_droid_health_recovery = $repair_droid['health_recovery'];
+    $repair_droid_cost = $repair_droid['cost'];
+}
+else
+{
+    $repair_droid_weight = 0;
+    $repair_droid_health_recovery = 0;
+    $repair_droid_cost = 0;
+}
 
 // Calculate parameters
-$hp = $hull['hp'];
-$full_capacity = $hull['capacity'];
-$maneuverability = $hull['maneuverability'] + $secondary_engine['maneuverability'];
+$hp = $hull_hp;
+$full_capacity = $hull_capacity;
 
-$engine_weight = $engine['weight'];
-$engine_speed = $engine['speed'];
-
-$fuel_tank_weight = $fuel_tank['weight'];
-$fuel_tank_volume = $fuel_tank['volume'];
-
-$secondary_engine_weight = $secondary_engine['weight'];
-
-$radar_weight = $radar['weight'];
-$radar_action_radius = $radar['action_radius'];
-
-$repair_droid_weight = $repair_droid['weight'];
-$repair_droid_health_recovery = $repair_droid['health_recovery'];
+$maneuverability = $hull_maneuverability + $secondary_engine_maneuverability;
 
 $free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight - $secondary_engine_weight - $radar_weight - $repair_droid_weight;
 $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
-$cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engine['cost'] + $radar['cost'] + $repair_droid['cost'];
+$cost = $hull_cost + $engine_cost + $fuel_tank_cost + $secondary_engine_cost + $radar_cost + $repair_droid_cost;
 
 if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POST['selShipFuelTank']) || isset($_POST['selShipSecondaryEngines']))
 {
@@ -137,40 +189,92 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
     
     // Load current modules
     $hull = loadShipHull($_POST['selShipHull']);
-    $hull_image = $hull['image']."1.png";
     $engine = loadShipEngine($_POST['selShipEngine']);
-    $engine_image = $engine['image']."1.png";
     $fuel_tank = loadShipFuelTank($_POST['selShipFuelTank']);
-    $fuel_tank_image = $fuel_tank['image']."1.png";
     $secondary_engine = loadShipSecondaryEngine($_POST['selShipSecondaryEngine']);
-    $secondary_engine_image = $secondary_engine['image']."1.png";
     $radar = loadShipRadar($_POST['selShipRadar']);
-    $radar_image = $radar['image']."1.png";
     $repair_droid = loadShipRepairDroid($_POST['selShipRepairDroid']);
-    $repair_droid_image = $repair_droid['image']."1.png";
+
+    // Get modules parameters
+    $hull_hp = $hull['hp'];
+    $hull_capacity = $hull['capacity'];
+    $hull_maneuverability = $hull['maneuverability'];
+    $hull_cost = $hull['cost'];
+
+    if ($engine != NULL)
+    {
+        $engine_weight = $engine['weight'];
+        $engine_speed = $engine['speed'];
+        $engine_cost = $engine['cost'];
+    }
+    else
+    {
+        $engine_weight = 0;
+        $engine_speed = 0;
+        $engine_cost = 0;
+    }
+
+    if ($secondary_engine != NULL)
+    {
+        $secondary_engine_maneuverability = $secondary_engine['maneuverability'];
+        $secondary_engine_weight = $secondary_engine['weight'];
+        $secondary_engine_cost = $secondary_engine['cost'];
+    }
+    else
+    {
+        $secondary_engine_maneuverability = 0;
+        $secondary_engine_weight = 0;
+        $secondary_engine_cost = 0;
+    }
+
+    if ($fuel_tank != NULL)
+    {
+        $fuel_tank_weight = $fuel_tank['weight'];
+        $fuel_tank_volume = $fuel_tank['volume'];
+        $fuel_tank_cost = $fuel_tank['cost'];
+    }
+    else
+    {
+        $fuel_tank_weight = 0;
+        $fuel_tank_volume = 0;
+        $fuel_tank_cost = 0;
+    }
+
+    if ($radar != NULL)
+    {
+        $radar_weight = $radar['weight'];
+        $radar_action_radius = $radar['action_radius'];
+        $radar_cost = $radar['cost'];
+    }
+    else
+    {
+        $radar_weight = 0;
+        $radar_action_radius = 0;
+        $radar_cost = 0;
+    }
+
+    if ($repair_droid != NULL)
+    {
+        $repair_droid_weight = $repair_droid['weight'];
+        $repair_droid_health_recovery = $repair_droid['health_recovery'];
+        $repair_droid_cost = $repair_droid['cost'];
+    }
+    else
+    {
+        $repair_droid_weight = 0;
+        $repair_droid_health_recovery = 0;
+        $repair_droid_cost = 0;
+    }
 
     // Calculate parameters
-    $hp = $hull['hp'];
-    $full_capacity = $hull['capacity'];
-    $maneuverability = $hull['maneuverability'] + $secondary_engine['maneuverability'];
+    $hp = $hull_hp;
+    $full_capacity = $hull_capacity;
 
-    $engine_weight = $engine['weight'];
-    $engine_speed = $engine['speed'];
-
-    $fuel_tank_weight = $fuel_tank['weight'];
-    $fuel_tank_volume = $fuel_tank['volume'];
-
-    $secondary_engine_weight = $secondary_engine['weight'];
-
-    $radar_weight = $radar['weight'];
-    $radar_action_radius = $radar['action_radius'];
-
-    $repair_droid_weight = $repair_droid['weight'];
-    $repair_droid_health_recovery = $repair_droid['health_recovery'];
+    $maneuverability = $hull_maneuverability + $secondary_engine_maneuverability;
 
     $free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight - $secondary_engine_weight - $radar_weight - $repair_droid_weight;
     $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
-    $cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engine['cost'] + $radar['cost'] + $repair_droid['cost'];
+    $cost = $hull_cost + $engine_cost + $fuel_tank_cost + $secondary_engine_cost + $radar_cost + $repair_droid_cost;
 }
 ?>
 
@@ -213,27 +317,31 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
                     <br>
                     Engine:
                     <select id="selShipEngine" name="selShipEngine" class="select-multi" size="1" onchange="this.form.submit()">
+                        <option value=""> </option>
                         <?php foreach ($engines as $cur_engine) : ?>
                             <option data-path="images/Engines/<?= $cur_engine['name']?>/1.png" value="<?= $cur_engine['name']?>" <?= (isset($selShipEngine) && $selShipEngine == $cur_engine['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_engine['name']?> </option>
                         <?php endforeach ?>
                     </select>
                     <br/>
-                    Fuel Tank:
-                    <select id="selShipFuelTank" name="selShipFuelTank" class="select-multi" size="1" onchange="this.form.submit()">
-                        <?php foreach ($fuel_tanks as $cur_fuel_tank) : ?>
-                            <option data-path="images/Fuel tanks/<?= $cur_fuel_tank['name']?>/1.png" value="<?= $cur_fuel_tank['name']?>" <?= (isset($selShipFuelTank) && $selShipFuelTank == $cur_fuel_tank['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_fuel_tank['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br/>
                     Secondary engines:
                     <select id="selShipSecondaryEngine" name="selShipSecondaryEngine" class="select-multi" size="1" onchange="this.form.submit()">
+                        <option value=""> </option>
                         <?php foreach ($secondary_engines as $cur_secondary_engine) : ?>
                             <option data-path="images/Secondary engines/<?= $cur_secondary_engine['name']?>/1.png" value="<?= $cur_secondary_engine['name']?>" <?= (isset($selShipSecondaryEngine) && $selShipSecondaryEngine == $cur_secondary_engine['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_secondary_engine['name']?> </option>
                         <?php endforeach ?>
                     </select>
                     <br/>
+                    Fuel Tank:
+                    <select id="selShipFuelTank" name="selShipFuelTank" class="select-multi" size="1" onchange="this.form.submit()">
+                        <option value=""> </option>
+                        <?php foreach ($fuel_tanks as $cur_fuel_tank) : ?>
+                            <option data-path="images/Fuel tanks/<?= $cur_fuel_tank['name']?>/1.png" value="<?= $cur_fuel_tank['name']?>" <?= (isset($selShipFuelTank) && $selShipFuelTank == $cur_fuel_tank['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_fuel_tank['name']?> </option>
+                        <?php endforeach ?>
+                    </select>
+                    <br/>
                     Radar:
                     <select id="selShipRadar" name="selShipRadar" class="select-multi" size="1" onchange="this.form.submit()">
+                        <option value=""> </option>
                         <?php foreach ($radars as $cur_radar) : ?>
                             <option data-path="images/Radars/<?= $cur_radar['name']?>/1.png" value="<?= $cur_radar['name']?>" <?= (isset($selShipRadar) && $selShipRadar == $cur_radar['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_radar['name']?> </option>
                         <?php endforeach ?>
@@ -241,6 +349,7 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
                     <br/>
                     Repair droid:
                     <select id="selShipRepairDroid" name="selShipRepairDroid" class="select-multi" size="1" onchange="this.form.submit()">
+                        <option value=""> </option>
                         <?php foreach ($repair_droids as $cur_repair_droid) : ?>
                             <option data-path="images/Repair droids/<?= $cur_repair_droid['name']?>/1.png" value="<?= $cur_repair_droid['name']?>" <?= (isset($selShipRepairDroid) && $selShipRepairDroid == $cur_repair_droid['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_repair_droid['name']?> </option>
                         <?php endforeach ?>
@@ -251,7 +360,7 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
                     <div class='circle-container'>
                         <c href='#' class='center'>
                             <div class="hull_background">
-                                <img id="ship_hull" src="<?php echo $hull_image;?>" class="hull_image">
+                                <img id="ship_hull" src="<?php echo $hull['image']."1.png";?>" class="hull_image">
                             </div>
                         </a>
 
@@ -260,33 +369,94 @@ if(isset($_POST['selShipHull']) || isset($_POST['selShipEngine']) || isset($_POS
                         <a href='#' class='deg290'> <img src="images/stub.jpg"> </a>
 
                         <a href='#' class='deg330'>
-                            <div class="module_background">
-                                <img id="ship_radar" src="<?php echo $radar_image;?>" class="module_image">
-                            </div>
+                            <?php if ($radar != NULL)
+                                {
+                            ?>
+                                    <div class="module_background">
+                                        <img id="ship_radar" src="<?php echo $radar['image']."1.png";?>" class="module_image">
+                                    </div>
+                            <?php }
+                                else
+                                {
+                            ?>
+                                    <div class="empty_module_background">
+                                        <img id="ship_radar" src="images\Icons\ok.png" class="module_image"> 
+                                    </div>
+                            <?php }
+                            ?>
                         </a>
                         <a href='#' class='deg30'>  <img src="images/stub.jpg"> </a>
 
                         <a href='#' class='deg70'>  <img src="images/stub.jpg"> </a>
-                        <a href='#' class='deg90'>
-                            <div class="module_background">
-                                <img id="ship_repair_droid" src="<?php echo $repair_droid_image;?>" class="module_image">
-                            </div>
-                        </a>
+                        <a href='#' class='deg90'>  <img src="images/stub.jpg"> </a>
                         <a href='#' class='deg110'>
-                            <div class="module_background">
-                                <img id="ship_secondary_engines" src="<?php echo $secondary_engine_image;?>" class="module_image">
-                            </div>
+                            <?php if ($repair_droid != NULL)
+                                {
+                            ?>
+                                    <div class="module_background">
+                                        <img id="ship_repair_droid" src="<?php echo $repair_droid['image']."1.png";?>" class="module_image">
+                                    </div>
+                            <?php }
+                                else
+                                {
+                            ?>
+                                    <div class="empty_module_background">
+                                        <img id="ship_repair_droid" src="images\Icons\ok.png" class="module_image"> 
+                                    </div>
+                            <?php }
+                            ?>
                         </a>
-
+                        
                         <a href='#' class='deg150'>
-                            <div class="module_background">
-                                <img id="ship_fuel_tank" src="<?php echo $fuel_tank_image;?>" class="module_image">
-                            </div>
+                            <?php if ($fuel_tank != NULL)
+                                {
+                            ?>
+                                    <div class="module_background">
+                                        <img id="ship_fuel_tank" src="<?php echo $fuel_tank['image']."1.png";?>" class="module_image">
+                                    </div>
+                            <?php }
+                                else
+                                {
+                            ?>
+                                    <div class="empty_module_background">
+                                        <img id="ship_fuel_tank" src="images\Icons\ok.png" class="module_image"> 
+                                    </div>
+                            <?php }
+                            ?>
+                        </a>
+                        <a href='#' class='deg180'>
+                            <?php if ($secondary_engine != NULL)
+                                {
+                            ?>
+                                    <div class="module_background">
+                                        <img id="ship_secondary_engines" src="<?php echo $secondary_engine['image']."1.png";?>" class="module_image">
+                                    </div>
+                            <?php }
+                                else
+                                {
+                            ?>
+                                    <div class="empty_module_background">
+                                        <img id="ship_secondary_engines" src="images\Icons\ok.png" class="module_image"> 
+                                    </div>
+                            <?php }
+                            ?>
                         </a>
                         <a href='#' class='deg210'>
-                            <div class="module_background">
-                                <img id="ship_engine" src="<?php echo $engine_image;?>" class="module_image">
-                            </div>
+                            <?php if ($engine != NULL)
+                                {
+                            ?>
+                                    <div class="module_background">
+                                        <img id="ship_engine" src="<?php echo $engine['image']."1.png";?>" class="module_image">
+                                    </div>
+                            <?php }
+                                else
+                                {
+                            ?>
+                                    <div class="empty_module_background">
+                                        <img id="ship_engine" src="images\Icons\ok.png" class="module_image"> 
+                                    </div>
+                            <?php }
+                            ?>
                         </a>
                     </div> 
                 </td>

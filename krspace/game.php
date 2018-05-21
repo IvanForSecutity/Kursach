@@ -22,28 +22,86 @@ $secondary_engine = loadShipSecondaryEngine($ship['secondary_engine']);
 $radar = loadShipRadar($ship['radar']);
 $repair_droid = loadShipRepairDroid($ship['repair_droid']);
 
+// Get modules parameters
+$hull_hp = $hull['hp'];
+$hull_capacity = $hull['capacity'];
+$hull_maneuverability = $hull['maneuverability'];
+$hull_cost = $hull['cost'];
+
+if ($engine != NULL)
+{
+    $engine_weight = $engine['weight'];
+    $engine_speed = $engine['speed'];
+    $engine_cost = $engine['cost'];
+}
+else
+{
+    $engine_weight = 0;
+    $engine_speed = 0;
+    $engine_cost = 0;
+}
+
+if ($secondary_engine != NULL)
+{
+    $secondary_engine_maneuverability = $secondary_engine['maneuverability'];
+    $secondary_engine_weight = $secondary_engine['weight'];
+    $secondary_engine_cost = $secondary_engine['cost'];
+}
+else
+{
+    $secondary_engine_maneuverability = 0;
+    $secondary_engine_weight = 0;
+    $secondary_engine_cost = 0;
+}
+
+if ($fuel_tank != NULL)
+{
+    $fuel_tank_weight = $fuel_tank['weight'];
+    $fuel_tank_volume = $fuel_tank['volume'];
+    $fuel_tank_cost = $fuel_tank['cost'];
+}
+else
+{
+    $fuel_tank_weight = 0;
+    $fuel_tank_volume = 0;
+    $fuel_tank_cost = 0;
+}
+
+if ($radar != NULL)
+{
+    $radar_weight = $radar['weight'];
+    $radar_action_radius = $radar['action_radius'];
+    $radar_cost = $radar['cost'];
+}
+else
+{
+    $radar_weight = 0;
+    $radar_action_radius = 0;
+    $radar_cost = 0;
+}
+
+if ($repair_droid != NULL)
+{
+    $repair_droid_weight = $repair_droid['weight'];
+    $repair_droid_health_recovery = $repair_droid['health_recovery'];
+    $repair_droid_cost = $repair_droid['cost'];
+}
+else
+{
+    $repair_droid_weight = 0;
+    $repair_droid_health_recovery = 0;
+    $repair_droid_cost = 0;
+}
+
 // Calculate parameters
-$hp = $hull['hp'];
-$full_capacity = $hull['capacity'];
-$maneuverability = $hull['maneuverability'] + $secondary_engine['maneuverability'];
+$hp = $hull_hp;
+$full_capacity = $hull_capacity;
 
-$engine_weight = $engine['weight'];
-$engine_speed = $engine['speed'];
-
-$fuel_tank_weight = $fuel_tank['weight'];
-$fuel_tank_volume = $fuel_tank['volume'];
-
-$secondary_engine_weight = $secondary_engine['weight'];
-
-$radar_weight = $radar['weight'];
-$radar_action_radius = $radar['action_radius'];
-
-$repair_droid_weight = $repair_droid['weight'];
-$repair_droid_health_recovery = $repair_droid['health_recovery'];
+$maneuverability = $hull_maneuverability + $secondary_engine_maneuverability;
 
 $free_capacity = $full_capacity - $engine_weight - $fuel_tank_weight - $secondary_engine_weight - $radar_weight - $repair_droid_weight;
 $speed = ((5000 + $engine_speed) * $free_capacity) / ($full_capacity * $full_capacity);
-$cost = $hull['cost'] + $engine['cost'] + $fuel_tank['cost'] + $secondary_engine['cost'] + $radar['cost'] + $repair_droid['cost'];
+$cost = $hull_cost + $engine_cost + $fuel_tank_cost + $secondary_engine_cost + $radar_cost + $repair_droid_cost;
 ?>
 
 <html>

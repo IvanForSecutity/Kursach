@@ -125,6 +125,15 @@ td.right_col
     width: 60px;
     height: 60px;
 }
+.empty_module_background
+{
+    position: relative;
+    border: 2px solid lime;
+    border-radius: 10px;
+    background-color: greenyellow;
+    width: 60px;
+    height: 60px;
+}
 .module_image
 {
     position: absolute;
