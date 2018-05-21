@@ -50,11 +50,20 @@ foreach ($ships as $cur_ship)
         <link rel="stylesheet" href="style/my_style.css">
     </head>
     <body>
-        <div style="text-align: right; padding-right: 50px; padding-top: 10px;">
-            <a href="logout.php">Log Out</a>
-        </div>
+        <table  class="two_columns" cellspacing="0">
+        <tr>
+            <td>
+                <a href="personal_area.php">Personal Area</a>
+            </td>
+            <td class="right_col">
+                <a href="logout.php">Log Out</a>
+            </td>
+        </tr>
+        </table>
+        
         <div style="text-align: left; padding-right: 50px; padding-top: 10px;">
             Your ships
+            <br><br>
             <form action="" method="POST">
                 <table  class="ships_table" cellspacing="0">
                     <tr>

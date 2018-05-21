@@ -256,4 +256,25 @@ function checkCookie($login, $cookie_key)
     // If all is OK - return true
     return true;
 }
+
+function getUserRegDate($login)
+{
+    // If string is empty - return false
+    if(!$login)
+    {
+        return false;
+    }
+
+    // Connect to DB
+    $link = connect();
+	
+    $sql = "SELECT `reg_date` FROM `users` WHERE `login`='".$login."'";
+    // Execute query
+    $result = mysqli_query($link, $sql);
+    $reg_date = mysqli_fetch_assoc($result);
+
+    mysqli_close($link);
+    
+    return $reg_date;
+}
 ?>
