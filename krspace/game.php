@@ -3,13 +3,18 @@
 // Spaceship in action.
 //
 
+// Start the session, from which we will retrieve login and session hash
+session_start();
+
+// Connect the file with the connection parameters to the DB
+require_once('php_functions/database.php');
+
 // Authorized users only!
 require_once('php_functions/check_session.php');
 // Spaceship should be chosen!
 require_once('php_functions/check_ship.php');
 
-// Connect the file with the connection parameters to the DB
-require_once('php_functions/database.php');
+// Connect the file with the connection parameters to the ships DB
 require_once('php_functions/ships_database.php');
 
 // Get our ship
@@ -158,13 +163,14 @@ $cost = $hull_cost + $engine_cost + $fuel_tank_cost + $secondary_engine_cost + $
         <br> Maneuverability: <input id='maneuverability' type="number" value="<?php echo $maneuverability;?>" style="margin-top: 0.2em">
        <br> Radar action radius: <input id='radar_action_radius' type="number" value="<?php echo $radar_action_radius;?>" style="margin-top: 0.2em">
        <br> Health recovery: <input id='hp' type="number" value="<?php echo $repair_droid_health_recovery;?>" style="margin-top: 0.2em">
-       <br> TODO: Это затычка, которую надо потом спрятать куда-нибудь...
-        <br> Hull: <input id='ship_hull' type="text" value="<?php echo $hull['image'];?>" style="margin-top: 0.2em">
-        <br> Engine: <input id='ship_engine' type="text" value="<?php echo $engine['image'];?>" style="margin-top: 0.2em">
-        <br> Fuel tank: <input id='ship_fuel_tank' type="text" value="<?php echo $fuel_tank['image'];?>" style="margin-top: 0.2em">
-        <br> Secondary engines: <input id='ship_secondary_engine' type="text" value="<?php echo $secondary_engine['image'];?>" style="margin-top: 0.2em">
-        <br> Radar: <input id='ship_radar' type="text" value="<?php echo $radar['image'];?>" style="margin-top: 0.2em">
-        <br> Repair droid: <input id='ship_repair_droid' type="text" value="<?php echo $repair_droid['image'];?>" style="margin-top: 0.2em">
+       <br> 
+       <!-- Hidden fields -->
+        <input id='ship_hull' type="hidden" value="<?php echo $hull['image'];?>" style="margin-top: 0.2em">
+        <input id='ship_engine' type="hidden" value="<?php echo $engine['image'];?>" style="margin-top: 0.2em">
+        <input id='ship_fuel_tank' type="hidden" value="<?php echo $fuel_tank['image'];?>" style="margin-top: 0.2em">
+        <input id='ship_secondary_engine' type="hidden" value="<?php echo $secondary_engine['image'];?>" style="margin-top: 0.2em">
+        <input id='ship_radar' type="hidden" value="<?php echo $radar['image'];?>" style="margin-top: 0.2em">
+        <input id='ship_repair_droid' type="hidden" value="<?php echo $repair_droid['image'];?>" style="margin-top: 0.2em">
         <br>
 
       </div>

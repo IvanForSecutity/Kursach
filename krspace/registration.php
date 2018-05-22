@@ -2,6 +2,7 @@
 
 // TODO: Спрятать данные страницы от всех, кроме рута!
 
+require_once('php_functions/database.php');
 require_once('php_functions/functions.php');
 
 // Initialize variables for possible errors

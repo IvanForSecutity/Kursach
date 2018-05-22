@@ -1,5 +1,7 @@
 <?php
 
+// Connect the file with the connection parameters to the DB
+require_once('php_functions/database.php');
 require_once('php_functions/functions.php');
 
 // TODO: Личный кабинет (смена пароля, аватарка и прочее)

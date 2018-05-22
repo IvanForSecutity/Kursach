@@ -4,11 +4,16 @@
 // Ships save in database in table "ships".
 //
 
-// Authorized users only!
-require_once('php_functions/check_session.php');
+// Start the session, from which we will retrieve login and session hash
+session_start();
 
 // Connect the file with the connection parameters to the DB
 require_once('php_functions/database.php');
+
+// Authorized users only!
+require_once('php_functions/check_session.php');
+
+// Connect the file with the connection parameters to the ships DB
 require_once('php_functions/ships_database.php');
 
 if(isset($_POST['btnStart']))

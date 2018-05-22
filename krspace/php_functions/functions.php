@@ -20,9 +20,6 @@ function generateSalt()
     return $salt;
 }
 
-// Connect the file with the connection parameters to the DB
-require_once('php_functions/database.php');
-
 // Check user login
 function checkLogin($str)
 {

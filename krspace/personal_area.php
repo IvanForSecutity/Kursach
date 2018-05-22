@@ -3,11 +3,14 @@
 // User's personal area.
 //
 
-// Authorized users only!
-require_once('php_functions/check_session.php');
+// Start the session, from which we will retrieve login and session hash
+session_start();
 
 // Connect the file with the connection parameters to the DB
 require_once('php_functions/database.php');
+
+// Authorized users only!
+require_once('php_functions/check_session.php');
 
 // Load user's data
 $login = $_SESSION['login'];
@@ -20,9 +23,16 @@ $reg_date = getUserRegDate($login);
         <link rel="stylesheet" href="style/my_style.css">
     </head>
     <body>
-        <div style="text-align: right; padding-right: 50px; padding-top: 10px;">
-            <a href="logout.php">Log Out</a>
-        </div>
+        <table  class="two_columns" cellspacing="0">
+        <tr>
+            <td>
+                <a href="hangar.php">To hangar</a>
+            </td>
+            <td class="right_col">
+                <a href="logout.php">Log Out</a>
+            </td>
+        </tr>
+        </table>
         <div style="text-align: left; padding-right: 50px; padding-top: 10px;">
             Your account
             <br><br>
