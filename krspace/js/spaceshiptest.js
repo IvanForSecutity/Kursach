@@ -2,8 +2,8 @@ var spaceship;
 var myBackground;
 var FH = document.getElementById("canvas_field").height;
 var FW = document.getElementById("canvas_field").width;
-var PIC_H = 9000;
-var PIC_W = 3000;
+var PIC_H = 18000;
+var PIC_W = 6000;
 var STOP = false;
 var obstacles_arr = [];
 var updateNum = 0;
@@ -135,7 +135,7 @@ class unit_w {
 var weapons = new Weapons();
 
 function startGame() {
-  spaceship = new component(30, 50, "", FW / 2, FH * 4 / 5);
+  spaceship = new component(30, 50, "", FW / 2, FH  / 2);
   myBackground = new component(PIC_W, PIC_H, "images/space.png", -PIC_W / 2 + FW / 2, 0 - PIC_H / 2 + FH / 2);
   var obstacles = {
     start: this.interval = setInterval(gen_obstacles, 1000)
@@ -241,8 +241,8 @@ function component(width, height, img, x, y) {
   this.newPos = function() {
     this.angle += this.moveAngle * Math.PI / 180;
     this.A += this.moveAngle;
-    if(myBackground.speedY!=0 || myBackground.speedX!=0  ){
-      //this.fuel-=0.1;
+    if(myBackground.speedY!=0 || myBackground.speedX!=0){
+      this.fuel-=0.03;
       if(this.fuel<=0)
       {
         STOP=true;
@@ -254,10 +254,13 @@ function component(width, height, img, x, y) {
       t.style.setProperty('--f-v',"" + percent+"%");
       document.getElementById("percent1").innerHTML = percent+"%";
     }
+    
     this.x += this.speedX;
     this.y += this.speedY;
   }
   this.newPosb = function() {
+
+    document.getElementById("helptext").innerHTML = this.x;
     this.offset_x = this.speedX;
     this.offset_y = this.speedY;
     this.x += this.speedX;
@@ -292,7 +295,6 @@ function obstacle(w, h, img, x, y,angle,dir,speed) {
     {
       var num = this.image.src[this.image.src.indexOf("output")+7];
       this.ttd++;
-      document.getElementById("helptext").innerHTML = this.ttd;
       if(num!=4 && this.ttd==5)
       {
         var audio = new Audio('audio/explosion.mp3');
@@ -377,11 +379,20 @@ function updateGameArea() {
     var maneuverability_tmp = document.getElementById("maneuverability").value;
     var speed_tmp = document.getElementById("speed").value;
     if (myGameArea.keys) {
-      var L = myGameArea.keys[37];
-      var R = myGameArea.keys[39];
-      var F = myGameArea.keys[38];
-      var B = myGameArea.keys[40];
-
+      var L = myGameArea.keys[65];
+      var R = myGameArea.keys[68];
+      var F = myGameArea.keys[87];
+      var B = myGameArea.keys[83];
+      if(myGameArea.keys[49])
+      {
+        document.getElementById("WeaponType").value = "rocket";
+      }if(myGameArea.keys[50])
+      {
+        document.getElementById("WeaponType").value = "laser";
+      }if(myGameArea.keys[51])
+      {
+        document.getElementById("WeaponType").value = "blaster";
+      }
       if (L || F || R || B) {
 
         var cos_angle = Math.cos(spaceship.angle);
@@ -394,9 +405,7 @@ function updateGameArea() {
           myBackground.speedX = -1 * dir * speed_tmp * sin_angle;
           myBackground.speedY = dir * speed_tmp * cos_angle;
         }
-
       }
-
     }
 
     myBackground.newPosb();
@@ -409,7 +418,6 @@ function updateGameArea() {
     //stub for not decreasing health very fast
     if(spaceship.stub !=0 )
     {
-
         if(spaceship.stub%5==0)
           spaceship.ship_hull = document.getElementById("ship_hull").value + "1.png"
         if(spaceship.stub%10==0)
@@ -418,16 +426,21 @@ function updateGameArea() {
     }
     if(spaceship.stub>60)
       spaceship.stub=0;
+      var obstacle_crashed=-1;
     for (var i = 0; i < obstacles_arr.length; i++) {
       if (obstacles_arr[i].crashWith(spaceship)) {
         if(spaceship.stub==0)
         {
-          //// TODO: for diff meteors
+          //// TODO: audio for diff meteors
+          //
+          obstacle_crashed=i;
           var audio = new Audio('audio/auch.mp3');
           audio.play();
           if(obstacles_arr[i].image.src.indexOf("meteor_1")!=-1) spaceship.health-=5;
           if(obstacles_arr[i].image.src.indexOf("meteor_2")!=-1) spaceship.health-=10;
           if(obstacles_arr[i].image.src.indexOf("meteor_3")!=-1) spaceship.health-=20;
+          if(spaceship.health<=0)
+            alert("Sorry, dude, but you are dead");
           //update health html
           var h = document.querySelector('.js2');
           var percent = Number((spaceship.health/spaceship.health_i*100).toFixed(0));
@@ -439,12 +452,18 @@ function updateGameArea() {
           STOP=true;
           spaceship.stub++;
         }
+        //explode obstacle
+
       }
       obstacles_arr[i].updates();
       obstacles_arr[i].newPosb();
     }
+    if(obstacle_crashed!=-1)
+    {
+      obstacles_arr[obstacle_crashed].image.src = "images/Obstacles/output-0.png";
+    }
+    draw_aim();
   }
-  draw_aim();
 }
 function draw_aim()
 {
@@ -463,13 +482,13 @@ function gen_obstacles() {
     var o_num = obstacles_arr.length % 3;
     switch (o_num) {
       case 0:
-        obstacles_arr.push(new obstacle(80, 80, "images/Obstacles/meteor_1.png", myBackground.x + gR(0, PIC_W), myBackground.y + gR(0, 1000),gR(-5,5),gR(-5,5),gR(1,5)));
+        obstacles_arr.push(new obstacle(80, 80, "images/Obstacles/meteor_1.png", gMR(0), gMR(1),gR(-5,5),gR(-5,5),gR(-5,5)));
         break;
       case 1:
-        obstacles_arr.push(new obstacle(100, 100, "images/Obstacles/meteor_2.png", myBackground.x + gR(0, PIC_W), myBackground.y + gR(0, 1000),gR(-5,15),gR(-5,5),gR(1,5)));
+        obstacles_arr.push(new obstacle(100, 100, "images/Obstacles/meteor_2.png", gMR(0), gMR(1),gR(-5,15),gR(-5,5),gR(-4,4)));
         break;
       case 2:
-        obstacles_arr.push(new obstacle(150, 150, "images/Obstacles/meteor_3.png", myBackground.x + gR(0, PIC_W), myBackground.y + gR(0, 1000),gR(-15,5),gR(-5,5),gR(1,5)));
+        obstacles_arr.push(new obstacle(150, 150, "images/Obstacles/meteor_3.png", gMR(0),gMR(1),gR(-15,5),gR(-5,5),gR(-3,3)));
         break;
     }
   }
@@ -477,4 +496,26 @@ function gen_obstacles() {
 
 function gR(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function gMR(trigger)//if trigger==1 ==> y
+{
+    var re ;
+    if(trigger==0)
+    {
+      ret = gR(-400,FW+400);
+      if(ret>=0 && ret <=FW)
+      {
+        if(gR(0,1)==0)ret+=FW;
+        else ret-=FW;
+      }
+    }else if(trigger==1)
+    {
+      ret = gR(-500,FH+500);
+      if(ret>=0 && ret <=FH)
+      {
+        if(gR(0,1)==0)ret-=FH;
+        else ret-=FH;
+      }
+    }
+    return ret;
 }

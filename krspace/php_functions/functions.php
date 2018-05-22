@@ -34,7 +34,7 @@ function checkLogin($str)
     }
 
     // The login must be at least 4, not longer than 16 characters
-    $pattern = '/^[-_.a-z\d]{4,16}$/i';	
+    $pattern = '/^[-_.a-z\d]{4,16}$/i';
     $result = preg_match($pattern, $str);
 
     // If the check fails, return an error message
@@ -62,7 +62,7 @@ function checkPassword($str)
     }
 
     // The password must be at least 6, not longer than 16 characters
-    $pattern = '/^[_!)(.a-z\d]{6,16}$/i';	
+    $pattern = '/^[_!)(.a-z\d]{6,16}$/i';
     $result = preg_match($pattern, $str);
 
     // If the check fails, return an error message
@@ -87,7 +87,7 @@ function registration($login, $password)
     {
         $error = 'You did not enter a login';
         return $error;
-    } 
+    }
     elseif(!$password)
     {
         $error = 'You did not enter a password';
@@ -109,13 +109,13 @@ function registration($login, $password)
     }
 
     // If there is no such user - register it
-    
+
     // Generate salt
     $salt = generateSalt();
     $salted_password = md5($password.$salt);
-    
-    $sql = "INSERT INTO `users` 
-            (`id`,`login`,`password`,`salt`) VALUES 
+
+    $sql = "INSERT INTO `users`
+            (`id`,`login`,`password`,`salt`) VALUES
             (NULL, '" . $login . "','" . $salted_password . "','" . $salt . "')";
     // Execute query
     $query = mysqli_query($link, $sql);
@@ -137,7 +137,7 @@ function authorization($login, $password, $remember)
     {
         $error = 'You did not enter a login';
         return $error;
-    } 
+    }
     elseif(!$password)
     {
         $error = 'You did not enter a password';
@@ -159,7 +159,7 @@ function authorization($login, $password, $remember)
         $error = "User with the specified data is not registered";
         return $error;
     }
-    
+
     // Check password
     $user = mysqli_fetch_assoc($result);
     $salt = $user['salt'];
@@ -178,6 +178,10 @@ function authorization($login, $password, $remember)
         if ($remember == 1)
         {
             // Create cookie
+            //// TODO: Если перехватили куки - войти с любого компа нельзя.
+            // TODO: Хэш НЕ md5!
+            // Стили!
+            
             $cookie_key = randHash(32);
             $sql = "UPDATE users SET cookie='". $cookie_key ."' WHERE `login`='".$login."'";
             mysqli_query($link, $sql);
@@ -205,11 +209,11 @@ function checkSession($login, $session_hash)
     {
         return false;
     }
-	
+
     // Check if the user is authorized
     // Connect to DB
     $link = connect();
-	
+
     $sql = "SELECT `id` FROM `users` WHERE `login`='".$login."' AND `session_hash`='".$session_hash."'";
     // Execute query
     $query = mysqli_query($link, $sql);
@@ -220,7 +224,7 @@ function checkSession($login, $session_hash)
         return false;
     }
 
-    mysqli_close($link);	
+    mysqli_close($link);
 
     // If all is OK - return true
     return true;
@@ -233,11 +237,11 @@ function checkCookie($login, $cookie_key)
     {
         return false;
     }
-	
+
     // Check if the cookies are correct
     // Connect to DB
     $link = connect();
-	
+
     $sql = "SELECT `id` FROM `users` WHERE `login`='".$login."' AND `cookie`='".$cookie_key."'";
     // Execute query
     $query = mysqli_query($link, $sql);
@@ -248,7 +252,7 @@ function checkCookie($login, $cookie_key)
         return false;
     }
 
-    mysqli_close($link);	
+    mysqli_close($link);
 
     // If all is OK - return true
     return true;
@@ -264,14 +268,14 @@ function getUserRegDate($login)
 
     // Connect to DB
     $link = connect();
-	
+
     $sql = "SELECT `reg_date` FROM `users` WHERE `login`='".$login."'";
     // Execute query
     $result = mysqli_query($link, $sql);
     $reg_date = mysqli_fetch_assoc($result);
 
     mysqli_close($link);
-    
+
     return $reg_date;
 }
 ?>
