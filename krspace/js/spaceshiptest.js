@@ -8,6 +8,8 @@ var STOP = false;
 var obstacles_arr = [];
 var updateNum = 0;
 var aim = [0,0];
+var TOP = document.getElementById("canvas_field").offsetTop;
+var LEFT = document.getElementById("canvas_field").offsetLeft;
 
 String.prototype.replaceAt=function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
@@ -156,8 +158,9 @@ function startGame() {
       aim1.src = "images/aim_1.png";
       var w = aim1.naturalWidth;
       var h = aim1.naturalHeight;
-      aim[0] = e.pageX - (w / 2 + 8);
-      aim[1] = e.pageY - (h / 2 + 40);
+
+      aim[0] = e.pageX - (w / 2 + LEFT);
+      aim[1] = e.pageY - (h / 2 + TOP);
     }
   }, false);
   //handle gamefield click
@@ -165,9 +168,9 @@ function startGame() {
     if (!STOP) {
       //send rocket
       var x_from = spaceship.x;
-      var x_to = e.pageX - (45 + 8);
+      var x_to = aim[0];
       var y_from = spaceship.y;
-      var y_to = e.pageY - (45 + 40);
+      var y_to = aim[1];
       weapons.add_unit(x_from, y_from, x_to, y_to,""+document.getElementById("WeaponType").value);
     }
   }, false);

@@ -119,18 +119,16 @@ $cost = $hull_cost + $engine_cost + $fuel_tank_cost + $secondary_engine_cost + $
 
   <body onload="startGame()">
     <table  class="two_columns" cellspacing="0">
-    <tr>
-        <td>
-            <a href="hangar.php">To hangar</a>
+    <tr >
+        <td ">
+            <a href="hangar.php" >To hangar</a>
         </td>
         <td class="right_col">
             <a href="logout.php">Log Out</a>
         </td>
     </tr>
     </table>
-      
-    <br>
-    <br>
+
 
     <div id='gamediv' style="display:flex;">
       <div id='game_field' style="border: 4px double black;display:inline">
