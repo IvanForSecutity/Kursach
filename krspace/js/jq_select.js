@@ -2,6 +2,7 @@ var hull_hp = 0;
 var hull_maneuverability = 0;
 var hull_capacity = 0;
 var hull_cost = 0;
+var hull_modules_bitmask = 0;
 
 var engine_speed = 0;
 var engine_weight = 0;
@@ -24,6 +25,115 @@ var repair_droid_weight = 0;
 var repair_droid_cost = 0;
 
 
+
+var ModulesEnum = Object.freeze({
+    "engine" : 1 << 0,
+    "secondary_engine" : 1 << 1,
+    "fuel_tank" : 1 << 2,
+    "radar" : 1 << 3,
+    "stub" : 1 << 4,
+    "repair_droid" : 1 << 5,
+    "stub" : 1 << 6,
+    "stub" : 1 << 7,
+    "stub" : 1 << 8,
+    "stub" : 1 << 9,
+    "stub" : 1 << 10,
+    "stub" : 1 << 11,
+    "stub" : 1 << 12
+});
+
+function ResetModules()
+{
+    document.getElementById("selShipEngine").value = "";
+    document.getElementById("selShipSecondaryEngine").value = "";
+    document.getElementById("selShipFuelTank").value = "";
+    document.getElementById("selShipRadar").value = "";
+    document.getElementById("selShipRepairDroid").value = "";
+    
+    engine_speed = 0;
+    engine_weight = 0;
+    engine_cost = 0;
+
+    secondary_engine_maneuverability = 0;
+    secondary_engine_weight = 0;
+    secondary_engine_cost = 0;
+
+    fuel_tank_volume = 0;
+    fuel_tank_weight = 0;
+    fuel_tank_cost = 0;
+
+    radar_action_radius = 0;
+    radar_weight = 0;
+    radar_cost = 0;
+
+    repair_droid_health_recovery = 0;
+    repair_droid_weight = 0;
+    repair_droid_cost = 0;
+}
+
+function ApplyModulesBitmask(modules_bitmask)
+{
+    if((modules_bitmask & ModulesEnum.engine) != 0)
+    {
+        document.getElementById("selShipEngine").disabled = false;
+        document.getElementById("ship_engine_cell").className = "empty_module_background";
+        $('#ship_engine').attr('src', "images/Icons/ok.png");
+    }
+    else
+    {
+        document.getElementById("selShipEngine").disabled = true;
+        document.getElementById("ship_engine_cell").className = "blocked_module_background";
+        $('#ship_engine').attr('src', "images/Icons/delete.png");
+    }
+    if((modules_bitmask & ModulesEnum.secondary_engine) != 0)
+    {
+        document.getElementById("selShipSecondaryEngine").disabled = false;
+        document.getElementById("ship_secondary_engine_cell").className = "empty_module_background";
+        $('#ship_secondary_engine').attr('src', "images/Icons/ok.png");
+    }
+    else
+    {
+        document.getElementById("selShipSecondaryEngine").disabled = true;
+        document.getElementById("ship_secondary_engine_cell").className = "blocked_module_background";
+        $('#ship_secondary_engine').attr('src', "images/Icons/delete.png");
+    }
+    if((modules_bitmask & ModulesEnum.fuel_tank) != 0)
+    {
+        document.getElementById("selShipFuelTank").disabled = false;
+        document.getElementById("ship_fuel_tank_cell").className = "empty_module_background";
+        $('#ship_fuel_tank').attr('src', "images/Icons/ok.png");
+    }
+    else
+    {
+        document.getElementById("selShipFuelTank").disabled = true;
+        document.getElementById("ship_fuel_tank_cell").className = "blocked_module_background";
+        $('#ship_fuel_tank').attr('src', "images/Icons/delete.png");
+    }
+    if((modules_bitmask & ModulesEnum.radar) != 0)
+    {
+        document.getElementById("selShipRadar").disabled = false;
+        document.getElementById("ship_radar_cell").className = "empty_module_background";
+        $('#ship_radar').attr('src', "images/Icons/ok.png");
+    }
+    else
+    {
+        document.getElementById("selShipRadar").disabled = true;
+        document.getElementById("ship_radar_cell").className = "blocked_module_background";
+        $('#ship_radar').attr('src', "images/Icons/delete.png");
+    }
+    if((modules_bitmask & ModulesEnum.repair_droid) != 0)
+    {
+        document.getElementById("selShipRepairDroid").disabled = false;
+        document.getElementById("ship_repair_droid_cell").className = "empty_module_background";
+        $('#ship_repair_droid').attr('src', "images/Icons/ok.png");
+    }
+    else
+    {
+        document.getElementById("selShipRepairDroid").disabled = true;
+        document.getElementById("ship_repair_droid_cell").className = "blocked_module_background";
+        $('#ship_repair_droid').attr('src', "images/Icons/delete.png");
+    }
+}
 
 function UpdateSpaceshipParameters()
 {
@@ -77,12 +187,16 @@ function HullChanged()
                 $('#txtHullManeuverability').val(data.maneuverability);
                 $('#txtHullCapacity').val(data.capacity);
                 $('#txtHullCost').val(data.cost);
+                //$('#txtHullModulesBitmask').val(data.modules_bitmask);
                 
                 hull_hp = data.hp;
                 hull_maneuverability = data.maneuverability;
                 hull_capacity = data.capacity;
                 hull_cost = data.cost;
-                
+                hull_modules_bitmask = data.modules_bitmask;
+
+                ResetModules();
+                ApplyModulesBitmask(hull_modules_bitmask);
                 UpdateSpaceshipParameters();
 
                 return true;
@@ -97,9 +211,9 @@ function HullChanged()
     else
     {
         // Hull cell is empty
-        
-        document.getElementById("ship_engine_cell").className = "empty_hull_background";
-        $('#ship_engine').attr('src', "images/Icons/ok.png");
+
+        document.getElementById("ship_hull_cell").className = "empty_hull_background";
+        $('#ship_hull').attr('src', "images/Icons/ok.png");
         $('#txtHullHp').val(0);
         $('#txtHullManeuverability').val(0);
         $('#txtHullCapacity').val(0);
@@ -109,7 +223,10 @@ function HullChanged()
         hull_maneuverability = 0;
         hull_capacity = 0;
         hull_cost = 0;
-        
+        hull_modules_bitmask = 0;
+
+        ResetModules();
+        ApplyModulesBitmask(hull_modules_bitmask);
         UpdateSpaceshipParameters();
     }
 }

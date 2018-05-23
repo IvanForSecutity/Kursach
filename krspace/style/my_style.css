@@ -58,15 +58,17 @@
 .circle-container img { display: block; }
 .deg0 { transform: translate(12em); } /* 12em = half the width of the wrapper */
 .deg30 { transform: rotate(30deg) translate(12em) rotate(-30deg); }
-.deg70 { transform: rotate(70deg) translate(12em) rotate(-70deg); }
+.deg70 { transform: rotate(70deg) translate(12.75em) rotate(-70deg); }
 .deg90 { transform: rotate(90deg) translate(12em) rotate(-90deg); }
-.deg110 { transform: rotate(110deg) translate(12em) rotate(-110deg); }
+.deg110 { transform: rotate(110deg) translate(12.75em) rotate(-110deg); }
 .deg180 { transform: translate(-12em); }
 .deg150 { transform: rotate(150deg) translate(12em) rotate(-150deg); }
 .deg210 { transform: rotate(210deg) translate(12em) rotate(-210deg); }
-.deg250 { transform: rotate(250deg) translate(12em) rotate(-250deg); }
+.deg250 { transform: rotate(250deg) translate(12.75em) rotate(-250deg); }
+.deg260 { transform: rotate(262deg) translate(17em) rotate(-262deg); }
 .deg270 { transform: rotate(270deg) translate(12em) rotate(-270deg); }
-.deg290 { transform: rotate(290deg) translate(12em) rotate(-290deg); }
+.deg280 { transform: rotate(278deg) translate(17em) rotate(-278deg); }
+.deg290 { transform: rotate(290deg) translate(12.75em) rotate(-290deg); }
 .deg330 { transform: rotate(330deg) translate(12em) rotate(-330deg); }
 
 .some
@@ -131,6 +133,15 @@ td.right_col
     border: 2px solid lime;
     border-radius: 10px;
     background-color: greenyellow;
+    width: 60px;
+    height: 60px;
+}
+.blocked_module_background
+{
+    position: relative;
+    border: 2px solid red;
+    border-radius: 10px;
+    background-color: salmon;
     width: 60px;
     height: 60px;
 }

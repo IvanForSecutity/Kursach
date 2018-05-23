@@ -7,7 +7,7 @@ require_once('../php_functions/ships_database.php');
 if (isset($_GET['hull_name']))
 {
     $hull = loadShipHull($_GET['hull_name']);
-    echo json_encode(array('hp'=>$hull['hp'], 'maneuverability'=>$hull['maneuverability'], 'capacity'=>$hull['capacity'], 'cost'=>$hull['cost']));
+    echo json_encode(array('hp'=>$hull['hp'], 'maneuverability'=>$hull['maneuverability'], 'capacity'=>$hull['capacity'], 'cost'=>$hull['cost'], 'modules_bitmask'=>$hull['modules_bitmask']));
 }
 
 if (isset($_GET['engine_name']))

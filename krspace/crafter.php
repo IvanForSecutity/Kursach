@@ -18,27 +18,69 @@ require_once('php_functions/check_session.php');
 // Connect the file with the connection parameters to the ships DB
 require_once('php_functions/ships_database.php');
 
+function validateShip()
+{
+    // Player should choose ship name
+    if(!$_POST['txtShipName'])
+    {
+        $message = '<p>You should choose ship name!</p>';
+        print $message;
+        return false;
+    }
+
+    // Player should choose ship hull
+    if(!$_POST['selShipHull'])
+    {
+        $message = '<p>You should choose ship hull!</p>';
+        print $message;
+        return false;
+    }
+
+    return true;
+}
+
 // If game starts
 if(isset($_POST['btnStart']))
 {
-    // Player should choose ship name
-    if($_POST['txtShipName'])
+    if (validateShip())
     {
         $ship_name = $_POST['txtShipName'];
         $owner = $_SESSION['login'];
-        
+
         // Hull
         $hull = $_POST['selShipHull'];
-        // Engine
-        $engine = $_POST['selShipEngine'];
-        // Secondary engine
-        $secondary_engine = $_POST['selShipSecondaryEngine'];
-        // Fuel tank
-        $fuel_tank = $_POST['selShipFuelTank'];
-        // Radar
-        $radar = $_POST['selShipRadar'];
-        // Repair droid
-        $repair_droid = $_POST['selShipRepairDroid'];
+        
+        $engine = NULL;
+        $secondary_engine = NULL;
+        $fuel_tank = NULL;
+        $radar = NULL;
+        $repair_droid = NULL;
+        
+        if(isset($_POST['selShipEngine']))
+        {
+            // Engine
+            $engine = $_POST['selShipEngine'];
+        }
+        if(isset($_POST['selShipSecondaryEngine']))
+        {
+            // Secondary engine
+            $secondary_engine = $_POST['selShipSecondaryEngine'];
+        }
+        if(isset($_POST['selShipFuelTank']))
+        {
+            // Fuel tank
+            $fuel_tank = $_POST['selShipFuelTank'];
+        }
+        if(isset($_POST['selShipRadar']))
+        {
+            // Radar
+            $radar = $_POST['selShipRadar'];
+        }
+        if(isset($_POST['selShipRepairDroid']))
+        {
+            // Repair droid
+            $repair_droid = $_POST['selShipRepairDroid'];
+        }
 
         // Call the registration function
         $reg = registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid);
@@ -48,10 +90,10 @@ if(isset($_POST['btnStart']))
         {
             $message = '<p>Your new ship registered in the system! Game starts...</p>';
             print $message;
-            
+
             // Set current ship
             $_SESSION['cur_ship'] = $ship_name;
-            
+
             // Redirect to game page
             // TODO: Вариант с хедером мне нравится больше, чем это некошерное нечто. 
             // Однако, на вариант с хедером php ругается, мол body уже послано...
@@ -66,11 +108,6 @@ if(isset($_POST['btnStart']))
         {
             print $reg;
         }
-    }
-    else
-    {
-        $message = '<p>You should choose ship name!</p>';
-        print $message;
     }
 }
 
@@ -127,7 +164,7 @@ $repair_droids = loadRepairDroids();
                     </select>
                     <br>
                     Engine:
-                    <select id="selShipEngine" name="selShipEngine" class="select-multi" size="1" onchange="EngineChanged()">
+                    <select id="selShipEngine" name="selShipEngine" class="select-multi" size="1" onchange="EngineChanged()" disabled="true">
                         <option value=""> </option>
                         <?php foreach ($engines as $cur_engine) : ?>
                             <option data-path="images/Engines/<?= $cur_engine['name']?>/1.png" value="<?= $cur_engine['name']?>" <?= (isset($selShipEngine) && $selShipEngine == $cur_engine['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_engine['name']?> </option>
@@ -135,7 +172,7 @@ $repair_droids = loadRepairDroids();
                     </select>
                     <br/>
                     Secondary engines:
-                    <select id="selShipSecondaryEngine" name="selShipSecondaryEngine" class="select-multi" size="1" onchange="SecondaryEngineChanged()">
+                    <select id="selShipSecondaryEngine" name="selShipSecondaryEngine" class="select-multi" size="1" onchange="SecondaryEngineChanged()" disabled="true">
                         <option value=""> </option>
                         <?php foreach ($secondary_engines as $cur_secondary_engine) : ?>
                             <option data-path="images/Secondary engines/<?= $cur_secondary_engine['name']?>/1.png" value="<?= $cur_secondary_engine['name']?>" <?= (isset($selShipSecondaryEngine) && $selShipSecondaryEngine == $cur_secondary_engine['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_secondary_engine['name']?> </option>
@@ -143,7 +180,7 @@ $repair_droids = loadRepairDroids();
                     </select>
                     <br/>
                     Fuel Tank:
-                    <select id="selShipFuelTank" name="selShipFuelTank" class="select-multi" size="1" onchange="FuelTankChanged()">
+                    <select id="selShipFuelTank" name="selShipFuelTank" class="select-multi" size="1" onchange="FuelTankChanged()" disabled="true">
                         <option value=""> </option>
                         <?php foreach ($fuel_tanks as $cur_fuel_tank) : ?>
                             <option data-path="images/Fuel tanks/<?= $cur_fuel_tank['name']?>/1.png" value="<?= $cur_fuel_tank['name']?>" <?= (isset($selShipFuelTank) && $selShipFuelTank == $cur_fuel_tank['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_fuel_tank['name']?> </option>
@@ -151,7 +188,7 @@ $repair_droids = loadRepairDroids();
                     </select>
                     <br/>
                     Radar:
-                    <select id="selShipRadar" name="selShipRadar" class="select-multi" size="1" onchange="RadarChanged()">
+                    <select id="selShipRadar" name="selShipRadar" class="select-multi" size="1" onchange="RadarChanged()" disabled="true">
                         <option value=""> </option>
                         <?php foreach ($radars as $cur_radar) : ?>
                             <option data-path="images/Radars/<?= $cur_radar['name']?>/1.png" value="<?= $cur_radar['name']?>" <?= (isset($selShipRadar) && $selShipRadar == $cur_radar['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_radar['name']?> </option>
@@ -159,7 +196,7 @@ $repair_droids = loadRepairDroids();
                     </select>
                     <br/>
                     Repair droid:
-                    <select id="selShipRepairDroid" name="selShipRepairDroid" class="select-multi" size="1" onchange="RepairDroidChanged()">
+                    <select id="selShipRepairDroid" name="selShipRepairDroid" class="select-multi" size="1" onchange="RepairDroidChanged()" disabled="true">
                         <option value=""> </option>
                         <?php foreach ($repair_droids as $cur_repair_droid) : ?>
                             <option data-path="images/Repair droids/<?= $cur_repair_droid['name']?>/1.png" value="<?= $cur_repair_droid['name']?>" <?= (isset($selShipRepairDroid) && $selShipRepairDroid == $cur_repair_droid['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_repair_droid['name']?> </option>
@@ -178,10 +215,12 @@ $repair_droids = loadRepairDroids();
                         <a href='#' class='deg250'> <img src="images/stub.jpg"> </a>
                         <a href='#' class='deg270'> <img src="images/stub.jpg"> </a>
                         <a href='#' class='deg290'> <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg260'> <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg280'> <img src="images/stub.jpg"> </a>
 
                         <a href='#' class='deg330'>
-                            <div id="ship_radar_cell" class="empty_module_background">
-                                <img id="ship_radar" src="images/Icons/ok.png" class="module_image"> 
+                            <div id="ship_radar_cell" class="blocked_module_background">
+                                <img id="ship_radar" src="images/Icons/delete.png" class="module_image"> 
                             </div>
                         </a>
                         <a href='#' class='deg30'>  <img src="images/stub.jpg"> </a>
@@ -189,24 +228,24 @@ $repair_droids = loadRepairDroids();
                         <a href='#' class='deg70'>  <img src="images/stub.jpg"> </a>
                         <a href='#' class='deg90'>  <img src="images/stub.jpg"> </a>
                         <a href='#' class='deg110'>
-                            <div id="ship_repair_droid_cell" class="empty_module_background">
-                                <img id="ship_repair_droid" src="images/Icons/ok.png" class="module_image"> 
+                            <div id="ship_repair_droid_cell" class="blocked_module_background">
+                                <img id="ship_repair_droid" src="images/Icons/delete.png" class="module_image"> 
                             </div>
                         </a>
                         
                         <a href='#' class='deg150'>
-                            <div id="ship_fuel_tank_cell" class="empty_module_background">
-                                <img id="ship_fuel_tank" src="images/Icons/ok.png" class="module_image"> 
+                            <div id="ship_fuel_tank_cell" class="blocked_module_background">
+                                <img id="ship_fuel_tank" src="images/Icons/delete.png" class="module_image"> 
                             </div>
                         </a>
                         <a href='#' class='deg180'>
-                            <div id="ship_secondary_engine_cell" class="empty_module_background">
-                                <img id="ship_secondary_engine" src="images/Icons/ok.png" class="module_image"> 
+                            <div id="ship_secondary_engine_cell" class="blocked_module_background">
+                                <img id="ship_secondary_engine" src="images/Icons/delete.png" class="module_image"> 
                             </div>
                         </a>
                         <a href='#' class='deg210'>
-                            <div id="ship_engine_cell" class="empty_module_background">
-                                <img id="ship_engine" src="images/Icons/ok.png" class="module_image"> 
+                            <div id="ship_engine_cell" class="blocked_module_background">
+                                <img id="ship_engine" src="images/Icons/delete.png" class="module_image"> 
                             </div>
                         </a>
                     </div> 
