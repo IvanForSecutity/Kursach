@@ -39,4 +39,10 @@ if (isset($_GET['repair_droid_name']))
     $repair_droid = loadShipRepairDroid($_GET['repair_droid_name']);
     echo json_encode(array('health_recovery'=>$repair_droid['health_recovery'], 'weight'=>$repair_droid['weight'], 'cost'=>$repair_droid['cost']));
 }
+
+if (isset($_GET['weapon_name']))
+{
+    $weapon = loadShipWeapon($_GET['weapon_name']);
+    echo json_encode(array('type'=>$weapon['type'], 'damage'=>$weapon['damage'], 'ammunition'=>$weapon['ammunition'], 'recharge_time'=>$weapon['recharge_time'], 'range_of_fire'=>$weapon['range_of_fire'], 'weight'=>$weapon['weight'], 'cost'=>$weapon['cost']));
+}
 ?>

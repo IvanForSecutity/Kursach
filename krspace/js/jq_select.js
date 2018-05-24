@@ -24,6 +24,14 @@ var repair_droid_health_recovery = 0;
 var repair_droid_weight = 0;
 var repair_droid_cost = 0;
 
+var weapon_1_type = "";
+var weapon_1_damage = 0;
+var weapon_1_ammunition = 0;
+var weapon_1_recharge_time = 0;
+var weapon_1_range_of_fire = 0;
+var weapon_1_weight = 0;
+var weapon_1_cost = 0;
+
 
 
 var ModulesEnum = Object.freeze({
@@ -35,11 +43,11 @@ var ModulesEnum = Object.freeze({
     "repair_droid" : 1 << 5,
     "stub" : 1 << 6,
     "stub" : 1 << 7,
-    "stub" : 1 << 8,
-    "stub" : 1 << 9,
-    "stub" : 1 << 10,
-    "stub" : 1 << 11,
-    "stub" : 1 << 12
+    "weapon_1" : 1 << 8,
+    "weapon_2" : 1 << 9,
+    "weapon_3" : 1 << 10,
+    "weapon_4" : 1 << 11,
+    "weapon_5" : 1 << 12
 });
 
 function ResetModules()
@@ -49,6 +57,11 @@ function ResetModules()
     document.getElementById("selShipFuelTank").value = "";
     document.getElementById("selShipRadar").value = "";
     document.getElementById("selShipRepairDroid").value = "";
+    document.getElementById("selShipWeapon1").value = "";
+    document.getElementById("selShipWeapon2").value = "";
+    document.getElementById("selShipWeapon3").value = "";
+    document.getElementById("selShipWeapon4").value = "";
+    document.getElementById("selShipWeapon5").value = "";
     
     engine_speed = 0;
     engine_weight = 0;
@@ -132,6 +145,66 @@ function ApplyModulesBitmask(modules_bitmask)
         document.getElementById("selShipRepairDroid").disabled = true;
         document.getElementById("ship_repair_droid_cell").className = "blocked_module_background";
         $('#ship_repair_droid').attr('src', "images/Icons/no.png");
+    }
+    if((modules_bitmask & ModulesEnum.weapon_1) != 0)
+    {
+        document.getElementById("selShipWeapon1").disabled = false;
+        document.getElementById("ship_weapon_1_cell").className = "empty_module_background";
+        $('#ship_weapon_1').attr('src', "images/Icons/yes.png");
+    }
+    else
+    {
+        document.getElementById("selShipWeapon1").disabled = true;
+        document.getElementById("ship_weapon_1_cell").className = "blocked_module_background";
+        $('#ship_weapon_1').attr('src', "images/Icons/no.png");
+    }
+    if((modules_bitmask & ModulesEnum.weapon_2) != 0)
+    {
+        document.getElementById("selShipWeapon2").disabled = false;
+        document.getElementById("ship_weapon_2_cell").className = "empty_module_background";
+        $('#ship_weapon_2').attr('src', "images/Icons/yes.png");
+    }
+    else
+    {
+        document.getElementById("selShipWeapon2").disabled = true;
+        document.getElementById("ship_weapon_2_cell").className = "blocked_module_background";
+        $('#ship_weapon_2').attr('src', "images/Icons/no.png");
+    }
+    if((modules_bitmask & ModulesEnum.weapon_3) != 0)
+    {
+        document.getElementById("selShipWeapon3").disabled = false;
+        document.getElementById("ship_weapon_3_cell").className = "empty_module_background";
+        $('#ship_weapon_3').attr('src', "images/Icons/yes.png");
+    }
+    else
+    {
+        document.getElementById("selShipWeapon3").disabled = true;
+        document.getElementById("ship_weapon_3_cell").className = "blocked_module_background";
+        $('#ship_weapon_3').attr('src', "images/Icons/no.png");
+    }
+    if((modules_bitmask & ModulesEnum.weapon_4) != 0)
+    {
+        document.getElementById("selShipWeapon4").disabled = false;
+        document.getElementById("ship_weapon_4_cell").className = "empty_module_background";
+        $('#ship_weapon_4').attr('src', "images/Icons/yes.png");
+    }
+    else
+    {
+        document.getElementById("selShipWeapon4").disabled = true;
+        document.getElementById("ship_weapon_4_cell").className = "blocked_module_background";
+        $('#ship_weapon_4').attr('src', "images/Icons/no.png");
+    }
+    if((modules_bitmask & ModulesEnum.weapon_5) != 0)
+    {
+        document.getElementById("selShipWeapon5").disabled = false;
+        document.getElementById("ship_weapon_5_cell").className = "empty_module_background";
+        $('#ship_weapon_5').attr('src', "images/Icons/yes.png");
+    }
+    else
+    {
+        document.getElementById("selShipWeapon5").disabled = true;
+        document.getElementById("ship_weapon_5_cell").className = "blocked_module_background";
+        $('#ship_weapon_5').attr('src', "images/Icons/no.png");
     }
 }
 
@@ -521,6 +594,378 @@ function RepairDroidChanged()
         repair_droid_health_recovery = 0;
         repair_droid_weight = 0;
         repair_droid_cost = 0;
+        
+        UpdateSpaceshipParameters();
+    }
+}
+
+function Weapon1Changed()
+{
+    // If weapon 1 was chosen
+    if (document.getElementById("selShipWeapon1").value != "")
+    {
+        // Change weapon 1 cell
+        document.getElementById("ship_weapon_1_cell").className = "module_background";
+
+        // Change weapon 1 picture
+        $('#ship_weapon_1').attr('src', $('#selShipWeapon1 option:selected').attr('data-path'));
+
+        var weapon_name = document.getElementById("selShipWeapon1").value;
+
+        // Get weapon 1 parameters
+        var ajax_request = "weapon_name=" + weapon_name;
+
+        $.ajax({
+            type: "GET",
+            url: "ajax/load_ship_modules.php",
+            data: ajax_request,
+            dataType: "json",
+            success: function(data) {
+                $('#txtWeapon1Type').val(data.type);
+                $('#txtWeapon1Damage').val(data.damage);
+                $('#txtWeapon1Ammunition').val(data.ammunition);
+                $('#txtWeapon1RechargeTime').val(data.recharge_time);
+                $('#txtWeapon1RangeOfFire').val(data.range_of_fire);
+                $('#txtWeapon1Weight').val(data.weight);
+                $('#txtWeapon1Cost').val(data.cost);
+                
+                weapon_1_type = data.type;
+                weapon_1_damage = data.damage;
+                weapon_1_ammunition = data.ammunition;
+                weapon_1_recharge_time = data.recharge_time;
+                weapon_1_range_of_fire = data.range_of_fire;
+                weapon_1_weight = data.weight;
+                weapon_1_cost = data.cost;
+
+                UpdateSpaceshipParameters();
+
+                return true;
+            },
+            error: function() { 
+                msg(errorText,"error",5000);
+
+                return false;
+            }	
+        });
+    }
+    else
+    {
+        // Weapon 1 cell is empty
+        
+        document.getElementById("ship_weapon_1_cell").className = "empty_module_background";
+        $('#ship_weapon_1').attr('src', "images/Icons/yes.png");
+        $('#txtWeapon1Type').val("");
+        $('#txtWeapon1Damage').val(0);
+        $('#txtWeapon1Ammunition').val(0);
+        $('#txtWeapon1RechargeTime').val(0);
+        $('#txtWeapon1RangeOfFire').val(0);
+        $('#txtWeapon1Weight').val(0);
+        $('#txtWeapon1Cost').val(0);
+        
+        weapon_1_type = "";
+        weapon_1_damage = 0;
+        weapon_1_ammunition = 0;
+        weapon_1_recharge_time = 0;
+        weapon_1_range_of_fire = 0;
+        weapon_1_weight = 0;
+        weapon_1_cost = 0;
+        
+        UpdateSpaceshipParameters();
+    }
+}
+
+function Weapon2Changed()
+{
+    // If weapon 2 was chosen
+    if (document.getElementById("selShipWeapon2").value != "")
+    {
+        // Change weapon 2 cell
+        document.getElementById("ship_weapon_2_cell").className = "module_background";
+
+        // Change weapon 2 picture
+        $('#ship_weapon_2').attr('src', $('#selShipWeapon2 option:selected').attr('data-path'));
+
+        var weapon_name = document.getElementById("selShipWeapon2").value;
+
+        // Get weapon 2 parameters
+        var ajax_request = "weapon_name=" + weapon_name;
+
+        $.ajax({
+            type: "GET",
+            url: "ajax/load_ship_modules.php",
+            data: ajax_request,
+            dataType: "json",
+            success: function(data) {
+                $('#txtWeapon2Type').val(data.type);
+                $('#txtWeapon2Damage').val(data.damage);
+                $('#txtWeapon2Ammunition').val(data.ammunition);
+                $('#txtWeapon2RechargeTime').val(data.recharge_time);
+                $('#txtWeapon2RangeOfFire').val(data.range_of_fire);
+                $('#txtWeapon2Weight').val(data.weight);
+                $('#txtWeapon2Cost').val(data.cost);
+                
+                weapon_2_type = data.type;
+                weapon_2_damage = data.damage;
+                weapon_2_ammunition = data.ammunition;
+                weapon_2_recharge_time = data.recharge_time;
+                weapon_2_range_of_fire = data.range_of_fire;
+                weapon_2_weight = data.weight;
+                weapon_2_cost = data.cost;
+
+                UpdateSpaceshipParameters();
+
+                return true;
+            },
+            error: function() { 
+                msg(errorText,"error",5000);
+
+                return false;
+            }	
+        });
+    }
+    else
+    {
+        // Weapon 2 cell is empty
+        
+        document.getElementById("ship_weapon_2_cell").className = "empty_module_background";
+        $('#ship_weapon_2').attr('src', "images/Icons/yes.png");
+        $('#txtWeapon2Type').val("");
+        $('#txtWeapon2Damage').val(0);
+        $('#txtWeapon2Ammunition').val(0);
+        $('#txtWeapon2RechargeTime').val(0);
+        $('#txtWeapon2RangeOfFire').val(0);
+        $('#txtWeapon2Weight').val(0);
+        $('#txtWeapon2Cost').val(0);
+        
+        weapon_2_type = "";
+        weapon_2_damage = 0;
+        weapon_2_ammunition = 0;
+        weapon_2_recharge_time = 0;
+        weapon_2_range_of_fire = 0;
+        weapon_2_weight = 0;
+        weapon_2_cost = 0;
+        
+        UpdateSpaceshipParameters();
+    }
+}
+function Weapon3Changed()
+{
+    // If weapon 3 was chosen
+    if (document.getElementById("selShipWeapon3").value != "")
+    {
+        // Change weapon 3 cell
+        document.getElementById("ship_weapon_3_cell").className = "module_background";
+
+        // Change weapon 3 picture
+        $('#ship_weapon_3').attr('src', $('#selShipWeapon3 option:selected').attr('data-path'));
+
+        var weapon_name = document.getElementById("selShipWeapon3").value;
+
+        // Get weapon 3 parameters
+        var ajax_request = "weapon_name=" + weapon_name;
+
+        $.ajax({
+            type: "GET",
+            url: "ajax/load_ship_modules.php",
+            data: ajax_request,
+            dataType: "json",
+            success: function(data) {
+                $('#txtWeapon3Type').val(data.type);
+                $('#txtWeapon3Damage').val(data.damage);
+                $('#txtWeapon3Ammunition').val(data.ammunition);
+                $('#txtWeapon3RechargeTime').val(data.recharge_time);
+                $('#txtWeapon3RangeOfFire').val(data.range_of_fire);
+                $('#txtWeapon3Weight').val(data.weight);
+                $('#txtWeapon3Cost').val(data.cost);
+                
+                weapon_3_type = data.type;
+                weapon_3_damage = data.damage;
+                weapon_3_ammunition = data.ammunition;
+                weapon_3_recharge_time = data.recharge_time;
+                weapon_3_range_of_fire = data.range_of_fire;
+                weapon_3_weight = data.weight;
+                weapon_3_cost = data.cost;
+
+                UpdateSpaceshipParameters();
+
+                return true;
+            },
+            error: function() { 
+                msg(errorText,"error",5000);
+
+                return false;
+            }	
+        });
+    }
+    else
+    {
+        // Weapon 3 cell is empty
+        
+        document.getElementById("ship_weapon_3_cell").className = "empty_module_background";
+        $('#ship_weapon_3').attr('src', "images/Icons/yes.png");
+        $('#txtWeapon3Type').val("");
+        $('#txtWeapon3Damage').val(0);
+        $('#txtWeapon3Ammunition').val(0);
+        $('#txtWeapon3RechargeTime').val(0);
+        $('#txtWeapon3RangeOfFire').val(0);
+        $('#txtWeapon3Weight').val(0);
+        $('#txtWeapon3Cost').val(0);
+        
+        weapon_3_type = "";
+        weapon_3_damage = 0;
+        weapon_3_ammunition = 0;
+        weapon_3_recharge_time = 0;
+        weapon_3_range_of_fire = 0;
+        weapon_3_weight = 0;
+        weapon_3_cost = 0;
+        
+        UpdateSpaceshipParameters();
+    }
+}
+function Weapon4Changed()
+{
+    // If weapon 4 was chosen
+    if (document.getElementById("selShipWeapon4").value != "")
+    {
+        // Change weapon 4 cell
+        document.getElementById("ship_weapon_4_cell").className = "module_background";
+
+        // Change weapon 4 picture
+        $('#ship_weapon_4').attr('src', $('#selShipWeapon4 option:selected').attr('data-path'));
+
+        var weapon_name = document.getElementById("selShipWeapon4").value;
+
+        // Get weapon 4 parameters
+        var ajax_request = "weapon_name=" + weapon_name;
+
+        $.ajax({
+            type: "GET",
+            url: "ajax/load_ship_modules.php",
+            data: ajax_request,
+            dataType: "json",
+            success: function(data) {
+                $('#txtWeapon4Type').val(data.type);
+                $('#txtWeapon4Damage').val(data.damage);
+                $('#txtWeapon4Ammunition').val(data.ammunition);
+                $('#txtWeapon4RechargeTime').val(data.recharge_time);
+                $('#txtWeapon4RangeOfFire').val(data.range_of_fire);
+                $('#txtWeapon4Weight').val(data.weight);
+                $('#txtWeapon4Cost').val(data.cost);
+                
+                weapon_4_type = data.type;
+                weapon_4_damage = data.damage;
+                weapon_4_ammunition = data.ammunition;
+                weapon_4_recharge_time = data.recharge_time;
+                weapon_4_range_of_fire = data.range_of_fire;
+                weapon_4_weight = data.weight;
+                weapon_4_cost = data.cost;
+
+                UpdateSpaceshipParameters();
+
+                return true;
+            },
+            error: function() { 
+                msg(errorText,"error",5000);
+
+                return false;
+            }	
+        });
+    }
+    else
+    {
+        // Weapon 4 cell is empty
+        
+        document.getElementById("ship_weapon_4_cell").className = "empty_module_background";
+        $('#ship_weapon_4').attr('src', "images/Icons/yes.png");
+        $('#txtWeapon4Type').val("");
+        $('#txtWeapon4Damage').val(0);
+        $('#txtWeapon4Ammunition').val(0);
+        $('#txtWeapon4RechargeTime').val(0);
+        $('#txtWeapon4RangeOfFire').val(0);
+        $('#txtWeapon4Weight').val(0);
+        $('#txtWeapon4Cost').val(0);
+        
+        weapon_4_type = "";
+        weapon_4_damage = 0;
+        weapon_4_ammunition = 0;
+        weapon_4_recharge_time = 0;
+        weapon_4_range_of_fire = 0;
+        weapon_4_weight = 0;
+        weapon_4_cost = 0;
+        
+        UpdateSpaceshipParameters();
+    }
+}
+function Weapon5Changed()
+{
+    // If weapon 5 was chosen
+    if (document.getElementById("selShipWeapon5").value != "")
+    {
+        // Change weapon 5 cell
+        document.getElementById("ship_weapon_5_cell").className = "module_background";
+
+        // Change weapon 5 picture
+        $('#ship_weapon_5').attr('src', $('#selShipWeapon5 option:selected').attr('data-path'));
+
+        var weapon_name = document.getElementById("selShipWeapon5").value;
+
+        // Get weapon 5 parameters
+        var ajax_request = "weapon_name=" + weapon_name;
+
+        $.ajax({
+            type: "GET",
+            url: "ajax/load_ship_modules.php",
+            data: ajax_request,
+            dataType: "json",
+            success: function(data) {
+                $('#txtWeapon5Type').val(data.type);
+                $('#txtWeapon5Damage').val(data.damage);
+                $('#txtWeapon5Ammunition').val(data.ammunition);
+                $('#txtWeapon5RechargeTime').val(data.recharge_time);
+                $('#txtWeapon5RangeOfFire').val(data.range_of_fire);
+                $('#txtWeapon5Weight').val(data.weight);
+                $('#txtWeapon5Cost').val(data.cost);
+                
+                weapon_5_type = data.type;
+                weapon_5_damage = data.damage;
+                weapon_5_ammunition = data.ammunition;
+                weapon_5_recharge_time = data.recharge_time;
+                weapon_5_range_of_fire = data.range_of_fire;
+                weapon_5_weight = data.weight;
+                weapon_5_cost = data.cost;
+
+                UpdateSpaceshipParameters();
+
+                return true;
+            },
+            error: function() { 
+                msg(errorText,"error",5000);
+
+                return false;
+            }	
+        });
+    }
+    else
+    {
+        // Weapon 5 cell is empty
+        
+        document.getElementById("ship_weapon_5_cell").className = "empty_module_background";
+        $('#ship_weapon_5').attr('src', "images/Icons/yes.png");
+        $('#txtWeapon5Type').val("");
+        $('#txtWeapon5Damage').val(0);
+        $('#txtWeapon5Ammunition').val(0);
+        $('#txtWeapon5RechargeTime').val(0);
+        $('#txtWeapon5RangeOfFire').val(0);
+        $('#txtWeapon5Weight').val(0);
+        $('#txtWeapon5Cost').val(0);
+        
+        weapon_5_type = "";
+        weapon_5_damage = 0;
+        weapon_5_ammunition = 0;
+        weapon_5_recharge_time = 0;
+        weapon_5_range_of_fire = 0;
+        weapon_5_weight = 0;
+        weapon_5_cost = 0;
         
         UpdateSpaceshipParameters();
     }

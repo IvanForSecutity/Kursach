@@ -1,7 +1,7 @@
 <?php
 
 // Ship registration function.
-function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid)
+function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid, $weapon_1, $weapon_2, $weapon_3, $weapon_4, $weapon_5)
 {
     // Initialize a variable with a possible error message
     $error = '';
@@ -21,8 +21,8 @@ function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $second
     
     // If there is no such ship - register it
     $sql = "INSERT INTO ships
-            (ship_name, owner, hull, engine, fuel_tank, secondary_engine, radar, repair_droid) VALUES
-            ('". $ship_name ."', '". $owner ."', '". $hull ."', '". $engine ."', '". $fuel_tank ."', '". $secondary_engine ."', '". $radar ."', '". $repair_droid ."');";
+            (ship_name, owner, hull, engine, fuel_tank, secondary_engine, radar, repair_droid, weapon_1, weapon_2, weapon_3, weapon_4, weapon_5) VALUES
+            ('". $ship_name ."', '". $owner ."', '". $hull ."', '". $engine ."', '". $fuel_tank ."', '". $secondary_engine ."', '". $radar ."', '". $repair_droid ."', '". $weapon_1 ."', '". $weapon_2 ."', '". $weapon_3 ."', '". $weapon_4 ."', '". $weapon_5 ."');";
 
     // Execute query
     mysqli_query($link, $sql);
@@ -86,7 +86,7 @@ function loadHulls()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name` FROM `hulls`";
+    $sql = "SELECT `name`, `image` FROM `hulls`";
     $result = mysqli_query($link, $sql);
     $hulls = array();
     while ($cur_hull = mysqli_fetch_assoc($result))
@@ -104,7 +104,7 @@ function loadEngines()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name` FROM `engines`";
+    $sql = "SELECT `name`, `image` FROM `engines`";
     $result = mysqli_query($link, $sql);
     $engines = array();
     while ($cur_engine = mysqli_fetch_assoc($result))
@@ -122,7 +122,7 @@ function loadFuelTanks()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name` FROM `fuel_tanks`";
+    $sql = "SELECT `name`, `image` FROM `fuel_tanks`";
     $result = mysqli_query($link, $sql);
     $fuel_tanks = array();
     while ($cur_fuel_tank = mysqli_fetch_assoc($result))
@@ -140,7 +140,7 @@ function loadSecondaryEngines()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name` FROM `secondary_engines`";
+    $sql = "SELECT `name`, `image` FROM `secondary_engines`";
     $result = mysqli_query($link, $sql);
     $secondary_engines = array();
     while ($cur_secondary_engine = mysqli_fetch_assoc($result))
@@ -158,7 +158,7 @@ function loadRadars()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name` FROM `radars`";
+    $sql = "SELECT `name`, `image` FROM `radars`";
     $result = mysqli_query($link, $sql);
     $radars = array();
     while ($cur_radar = mysqli_fetch_assoc($result))
@@ -176,7 +176,7 @@ function loadRepairDroids()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name` FROM `repair_droids`";
+    $sql = "SELECT `name`, `image` FROM `repair_droids`";
     $result = mysqli_query($link, $sql);
     $repair_droids = array();
     while ($cur_repair_droid = mysqli_fetch_assoc($result))
@@ -188,6 +188,25 @@ function loadRepairDroids()
     
     return $repair_droids;
 }
+
+// Load all weapons.
+function loadWeapons()
+{
+    // Connect to DB
+    $link = connect();
+    $sql = "SELECT `name`, `image` FROM `weapons`";
+    $result = mysqli_query($link, $sql);
+    $weapons = array();
+    while ($cur_weapon = mysqli_fetch_assoc($result))
+    {
+        $weapons[] = $cur_weapon;
+    }
+
+    mysqli_close($link);
+    
+    return $weapons;
+}
+
 
 // Get our ship.
 function loadCurrentShip($ship_name)
@@ -299,5 +318,21 @@ function loadShipRepairDroid($repair_droid_name)
     mysqli_close($link);
     
     return $repair_droid;
+}
+
+// Get ship weapon.
+function loadShipWeapon($weapon_name)
+{
+    // Connect to DB
+    $link = connect();
+
+    // Hull
+    $sql = "SELECT * FROM `weapons` WHERE `name`='".$weapon_name."'";
+    $result = mysqli_query($link, $sql);
+    $weapon = mysqli_fetch_assoc($result);
+
+    mysqli_close($link);
+    
+    return $weapon;
 }
 ?>

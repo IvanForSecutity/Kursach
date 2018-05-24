@@ -4,8 +4,6 @@
 // Result saves in database in table "ships".
 //
 
-// TODO: Вынести расчет параметров в отдельную функцию, а то он в 3 местах повторяется
-
 // Start the session, from which we will retrieve login and session hash
 session_start();
 
@@ -55,6 +53,11 @@ if(isset($_POST['btnStart']))
         $fuel_tank = NULL;
         $radar = NULL;
         $repair_droid = NULL;
+        $weapon_1 = NULL;
+        $weapon_2 = NULL;
+        $weapon_3 = NULL;
+        $weapon_4 = NULL;
+        $weapon_5 = NULL;
         
         if(isset($_POST['selShipEngine']))
         {
@@ -81,9 +84,34 @@ if(isset($_POST['btnStart']))
             // Repair droid
             $repair_droid = $_POST['selShipRepairDroid'];
         }
+        if(isset($_POST['selShipWeapon1']))
+        {
+            // Weapon 1
+            $weapon_1 = $_POST['selShipWeapon1'];
+        }
+        if(isset($_POST['selShipWeapon2']))
+        {
+            // Weapon 2
+            $weapon_2 = $_POST['selShipWeapon2'];
+        }
+        if(isset($_POST['selShipWeapon3']))
+        {
+            // Weapon 3
+            $weapon_3 = $_POST['selShipWeapon3'];
+        }
+        if(isset($_POST['selShipWeapon4']))
+        {
+            // Weapon 4
+            $weapon_4 = $_POST['selShipWeapon4'];
+        }
+        if(isset($_POST['selShipWeapon5']))
+        {
+            // Weapon 5
+            $weapon_5 = $_POST['selShipWeapon5'];
+        }
 
         // Call the registration function
-        $reg = registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid);
+        $reg = registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid, $weapon_1, $weapon_2, $weapon_3, $weapon_4, $weapon_5);
 
         // If ship successfully registered, inform the user
         if($reg === true)
@@ -121,6 +149,7 @@ $fuel_tanks = loadFuelTanks();
 $secondary_engines = loadSecondaryEngines();
 $radars = loadRadars();
 $repair_droids = loadRepairDroids();
+$weapons = loadWeapons();
 ?>
 
 <html>
@@ -159,7 +188,7 @@ $repair_droids = loadRepairDroids();
                     <select id="selShipHull" name="selShipHull" class="select-multi" size="1" onchange="HullChanged()">
                         <option value=""> </option>
                         <?php foreach ($hulls as $cur_hull) : ?>
-                            <option data-path="images/Hulls/<?= $cur_hull['name']?>/1.png" value="<?= $cur_hull['name']?>" <?= (isset($selShipHull) && $selShipHull == $cur_hull['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_hull['name']?> </option>
+                            <option data-path="<?= $cur_hull['image']?>1.png" value="<?= $cur_hull['name']?>"> <?= $cur_hull['name']?> </option>
                         <?php endforeach ?>
                     </select>
                     <br>
@@ -167,7 +196,7 @@ $repair_droids = loadRepairDroids();
                     <select id="selShipEngine" name="selShipEngine" class="select-multi" size="1" onchange="EngineChanged()" disabled="true">
                         <option value=""> </option>
                         <?php foreach ($engines as $cur_engine) : ?>
-                            <option data-path="images/Engines/<?= $cur_engine['name']?>/1.png" value="<?= $cur_engine['name']?>" <?= (isset($selShipEngine) && $selShipEngine == $cur_engine['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_engine['name']?> </option>
+                            <option data-path="<?= $cur_engine['image']?>1.png" value="<?= $cur_engine['name']?>"> <?= $cur_engine['name']?> </option>
                         <?php endforeach ?>
                     </select>
                     <br/>
@@ -175,7 +204,7 @@ $repair_droids = loadRepairDroids();
                     <select id="selShipSecondaryEngine" name="selShipSecondaryEngine" class="select-multi" size="1" onchange="SecondaryEngineChanged()" disabled="true">
                         <option value=""> </option>
                         <?php foreach ($secondary_engines as $cur_secondary_engine) : ?>
-                            <option data-path="images/Secondary engines/<?= $cur_secondary_engine['name']?>/1.png" value="<?= $cur_secondary_engine['name']?>" <?= (isset($selShipSecondaryEngine) && $selShipSecondaryEngine == $cur_secondary_engine['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_secondary_engine['name']?> </option>
+                            <option data-path="<?= $cur_secondary_engine['image']?>1.png" value="<?= $cur_secondary_engine['name']?>"> <?= $cur_secondary_engine['name']?> </option>
                         <?php endforeach ?>
                     </select>
                     <br/>
@@ -183,7 +212,7 @@ $repair_droids = loadRepairDroids();
                     <select id="selShipFuelTank" name="selShipFuelTank" class="select-multi" size="1" onchange="FuelTankChanged()" disabled="true">
                         <option value=""> </option>
                         <?php foreach ($fuel_tanks as $cur_fuel_tank) : ?>
-                            <option data-path="images/Fuel tanks/<?= $cur_fuel_tank['name']?>/1.png" value="<?= $cur_fuel_tank['name']?>" <?= (isset($selShipFuelTank) && $selShipFuelTank == $cur_fuel_tank['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_fuel_tank['name']?> </option>
+                            <option data-path="<?= $cur_fuel_tank['image']?>1.png" value="<?= $cur_fuel_tank['name']?>"> <?= $cur_fuel_tank['name']?> </option>
                         <?php endforeach ?>
                     </select>
                     <br/>
@@ -191,7 +220,7 @@ $repair_droids = loadRepairDroids();
                     <select id="selShipRadar" name="selShipRadar" class="select-multi" size="1" onchange="RadarChanged()" disabled="true">
                         <option value=""> </option>
                         <?php foreach ($radars as $cur_radar) : ?>
-                            <option data-path="images/Radars/<?= $cur_radar['name']?>/1.png" value="<?= $cur_radar['name']?>" <?= (isset($selShipRadar) && $selShipRadar == $cur_radar['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_radar['name']?> </option>
+                            <option data-path="<?= $cur_radar['image']?>1.png" value="<?= $cur_radar['name']?>"> <?= $cur_radar['name']?> </option>
                         <?php endforeach ?>
                     </select>
                     <br/>
@@ -199,7 +228,47 @@ $repair_droids = loadRepairDroids();
                     <select id="selShipRepairDroid" name="selShipRepairDroid" class="select-multi" size="1" onchange="RepairDroidChanged()" disabled="true">
                         <option value=""> </option>
                         <?php foreach ($repair_droids as $cur_repair_droid) : ?>
-                            <option data-path="images/Repair droids/<?= $cur_repair_droid['name']?>/1.png" value="<?= $cur_repair_droid['name']?>" <?= (isset($selShipRepairDroid) && $selShipRepairDroid == $cur_repair_droid['name']) ? " selected=\"selected\"" : "" ?>> <?= $cur_repair_droid['name']?> </option>
+                            <option data-path="<?= $cur_repair_droid['image']?>1.png" value="<?= $cur_repair_droid['name']?>"> <?= $cur_repair_droid['name']?> </option>
+                        <?php endforeach ?>
+                    </select>
+                    <br/>
+                    Weapon 1:
+                    <select id="selShipWeapon1" name="selShipWeapon1" class="select-multi" size="1" onchange="Weapon1Changed()" disabled="true">
+                        <option value=""> </option>
+                        <?php foreach ($weapons as $cur_weapon) : ?>
+                            <option data-path="<?= $cur_weapon['image']?>1.png" value="<?= $cur_weapon['name']?>"> <?= $cur_weapon['name']?> </option>
+                        <?php endforeach ?>
+                    </select>
+                    <br/>
+                    Weapon 2:
+                    <select id="selShipWeapon2" name="selShipWeapon2" class="select-multi" size="1" onchange="Weapon2Changed()" disabled="true">
+                        <option value=""> </option>
+                        <?php foreach ($weapons as $cur_weapon) : ?>
+                            <option data-path="<?= $cur_weapon['image']?>1.png" value="<?= $cur_weapon['name']?>"> <?= $cur_weapon['name']?> </option>
+                        <?php endforeach ?>
+                    </select>
+                    <br/>
+                    Weapon 3:
+                    <select id="selShipWeapon3" name="selShipWeapon3" class="select-multi" size="1" onchange="Weapon3Changed()" disabled="true">
+                        <option value=""> </option>
+                        <?php foreach ($weapons as $cur_weapon) : ?>
+                            <option data-path="<?= $cur_weapon['image']?>1.png" value="<?= $cur_weapon['name']?>"> <?= $cur_weapon['name']?> </option>
+                        <?php endforeach ?>
+                    </select>
+                    <br/>
+                    Weapon 4:
+                    <select id="selShipWeapon4" name="selShipWeapon4" class="select-multi" size="1" onchange="Weapon4Changed()" disabled="true">
+                        <option value=""> </option>
+                        <?php foreach ($weapons as $cur_weapon) : ?>
+                            <option data-path="<?= $cur_weapon['image']?>1.png" value="<?= $cur_weapon['name']?>"> <?= $cur_weapon['name']?> </option>
+                        <?php endforeach ?>
+                    </select>
+                    <br/>
+                    Weapon 5:
+                    <select id="selShipWeapon5" name="selShipWeapon5" class="select-multi" size="1" onchange="Weapon5Changed()" disabled="true">
+                        <option value=""> </option>
+                        <?php foreach ($weapons as $cur_weapon) : ?>
+                            <option data-path="<?= $cur_weapon['image']?>1.png" value="<?= $cur_weapon['name']?>"> <?= $cur_weapon['name']?> </option>
                         <?php endforeach ?>
                     </select>
                     <br/>
@@ -212,11 +281,31 @@ $repair_droids = loadRepairDroids();
                             </div>
                         </a>
 
-                        <a href='#' class='deg250'> <img src="images/stub.jpg"> </a>
-                        <a href='#' class='deg270'> <img src="images/stub.jpg"> </a>
-                        <a href='#' class='deg290'> <img src="images/stub.jpg"> </a>
-                        <a href='#' class='deg260'> <img src="images/stub.jpg"> </a>
-                        <a href='#' class='deg280'> <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg250'>
+                            <div id="ship_weapon_1_cell" class="blocked_module_background">
+                                <img id="ship_weapon_1" src="images/Icons/no.png" class="module_image"> 
+                            </div>
+                        </a>
+                        <a href='#' class='deg270'>
+                            <div id="ship_weapon_2_cell" class="blocked_module_background">
+                                <img id="ship_weapon_2" src="images/Icons/no.png" class="module_image"> 
+                            </div>
+                        </a>
+                        <a href='#' class='deg290'>
+                            <div id="ship_weapon_3_cell" class="blocked_module_background">
+                                <img id="ship_weapon_3" src="images/Icons/no.png" class="module_image"> 
+                            </div>
+                        </a>
+                        <a href='#' class='deg260'>
+                            <div id="ship_weapon_4_cell" class="blocked_module_background">
+                                <img id="ship_weapon_4" src="images/Icons/no.png" class="module_image"> 
+                            </div>
+                        </a>
+                        <a href='#' class='deg280'>
+                            <div id="ship_weapon_5_cell" class="blocked_module_background">
+                                <img id="ship_weapon_5" src="images/Icons/no.png" class="module_image"> 
+                            </div>
+                        </a>
 
                         <a href='#' class='deg330'>
                             <div id="ship_radar_cell" class="blocked_module_background">
@@ -317,6 +406,57 @@ $repair_droids = loadRepairDroids();
                         <input type="hidden" id="txtRepairDroidHealthRecovery" value="0" readonly="true">
                         <input type="hidden" id="txtRepairDroidWeight" value="0" readonly="true">
                         <input type="hidden" id="txtRepairDroidCost" value="0" readonly="true">
+                        <br/>
+                    </div>
+                    <br/>
+                    <div id="Weapon1Parameters">
+                        <input type="hidden" id="txtWeapon1Type" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon1Damage" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon1Ammunition" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon1RechargeTime" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon1RangeOfFire" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon1Weight" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon1Cost" value="0" readonly="true">
+                        <br/>
+                    </div>
+                    <div id="Weapon2Parameters">
+                        <input type="hidden" id="txtWeapon2Type" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon2Damage" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon2Ammunition" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon2RechargeTime" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon2RangeOfFire" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon2Weight" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon2Cost" value="0" readonly="true">
+                        <br/>
+                    </div>
+                    <div id="Weapon3Parameters">
+                        <input type="hidden" id="txtWeapon3Type" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon3Damage" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon3Ammunition" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon3RechargeTime" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon3RangeOfFire" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon3Weight" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon3Cost" value="0" readonly="true">
+                        <br/>
+                    </div>
+                    <div id="Weapon4Parameters">
+                        <input type="hidden" id="txtWeapon4Type" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon4Damage" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon4Ammunition" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon4RechargeTime" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon4RangeOfFire" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon4Weight" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon4Cost" value="0" readonly="true">
+                        <br/>
+                    </div>
+                    <div id="Weapon5Parameters">
+                        <input type="hidden" id="txtWeapon5Type" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon5Damage" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon5Ammunition" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon5RechargeTime" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon5RangeOfFire" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon5Weight" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon5Cost" value="0" readonly="true">
                         <br/>
                     </div>
                     <br/>
