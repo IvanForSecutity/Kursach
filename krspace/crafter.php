@@ -126,7 +126,7 @@ $repair_droids = loadRepairDroids();
 <html>
     <head>
         <title>Spaceship smithy</title>
-        <link rel="stylesheet" href="style/my_style.css">
+        <link rel="stylesheet" href="style/page_style.css">
         <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
         <script type="text/javascript" src="js/jq_select.js"></script>
     </head>
@@ -208,7 +208,7 @@ $repair_droids = loadRepairDroids();
                     <div class='circle-container'>
                         <c href='#' class='center'>
                             <div id="ship_hull_cell" class="empty_hull_background">
-                                <img id="ship_hull" src="images/Icons/ok.png" class="hull_image">
+                                <img id="ship_hull" src="images/Icons/yes.png" class="hull_image">
                             </div>
                         </a>
 
@@ -220,7 +220,7 @@ $repair_droids = loadRepairDroids();
 
                         <a href='#' class='deg330'>
                             <div id="ship_radar_cell" class="blocked_module_background">
-                                <img id="ship_radar" src="images/Icons/delete.png" class="module_image"> 
+                                <img id="ship_radar" src="images/Icons/no.png" class="module_image"> 
                             </div>
                         </a>
                         <a href='#' class='deg30'>  <img src="images/stub.jpg"> </a>
@@ -229,23 +229,23 @@ $repair_droids = loadRepairDroids();
                         <a href='#' class='deg90'>  <img src="images/stub.jpg"> </a>
                         <a href='#' class='deg110'>
                             <div id="ship_repair_droid_cell" class="blocked_module_background">
-                                <img id="ship_repair_droid" src="images/Icons/delete.png" class="module_image"> 
+                                <img id="ship_repair_droid" src="images/Icons/no.png" class="module_image"> 
                             </div>
                         </a>
                         
                         <a href='#' class='deg150'>
                             <div id="ship_fuel_tank_cell" class="blocked_module_background">
-                                <img id="ship_fuel_tank" src="images/Icons/delete.png" class="module_image"> 
+                                <img id="ship_fuel_tank" src="images/Icons/no.png" class="module_image"> 
                             </div>
                         </a>
                         <a href='#' class='deg180'>
                             <div id="ship_secondary_engine_cell" class="blocked_module_background">
-                                <img id="ship_secondary_engine" src="images/Icons/delete.png" class="module_image"> 
+                                <img id="ship_secondary_engine" src="images/Icons/no.png" class="module_image"> 
                             </div>
                         </a>
                         <a href='#' class='deg210'>
                             <div id="ship_engine_cell" class="blocked_module_background">
-                                <img id="ship_engine" src="images/Icons/delete.png" class="module_image"> 
+                                <img id="ship_engine" src="images/Icons/no.png" class="module_image"> 
                             </div>
                         </a>
                     </div> 

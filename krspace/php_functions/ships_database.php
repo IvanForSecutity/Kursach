@@ -56,13 +56,12 @@ function deleteShip($ship_name)
     
     // If there is such ship - delete it
     $sql = "DELETE FROM `ships` WHERE `ship_name`='" . $ship_name . "'";
-    
     // Execute query
     mysqli_query($link, $sql);
 
     mysqli_close($link);
     
-    // Return the value true, indicating successful ship registration
+    // Return the value true, indicating successful ship deletion
     return true;
 }
 

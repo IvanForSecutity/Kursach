@@ -77,61 +77,61 @@ function ApplyModulesBitmask(modules_bitmask)
     {
         document.getElementById("selShipEngine").disabled = false;
         document.getElementById("ship_engine_cell").className = "empty_module_background";
-        $('#ship_engine').attr('src', "images/Icons/ok.png");
+        $('#ship_engine').attr('src', "images/Icons/yes.png");
     }
     else
     {
         document.getElementById("selShipEngine").disabled = true;
         document.getElementById("ship_engine_cell").className = "blocked_module_background";
-        $('#ship_engine').attr('src', "images/Icons/delete.png");
+        $('#ship_engine').attr('src', "images/Icons/no.png");
     }
     if((modules_bitmask & ModulesEnum.secondary_engine) != 0)
     {
         document.getElementById("selShipSecondaryEngine").disabled = false;
         document.getElementById("ship_secondary_engine_cell").className = "empty_module_background";
-        $('#ship_secondary_engine').attr('src', "images/Icons/ok.png");
+        $('#ship_secondary_engine').attr('src', "images/Icons/yes.png");
     }
     else
     {
         document.getElementById("selShipSecondaryEngine").disabled = true;
         document.getElementById("ship_secondary_engine_cell").className = "blocked_module_background";
-        $('#ship_secondary_engine').attr('src', "images/Icons/delete.png");
+        $('#ship_secondary_engine').attr('src', "images/Icons/no.png");
     }
     if((modules_bitmask & ModulesEnum.fuel_tank) != 0)
     {
         document.getElementById("selShipFuelTank").disabled = false;
         document.getElementById("ship_fuel_tank_cell").className = "empty_module_background";
-        $('#ship_fuel_tank').attr('src', "images/Icons/ok.png");
+        $('#ship_fuel_tank').attr('src', "images/Icons/yes.png");
     }
     else
     {
         document.getElementById("selShipFuelTank").disabled = true;
         document.getElementById("ship_fuel_tank_cell").className = "blocked_module_background";
-        $('#ship_fuel_tank').attr('src', "images/Icons/delete.png");
+        $('#ship_fuel_tank').attr('src', "images/Icons/no.png");
     }
     if((modules_bitmask & ModulesEnum.radar) != 0)
     {
         document.getElementById("selShipRadar").disabled = false;
         document.getElementById("ship_radar_cell").className = "empty_module_background";
-        $('#ship_radar').attr('src', "images/Icons/ok.png");
+        $('#ship_radar').attr('src', "images/Icons/yes.png");
     }
     else
     {
         document.getElementById("selShipRadar").disabled = true;
         document.getElementById("ship_radar_cell").className = "blocked_module_background";
-        $('#ship_radar').attr('src', "images/Icons/delete.png");
+        $('#ship_radar').attr('src', "images/Icons/no.png");
     }
     if((modules_bitmask & ModulesEnum.repair_droid) != 0)
     {
         document.getElementById("selShipRepairDroid").disabled = false;
         document.getElementById("ship_repair_droid_cell").className = "empty_module_background";
-        $('#ship_repair_droid').attr('src', "images/Icons/ok.png");
+        $('#ship_repair_droid').attr('src', "images/Icons/yes.png");
     }
     else
     {
         document.getElementById("selShipRepairDroid").disabled = true;
         document.getElementById("ship_repair_droid_cell").className = "blocked_module_background";
-        $('#ship_repair_droid').attr('src', "images/Icons/delete.png");
+        $('#ship_repair_droid').attr('src', "images/Icons/no.png");
     }
 }
 
@@ -213,7 +213,7 @@ function HullChanged()
         // Hull cell is empty
 
         document.getElementById("ship_hull_cell").className = "empty_hull_background";
-        $('#ship_hull').attr('src', "images/Icons/ok.png");
+        $('#ship_hull').attr('src', "images/Icons/yes.png");
         $('#txtHullHp').val(0);
         $('#txtHullManeuverability').val(0);
         $('#txtHullCapacity').val(0);
@@ -277,7 +277,7 @@ function EngineChanged()
         // Engine cell is empty
         
         document.getElementById("ship_engine_cell").className = "empty_module_background";
-        $('#ship_engine').attr('src', "images/Icons/ok.png");
+        $('#ship_engine').attr('src', "images/Icons/yes.png");
         $('#txtEngineSpeed').val(0);
         $('#txtEngineWeight').val(0);
         $('#txtEngineCost').val(0);
@@ -336,7 +336,7 @@ function SecondaryEngineChanged()
         // Secondary engine cell is empty
         
         document.getElementById("ship_secondary_engine_cell").className = "empty_module_background";
-        $('#ship_secondary_engine').attr('src', "images/Icons/ok.png");
+        $('#ship_secondary_engine').attr('src', "images/Icons/yes.png");
         $('#txtSecondaryEngineManeuverability').val(0);
         $('#txtSecondaryEngineWeight').val(0);
         $('#txtSecondaryEngineCost').val(0);
@@ -395,7 +395,7 @@ function FuelTankChanged()
         // Fuel tank cell is empty
         
         document.getElementById("ship_fuel_tank_cell").className = "empty_module_background";
-        $('#ship_fuel_tank').attr('src', "images/Icons/ok.png");
+        $('#ship_fuel_tank').attr('src', "images/Icons/yes.png");
         $('#txtFuelTankVolume').val(0);
         $('#txtFuelTankWeight').val(0);
         $('#txtFuelTankCost').val(0);
@@ -454,7 +454,7 @@ function RadarChanged()
         // Radar cell is empty
         
         document.getElementById("ship_radar_cell").className = "empty_module_background";
-        $('#ship_radar').attr('src', "images/Icons/ok.png");
+        $('#ship_radar').attr('src', "images/Icons/yes.png");
         $('#txtRadarActionRadius').val(0);
         $('#txtRadarWeight').val(0);
         $('#txtRadarCost').val(0);
@@ -513,7 +513,7 @@ function RepairDroidChanged()
         // Repair droid cell is empty
         
         document.getElementById("ship_repair_droid_cell").className = "empty_module_background";
-        $('#ship_repair_droid').attr('src', "images/Icons/ok.png");
+        $('#ship_repair_droid').attr('src', "images/Icons/yes.png");
         $('#txtRepairDroidHealthRecovery').val(0);
         $('#txtRepairDroidWeight').val(0);
         $('#txtRepairDroidCost').val(0);

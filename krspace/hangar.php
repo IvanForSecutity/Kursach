@@ -52,7 +52,7 @@ foreach ($ships as $cur_ship)
 <html>
     <head>
         <title>Hangar</title>
-        <link rel="stylesheet" href="style/my_style.css">
+        <link rel="stylesheet" href="style/page_style.css">
     </head>
     <body>
         <table  class="two_columns" cellspacing="0">
@@ -81,7 +81,7 @@ foreach ($ships as $cur_ship)
                                 <p> <input type="radio" name="rbtnAvailableShips" value="<?= $cur_ship['ship_name']?>" id="<?= $cur_ship['ship_name']?>"/> <label for="<?= $cur_ship['ship_name']?>"> <?= $cur_ship['ship_name']?> </label> </p>
                             </td>
                             <td>
-                                <button type="submit" name="<?= $cur_ship['ship_name']?>" class="input_image"><img src="images\Icons\delete.png" weight="20px" height="20px"></button>
+                                <button type="submit" name="<?= $cur_ship['ship_name']?>" class="input_image"><img src="images\Icons\no.png" weight="20px" height="20px"></button>
                             </td>
                         </tr>
                     <?php endforeach ?>

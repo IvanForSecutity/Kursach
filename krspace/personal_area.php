@@ -20,7 +20,7 @@ $reg_date = getUserRegDate($login);
 <html>
     <head>
         <title>Personal Area</title>
-        <link rel="stylesheet" href="style/my_style.css">
+        <link rel="stylesheet" href="style/page_style.css">
     </head>
     <body>
         <table  class="two_columns" cellspacing="0">

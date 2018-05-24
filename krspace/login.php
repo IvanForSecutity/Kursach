@@ -40,7 +40,7 @@ if(isset($_POST['btnReg']))
 
 <html>
     <head>
-        <link rel="stylesheet" href="style/my_style.css">
+        <link rel="stylesheet" href="style/page_style.css">
         <title>Authorisation</title>
     </head>
     <body>

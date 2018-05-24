@@ -55,7 +55,7 @@ if(isset($_POST['btnSignUp']))
 <html>
     <head>
         <title>Registration</title>
-        <link rel="stylesheet" href="style/my_style.css">
+        <link rel="stylesheet" href="style/page_style.css">
     </head>
     <body>
         <div style="align-content: center; text-align: center; margin-top: 10em">

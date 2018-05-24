@@ -112,7 +112,7 @@ $cost = $hull_cost + $engine_cost + $fuel_tank_cost + $secondary_engine_cost + $
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style/my_style.css">
+        <link rel="stylesheet" href="style/page_style.css">
         <link rel="stylesheet" href="style/game_style.css">
         <title>Spaceship test</title>
     </head>
