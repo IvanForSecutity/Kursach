@@ -3,8 +3,6 @@
 // Authorization verification script.
 //
 
-// TODO: Спрятать данные страницы от всех, кроме рута!
-
 require_once('php_functions/functions.php');
 
 // To determine whether the user is authorized,

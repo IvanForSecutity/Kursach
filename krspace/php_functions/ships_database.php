@@ -1,7 +1,5 @@
 <?php
 
-// TODO: Спрятать данные страницы от всех, кроме рута!
-
 // Ship registration function.
 function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid)
 {

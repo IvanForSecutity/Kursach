@@ -1,7 +1,5 @@
 <?php
 
-// TODO: Спрятать данные страницы от всех, кроме рута!
-
 // Generating random hash
 function randHash($len=32)
 {

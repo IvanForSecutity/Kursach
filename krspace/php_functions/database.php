@@ -6,8 +6,6 @@
 // The function is intended to be used, basically, with one database
 //
 
-// TODO: Спрятать данные страницы от всех, кроме рута!
-
 function connect()
 {
     // Declare the variables in which the parameters for connecting to the DB will be stored
