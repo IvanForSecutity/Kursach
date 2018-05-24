@@ -278,4 +278,39 @@ function getUserRegDate($login)
 
     return $reg_date;
 }
+
+// Delete user account.
+function deleteUser($login)
+{
+    // Initialize a variable with a possible error message
+    $error = '';
+    
+    // Connect to DB
+    $link = connect();
+    
+    $sql = "SELECT `id` FROM `users` WHERE `login`='" . $login . "'";
+    // Execute query
+    $query = mysqli_query($link, $sql);
+    // If there is no such user - return an error message
+    if(mysqli_num_rows($query) == 0)
+    {
+        $error = 'No such user';
+        return $error;
+    }
+    
+    // If there is such user - delete it
+    $sql = "DELETE FROM `users` WHERE `login`='" . $login . "'";
+    // Execute query
+    mysqli_query($link, $sql);
+    
+    // Delete user's ships
+    $sql = "DELETE FROM `ships` WHERE `owner`='" . $login . "'";
+    // Execute query
+    mysqli_query($link, $sql);
+
+    mysqli_close($link);
+    
+    // Return the value true, indicating successful user deletion
+    return true;
+}
 ?>

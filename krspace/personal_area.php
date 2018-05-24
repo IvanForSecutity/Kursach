@@ -15,6 +15,13 @@ require_once('php_functions/check_session.php');
 // Load user's data
 $login = $_SESSION['login'];
 $reg_date = getUserRegDate($login);
+
+// Check if delete button was pressed
+if(isset($_POST['btnDeleteAccount']))
+{
+    deleteUser($login);
+    header('location: logout.php');
+}
 ?>
 
 <html>
@@ -61,6 +68,8 @@ $reg_date = getUserRegDate($login);
                     </tr>
                 </table>
                 <br/>
+
+                <input type="submit" name="btnDeleteAccount" value="Delete account" style="margin-top: 0.2em" ><br>
             </form>
         </div>
     </body>
