@@ -7,7 +7,7 @@ require_once('php_functions/functions.php');
 
 // Initialize variables for possible errors
 $errors = array();
-$errors['full_error'] = '';
+$errors['reg_error'] = '';
 
 if(isset($_POST['btnSignUp']))
 {
@@ -31,7 +31,7 @@ if(isset($_POST['btnSignUp']))
     // Otherwise, we inform the user of an error
     else
     {
-        $errors['full_error'] = $reg;
+        $errors['reg_error'] = $reg;
     }
 }
 ?>
@@ -76,8 +76,8 @@ if(isset($_POST['btnSignUp']))
         </div>
         <!-- Block for displaying error messages -->
         <div style="align-content: center; text-align: center;">
-            <div id="full_error" class="error" style="display: <?php echo $errors['full_error'] ? 'inline-block' : 'none'; ?>;">
-                <?php echo $errors['full_error'] ? $errors['full_error'] : ''; ?>
+            <div id="reg_error" class="error" style="display: <?php echo $errors['reg_error'] ? 'inline-block' : 'none'; ?>;">
+                <?php echo $errors['reg_error'] ? $errors['reg_error'] : ''; ?>
             </div>
         </div>
     </body>

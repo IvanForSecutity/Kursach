@@ -16,131 +16,113 @@ require_once('php_functions/check_session.php');
 // Connect the file with the connection parameters to the ships DB
 require_once('php_functions/ships_database.php');
 
-function validateShip()
-{
-    // Player should choose ship name
-    if(!$_POST['txtShipName'])
-    {
-        $message = '<p>You should choose ship name!</p>';
-        print $message;
-        return false;
-    }
+// Initialize variables for possible errors
+$errors = array();
+$errors['reg_error'] = '';
 
-    // Player should choose ship hull
-    if(!$_POST['selShipHull'])
-    {
-        $message = '<p>You should choose ship hull!</p>';
-        print $message;
-        return false;
-    }
-
-    return true;
-}
+// Initialization
+$txtShipName = "";
 
 // If game starts
 if(isset($_POST['btnStart']))
 {
-    if (validateShip())
+    $ship_name = $_POST['txtShipName'];
+    $txtShipName = $_POST['txtShipName'];
+    
+    $owner = $_SESSION['login'];
+
+    // Hull
+    $hull = $_POST['selShipHull'];
+        
+    $engine = NULL;
+    $secondary_engine = NULL;
+    $fuel_tank = NULL;
+    $radar = NULL;
+    $repair_droid = NULL;
+    $weapon_1 = NULL;
+    $weapon_2 = NULL;
+    $weapon_3 = NULL;
+    $weapon_4 = NULL;
+    $weapon_5 = NULL;
+        
+    if(isset($_POST['selShipEngine']))
     {
-        $ship_name = $_POST['txtShipName'];
-        $owner = $_SESSION['login'];
+        // Engine
+        $engine = $_POST['selShipEngine'];
+    }
+    if(isset($_POST['selShipSecondaryEngine']))
+    {
+        // Secondary engine
+        $secondary_engine = $_POST['selShipSecondaryEngine'];
+    }
+    if(isset($_POST['selShipFuelTank']))
+    {
+        // Fuel tank
+        $fuel_tank = $_POST['selShipFuelTank'];
+    }
+    if(isset($_POST['selShipRadar']))
+    {
+        // Radar
+        $radar = $_POST['selShipRadar'];
+    }
+    if(isset($_POST['selShipRepairDroid']))
+    {
+        // Repair droid
+        $repair_droid = $_POST['selShipRepairDroid'];
+    }
+    if(isset($_POST['selShipWeapon1']))
+    {
+        // Weapon 1
+        $weapon_1 = $_POST['selShipWeapon1'];
+    }
+    if(isset($_POST['selShipWeapon2']))
+    {
+        // Weapon 2
+        $weapon_2 = $_POST['selShipWeapon2'];
+    }
+    if(isset($_POST['selShipWeapon3']))
+    {
+        // Weapon 3
+        $weapon_3 = $_POST['selShipWeapon3'];
+    }
+    if(isset($_POST['selShipWeapon4']))
+    {
+        // Weapon 4
+        $weapon_4 = $_POST['selShipWeapon4'];
+    }
+    if(isset($_POST['selShipWeapon5']))
+    {
+        // Weapon 5
+        $weapon_5 = $_POST['selShipWeapon5'];
+    }
 
-        // Hull
-        $hull = $_POST['selShipHull'];
-        
-        $engine = NULL;
-        $secondary_engine = NULL;
-        $fuel_tank = NULL;
-        $radar = NULL;
-        $repair_droid = NULL;
-        $weapon_1 = NULL;
-        $weapon_2 = NULL;
-        $weapon_3 = NULL;
-        $weapon_4 = NULL;
-        $weapon_5 = NULL;
-        
-        if(isset($_POST['selShipEngine']))
-        {
-            // Engine
-            $engine = $_POST['selShipEngine'];
-        }
-        if(isset($_POST['selShipSecondaryEngine']))
-        {
-            // Secondary engine
-            $secondary_engine = $_POST['selShipSecondaryEngine'];
-        }
-        if(isset($_POST['selShipFuelTank']))
-        {
-            // Fuel tank
-            $fuel_tank = $_POST['selShipFuelTank'];
-        }
-        if(isset($_POST['selShipRadar']))
-        {
-            // Radar
-            $radar = $_POST['selShipRadar'];
-        }
-        if(isset($_POST['selShipRepairDroid']))
-        {
-            // Repair droid
-            $repair_droid = $_POST['selShipRepairDroid'];
-        }
-        if(isset($_POST['selShipWeapon1']))
-        {
-            // Weapon 1
-            $weapon_1 = $_POST['selShipWeapon1'];
-        }
-        if(isset($_POST['selShipWeapon2']))
-        {
-            // Weapon 2
-            $weapon_2 = $_POST['selShipWeapon2'];
-        }
-        if(isset($_POST['selShipWeapon3']))
-        {
-            // Weapon 3
-            $weapon_3 = $_POST['selShipWeapon3'];
-        }
-        if(isset($_POST['selShipWeapon4']))
-        {
-            // Weapon 4
-            $weapon_4 = $_POST['selShipWeapon4'];
-        }
-        if(isset($_POST['selShipWeapon5']))
-        {
-            // Weapon 5
-            $weapon_5 = $_POST['selShipWeapon5'];
-        }
+    // Call the registration function
+    $reg = registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid, $weapon_1, $weapon_2, $weapon_3, $weapon_4, $weapon_5);
 
-        // Call the registration function
-        $reg = registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid, $weapon_1, $weapon_2, $weapon_3, $weapon_4, $weapon_5);
+    // If ship successfully registered, inform the user
+    if($reg === true)
+    {
+        $message = '<p>Your new ship registered in the system! Game starts...</p>';
+        print $message;
 
-        // If ship successfully registered, inform the user
-        if($reg === true)
-        {
-            $message = '<p>Your new ship registered in the system! Game starts...</p>';
-            print $message;
+         // Set current ship
+        $_SESSION['cur_ship'] = $ship_name;
 
-            // Set current ship
-            $_SESSION['cur_ship'] = $ship_name;
-
-            // Redirect to game page
-            // TODO: Вариант с хедером мне нравится больше, чем это некошерное нечто. 
-            // Однако, на вариант с хедером php ругается, мол body уже послано...
-            // Насколько я понял, если как-то сделать вызов registerNewShip ПОСЛЕ вызова header - все будет ОК.
-            // Стрёмная какая-то ошибка...
-            //header('Refresh: 5; URL = game.php');
-            echo '<script>location.replace("game.php");</script>';
-            exit;
-        }
-        // Otherwise, we inform the user of an error
-        else
-        {
-            print $reg;
-        }
+        // Redirect to game page
+        // TODO: Вариант с хедером мне нравится больше, чем это некошерное нечто. 
+        // Однако, на вариант с хедером php ругается, мол body уже послано...
+        // Насколько я понял, если как-то сделать вызов registerNewShip ПОСЛЕ вызова header - все будет ОК.
+        // Стрёмная какая-то ошибка...
+        //header('Refresh: 5; URL = game.php');
+        echo '<script>location.replace("game.php");</script>';
+        exit;
+    }
+    // Otherwise, we inform the user of an error
+    else
+    {
+        $errors['reg_error'] = $reg;
     }
 }
-
-// Initialization
-$txtShipName = "";
 
 // Load ships modules
 $hulls = loadHulls();
@@ -171,17 +153,29 @@ $weapons = loadWeapons();
         </tr>
         </table>
         
+        <!-- Block for displaying error messages -->
+        <div style="align-content: center; text-align: center;">
+            <div class="error" id="divNameError"> </div>
+            <div class="error" id="divHullError"> </div>
+            <div class="error" id="divEngineError"> </div>
+            <div class="error" id="divFuelTankError"> </div>
+            <div class="error" id="divOverweightError"> </div>
+            <div class="error" id="divRegistrationError" style="display: <?php echo $errors['reg_error'] ? 'inline-block' : 'none'; ?>;">
+                <?php echo $errors['reg_error'] ? $errors['reg_error'] : ''; ?>
+            </div>
+        </div>
+
         <br/>
         <br/>
         
-        <form action="" method="POST">
+        <form action="" method="POST" id="frmCrafter">
             <table class="three_columns">
             <tr>
                 <td>
                     Spaceship modules:
                     <br>
                     <br/>
-                    Ship name: <input type="text" name="txtShipName" value="<?php echo $txtShipName;?>" style="margin-top: 0.2em">
+                    Ship name: <input type="text" id="txtShipName" name="txtShipName" value="<?php echo $txtShipName;?>" style="margin-top: 0.2em">
                     <br>
                     <br>
                     Hull:
@@ -358,14 +352,68 @@ $weapons = loadWeapons();
                     Radar action radius: <input type="text" id="txtRadarActionRadius" value="0" style="margin-top: 0.2em" readonly="true">
                     <br/>
                     Health recovery: <input type="text" id="txtHealthRecovery" value="0" style="margin-top: 0.2em" readonly="true">
+                    <br/> <br/>
+                    <div id="Weapon1Parameters">
+                        Weapon 1. <br/>
+                        Type: <input id="txtWeapon1Type" value="0" readonly="true"> <br/>
+                        Damage: <input id="txtWeapon1Damage" value="0" readonly="true"> <br/>
+                        Ammunition: <input id="txtWeapon1Ammunition" value="0" readonly="true"> <br/>
+                        Recharge Time: <input id="txtWeapon1RechargeTime" value="0" readonly="true"> <br/>
+                        Range Of Fire:<input id="txtWeapon1RangeOfFire" value="0" readonly="true"> <br/>
+                        <input type="hidden" id="txtWeapon1Weight" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon1Cost" value="0" readonly="true">
+                        <br/>
+                    </div>
+                    <div id="Weapon2Parameters">
+                        Weapon 2. <br/>
+                        Type: <input id="txtWeapon2Type" value="0" readonly="true"> <br/>
+                        Damage: <input id="txtWeapon2Damage" value="0" readonly="true"> <br/>
+                        Ammunition: <input id="txtWeapon2Ammunition" value="0" readonly="true"> <br/>
+                        Recharge Time: <input id="txtWeapon2RechargeTime" value="0" readonly="true"> <br/>
+                        Range Of Fire:<input id="txtWeapon2RangeOfFire" value="0" readonly="true"> <br/>
+                        <input type="hidden" id="txtWeapon2Weight" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon2Cost" value="0" readonly="true">
+                        <br/>
+                    </div>
+                    <div id="Weapon3Parameters">
+                        Weapon 3. <br/>
+                        Type: <input id="txtWeapon3Type" value="0" readonly="true"> <br/>
+                        Damage: <input id="txtWeapon3Damage" value="0" readonly="true"> <br/>
+                        Ammunition: <input id="txtWeapon3Ammunition" value="0" readonly="true"> <br/>
+                        Recharge Time: <input id="txtWeapon3RechargeTime" value="0" readonly="true"> <br/>
+                        Range Of Fire:<input id="txtWeapon3RangeOfFire" value="0" readonly="true"> <br/>
+                        <input type="hidden" id="txtWeapon3Weight" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon3Cost" value="0" readonly="true">
+                        <br/>
+                    </div>
+                    <div id="Weapon4Parameters">
+                        Weapon 4. <br/>
+                        Type: <input id="txtWeapon4Type" value="0" readonly="true"> <br/>
+                        Damage: <input id="txtWeapon4Damage" value="0" readonly="true"> <br/>
+                        Ammunition: <input id="txtWeapon4Ammunition" value="0" readonly="true"> <br/>
+                        Recharge Time: <input id="txtWeapon4RechargeTime" value="0" readonly="true"> <br/>
+                        Range Of Fire:<input id="txtWeapon4RangeOfFire" value="0" readonly="true"> <br/>
+                        <input type="hidden" id="txtWeapon4Weight" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon4Cost" value="0" readonly="true">
+                        <br/>
+                    </div>
+                    <div id="Weapon5Parameters">
+                        Weapon 5. <br/>
+                        Type: <input id="txtWeapon5Type" value="0" readonly="true"> <br/>
+                        Damage: <input id="txtWeapon5Damage" value="0" readonly="true"> <br/>
+                        Ammunition: <input id="txtWeapon5Ammunition" value="0" readonly="true"> <br/>
+                        Recharge Time: <input id="txtWeapon5RechargeTime" value="0" readonly="true"> <br/>
+                        Range Of Fire:<input id="txtWeapon5RangeOfFire" value="0" readonly="true"> <br/>
+                        <input type="hidden" id="txtWeapon5Weight" value="0" readonly="true">
+                        <input type="hidden" id="txtWeapon5Cost" value="0" readonly="true">
+                        <br/>
+                    </div>
                     <br/>
                     <br/>
                     Cost: <input type="text" id="txtCost" value="0" style="margin-top: 0.2em" readonly="true">
-                    <br/>
-                    <br/>
-                    <br/>
+
                     <!-- Hidden fields -->
-                    <br/>
+
                     <div id="HullParameters">
                         <input type="hidden" id="txtHullHp" value="0" readonly="true">
                         <input type="hidden" id="txtHullManeuverability" value="0" readonly="true">
@@ -373,93 +421,36 @@ $weapons = loadWeapons();
                         <input type="hidden" id="txtHullCost" value="0" readonly="true">
                         <br/>
                     </div>
-                    <br/>
                     <div id="EngineParameters">
                         <input type="hidden" id="txtEngineSpeed" value="0" readonly="true">
                         <input type="hidden" id="txtEngineWeight" value="0" readonly="true">
                         <input type="hidden" id="txtEngineCost" value="0" readonly="true">
                         <br/>
                     </div>
-                    <br/>
                     <div id="SecondaryEngineParameters">
                         <input type="hidden" id="txtSecondaryEngineManeuverability" value="0" readonly="true">
                         <input type="hidden" id="txtSecondaryEngineWeight" value="0" readonly="true">
                         <input type="hidden" id="txtSecondaryEngineCost" value="0" readonly="true">
                         <br/>
                     </div>
-                    <br/>
                     <div id="FuelTankParameters">
                         <input type="hidden" id="txtFuelTankVolume" value="0" readonly="true">
                         <input type="hidden" id="txtFuelTankWeight" value="0" readonly="true">
                         <input type="hidden" id="txtFuelTankCost" value="0" readonly="true">
                         <br/>
                     </div>
-                    <br/>
                     <div id="RadarParameters">
                         <input type="hidden" id="txtRadarActionRadius" value="0" readonly="true">
                         <input type="hidden" id="txtRadarWeight" value="0" readonly="true">
                         <input type="hidden" id="txtRadarCost" value="0" readonly="true">
                         <br/>
                     </div>
-                    <br/>
                     <div id="RepairDroidParameters">
                         <input type="hidden" id="txtRepairDroidHealthRecovery" value="0" readonly="true">
                         <input type="hidden" id="txtRepairDroidWeight" value="0" readonly="true">
                         <input type="hidden" id="txtRepairDroidCost" value="0" readonly="true">
                         <br/>
                     </div>
-                    <br/>
-                    <div id="Weapon1Parameters">
-                        <input type="hidden" id="txtWeapon1Type" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon1Damage" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon1Ammunition" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon1RechargeTime" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon1RangeOfFire" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon1Weight" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon1Cost" value="0" readonly="true">
-                        <br/>
-                    </div>
-                    <div id="Weapon2Parameters">
-                        <input type="hidden" id="txtWeapon2Type" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon2Damage" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon2Ammunition" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon2RechargeTime" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon2RangeOfFire" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon2Weight" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon2Cost" value="0" readonly="true">
-                        <br/>
-                    </div>
-                    <div id="Weapon3Parameters">
-                        <input type="hidden" id="txtWeapon3Type" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon3Damage" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon3Ammunition" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon3RechargeTime" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon3RangeOfFire" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon3Weight" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon3Cost" value="0" readonly="true">
-                        <br/>
-                    </div>
-                    <div id="Weapon4Parameters">
-                        <input type="hidden" id="txtWeapon4Type" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon4Damage" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon4Ammunition" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon4RechargeTime" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon4RangeOfFire" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon4Weight" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon4Cost" value="0" readonly="true">
-                        <br/>
-                    </div>
-                    <div id="Weapon5Parameters">
-                        <input type="hidden" id="txtWeapon5Type" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon5Damage" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon5Ammunition" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon5RechargeTime" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon5RangeOfFire" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon5Weight" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon5Cost" value="0" readonly="true">
-                        <br/>
-                    </div>
-                    <br/>
                 </td>
             </tr>
             </table>
