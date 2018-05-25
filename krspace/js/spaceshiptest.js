@@ -497,6 +497,7 @@ function updateGameArea() {
       obstacles_arr[obstacle_crashed].image.src = "images/Obstacles/output-0.png";
     }
     draw_aim();
+    draw_war_fog();
   }
 }
 function draw_aim(){
@@ -509,6 +510,26 @@ function draw_aim(){
     aim[0],
     aim[1],
     w, h);
+}
+function draw_war_fog()
+{
+  context = myGameArea.context;
+  var x = spaceship.x;
+  var y = spaceship.y;
+  var radius = 200;//inner
+  var oradius = 500;//800 good vision, 500 - middle, <300 - bad
+  context.beginPath();
+  context.arc(x, y, oradius, 0, 2 * Math.PI, false);
+  var grd = context.createRadialGradient(x, y, radius, x, y, oradius);
+  grd.addColorStop(0, 'transparent');
+  grd.addColorStop(1, '#0000FF');
+  context.fillStyle = grd;
+  context.fill();
+  context.beginPath();
+  context.arc(x, y, Math.sqrt(Math.pow(FH/2,2)+Math.pow(FW/2,2)), 0, 2 * Math.PI, false);
+  context.lineWidth = (Math.sqrt(Math.pow(FH/2,2)+Math.pow(FW/2,2)) - oradius)*2;
+  context.strokeStyle = '#0000FF';
+  context.stroke();
 }
 function gen_obstacles() {
   if (!STOP) {
