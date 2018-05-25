@@ -237,6 +237,8 @@ function component(width, height, img, x, y) {
   this.hp_heal = 0;
   this.hour=0;//where it is now 0 to 360
   this.update = function() {
+    this.width = 60;
+    this.height = 60*this.image.naturalHeight/this.image.naturalWidth;
     ctx = myGameArea.context;
     ctx.save();
     ctx.translate(this.x, this.y);
