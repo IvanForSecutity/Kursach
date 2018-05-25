@@ -51,7 +51,6 @@ class Weapons {
       if(obstacles_id!=-1)
       {
         // explode obstacle;
-        //alert("asd");
         obstacles_arr[obstacles_id].image.src = "images/Obstacles/output-0.png";
       }
       //check for ended ttl
@@ -76,14 +75,13 @@ class unit_w {
     this.type = type;
     this.height = NaN;
     if (type == "rocket") {
-      /*use this if can fix проблемы с точностью чисел с плавающей запятой
-      this.speedX = (t_x - f_x)/Math.abs((t_x - f_x));
-      this.speedY = (t_y - f_y)/Math.abs((t_x - f_x));
-      document.getElementById("helptext").innerHTML = Math.abs(t_x-t_y);
-      */
+      // K*dXcur^2+K*dYcur^2=NEEDSPEED^2
+      // get K and use it
+      var SP = 10;//needed absolute speed
+      var q2 = Math.sqrt(Math.pow(SP,2)/(Math.pow(t_x - f_x,2)+Math.pow(t_y - f_y,2)));
       this.ttl=100;
-      this.speedX = (t_x - f_x)/100;
-      this.speedY = (t_y - f_y)/100;
+      this.speedX = q2*(t_x - f_x);
+      this.speedY = q2*(t_y - f_y);
       {
         this.img = new Image();
         this.img.src = "images/Weapon units/rocket.png";
@@ -93,8 +91,10 @@ class unit_w {
       }
     }else if (type == "blaster") {
       this.ttl=50;
-      this.speedX = (t_x - f_x)/50;
-      this.speedY = (t_y - f_y)/50;
+      var SP = 20;//needed absolute speed
+      var q2 = Math.sqrt(Math.pow(SP,2)/(Math.pow(t_x - f_x,2)+Math.pow(t_y - f_y,2)));
+      this.speedX = q2*(t_x - f_x);
+      this.speedY = q2*(t_y - f_y);
       this.img = new Image();
       this.img.src = "images/Weapon units/blaster_unit_1.png";
       var blaster_unit_size = 50;
@@ -102,8 +102,10 @@ class unit_w {
       this.height = blaster_unit_size*2;
     }else if (type == "laser") {
       this.ttl=5;
-      this.speedX = (t_x - f_x)/5;
-      this.speedY = (t_y - f_y)/5;
+      var SP = 30;//needed absolute speed
+      var q2 = Math.sqrt(Math.pow(SP,2)/(Math.pow(t_x - f_x,2)+Math.pow(t_y - f_y,2)));
+      this.speedX = q2*(t_x - f_x);
+      this.speedY = q2*(t_y - f_y);
       this.img = new Image();
       this.img.src = "images/Weapon units/blaster_unit_1.png";
       var blaster_unit_size = 5;
@@ -135,7 +137,14 @@ class unit_w {
 var weapons = new Weapons();
 
 function startGame() {
-  spaceship = new component(30, 50, "", FW / 2, FH  / 2);
+  spaceship = new component(50, 50, "", FW / 2, FH  / 2);
+  var thereisfckndroid = true;
+  if(thereisfckndroid)
+  {
+    //// TODO: make spaceship a class aside background
+    var hp_heal_value = 1;//per second
+    spaceship.add_droid(hp_heal_value);
+  }
   myBackground = new component(PIC_W, PIC_H, "images/space.png", -PIC_W / 2 + FW / 2, 0 - PIC_H / 2 + FH / 2);
   var obstacles = {
     start: this.interval = setInterval(gen_obstacles, 1000)
@@ -223,13 +232,33 @@ function component(width, height, img, x, y) {
   this.angle = 0;
   this.A = 0;
   this.moveAngle = 0;
+  //droid
+  this.hasdoird=false;
+  this.hp_heal = 0;
+  this.hour=0;//where it is now 0 to 360
   this.update = function() {
     ctx = myGameArea.context;
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
-    ctx.drawImage(this.image, this.width / -2, this.height / -2, this.width, this.height)
+    ctx.drawImage(this.image, this.width / -2, this.height / -2, this.width, this.height);
     ctx.restore();
+    if(this.hasdoird)
+    {
+      if(this.hour%60==0 && this.health<=this.health_i-this.hp_heal)
+         this.health+=this.hp_heal;
+      var radius = 40;
+      var rad =this.hour*Math.PI/180;
+      this.hour++;
+      if(this.hour==361)this.hour=0;
+      ctx = myGameArea.context;
+      var im = new Image();
+      im.src = "images/Repair droids/Sith Dron/1.png";
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.drawImage(im, Math.cos(rad)*radius - 15, Math.sin(rad)*radius -15, 30, 30);
+      ctx.restore();
+    }
   }
   this.updateb = function() {
     ctx = myGameArea.context;
@@ -254,13 +283,13 @@ function component(width, height, img, x, y) {
       t.style.setProperty('--f-v',"" + percent+"%");
       document.getElementById("percent1").innerHTML = percent+"%";
     }
-    
+
     this.x += this.speedX;
     this.y += this.speedY;
   }
   this.newPosb = function() {
 
-    document.getElementById("helptext").innerHTML = this.x;
+    //document.getElementById("helptext").innerHTML = this.x;
     this.offset_x = this.speedX;
     this.offset_y = this.speedY;
     this.x += this.speedX;
@@ -268,6 +297,10 @@ function component(width, height, img, x, y) {
   }
   this.updateAnimation = function() {
     this.image.src = this.ship_hull;
+  }
+  this.add_droid = function(hp_heal){
+    this.hasdoird = true;
+    this.hp_heal = hp_heal;
   }
 }
 
@@ -441,13 +474,7 @@ function updateGameArea() {
           if(obstacles_arr[i].image.src.indexOf("meteor_3")!=-1) spaceship.health-=20;
           if(spaceship.health<=0)
             alert("Sorry, dude, but you are dead");
-          //update health html
-          var h = document.querySelector('.js2');
-          var percent = Number((spaceship.health/spaceship.health_i*100).toFixed(0));
-          h.style.setProperty('--hp-v',"" + percent+"%");
-          document.getElementById("percent2").innerHTML = percent+"%";
           //
-          document.getElementById("hp").value = spaceship.health;
           if(spaceship.health<=0)
           STOP=true;
           spaceship.stub++;
@@ -458,6 +485,13 @@ function updateGameArea() {
       obstacles_arr[i].updates();
       obstacles_arr[i].newPosb();
     }
+    //update health html
+    var h = document.querySelector('.js2');
+    var percent = Number((spaceship.health/spaceship.health_i*100).toFixed(0));
+    h.style.setProperty('--hp-v',"" + percent+"%");
+    document.getElementById("percent2").innerHTML = percent+"%";
+    //
+    document.getElementById("hp").value = spaceship.health;
     if(obstacle_crashed!=-1)
     {
       obstacles_arr[obstacle_crashed].image.src = "images/Obstacles/output-0.png";
@@ -465,8 +499,7 @@ function updateGameArea() {
     draw_aim();
   }
 }
-function draw_aim()
-{
+function draw_aim(){
   ctx = myGameArea.context;
   var aim1 = new Image();
   aim1.src = "images/aim_1.png";
