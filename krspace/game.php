@@ -232,6 +232,8 @@ $cost = $hull_cost
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="style/page_style.css">
         <link rel="stylesheet" href="style/game_style.css">
+        <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" src="js/js_game.js"></script>
         <title>Spaceship test</title>
     </head>
 
@@ -339,18 +341,16 @@ $cost = $hull_cost
         <input id='ship_radar' type="hidden" value="<?php echo $radar['image'];?>" style="margin-top: 0.2em">
         <input id='ship_repair_droid' type="hidden" value="<?php echo $repair_droid['image'];?>" style="margin-top: 0.2em">
         <br>
-
       </div>
-
     </div>
 
-    TODO: Крутить разные мелодии в рандомном порядке.
-    <audio controls autoplay="true" loop="true" hidden="true">
-            <source src="audio/Fly 2.ogg" type="audio/ogg; codecs=vorbis">
-            <source src="audio/Fly 2.mp3" type="audio/mpeg">
-            Тег audio не поддерживается вашим браузером.
-            <a href="audio/Fly 2.mp3">Скачайте музыку</a>.
-        </audio>
-  </body>
-
+        <div id="divAudio">
+            <audio controls autoplay="true" hidden="true" onended="ChangeMusic()">
+                    <source id="audMusicOgg" src="" type="audio/ogg; codecs=vorbis">
+                    <source id="audMusicMp3" src="" type="audio/mpeg">
+                    The audio tag is not supported by your browser.
+                    <a id="audMusicRef" href="">Download music</a>.
+            </audio>
+        </div>
+    </body>
 </html>

@@ -139,7 +139,7 @@ $weapons = loadWeapons();
         <title>Spaceship smithy</title>
         <link rel="stylesheet" href="style/page_style.css">
         <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-        <script type="text/javascript" src="js/jq_select.js"></script>
+        <script type="text/javascript" src="js/js_crafter.js"></script>
     </head>
     <body>
         <table  class="two_columns" cellspacing="0">

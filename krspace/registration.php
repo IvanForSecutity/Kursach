@@ -41,7 +41,7 @@ if(isset($_POST['btnSignUp']))
         <title>Registration</title>
         <link rel="stylesheet" href="style/page_style.css">
         <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-        <script type="text/javascript" src="js/js_checks.js"></script>
+        <script type="text/javascript" src="js/js_registration.js"></script>
     </head>
     <body>
         <div style="align-content: center; text-align: center; margin-top: 10em">
