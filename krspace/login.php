@@ -4,8 +4,6 @@
 require_once('php_functions/database.php');
 require_once('php_functions/functions.php');
 
-// TODO: Личный кабинет (смена пароля, аватарка и прочее)
-
 // Initialize variables for possible errors
 $errors = array();
 $errors['full_error'] = '';

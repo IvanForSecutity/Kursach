@@ -165,20 +165,22 @@ function authorization($login, $password, $remember)
     if ($user['password'] == $salted_password)
     {
         // Start new session
+        // TODO: Время жизни сессии ограничить!
         session_start();
         $session_hash = randHash(32);
         $sql = "UPDATE users SET session_hash='". $session_hash ."' WHERE `login`='".$login."'";
         mysqli_query($link, $sql);
         $_SESSION['login'] = $login;
         $_SESSION['session_hash'] = $session_hash;
+        // To prevent the ability to use a session from another browser (computer), you need to enter a validation of the HTTP-header field user-agent.
+        $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
 
         // Check if button "Witness me" was pressed
         if ($remember == 1)
         {
             // Create cookie
-            //// TODO: Если перехватили куки - войти с любого компа нельзя.
+
             // TODO: Хэш НЕ md5!
-            // Стили!
             
             $cookie_key = randHash(32);
             $sql = "UPDATE users SET cookie='". $cookie_key ."' WHERE `login`='".$login."'";
@@ -186,6 +188,7 @@ function authorization($login, $password, $remember)
             // Life time is now + month
             setcookie('login', $login, time()+60*60*24*30);
             setcookie('cookie_key', $cookie_key, time()+60*60*24*30);
+            setcookie('HTTP_USER_AGENT', md5($_SERVER['HTTP_USER_AGENT']), time()+60*60*24*30);
         }
     }
     else

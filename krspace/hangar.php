@@ -4,6 +4,8 @@
 // Ships save in database in table "ships".
 //
 
+// TODO: Стили!
+
 // Start the session, from which we will retrieve login and session hash
 session_start();
 

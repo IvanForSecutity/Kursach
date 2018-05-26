@@ -17,10 +17,13 @@ require_once('php_functions/functions.php');
 // In the absence of authorization, we simply redirect the user to the authorization page.
 
 // If the session contains data about both the login and the session hash, we check them
-if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['session_hash']) && $_SESSION['session_hash'])
+if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['session_hash']) && $_SESSION['session_hash'] && isset($_SESSION['HTTP_USER_AGENT']) && $_SESSION['HTTP_USER_AGENT'])
 {
     // If validation of existing data fails
-    if(!checkSession($_SESSION['login'], $_SESSION['session_hash']))
+    if(
+        !checkSession($_SESSION['login'], $_SESSION['session_hash']) ||
+        $_SESSION['HTTP_USER_AGENT'] != md5($_SERVER['HTTP_USER_AGENT'])
+        )
     {
         // Redirect user to the authorization page
         header('location: login.php');
@@ -30,11 +33,14 @@ if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['session_h
 else
 {
     // Check cookie
-    if (!empty($_COOKIE['login']) and !empty($_COOKIE['cookie_key']))
+    if (!empty($_COOKIE['login']) and !empty($_COOKIE['cookie_key']) and !empty($_COOKIE['HTTP_USER_AGENT']))
     {
         $login = $_COOKIE['login'];
         // If cookies are correct
-        if(checkCookie($login, $_COOKIE['cookie_key']))
+        if(
+            checkCookie($login, $_COOKIE['cookie_key']) &&
+            $_COOKIE['HTTP_USER_AGENT'] === md5($_SERVER['HTTP_USER_AGENT'])
+            )
         {
             // Start new session
             $session_hash = randHash(32);
@@ -44,6 +50,7 @@ else
             mysqli_query($link, $sql);
             $_SESSION['login'] = $login;
             $_SESSION['session_hash'] = $session_hash;
+            $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
             mysqli_close($link);
         }
         else

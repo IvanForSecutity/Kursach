@@ -3,6 +3,8 @@
 // User's personal area.
 //
 
+// TODO: Смена пароля, аватарка и прочее
+
 // Start the session, from which we will retrieve login and session hash
 session_start();
 
