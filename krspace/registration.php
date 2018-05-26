@@ -1,52 +1,25 @@
 <?php
 
-// TODO: Не передавать пароли на сервер в открытом виде.
-
 require_once('php_functions/database.php');
 require_once('php_functions/functions.php');
-
-// Initialize variables for possible errors
-$errors = array();
-$errors['reg_error'] = '';
-
-if(isset($_POST['btnSignUp']))
-{
-    // Removes spaces from the beginning and end of the line
-    $login = trim($_POST['txtLogin']);
-    $password = trim($_POST['txtPassword']);
-    $password_again = trim($_POST['txtPasswordAgain']);
-
-    // We need to add information about user to DB
-
-    // Call the registration function
-    $reg = registration($login, $password);
-
-    // If the registration was successful, inform the user
-    if($reg === true)
-    {
-        $message = '<p>You have successfully registered in the system. Now you will be redirected to the authorization page. If this does not happen, go to it <a href="login.php">directly</a>.</p>';
-        print $message;
-        header('Refresh: 5; URL = login.php');
-    }
-    // Otherwise, we inform the user of an error
-    else
-    {
-        $errors['reg_error'] = $reg;
-    }
-}
 ?>
 
 <html>
     <head>
         <title>Registration</title>
         <link rel="stylesheet" href="style/page_style.css">
+        <script type="text/javascript" src="js/sha512.js"></script>
         <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
         <script type="text/javascript" src="js/js_registration.js"></script>
     </head>
     <body>
+        <div style="text-align: left; padding-left: 50px; padding-top: 10px;">
+            <a href="login.php">Back to Log In</a>
+        </div>
+        
         <div style="align-content: center; text-align: center; margin-top: 10em">
             <em>Registration</em><br><br>
-            <form action="" method="post" id="frmRegistration">
+            <form action="" method="POST" id="frmRegistration">
                 <div class="row">
                     <label for="login">Enter login:</label>
                     <input type="text" class="text" name="txtLogin" id="txtLogin" value="" />
@@ -74,11 +47,9 @@ if(isset($_POST['btnSignUp']))
                 </div>
             </form>
         </div>
-        <!-- Block for displaying error messages -->
+        <!-- Block for displaying messages -->
         <div style="align-content: center; text-align: center;">
-            <div id="reg_error" class="error" style="display: <?php echo $errors['reg_error'] ? 'inline-block' : 'none'; ?>;">
-                <?php echo $errors['reg_error'] ? $errors['reg_error'] : ''; ?>
-            </div>
+            <div id="divRegResult" class="error"> </div>
         </div>
     </body>
 </html>

@@ -442,44 +442,37 @@ $weapons = loadWeapons();
                         <input type="hidden" id="txtHullManeuverability" value="0" readonly="true">
                         <input type="hidden" id="txtHullCapacity" value="0" readonly="true">
                         <input type="hidden" id="txtHullCost" value="0" readonly="true">
-                        <br/>
                     </div>
                     <div id="EngineParameters">
                         <input type="hidden" id="txtEngineSpeed" value="0" readonly="true">
                         <input type="hidden" id="txtEngineWeight" value="0" readonly="true">
                         <input type="hidden" id="txtEngineCost" value="0" readonly="true">
-                        <br/>
                     </div>
                     <div id="SecondaryEngineParameters">
                         <input type="hidden" id="txtSecondaryEngineManeuverability" value="0" readonly="true">
                         <input type="hidden" id="txtSecondaryEngineWeight" value="0" readonly="true">
                         <input type="hidden" id="txtSecondaryEngineCost" value="0" readonly="true">
-                        <br/>
                     </div>
                     <div id="FuelTankParameters">
                         <input type="hidden" id="txtFuelTankVolume" value="0" readonly="true">
                         <input type="hidden" id="txtFuelTankWeight" value="0" readonly="true">
                         <input type="hidden" id="txtFuelTankCost" value="0" readonly="true">
-                        <br/>
                     </div>
                     <div id="RadarParameters">
                         <input type="hidden" id="txtRadarActionRadius" value="0" readonly="true">
                         <input type="hidden" id="txtRadarWeight" value="0" readonly="true">
                         <input type="hidden" id="txtRadarCost" value="0" readonly="true">
-                        <br/>
                     </div>
                     <div id="RepairDroidParameters">
                         <input type="hidden" id="txtRepairDroidHealthRecovery" value="0" readonly="true">
                         <input type="hidden" id="txtRepairDroidWeight" value="0" readonly="true">
                         <input type="hidden" id="txtRepairDroidCost" value="0" readonly="true">
-                        <br/>
                     </div>
                     <div id="MagneticGripParameters">
                         <input type="hidden" id="txtMagneticGripActionRadius" value="0" readonly="true">
                         <input type="hidden" id="txtMagneticGripCarryingCapacity" value="0" readonly="true">
                         <input type="hidden" id="txtMagneticGripWeight" value="0" readonly="true">
                         <input type="hidden" id="txtMagneticGripCost" value="0" readonly="true">
-                        <br/>
                     </div>
                 </td>
             </tr>

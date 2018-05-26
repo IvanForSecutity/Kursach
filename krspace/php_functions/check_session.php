@@ -22,7 +22,7 @@ if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['session_h
     // If validation of existing data fails
     if(
         !checkSession($_SESSION['login'], $_SESSION['session_hash']) ||
-        $_SESSION['HTTP_USER_AGENT'] != md5($_SERVER['HTTP_USER_AGENT'])
+        $_SESSION['HTTP_USER_AGENT'] != hash('sha512', $_SERVER['HTTP_USER_AGENT'])
         )
     {
         // Redirect user to the authorization page
@@ -39,7 +39,7 @@ else
         // If cookies are correct
         if(
             checkCookie($login, $_COOKIE['cookie_key']) &&
-            $_COOKIE['HTTP_USER_AGENT'] === md5($_SERVER['HTTP_USER_AGENT'])
+            $_COOKIE['HTTP_USER_AGENT'] === hash('sha512', $_SERVER['HTTP_USER_AGENT'])
             )
         {
             // Start new session
@@ -50,7 +50,7 @@ else
             mysqli_query($link, $sql);
             $_SESSION['login'] = $login;
             $_SESSION['session_hash'] = $session_hash;
-            $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
+            $_SESSION['HTTP_USER_AGENT'] = hash('sha512', $_SERVER['HTTP_USER_AGENT']);
             mysqli_close($link);
         }
         else

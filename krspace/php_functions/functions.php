@@ -110,7 +110,7 @@ function registration($login, $password)
 
     // Generate salt
     $salt = generateSalt();
-    $salted_password = md5($password.$salt);
+    $salted_password = password_hash($password.$salt, PASSWORD_BCRYPT);
 
     $sql = "INSERT INTO `users`
             (`id`,`login`,`password`,`salt`) VALUES
@@ -161,8 +161,8 @@ function authorization($login, $password, $remember)
     // Check password
     $user = mysqli_fetch_assoc($result);
     $salt = $user['salt'];
-    $salted_password = md5($password.$salt);
-    if ($user['password'] == $salted_password)
+
+    if (password_verify($password.$salt, $user['password']))
     {
         // Start new session
         // TODO: Время жизни сессии ограничить!
@@ -173,22 +173,20 @@ function authorization($login, $password, $remember)
         $_SESSION['login'] = $login;
         $_SESSION['session_hash'] = $session_hash;
         // To prevent the ability to use a session from another browser (computer), you need to enter a validation of the HTTP-header field user-agent.
-        $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
+        $_SESSION['HTTP_USER_AGENT'] = hash('sha512', $_SERVER['HTTP_USER_AGENT']);
 
         // Check if button "Witness me" was pressed
         if ($remember == 1)
         {
             // Create cookie
 
-            // TODO: Хэш НЕ md5!
-            
             $cookie_key = randHash(32);
             $sql = "UPDATE users SET cookie='". $cookie_key ."' WHERE `login`='".$login."'";
             mysqli_query($link, $sql);
             // Life time is now + month
-            setcookie('login', $login, time()+60*60*24*30);
-            setcookie('cookie_key', $cookie_key, time()+60*60*24*30);
-            setcookie('HTTP_USER_AGENT', md5($_SERVER['HTTP_USER_AGENT']), time()+60*60*24*30);
+            setcookie('login', $login, time()+60*60*24*30, '/');
+            setcookie('cookie_key', $cookie_key, time()+60*60*24*30, '/');
+            setcookie('HTTP_USER_AGENT', hash('sha512', $_SERVER['HTTP_USER_AGENT']), time()+60*60*24*30, '/');
         }
     }
     else

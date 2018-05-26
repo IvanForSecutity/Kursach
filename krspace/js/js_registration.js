@@ -1,12 +1,17 @@
 $(document).ready(function()
 {
     $('#frmRegistration').submit(function(event) {
-        if (!ValidateUserData())
+        event.preventDefault();
+        
+        if (ValidateUserData())
         {
-            event.preventDefault(); 
+            RegisterUser();
         }
     });
 });
+
+// Local parameter for password hashing
+var local_parameter = "hecatonicosachoron";
 
 // Check user login
 function CheckLogin(login)
@@ -105,7 +110,7 @@ function ValidateUserData()
         document.getElementById("divPasswordAgainError").innerHTML = "";
     }
     
-    if ((error_login == true) && (error_password == true) && (error_password_again == true))
+    if ((error_login === true) && (error_password === true) && (error_password_again === true))
     {
         return true;
     }
@@ -113,4 +118,51 @@ function ValidateUserData()
     {
         return false;
     }
+}
+
+function RegisterUser()
+{
+    var login = document.getElementById("txtLogin").value;
+    var password = document.getElementById("txtPassword").value;
+    // Removes spaces from the beginning and end of the line
+    login = login.trim();
+    password = password.trim();
+    
+    // Calculate sha512 hash of password + local parameter
+    new Sha512();
+    var hashed_password = Sha512.hash(password + local_parameter);
+
+    var ajax_request = "reg=true" + "&login=" + login + "&hashed_password=" + hashed_password;
+
+    $.ajax({
+        type: "POST",
+        url: "ajax/users_authorization.php",
+        data: ajax_request,
+        dataType: "html",
+        success: function(data) {
+            if(data.indexOf('You have successfully registered in the system') + 1)
+            {
+                // Success
+                document.getElementById("divRegResult").className = "";
+                document.getElementById("divRegResult").innerHTML = data;
+                // Redirect to login page
+                setTimeout(function(){
+                    window.location.href = 'login.php';
+                }, 5 * 1000);
+            }
+            else
+            {
+                // Failure
+                document.getElementById("divRegResult").className = "error";
+                document.getElementById("divRegResult").innerHTML = data;
+            }            
+
+            return true;
+        },
+        error: function() { 
+            msg(errorText,"error",5000);
+
+            return false;
+        }	
+    });
 }

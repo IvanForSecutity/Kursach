@@ -13,13 +13,13 @@ session_start();
 
 unset($_SESSION['login']);
 unset($_SESSION['session_hash']);
-unset($_SESSION['cur_ship']);
 unset($_SESSION['HTTP_USER_AGENT']);
+unset($_SESSION['cur_ship']);
 
 // Delete cookies
-setcookie('login', '', time());
-setcookie('cookie_key', '', time());
-setcookie('HTTP_USER_AGENT', '', time());
+setcookie('login', '', time(), '/');
+setcookie('cookie_key', '', time(), '/');
+setcookie('HTTP_USER_AGENT', '', time(), '/');
 
 header('location: login.php');
 ?>

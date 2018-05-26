@@ -7,22 +7,6 @@
     display:block
 }
 
-.blue_color
-{
-    background: url('images/blue_color.jpg') no-repeat;
-    background-size: 20px;
-    padding-left: 25px;
-    background-position: 0 6px;
-}
-
-.red_color
-{
-    background: url('images/red_color.jpg') no-repeat;
-    background-size: 20px;
-    padding-left: 25px;
-    background-position: 0 6px;
-}
-
 .green_color
 {
     background: url('images/green_color.jpg') no-repeat;
