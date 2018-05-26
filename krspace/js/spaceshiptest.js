@@ -51,7 +51,7 @@ class Weapons {
           }
       });
       if (obstacles_id != -1) {
-        var rand = gR(0,2);
+        var rand = gR(0,5);
         var niiice = ["fuel","bullets"];
         var val = -1;
         if (obstacles_arr[obstacles_id].image.src.indexOf("meteor_1") != -1) {
@@ -64,9 +64,9 @@ class Weapons {
           val=20;
           POINTS += 20;
         }
-        if(val!=-1 && rand!=2)
+        if(val!=-1 && rand!=5)
         {
-          drops_arr.push(new Drop(niiice[rand], val, obstacles_arr[obstacles_id].x, obstacles_arr[obstacles_id].y));
+          drops_arr.push(new Drop(niiice[rand%2], val, obstacles_arr[obstacles_id].x, obstacles_arr[obstacles_id].y));
         }
         // explode obstacle;
         obstacles_arr[obstacles_id].image.src = "images/Obstacles/output-0.png";
@@ -175,7 +175,7 @@ class Drop {
     this.ttl--;
     ctx = myGameArea.context;
     ctx.drawImage(this.img, this.x+=myBackground.speedX, this.y+=myBackground.speedY, this.width, this.height);
-
+    var above=false;
     //check for spaceship above
     if(this.spaceshipIsAbove(spaceship))
     {
@@ -191,9 +191,11 @@ class Drop {
           var weapon_id = arr.indexOf(document.getElementById("WeaponType").value);
           weapons.units_num[weapon_id]+=this.value;
         }
-    drops_arr.splice(this.index,1);
+        above=true;
+      drops_arr.splice(this.index,1);
     }
-    if (this.ttl < 0) drops_arr.splice(this.index,1);
+    if (this.ttl < 0 && !above)
+      drops_arr.splice(this.index,1);
   }
   spaceshipIsAbove(otherobj) {
     var myleft = this.x;
