@@ -51,15 +51,22 @@ class Weapons {
           }
       });
       if (obstacles_id != -1) {
-
+        var rand = gR(0,2);
+        var niiice = ["fuel","bullets"];
+        var val = -1;
         if (obstacles_arr[obstacles_id].image.src.indexOf("meteor_1") != -1) {
+          val=5
           POINTS += 5;
-        }
-        if (obstacles_arr[obstacles_id].image.src.indexOf("meteor_2") != -1) {
+        }else if (obstacles_arr[obstacles_id].image.src.indexOf("meteor_2") != -1) {
+          val=10;
           POINTS += 10;
-        }
-        if (obstacles_arr[obstacles_id].image.src.indexOf("meteor_3") != -1) {
+        }else if (obstacles_arr[obstacles_id].image.src.indexOf("meteor_3") != -1) {
+          val=20;
           POINTS += 20;
+        }
+        if(val!=-1 && rand!=2)
+        {
+          drops_arr.push(new Drop(niiice[rand], val, obstacles_arr[obstacles_id].x, obstacles_arr[obstacles_id].y));
         }
         // explode obstacle;
         obstacles_arr[obstacles_id].image.src = "images/Obstacles/output-0.png";
@@ -145,30 +152,72 @@ class unit_w {
 var weapons = new Weapons();
 class Drop {
   constructor(type, value, x, y) {
+    this.x = x;
+    this.y = y;
+    this.type=type;
+    this.value=value;
+    this.width = 30;
+    this.height = 30;
+    this.ttsh=-1;//time to spaceship
     this.index = drops_arr.length;
-    if (type == "fuel") {
+    if (this.type == "fuel") {
       this.img = new Image();
       this.img.src = "images/Drops/fuel.png";
-      this.x = x;
-      this.y = y;
       this.ttl = 200;
-      this.width = 30;
-      this.height = 30;
+    }
+    if (this.type == "bullets") {
+      this.img = new Image();
+      this.img.src = "images/Drops/bullets.png";
+      this.ttl = 200;
     }
   }
   draw() {
     this.ttl--;
     ctx = myGameArea.context;
     ctx.drawImage(this.img, this.x+=myBackground.speedX, this.y+=myBackground.speedY, this.width, this.height);
+
+    //check for spaceship above
+    if(this.spaceshipIsAbove(spaceship))
+    {
+      if(this.type=="fuel")
+      {
+        if(spaceship.fuel<=spaceship.fuel_i){
+          if(spaceship.fuel+this.value>spaceship.fuel_i)spaceship.fuel=spaceship.fuel_i;
+          else spaceship.fuel+=this.value;
+        }
+      }else if(this.type=="bullets")
+        {
+          var arr = ["rocket","blaster","laser"];
+          var weapon_id = arr.indexOf(document.getElementById("WeaponType").value);
+          weapons.units_num[weapon_id]+=this.value;
+          document.getElementById("booms_rocket").innerHTML = weapons.units_num[weapon_id];
+        }
+    drops_arr.splice(this.index,1);
+    }
     if (this.ttl < 0) drops_arr.splice(this.index,1);
-
   }
-
+  spaceshipIsAbove(otherobj) {
+    var myleft = this.x;
+    var myright = this.x + (this.width);
+    var mytop = this.y;
+    var mybottom = this.y + (this.height);
+    var otherleft = otherobj.x;
+    var otherright = otherobj.x + (otherobj.width);
+    var othertop = otherobj.y;
+    var otherbottom = otherobj.y + (otherobj.height);
+    if ((mybottom < othertop) ||
+      (mytop > otherbottom) ||
+      (myright < otherleft) ||
+      (myleft > otherright)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
 
 function startGame() {
   spaceship = new component(50, 50, "", FW / 2, FH / 2);
-  drops_arr.push(new Drop("fuel", 100, spaceship.x, spaceship.y));
   var thereisfckndroid = true;
   if (thereisfckndroid) {
     //// TODO: make spaceship a class aside background
@@ -197,7 +246,6 @@ function startGame() {
       aim1.src = "images/aim_1.png";
       var w = aim1.naturalWidth;
       var h = aim1.naturalHeight;
-
       aim[0] = e.pageX - (w / 2 + LEFT);
       aim[1] = e.pageY - (h / 2 + TOP);
     }
@@ -266,7 +314,7 @@ function component(width, height, img, x, y) {
   this.hp_heal = 0;
   this.hour = 0; //where it is now 0 to 360
   this.update = function() {
-    var k = 0.8;
+    var k = 0.7;
     this.width = k * this.image.naturalWidth;
     this.height = k * this.image.naturalHeight;
     ctx = myGameArea.context;
