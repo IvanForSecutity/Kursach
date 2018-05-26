@@ -224,6 +224,7 @@ button.input_image
 {
     border: 0px;
     padding: 0px;
+    background-color: transparent;
 }
 
 .instruction
