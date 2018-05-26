@@ -175,7 +175,6 @@ class Drop {
     this.ttl--;
     ctx = myGameArea.context;
     ctx.drawImage(this.img, this.x+=myBackground.speedX, this.y+=myBackground.speedY, this.width, this.height);
-    var above=false;
     //check for spaceship above
     if(this.spaceshipIsAbove(spaceship))
     {
@@ -191,11 +190,10 @@ class Drop {
           var weapon_id = arr.indexOf(document.getElementById("WeaponType").value);
           weapons.units_num[weapon_id]+=this.value;
         }
-        above=true;
-      drops_arr.splice(this.index,1);
+      return true;
     }
-    if (this.ttl < 0 && !above)
-      drops_arr.splice(this.index,1);
+    if (this.ttl < 0) return true;
+    return false;
   }
   spaceshipIsAbove(otherobj) {
     var myleft = this.x;
@@ -600,10 +598,11 @@ function updateGameArea() {
     }
     draw_aim();
     draw_war_fog();
-
+    var drop_del=-1;
     for (var i = 0; i < drops_arr.length; i++) {
-      drops_arr[i].draw();
+      if(drops_arr[i].draw())drop_del=i;
     }
+    if(drop_del!=-1)drops_arr.splice(drop_del,1);
     document.getElementById("booms_rocket").innerHTML = weapons.units_num[0];
     document.getElementById("booms_laser").innerHTML = weapons.units_num[1];
     document.getElementById("booms_blaster").innerHTML = weapons.units_num[2];
