@@ -190,7 +190,6 @@ class Drop {
           var arr = ["rocket","blaster","laser"];
           var weapon_id = arr.indexOf(document.getElementById("WeaponType").value);
           weapons.units_num[weapon_id]+=this.value;
-          document.getElementById("booms_rocket").innerHTML = weapons.units_num[weapon_id];
         }
     drops_arr.splice(this.index,1);
     }
@@ -603,6 +602,9 @@ function updateGameArea() {
     for (var i = 0; i < drops_arr.length; i++) {
       drops_arr[i].draw();
     }
+    document.getElementById("booms_rocket").innerHTML = weapons.units_num[0];
+    document.getElementById("booms_laser").innerHTML = weapons.units_num[1];
+    document.getElementById("booms_blaster").innerHTML = weapons.units_num[2];
   }
 }
 
@@ -622,8 +624,8 @@ function draw_war_fog() {
   context = myGameArea.context;
   var x = spaceship.x;
   var y = spaceship.y;
-  var radius = 200; //inner
-  var oradius = 500; //800 good vision, 500 - middle, <300 - bad
+  var radius = 400; //inner
+  var oradius = 800; //800 good vision, 500 - middle, <300 - bad
   context.beginPath();
   context.arc(x, y, oradius, 0, 2 * Math.PI, false);
   var grd = context.createRadialGradient(x, y, radius, x, y, oradius);
