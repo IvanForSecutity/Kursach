@@ -37,6 +37,11 @@ var repair_droid_health_recovery = 0;
 var repair_droid_weight = 0;
 var repair_droid_cost = 0;
 
+var magnetic_grip_action_radius = 0;
+var magnetic_grip_carrying_capacity = 0;
+var magnetic_grip_weight = 0;
+var magnetic_grip_cost = 0;
+
 var weapon_1_type = "";
 var weapon_1_damage = 0;
 var weapon_1_ammunition = 0;
@@ -87,7 +92,7 @@ var ModulesEnum = Object.freeze({
     "stub" : 1 << 4,
     "repair_droid" : 1 << 5,
     "stub" : 1 << 6,
-    "stub" : 1 << 7,
+    "magnetic_grip" : 1 << 7,
     "weapon_1" : 1 << 8,
     "weapon_2" : 1 << 9,
     "weapon_3" : 1 << 10,
@@ -173,6 +178,7 @@ function ResetModules()
     document.getElementById("selShipFuelTank").value = "";
     document.getElementById("selShipRadar").value = "";
     document.getElementById("selShipRepairDroid").value = "";
+    document.getElementById("selShipMagneticGrip").value = "";
     document.getElementById("selShipWeapon1").value = "";
     document.getElementById("selShipWeapon2").value = "";
     document.getElementById("selShipWeapon3").value = "";
@@ -198,6 +204,51 @@ function ResetModules()
     repair_droid_health_recovery = 0;
     repair_droid_weight = 0;
     repair_droid_cost = 0;
+    
+    magnetic_grip_action_radius = 0;
+    magnetic_grip_carrying_capacity = 0;
+    magnetic_grip_weight = 0;
+    magnetic_grip_cost = 0;
+    
+    weapon_1_type = "";
+    weapon_1_damage = 0;
+    weapon_1_ammunition = 0;
+    weapon_1_recharge_time = 0;
+    weapon_1_range_of_fire = 0;
+    weapon_1_weight = 0;
+    weapon_1_cost = 0;
+    
+    weapon_2_type = "";
+    weapon_2_damage = 0;
+    weapon_2_ammunition = 0;
+    weapon_2_recharge_time = 0;
+    weapon_2_range_of_fire = 0;
+    weapon_2_weight = 0;
+    weapon_2_cost = 0;
+    
+    weapon_3_type = "";
+    weapon_3_damage = 0;
+    weapon_3_ammunition = 0;
+    weapon_3_recharge_time = 0;
+    weapon_3_range_of_fire = 0;
+    weapon_3_weight = 0;
+    weapon_3_cost = 0;
+    
+    weapon_4_type = "";
+    weapon_4_damage = 0;
+    weapon_4_ammunition = 0;
+    weapon_4_recharge_time = 0;
+    weapon_4_range_of_fire = 0;
+    weapon_4_weight = 0;
+    weapon_4_cost = 0;
+    
+    weapon_5_type = "";
+    weapon_5_damage = 0;
+    weapon_5_ammunition = 0;
+    weapon_5_recharge_time = 0;
+    weapon_5_range_of_fire = 0;
+    weapon_5_weight = 0;
+    weapon_5_cost = 0;
 }
 
 function ApplyModulesBitmask(modules_bitmask)
@@ -261,6 +312,18 @@ function ApplyModulesBitmask(modules_bitmask)
         document.getElementById("selShipRepairDroid").disabled = true;
         document.getElementById("ship_repair_droid_cell").className = "blocked_module_background";
         $('#ship_repair_droid').attr('src', "images/Icons/no.png");
+    }
+    if((modules_bitmask & ModulesEnum.magnetic_grip) !== 0)
+    {
+        document.getElementById("selShipMagneticGrip").disabled = false;
+        document.getElementById("ship_magnetic_grip_cell").className = "empty_module_background";
+        $('#ship_magnetic_grip').attr('src', "images/Icons/yes.png");
+    }
+    else
+    {
+        document.getElementById("selShipMagneticGrip").disabled = true;
+        document.getElementById("ship_magnetic_grip_cell").className = "blocked_module_background";
+        $('#ship_magnetic_grip').attr('src', "images/Icons/no.png");
     }
     if((modules_bitmask & ModulesEnum.weapon_1) !== 0)
     {
@@ -331,7 +394,7 @@ function UpdateSpaceshipParameters()
     free_capacity = parseInt(full_capacity)
             - parseInt(engine_weight) - parseInt(fuel_tank_weight) - parseInt(secondary_engine_weight)
             - parseInt(radar_weight)
-            - parseInt(repair_droid_weight)
+            - parseInt(repair_droid_weight) - parseInt(magnetic_grip_weight)
             - parseInt(weapon_1_weight) - parseInt(weapon_2_weight) - parseInt(weapon_3_weight) - parseInt(weapon_4_weight) - parseInt(weapon_5_weight);
 
     var hp = hull_hp;
@@ -341,7 +404,7 @@ function UpdateSpaceshipParameters()
     var cost = parseInt(hull_cost)
             + parseInt(engine_cost) + parseInt(fuel_tank_cost) + parseInt(secondary_engine_cost)
             + parseInt(radar_cost)
-            + parseInt(repair_droid_cost)
+            + parseInt(repair_droid_cost) + parseInt(magnetic_grip_cost)
             + parseInt(weapon_1_cost) + parseInt(weapon_2_cost) + parseInt(weapon_3_cost) + parseInt(weapon_4_cost) + parseInt(weapon_5_cost);
 
     // Fill parameters
@@ -354,6 +417,34 @@ function UpdateSpaceshipParameters()
     document.getElementById("txtFuelTankVolume").value = fuel_tank_volume;
     document.getElementById("txtRadarActionRadius").value = radar_action_radius;
     document.getElementById("txtHealthRecovery").value = health_recovery;
+    document.getElementById("txtMagneticGripActionRadius").value = magnetic_grip_action_radius;
+    document.getElementById("txtMagneticGripCarryingCapacity").value = magnetic_grip_carrying_capacity;
+    
+    document.getElementById("txtWeapon1Type").value = weapon_1_type;
+    document.getElementById("txtWeapon1Damage").value = weapon_1_damage;
+    document.getElementById("txtWeapon1Ammunition").value = weapon_1_ammunition;
+    document.getElementById("txtWeapon1RechargeTime").value = weapon_1_recharge_time;
+    document.getElementById("txtWeapon1RangeOfFire").value = weapon_1_range_of_fire;
+    document.getElementById("txtWeapon2Type").value = weapon_2_type;
+    document.getElementById("txtWeapon2Damage").value = weapon_2_damage;
+    document.getElementById("txtWeapon2Ammunition").value = weapon_2_ammunition;
+    document.getElementById("txtWeapon2RechargeTime").value = weapon_2_recharge_time;
+    document.getElementById("txtWeapon2RangeOfFire").value = weapon_2_range_of_fire;
+    document.getElementById("txtWeapon3Type").value = weapon_3_type;
+    document.getElementById("txtWeapon3Damage").value = weapon_3_damage;
+    document.getElementById("txtWeapon3Ammunition").value = weapon_3_ammunition;
+    document.getElementById("txtWeapon3RechargeTime").value = weapon_3_recharge_time;
+    document.getElementById("txtWeapon3RangeOfFire").value = weapon_3_range_of_fire;
+    document.getElementById("txtWeapon4Type").value = weapon_4_type;
+    document.getElementById("txtWeapon4Damage").value = weapon_4_damage;
+    document.getElementById("txtWeapon4Ammunition").value = weapon_4_ammunition;
+    document.getElementById("txtWeapon4RechargeTime").value = weapon_4_recharge_time;
+    document.getElementById("txtWeapon4RangeOfFire").value = weapon_4_range_of_fire;
+    document.getElementById("txtWeapon5Type").value = weapon_5_type;
+    document.getElementById("txtWeapon5Damage").value = weapon_5_damage;
+    document.getElementById("txtWeapon5Ammunition").value = weapon_5_ammunition;
+    document.getElementById("txtWeapon5RechargeTime").value = weapon_5_recharge_time;
+    document.getElementById("txtWeapon5RangeOfFire").value = weapon_5_range_of_fire;
 
     document.getElementById("txtCost").value = cost;
 }
@@ -717,6 +808,69 @@ function RepairDroidChanged()
         repair_droid_health_recovery = 0;
         repair_droid_weight = 0;
         repair_droid_cost = 0;
+        
+        UpdateSpaceshipParameters();
+    }
+}
+
+function MagneticGripChanged()
+{
+    // If magnetic grip was chosen
+    if (document.getElementById("selShipMagneticGrip").value != "")
+    {
+        // Change magnetic grip cell
+        document.getElementById("ship_magnetic_grip_cell").className = "module_background";
+
+        // Change magnetic grip picture
+        $('#ship_magnetic_grip').attr('src', $('#selShipMagneticGrip option:selected').attr('data-path'));
+
+        var magnetic_grip_name = document.getElementById("selShipMagneticGrip").value;
+
+        // Get magnetic grip parameters
+        var ajax_request = "magnetic_grip_name=" + magnetic_grip_name;
+
+        $.ajax({
+            type: "GET",
+            url: "ajax/load_ship_modules.php",
+            data: ajax_request,
+            dataType: "json",
+            success: function(data) {
+                $('#txtMagneticGripActionRadius').val(data.action_radius);
+                $('#txtMagneticGripCarryingCapacity').val(data.carrying_capacity);
+                $('#txtMagneticGripWeight').val(data.weight);
+                $('#txtMagneticGripCost').val(data.cost);
+                
+                magnetic_grip_action_radius = data.action_radius;
+                magnetic_grip_carrying_capacity = data.carrying_capacity;
+                magnetic_grip_weight = data.weight;
+                magnetic_grip_cost = data.cost;
+
+                UpdateSpaceshipParameters();
+
+                return true;
+            },
+            error: function() { 
+                msg(errorText,"error",5000);
+
+                return false;
+            }	
+        });
+    }
+    else
+    {
+        // Magnetic grip cell is empty
+        
+        document.getElementById("ship_magnetic_grip_cell").className = "empty_module_background";
+        $('#ship_magnetic_grip').attr('src', "images/Icons/yes.png");
+        $('#txtMagneticGripActionRadius').val(0);
+        $('#txtMagneticGripCarryingCapacity').val(0);
+        $('#txtMagneticGripWeight').val(0);
+        $('#txtMagneticGripCost').val(0);
+        
+        magnetic_grip_action_radius = 0;
+        magnetic_grip_carrying_capacity = 0;
+        magnetic_grip_weight = 0;
+        magnetic_grip_cost = 0;
         
         UpdateSpaceshipParameters();
     }

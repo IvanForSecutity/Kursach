@@ -40,6 +40,12 @@ if (isset($_GET['repair_droid_name']))
     echo json_encode(array('health_recovery'=>$repair_droid['health_recovery'], 'weight'=>$repair_droid['weight'], 'cost'=>$repair_droid['cost']));
 }
 
+if (isset($_GET['magnetic_grip_name']))
+{
+    $magnetic_grip = loadShipMagneticGrip($_GET['magnetic_grip_name']);
+    echo json_encode(array('action_radius'=>$magnetic_grip['action_radius'], 'carrying_capacity'=>$magnetic_grip['carrying_capacity'], 'weight'=>$magnetic_grip['weight'], 'cost'=>$magnetic_grip['cost']));
+}
+
 if (isset($_GET['weapon_name']))
 {
     $weapon = loadShipWeapon($_GET['weapon_name']);

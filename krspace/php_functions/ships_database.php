@@ -1,7 +1,7 @@
 <?php
 
 // Ship registration function.
-function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid, $weapon_1, $weapon_2, $weapon_3, $weapon_4, $weapon_5)
+function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid, $magnetic_grip, $weapon_1, $weapon_2, $weapon_3, $weapon_4, $weapon_5)
 {
     // Initialize a variable with a possible error message
     $error = '';
@@ -21,8 +21,8 @@ function registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $second
     
     // If there is no such ship - register it
     $sql = "INSERT INTO ships
-            (ship_name, owner, hull, engine, fuel_tank, secondary_engine, radar, repair_droid, weapon_1, weapon_2, weapon_3, weapon_4, weapon_5) VALUES
-            ('". $ship_name ."', '". $owner ."', '". $hull ."', '". $engine ."', '". $fuel_tank ."', '". $secondary_engine ."', '". $radar ."', '". $repair_droid ."', '". $weapon_1 ."', '". $weapon_2 ."', '". $weapon_3 ."', '". $weapon_4 ."', '". $weapon_5 ."');";
+            (ship_name, owner, hull, engine, fuel_tank, secondary_engine, radar, repair_droid, magnetic_grip, weapon_1, weapon_2, weapon_3, weapon_4, weapon_5) VALUES
+            ('". $ship_name ."', '". $owner ."', '". $hull ."', '". $engine ."', '". $fuel_tank ."', '". $secondary_engine ."', '". $radar ."', '". $repair_droid ."', '". $magnetic_grip ."', '". $weapon_1 ."', '". $weapon_2 ."', '". $weapon_3 ."', '". $weapon_4 ."', '". $weapon_5 ."');";
 
     // Execute query
     mysqli_query($link, $sql);
@@ -189,6 +189,24 @@ function loadRepairDroids()
     return $repair_droids;
 }
 
+// Load all magnetic grips.
+function loadMagneticGrips()
+{
+    // Connect to DB
+    $link = connect();
+    $sql = "SELECT `name`, `image` FROM `magnetic_grips`";
+    $result = mysqli_query($link, $sql);
+    $magnetic_grips = array();
+    while ($cur_magnetic_grip = mysqli_fetch_assoc($result))
+    {
+        $magnetic_grips[] = $cur_magnetic_grip;
+    }
+
+    mysqli_close($link);
+    
+    return $magnetic_grips;
+}
+
 // Load all weapons.
 function loadWeapons()
 {
@@ -318,6 +336,22 @@ function loadShipRepairDroid($repair_droid_name)
     mysqli_close($link);
     
     return $repair_droid;
+}
+
+// Get ship magnetic grip.
+function loadShipMagneticGrip($magnetic_grip_name)
+{
+    // Connect to DB
+    $link = connect();
+
+    // Hull
+    $sql = "SELECT * FROM `magnetic_grips` WHERE `name`='".$magnetic_grip_name."'";
+    $result = mysqli_query($link, $sql);
+    $magnetic_grip = mysqli_fetch_assoc($result);
+
+    mysqli_close($link);
+    
+    return $magnetic_grip;
 }
 
 // Get ship weapon.

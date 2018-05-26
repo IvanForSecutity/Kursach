@@ -39,6 +39,7 @@ if(isset($_POST['btnStart']))
     $fuel_tank = NULL;
     $radar = NULL;
     $repair_droid = NULL;
+    $magnetic_grip = NULL;
     $weapon_1 = NULL;
     $weapon_2 = NULL;
     $weapon_3 = NULL;
@@ -70,6 +71,11 @@ if(isset($_POST['btnStart']))
         // Repair droid
         $repair_droid = $_POST['selShipRepairDroid'];
     }
+    if(isset($_POST['selShipMagneticGrip']))
+    {
+        // Magnetic grip
+        $magnetic_grip = $_POST['selShipMagneticGrip'];
+    }
     if(isset($_POST['selShipWeapon1']))
     {
         // Weapon 1
@@ -97,7 +103,7 @@ if(isset($_POST['btnStart']))
     }
 
     // Call the registration function
-    $reg = registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid, $weapon_1, $weapon_2, $weapon_3, $weapon_4, $weapon_5);
+    $reg = registerNewShip($ship_name, $owner, $hull, $engine, $fuel_tank, $secondary_engine, $radar, $repair_droid, $magnetic_grip, $weapon_1, $weapon_2, $weapon_3, $weapon_4, $weapon_5);
 
     // If ship successfully registered, inform the user
     if($reg === true)
@@ -131,6 +137,7 @@ $fuel_tanks = loadFuelTanks();
 $secondary_engines = loadSecondaryEngines();
 $radars = loadRadars();
 $repair_droids = loadRepairDroids();
+$magnetic_grips = loadMagneticGrips();
 $weapons = loadWeapons();
 ?>
 
@@ -226,6 +233,14 @@ $weapons = loadWeapons();
                         <?php endforeach ?>
                     </select>
                     <br/>
+                    Magnetic grip:
+                    <select id="selShipMagneticGrip" name="selShipMagneticGrip" class="select-multi" size="1" onchange="MagneticGripChanged()" disabled="true">
+                        <option value=""> </option>
+                        <?php foreach ($magnetic_grips as $cur_magnetic_grip) : ?>
+                            <option data-path="<?= $cur_magnetic_grip['image']?>1.png" value="<?= $cur_magnetic_grip['name']?>"> <?= $cur_magnetic_grip['name']?> </option>
+                        <?php endforeach ?>
+                    </select>
+                    <br/>
                     Weapon 1:
                     <select id="selShipWeapon1" name="selShipWeapon1" class="select-multi" size="1" onchange="Weapon1Changed()" disabled="true">
                         <option value=""> </option>
@@ -308,7 +323,11 @@ $weapons = loadWeapons();
                         </a>
                         <a href='#' class='deg30'>  <img src="images/stub.jpg"> </a>
 
-                        <a href='#' class='deg70'>  <img src="images/stub.jpg"> </a>
+                        <a href='#' class='deg70'>
+                            <div id="ship_magnetic_grip_cell" class="blocked_module_background">
+                                <img id="ship_magnetic_grip" src="images/Icons/no.png" class="module_image"> 
+                            </div>
+                        </a>
                         <a href='#' class='deg90'>  <img src="images/stub.jpg"> </a>
                         <a href='#' class='deg110'>
                             <div id="ship_repair_droid_cell" class="blocked_module_background">
@@ -352,6 +371,10 @@ $weapons = loadWeapons();
                     Radar action radius: <input type="text" id="txtRadarActionRadius" value="0" style="margin-top: 0.2em" readonly="true">
                     <br/>
                     Health recovery: <input type="text" id="txtHealthRecovery" value="0" style="margin-top: 0.2em" readonly="true">
+                    <br/>
+                    Magnetic grip action radius: <input type="text" id="txtMagneticGripActionRadius" value="0" style="margin-top: 0.2em" readonly="true">
+                    <br/>
+                    Magnetic grip carrying capacity: <input type="text" id="txtMagneticGripCarryingCapacity" value="0" style="margin-top: 0.2em" readonly="true">
                     <br/> <br/>
                     <div id="Weapon1Parameters">
                         Weapon 1. <br/>
@@ -449,6 +472,13 @@ $weapons = loadWeapons();
                         <input type="hidden" id="txtRepairDroidHealthRecovery" value="0" readonly="true">
                         <input type="hidden" id="txtRepairDroidWeight" value="0" readonly="true">
                         <input type="hidden" id="txtRepairDroidCost" value="0" readonly="true">
+                        <br/>
+                    </div>
+                    <div id="MagneticGripParameters">
+                        <input type="hidden" id="txtMagneticGripActionRadius" value="0" readonly="true">
+                        <input type="hidden" id="txtMagneticGripCarryingCapacity" value="0" readonly="true">
+                        <input type="hidden" id="txtMagneticGripWeight" value="0" readonly="true">
+                        <input type="hidden" id="txtMagneticGripCost" value="0" readonly="true">
                         <br/>
                     </div>
                 </td>

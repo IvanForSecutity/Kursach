@@ -26,6 +26,7 @@ $fuel_tank = loadShipFuelTank($ship['fuel_tank']);
 $secondary_engine = loadShipSecondaryEngine($ship['secondary_engine']);
 $radar = loadShipRadar($ship['radar']);
 $repair_droid = loadShipRepairDroid($ship['repair_droid']);
+$magnetic_grip = loadShipMagneticGrip($ship['magnetic_grip']);
 $weapon_1 = loadShipWeapon($ship['weapon_1']);
 $weapon_2 = loadShipWeapon($ship['weapon_2']);
 $weapon_3 = loadShipWeapon($ship['weapon_3']);
@@ -101,6 +102,21 @@ else
     $repair_droid_health_recovery = 0;
     $repair_droid_weight = 0;
     $repair_droid_cost = 0;
+}
+
+if ($magnetic_grip != NULL)
+{
+    $magnetic_grip_action_radius = $magnetic_grip['action_radius'];
+    $magnetic_grip_carrying_capacity = $magnetic_grip['carrying_capacity'];
+    $magnetic_grip_weight = $magnetic_grip['weight'];
+    $magnetic_grip_cost = $magnetic_grip['cost'];
+}
+else
+{
+    $magnetic_grip_action_radius = 0;
+    $magnetic_grip_carrying_capacity = 0;
+    $magnetic_grip_weight = 0;
+    $magnetic_grip_cost = 0;
 }
 
 if ($weapon_1 != NULL)
@@ -217,13 +233,13 @@ $maneuverability = $hull_maneuverability + $secondary_engine_maneuverability;
 $free_capacity = $full_capacity
         - $engine_weight - $fuel_tank_weight - $secondary_engine_weight
         - $radar_weight
-        - $repair_droid_weight
+        - $repair_droid_weight - $magnetic_grip_weight
         - $weapon_1_weight - $weapon_2_weight - $weapon_3_weight - $weapon_4_weight - $weapon_5_weight;
 $speed = ((5000 * $free_capacity) + $engine_speed) / ($full_capacity * $full_capacity);
 $cost = $hull_cost
         + $engine_cost + $fuel_tank_cost + $secondary_engine_cost
         + $radar_cost
-        + $repair_droid_cost
+        + $repair_droid_cost + $magnetic_grip_cost
         + $weapon_1_cost + $weapon_2_cost + $weapon_3_cost + $weapon_4_cost + $weapon_5_cost;
 ?>
 
@@ -282,6 +298,8 @@ $cost = $hull_cost
         <br> Maneuverability: <input id='maneuverability' type="number" value="<?php echo $maneuverability;?>" style="margin-top: 0.2em">
         <br> Radar action radius: <input id='radar_action_radius' type="number" value="<?php echo $radar_action_radius;?>" style="margin-top: 0.2em">
         <br> Health recovery: <input id='hp' type="number" value="<?php echo $repair_droid_health_recovery;?>" style="margin-top: 0.2em">
+        <br> Magnetic grip action radius: <input id='hp' type="number" value="<?php echo $magnetic_grip_action_radius;?>" style="margin-top: 0.2em">
+        <br> Magnetic grip carrying capacity: <input id='hp' type="number" value="<?php echo $magnetic_grip_carrying_capacity;?>" style="margin-top: 0.2em">
         <br>
         <?php if ($weapon_1 != NULL) { ?>
         <div id="Weapon1Parameters">
