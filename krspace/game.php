@@ -299,7 +299,7 @@ $cost = $hull_cost
         <br> Speed: <input id='speed' type="number" value="<?php echo $speed;?>" style="margin-top: 0.2em">
         <br> Maneuverability: <input id='maneuverability' type="number" value="<?php echo $maneuverability;?>" style="margin-top: 0.2em">
         <br> Radar action radius: <input id='radar_action_radius' type="number" value="<?php echo $radar_action_radius;?>" style="margin-top: 0.2em">
-        <br> Health recovery: <input id='hp' type="number" value="<?php echo $repair_droid_health_recovery;?>" style="margin-top: 0.2em">
+        <br> Health recovery: <input id='hp_recovery' type="number" value="<?php echo $repair_droid_health_recovery;?>" style="margin-top: 0.2em">
         <br> Magnetic grip action radius: <input id='hp' type="number" value="<?php echo $magnetic_grip_action_radius;?>" style="margin-top: 0.2em">
         <br> Magnetic grip carrying capacity: <input id='hp' type="number" value="<?php echo $magnetic_grip_carrying_capacity;?>" style="margin-top: 0.2em">
         <br>
@@ -363,7 +363,6 @@ $cost = $hull_cost
         <br>
       </div>
     </div>
-
         <div id="divAudio">
             <audio controls autoplay="true" hidden="true" onended="ChangeMusic()">
                     <source id="audMusicOgg" src="" type="audio/ogg; codecs=vorbis">

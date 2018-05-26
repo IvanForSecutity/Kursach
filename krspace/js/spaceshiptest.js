@@ -8,7 +8,9 @@ var STOP = false;
 var obstacles_arr = [];
 var drops_arr = [];
 var updateNum = 0;
+var weapons;
 var aim = [0, 0];
+var aim1;
 var TOP = document.getElementById("canvas_field").offsetTop;
 var LEFT = document.getElementById("canvas_field").offsetLeft;
 var POINTS = 0;
@@ -17,32 +19,46 @@ String.prototype.replaceAt = function(index, replacement) {
   return this.substr(0, index) + replacement + this.substr(index + replacement.length);
 }
 class Weapons {
-  constructor() {
+  constructor(types,damages,ammos,recharges,ranges) {
     this.units = [];
-    this.units_num = [10, 9, 8,0,0];
+    this.types = types;
+    this.damages = damages;
+    this.ammos = ammos;
+    this.recharges = recharges;
+    this.ranges = ranges;
     this.number = 0;
+    this.cur_recharges = [0,0,0,0,0];
   }
   add_unit(a, b, c, d, t) { //add unit to the field
-    for(var type=0;type<5;type++)
+    for(var weap_id=0;weap_id<5;weap_id++)
     {
-      if(t==type && this.units_num[type] != 0)
+      if(t==weap_id && (this.ammos[weap_id] > 0) && this.cur_recharges[weap_id]==0)//here we try to make shot
       {
-        this.units_num[type]--;
-        this.units.push(new unit_w(a, b, c, d, t));
+
+        //
+        this.ammos[weap_id]--;
+        this.cur_recharges[weap_id] = this.recharges[weap_id];
+        this.units.push(new unit_w(a, b, c, d, t));//here is launch
         this.number++;
-        document.getElementById("weapon"+(type+1)).innerHTML = this.units_num[0];
+        document.getElementById("weapon"+(weap_id+1)).innerHTML = this.ammos[0];
       }
     }
   }
   trydraw() {
     if (this.number != 0) {
       var obstacles_id = -1;
-      this.units.forEach(function(item, i, arr) {
+      var unit_crashed_id = -1;
+      this.units.forEach(function(item, unit_id, arr) {
         for (var i = 0; i < obstacles_arr.length; i++)
           if (obstacles_arr[i].crashWith(item)) {
             obstacles_id = i;
+            unit_crashed_id =unit_id;
           }
       });
+      if(unit_crashed_id!=-1)
+      {
+        this.units.splice(unit_crashed_id, 1);
+      }
       if (obstacles_id != -1) {
         var rand = gR(0,5);
         var niiice = ["fuel","bullets"];
@@ -59,10 +75,14 @@ class Weapons {
         }
         if(val!=-1 && rand!=5)
         {
-          drops_arr.push(new Drop(niiice[rand%2], val, obstacles_arr[obstacles_id].x, obstacles_arr[obstacles_id].y));
+          // explode obstacle;
+          obstacles_arr[obstacles_id].health-=val;
+          if(obstacles_arr[obstacles_id].health<=0)
+          {
+              drops_arr.push(new Drop(niiice[rand%2], val, obstacles_arr[obstacles_id].x, obstacles_arr[obstacles_id].y));
+              obstacles_arr[obstacles_id].image.src = "images/Obstacles/output-0.png";
+          }
         }
-        // explode obstacle;
-        obstacles_arr[obstacles_id].image.src = "images/Obstacles/output-0.png";
       }
       //check for ended ttl
       var s = -1;
@@ -78,71 +98,147 @@ class Weapons {
 }
 //weapon unit
 class unit_w {
-  constructor(f_x, f_y, t_x, t_y, type) {
+  constructor(f_x, f_y, t_x, t_y, w_id) {
     this.x = f_x;
     this.y = f_y;
     this.to_x = t_x;
     this.to_y = t_y;
-    this.type = type;
+    this.type = w_id;
     this.height = NaN;
-    if (type == 0) {
-      // K*dXcur^2+K*dYcur^2=NEEDSPEED^2
-      // get K and use it
+    this.wait=5;
+    // K*dXcur^2+K*dYcur^2=NEEDSPEED^2  get K and use it
+    this.img = new Image();
+    var size=0;
+    if(weapons.types[w_id]=="missile_weapon")//not very fast
+    {
       var SP = 10; //needed absolute speed
-      var q2 = Math.sqrt(Math.pow(SP, 2) / (Math.pow(t_x - f_x, 2) + Math.pow(t_y - f_y, 2)));
-      this.ttl = 100;
-      this.speedX = q2 * (t_x - f_x);
-      this.speedY = q2 * (t_y - f_y); {
-        this.img = new Image();
-        this.img.src = "images/Weapon units/rocket.png";
-        var size = 20;
-        this.width = size;
-        this.height = size * 4;
-      }
-    } else if (type == 1) {
-      this.ttl = 50;
+      this.ttl = 10*weapons.ranges[w_id]/SP;
+      this.img.src = "images/Weapon units/rocket.png";
+      this.width = 20;
+      this.height = 80;
+    } else if(weapons.types[w_id]=="laser_weapon")
+    {
       var SP = 20; //needed absolute speed
-      var q2 = Math.sqrt(Math.pow(SP, 2) / (Math.pow(t_x - f_x, 2) + Math.pow(t_y - f_y, 2)));
-      this.speedX = q2 * (t_x - f_x);
-      this.speedY = q2 * (t_y - f_y);
-      this.img = new Image();
+      this.ttl = 10*weapons.ranges[w_id]/SP;
+      this.img.src = "images/Weapon units/blaster_unit.png";
+      this.width = 20;
+      this.height = 80;
+    } else if(weapons.types[w_id]=="blaster")
+    {
+      var SP = 15; //needed absolute speed
+      this.ttl = 10*weapons.ranges[w_id]/SP;
       this.img.src = "images/Weapon units/blaster_unit_1.png";
-      var blaster_unit_size = 50;
-      this.width = blaster_unit_size;
-      this.height = blaster_unit_size * 2;
-    } else if (type == 2) {
-      this.ttl = 5;
-      var SP = 30; //needed absolute speed
-      var q2 = Math.sqrt(Math.pow(SP, 2) / (Math.pow(t_x - f_x, 2) + Math.pow(t_y - f_y, 2)));
-      this.speedX = q2 * (t_x - f_x);
-      this.speedY = q2 * (t_y - f_y);
-      this.img = new Image();
+      this.width = 30;
+      this.height = 30;
+    } else if(weapons.types[w_id]=="plasma_weapon")
+    {
+      var SP = 10; //needed absolute speed
+      this.ttl = 10*weapons.ranges[w_id]/SP;
       this.img.src = "images/Weapon units/blaster_unit_1.png";
-      var blaster_unit_size = 5;
-      this.width = blaster_unit_size;
-      this.height = blaster_unit_size * 200;
+      this.width = 20;
+      this.height = 80;
     }
+    var q2 = Math.sqrt(Math.pow(SP, 2) / (Math.pow(t_x - f_x, 2) + Math.pow(t_y - f_y, 2)));
+    this.speedX = q2 * (t_x - f_x);
+    this.speedY = q2 * (t_y - f_y);
   }
   move() {
     if (this.ttl > 0) {
       this.ttl--;
       ctx = myGameArea.context;
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      var radians = Math.atan((this.speedY / this.speedX));
-      var degrees = radians * 180 / Math.PI + 90;
-      if (this.speedX < 0) degrees += 180;
-      ctx.rotate(degrees * Math.PI / 180);
-      if (this.type == "blaster")
-        this.img.src = "images/Weapon units/blaster_unit_" + (this.ttl % 5 + 1) + ".png";
-      ctx.drawImage(this.img, this.width / -2 + this.speedX, this.height / -2 + this.speedY, this.width, this.height);
-      this.x += this.speedX + myBackground.offset_x;
-      this.y += this.speedY + myBackground.offset_y;
-      ctx.restore();
+      if(weapons.types[this.type]=="laser_weapon")
+      {
+        ctx.beginPath();
+        ctx.moveTo(spaceship.x, spaceship.y);
+        var a = this.to_x+aim1.naturalWidth/2 - spaceship.x;
+        var b = this.to_y+aim1.naturalHeight/2 - spaceship.y;
+        var c = Math.sqrt(Math.pow(Math.abs(a),2)+Math.pow(Math.abs(b),2));
+        var k = 3*weapons.ranges[this.type]/c;
+        k = k.toFixed(5);
+        ctx.lineTo(spaceship.x+k*a, spaceship.y+k*b);
+        ctx.lineWidth = 5;
+        ctx.strokeStyle="yellow"
+        ctx.stroke();
+        //use
+        var dmg = weapons.damages[this.type];
+        obstacles_arr.forEach(function(item,id,arr){
+          var x0_obstacle = item.x;
+          var x1_obstacle = item.x+item.width;
+          var y0_obstacle = item.y;
+          var y1_obstacle = item.y+item.height;
+          var x0_laser = spaceship.x;
+          var x1_laser = spaceship.x+k*a;
+          var y0_laser = spaceship.y;
+          var y1_laser = spaceship.y+k*b;
+          //resolve
+          if(x0_laser>x1_laser){var t1 =x0_laser;x0_laser = x1_laser;x1_laser=t1;}
+          if(y0_laser>y1_laser){var t2 =y0_laser;y0_laser = y1_laser;y1_laser=t2;}
+          var stepx = 1;
+          var stepy = 1*Math.abs(a/b);
+          stepy = stepy.toFixed(4);
+          var x=x0_laser;
+          var y=Number.parseInt(y0_laser,10);
+          var in_=false;
+          while(x<x1_laser || y<y1_laser)
+          {
+            //check if point in square
+            if( (x>x0_obstacle && x < x1_obstacle) && (y>y0_obstacle &&y < y1_obstacle) )
+              {
+                in_=true;
+                break;
+              }
+            x+=stepx;
+            y+=Number.parseFloat(stepy);
+          }
+          if(in_)
+          {
+            //beat obstacle
+              //alert(item.time);
+              if(item.time==5)
+              {
+                item.time=0;
+                if(item.health>0)item.health-=5;
+                if(item.health<=0)
+                {
+                    var rand = gR(0,5);
+                    var niiice = ["fuel","bullets"];
+                    if(rand!=5)drops_arr.push(new Drop(niiice[rand%2], dmg, item.x, item.y));
+                    item.image.src = "images/Obstacles/output-0.png";
+                }
+              }else {
+                item.time++;
+              }
+
+          }
+        });
+      } else {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        var radians = Math.atan((this.speedY / this.speedX));
+        var degrees = radians * 180 / Math.PI + 90;
+        if (this.speedX < 0) degrees += 180;
+        ctx.rotate(degrees * Math.PI / 180);
+        if (weapons.types[this.type]=="blaster" || weapons.types[this.type]=="plasma_weapon")
+        {
+          var id = this.img.src.indexOf(".png")-1;
+          var pic_num = Number.parseInt(this.img.src[id]);
+          if(pic_num==5)pic_num=0;
+          if(this.wait==0)
+          {
+            this.wait=1;
+            this.img.src = "images/Weapon units/blaster_unit_"+(pic_num+1)+".png";
+          }
+          this.wait--;
+        }
+        ctx.drawImage(this.img, this.width / -2 + this.speedX, this.height / -2 + this.speedY, this.width, this.height);
+        this.x += this.speedX + myBackground.offset_x;
+        this.y += this.speedY + myBackground.offset_y;
+        ctx.restore();
+      }
     } else return "r_f_e"; //rocket fuel ended
   }
 }
-var weapons = new Weapons();
+
 class Drop {
   constructor(type, value, x, y) {
     this.x = x;
@@ -156,12 +252,12 @@ class Drop {
     if (this.type == "fuel") {
       this.img = new Image();
       this.img.src = "images/Drops/fuel.png";
-      this.ttl = 200;
+      this.ttl = 500;
     }
     if (this.type == "bullets") {
       this.img = new Image();
       this.img.src = "images/Drops/bullets.png";
-      this.ttl = 200;
+      this.ttl = 500;
     }
   }
   draw() {
@@ -181,7 +277,7 @@ class Drop {
         {
           var arr = ["rocket","blaster","laser"];
           var weapon_id = arr.indexOf(document.getElementById("WeaponType").value);
-          weapons.units_num[weapon_id]+=this.value;
+          weapons.ammos[weapon_id]+=this.value;
         }
       return true;
     }
@@ -207,15 +303,42 @@ class Drop {
     }
   }
 }
+function initialize_weapon(){
+  var types = [];
+  var ranges = [];
+  var ammos = [];
+  var damages = [];
+  var recharges = [];
+  for(var i=0;i<5;i++)
+  {
+    var weapon = document.getElementById("Weapon"+(i+1)+"Parameters");
+    if(weapon!=null)
+    {
+      types.push(     document.getElementById("txtWeapon"+(i+1)+"Type").value);
+      ranges.push(    Number.parseInt(document.getElementById("txtWeapon"+(i+1)+"RangeOfFire" ).value));
+      ammos.push(     Number.parseInt(document.getElementById("txtWeapon"+(i+1)+"Ammunition"  ).value));
+      damages.push(   Number.parseInt(document.getElementById("txtWeapon"+(i+1)+"Damage"      ).value));
+      recharges.push( Number.parseInt(document.getElementById("txtWeapon"+(i+1)+"RechargeTime").value));
+    }else {
+      types.push(-1);
+      ranges.push(-1);
+      ammos.push(-1);
+      damages.push(-1);
+      recharges.push(-1);
+    }
+  }
+  weapons = new Weapons(types,damages,ammos,recharges,ranges);
 
+}
 function startGame() {
   spaceship = new component(50, 50, "", FW / 2, FH / 2);
   var thereisfckndroid = true;
   if (thereisfckndroid) {
     //// TODO: make spaceship a class aside background
     var hp_heal_value = 1; //per second
-    spaceship.add_droid(hp_heal_value);
+    spaceship.add_droid(document.getElementById("hp_recovery").value);
   }
+  initialize_weapon();
   myBackground = new component(PIC_W, PIC_H, "images/space.png", -PIC_W / 2 + FW / 2, -PIC_H / 2 + FH / 2);
   var obstacles = {
     start: this.interval = setInterval(gen_obstacles, 1000)
@@ -234,7 +357,7 @@ function startGame() {
   //handle aim movement
   myGameArea.canvas.addEventListener('mousemove', function(e) {
     if (!STOP) {
-      var aim1 = new Image();
+      aim1 = new Image();
       aim1.src = "images/aim_1.png";
       var w = aim1.naturalWidth;
       var h = aim1.naturalHeight;
@@ -250,7 +373,7 @@ function startGame() {
       var x_to = aim[0];
       var y_from = spaceship.y;
       var y_to = aim[1];
-      weapons.add_unit(x_from, y_from, x_to, y_to, spaceship.guntype);
+      weapons.add_unit(x_from, y_from, x_to, y_to, spaceship.weapon_id);
     }
   }, false);
   myGameArea.start();
@@ -305,8 +428,8 @@ function component(width, height, img, x, y) {
   this.hasdoird = false;
   this.hp_heal = 0;
   this.hour = 0; //where it is now 0 to 360
-  //current guntype
-  this.guntype=0;
+  //current weapon_id
+  this.weapon_id=0;
   this.update = function() {
     var k = 0.7;
     this.width = k * this.image.naturalWidth;
@@ -318,15 +441,17 @@ function component(width, height, img, x, y) {
     ctx.drawImage(this.image, this.width / -2, this.height / -2, this.width, this.height);
     ctx.restore();
     if (this.hasdoird) {
-      if (this.hour % 60 == 0 && this.health <= this.health_i - this.hp_heal)
-        this.health += this.hp_heal;
+      if (this.hour % 60 == 0 && this.health <= (this.health_i - this.hp_heal))
+        {
+          this.health += Number.parseInt(this.hp_heal,10);
+        }
       var radius = 40;
       var rad = this.hour * Math.PI / 180;
       this.hour++;
       if (this.hour == 361) this.hour = 0;
       ctx = myGameArea.context;
       var im = new Image();
-      im.src = "images/Repair droids/Sith Dron/1.png";
+      im.src = document.getElementById("ship_repair_droid").value+"1.png";
       ctx.save();
       ctx.translate(this.x, this.y);
       ctx.drawImage(im, Math.cos(rad) * radius - 15, Math.sin(rad) * radius - 15, 30, 30);
@@ -365,10 +490,10 @@ function component(width, height, img, x, y) {
       right = false,
       up = false,
       down = false; //shows that you go out of edges
-    if ((this.x > FW / 2 && this.speedX >= 0)) left = true;
-    if ((this.x < (FW / 2 - PIC_W) && this.speedX <= 0)) right = true;
-    if ((this.y > FH / 2 && this.speedY >= 0)) up = true;
-    if ((this.y < (FH / 2 - PIC_H) && this.speedY <= 0)) down = true;
+    if ((this.x > 0 && this.speedX >= 0)) left = true;
+    if ((this.x < (FW - PIC_W) && this.speedX <= 0)) right = true;
+    if ((this.y > 0 && this.speedY >= 0)) up = true;
+    if ((this.y < (FH - PIC_H) && this.speedY <= 0)) down = true;
     this.offset_x=0;
     this.offset_y=0;
     if (!(left || right || up || down)) {
@@ -385,7 +510,6 @@ function component(width, height, img, x, y) {
     this.hasdoird = true;
     this.hp_heal = hp_heal;
   }
-  //ctx.fillText("POINTS = ",00,50);
 }
 
 function obstacle(w, h, img, x, y, angle, dir, speed) {
@@ -395,6 +519,8 @@ function obstacle(w, h, img, x, y, angle, dir, speed) {
   this.height = h;
   this.speedX = 0;
   this.speedY = 0;
+  this.health_i = 30;
+  this.health = this.health_i;
   this.x = x;
   this.init = x;
   this.y = y;
@@ -405,6 +531,8 @@ function obstacle(w, h, img, x, y, angle, dir, speed) {
   //direction
   this.dir = dir;
   this.speed = speed;
+  //stub for laser
+  this.time=5;
   this.updates = function() {
     ctx = myGameArea.context;
     //explode obstacle
@@ -430,11 +558,22 @@ function obstacle(w, h, img, x, y, angle, dir, speed) {
     ctx.rotate(this.angle * Math.PI / 180);
     ctx.drawImage(this.image, this.width / -2, this.height / -2, this.width, this.height);
     ctx.restore();
-
-    /*ctx.drawImage(this.image,
-      this.x,
-      this.y,
-      this.width, this.height);*/
+    //draw health line
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    context.beginPath();
+    context.moveTo(-this.width/2, this.height/2);
+    context.lineTo(this.width/2, this.height/2);
+    context.lineWidth = 10;
+    context.strokeStyle="#FFFFFF"
+    context.stroke();
+    context.beginPath();
+    context.moveTo(-this.width/2, this.height/2);
+    context.lineTo(-this.width/2+(this.width*this.health/this.health_i), this.height/2);
+    context.lineWidth = 10;
+    context.strokeStyle="#FF0000"
+    context.stroke();
+    ctx.restore();
   }
 
   this.newPosb = function() {
@@ -498,19 +637,21 @@ function updateGameArea() {
       var R = myGameArea.keys[68];
       var F = myGameArea.keys[87];
       var B = myGameArea.keys[83];
-      if (myGameArea.keys[49]) {
-        document.getElementById("WeaponType").value = "rocket";
-        spaceship.guntype=0;
-      }else if(myGameArea.keys[50]) {
-        document.getElementById("WeaponType").value = "laser";
-        spaceship.guntype=1;
-      }else if (myGameArea.keys[51]) {
-        document.getElementById("WeaponType").value = "blaster";
-        spaceship.guntype=2;
-      }else if(myGameArea.keys[52]){
-        spaceship.guntype=3;
-      }else if(myGameArea.keys[53]){
-        spaceship.guntype=4;
+      if (myGameArea.keys[49] && weapons.ammos[0]!=-1) {
+        document.getElementById("helptext").innerHTML = "weapon1";
+        spaceship.weapon_id=0;
+      }else if(myGameArea.keys[50] && weapons.ammos[1]!=-1) {
+        document.getElementById("helptext").innerHTML = "weapon2";
+        spaceship.weapon_id=1;
+      }else if (myGameArea.keys[51] && weapons.ammos[2]!=-1) {
+        document.getElementById("helptext").innerHTML = "weapon3";
+        spaceship.weapon_id=2;
+      }else if(myGameArea.keys[52] && weapons.ammos[3]!=-1){
+        document.getElementById("helptext").innerHTML = "weapon4";
+        spaceship.weapon_id=3;
+      }else if(myGameArea.keys[53] && weapons.ammos[4]!=-1){
+        document.getElementById("helptext").innerHTML = "weapon5";
+        spaceship.weapon_id=4;
       }
       if (L || F || R || B) {
 
@@ -593,8 +734,6 @@ function updateGameArea() {
     var percent = Number((spaceship.health / spaceship.health_i * 100).toFixed(0));
     h.style.setProperty('--hp-v', "" + percent + "%");
     document.getElementById("percent2").innerHTML = percent + "%";
-    //
-    document.getElementById("hp").value = spaceship.health;
     if (obstacle_crashed != -1) {
       obstacles_arr[obstacle_crashed].image.src = "images/Obstacles/output-0.png";
     }
@@ -605,9 +744,20 @@ function updateGameArea() {
       if(drops_arr[i].draw())drop_del=i;
     }
     if(drop_del!=-1)drops_arr.splice(drop_del,1);
-    document.getElementById("weapon1").innerHTML = weapons.units_num[0];
-    document.getElementById("weapon2").innerHTML = weapons.units_num[1];
-    document.getElementById("weapon3").innerHTML = weapons.units_num[2];
+    document.getElementById("weapon1").innerHTML = weapons.ammos[0];
+    document.getElementById("weapon2").innerHTML = weapons.ammos[1];
+    document.getElementById("weapon3").innerHTML = weapons.ammos[2];
+    //update recharges times for guns
+    weapons.cur_recharges.forEach(function(recharge, id, arr)
+    {
+      if(weapons.cur_recharges[id]>0)
+        {
+          var tmp = weapons.cur_recharges[id];
+          tmp-=0.1;
+          tmp = tmp.toFixed(1);
+          weapons.cur_recharges[id]=tmp;
+        }
+    });
   }
 }
 
