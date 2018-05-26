@@ -2,7 +2,7 @@ var spaceship;
 var myBackground;
 var FH = document.getElementById("canvas_field").height;
 var FW = document.getElementById("canvas_field").width;
-var PIC_H = 18000;
+var PIC_H = 6000;
 var PIC_W = 6000;
 var STOP = false;
 var obstacles_arr = [];
@@ -10,6 +10,7 @@ var updateNum = 0;
 var aim = [0,0];
 var TOP = document.getElementById("canvas_field").offsetTop;
 var LEFT = document.getElementById("canvas_field").offsetLeft;
+var POINTS=0;
 
 String.prototype.replaceAt=function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
@@ -50,7 +51,11 @@ class Weapons {
       });
       if(obstacles_id!=-1)
       {
-        // explode obstacle;
+
+        if(obstacles_arr[obstacles_id].image.src.indexOf("meteor_1")!=-1) {POINTS+=5;   }
+        if(obstacles_arr[obstacles_id].image.src.indexOf("meteor_2")!=-1) {POINTS+=10;  }
+        if(obstacles_arr[obstacles_id].image.src.indexOf("meteor_3")!=-1) {POINTS+=20;  }
+          // explode obstacle;
         obstacles_arr[obstacles_id].image.src = "images/Obstacles/output-0.png";
       }
       //check for ended ttl
@@ -145,7 +150,7 @@ function startGame() {
     var hp_heal_value = 1;//per second
     spaceship.add_droid(hp_heal_value);
   }
-  myBackground = new component(PIC_W, PIC_H, "images/space.png", -PIC_W / 2 + FW / 2, 0 - PIC_H / 2 + FH / 2);
+  myBackground = new component(PIC_W, PIC_H, "images/space.png", -PIC_W / 2 + FW / 2,  - PIC_H / 2 + FH / 2);
   var obstacles = {
     start: this.interval = setInterval(gen_obstacles, 1000)
   };
@@ -237,8 +242,9 @@ function component(width, height, img, x, y) {
   this.hp_heal = 0;
   this.hour=0;//where it is now 0 to 360
   this.update = function() {
-    this.width = 60;
-    this.height = 60*this.image.naturalHeight/this.image.naturalWidth;
+    var k = 0.8;
+    this.width = k*this.image.naturalWidth;
+    this.height = k*this.image.naturalHeight;
     ctx = myGameArea.context;
     ctx.save();
     ctx.translate(this.x, this.y);
@@ -268,6 +274,7 @@ function component(width, height, img, x, y) {
       this.x,
       this.y,
       this.width, this.height);
+
   }
   this.newPos = function() {
     this.angle += this.moveAngle * Math.PI / 180;
@@ -290,12 +297,18 @@ function component(width, height, img, x, y) {
     this.y += this.speedY;
   }
   this.newPosb = function() {
-
-    //document.getElementById("helptext").innerHTML = this.x;
-    this.offset_x = this.speedX;
-    this.offset_y = this.speedY;
-    this.x += this.speedX;
-    this.y += this.speedY;
+    var left=false,right=false,up=false,down=false;//shows that you go out of edges
+    if((this.x>FW/2          &&  this.speedX>=0))left=true;
+    if((this.x<(FW/2-PIC_W)  &&  this.speedX<=0)) right=true;
+    if((this.y>FH/2          &&  this.speedY>=0)) up=true;
+    if((this.y<(FH/2-PIC_H)  &&  this.speedY<=0))down=true;
+    if(!(left||right||up||down))
+    {
+        this.offset_x = this.speedX;
+        this.offset_y = this.speedY;
+        this.x += this.speedX;
+        this.y += this.speedY;
+  }
   }
   this.updateAnimation = function() {
     this.image.src = this.ship_hull;
@@ -304,6 +317,7 @@ function component(width, height, img, x, y) {
     this.hasdoird = true;
     this.hp_heal = hp_heal;
   }
+  //ctx.fillText("POINTS = ",00,50);
 }
 
 function obstacle(w, h, img, x, y,angle,dir,speed) {
@@ -461,7 +475,8 @@ function updateGameArea() {
     }
     if(spaceship.stub>60)
       spaceship.stub=0;
-      var obstacle_crashed=-1;
+    var obstacle_crashed=-1;
+    var obstacle_out_of_field=-1;
     for (var i = 0; i < obstacles_arr.length; i++) {
       if (obstacles_arr[i].crashWith(spaceship)) {
         if(spaceship.stub==0)
@@ -471,21 +486,31 @@ function updateGameArea() {
           obstacle_crashed=i;
           var audio = new Audio('audio/auch.mp3');
           audio.play();
-          if(obstacles_arr[i].image.src.indexOf("meteor_1")!=-1) spaceship.health-=5;
-          if(obstacles_arr[i].image.src.indexOf("meteor_2")!=-1) spaceship.health-=10;
-          if(obstacles_arr[i].image.src.indexOf("meteor_3")!=-1) spaceship.health-=20;
+          if(obstacles_arr[i].image.src.indexOf("meteor_1")!=-1) {spaceship.health-=5;  POINTS+=5;}
+          if(obstacles_arr[i].image.src.indexOf("meteor_2")!=-1) {spaceship.health-=10; POINTS+=10;}
+          if(obstacles_arr[i].image.src.indexOf("meteor_3")!=-1) {spaceship.health-=20; POINTS+=20;}
           if(spaceship.health<=0)
             alert("Sorry, dude, but you are dead");
-          //
           if(spaceship.health<=0)
           STOP=true;
           spaceship.stub++;
         }
-        //explode obstacle
-
       }
+      //check if obstacle out of field
+      if(
+        obstacles_arr[i].x<myBackground.x        ||
+        obstacles_arr[i].y<myBackground.y        ||
+        obstacles_arr[i].x>(myBackground.x+PIC_W)||
+        obstacles_arr[i].y>(myBackground.y+PIC_H)
+      )obstacle_out_of_field=i;
+      //update
       obstacles_arr[i].updates();
       obstacles_arr[i].newPosb();
+    }
+    //delete one out of field if there is
+    if(obstacle_out_of_field!=-1)
+    {
+      obstacles_arr.splice(obstacle_out_of_field,1);
     }
     //update health html
     var h = document.querySelector('.js2');
@@ -532,6 +557,10 @@ function draw_war_fog()
   context.lineWidth = (Math.sqrt(Math.pow(FH/2,2)+Math.pow(FW/2,2)) - oradius)*2;
   context.strokeStyle = '#0000FF';
   context.stroke();
+  context.beginPath();
+  context.fillStyle = "yellow";
+  context.font = "20px Arial";
+  context.fillText("POINTS: "+POINTS,0,20);
 }
 function gen_obstacles() {
   if (!STOP) {
