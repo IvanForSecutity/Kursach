@@ -19,25 +19,19 @@ String.prototype.replaceAt = function(index, replacement) {
 class Weapons {
   constructor() {
     this.units = [];
-    this.units_num = [10, 9, 8];
+    this.units_num = [10, 9, 8,0,0];
     this.number = 0;
   }
   add_unit(a, b, c, d, t) { //add unit to the field
-    if (t == "rocket" && this.units_num[0] != 0) {
-      this.units_num[0]--;
-      this.units.push(new unit_w(a, b, c, d, t));
-      this.number++;
-      document.getElementById("booms_rocket").innerHTML = this.units_num[0];
-    } else if (t == "blaster" && this.units_num[1] != 0) {
-      this.units_num[1]--;
-      this.units.push(new unit_w(a, b, c, d, t));
-      this.number++;
-      document.getElementById("booms_blaster").innerHTML = this.units_num[1];
-    } else if (t == "laser" && this.units_num[2] != 0) {
-      this.units_num[2]--;
-      this.units.push(new unit_w(a, b, c, d, t));
-      this.number++;
-      document.getElementById("booms_laser").innerHTML = this.units_num[2];
+    for(var type=0;type<5;type++)
+    {
+      if(t==type && this.units_num[type] != 0)
+      {
+        this.units_num[type]--;
+        this.units.push(new unit_w(a, b, c, d, t));
+        this.number++;
+        document.getElementById("weapon"+(type+1)).innerHTML = this.units_num[0];
+      }
     }
   }
   trydraw() {
@@ -47,7 +41,6 @@ class Weapons {
         for (var i = 0; i < obstacles_arr.length; i++)
           if (obstacles_arr[i].crashWith(item)) {
             obstacles_id = i;
-            //STOP = true;
           }
       });
       if (obstacles_id != -1) {
@@ -92,7 +85,7 @@ class unit_w {
     this.to_y = t_y;
     this.type = type;
     this.height = NaN;
-    if (type == "rocket") {
+    if (type == 0) {
       // K*dXcur^2+K*dYcur^2=NEEDSPEED^2
       // get K and use it
       var SP = 10; //needed absolute speed
@@ -106,7 +99,7 @@ class unit_w {
         this.width = size;
         this.height = size * 4;
       }
-    } else if (type == "blaster") {
+    } else if (type == 1) {
       this.ttl = 50;
       var SP = 20; //needed absolute speed
       var q2 = Math.sqrt(Math.pow(SP, 2) / (Math.pow(t_x - f_x, 2) + Math.pow(t_y - f_y, 2)));
@@ -117,7 +110,7 @@ class unit_w {
       var blaster_unit_size = 50;
       this.width = blaster_unit_size;
       this.height = blaster_unit_size * 2;
-    } else if (type == "laser") {
+    } else if (type == 2) {
       this.ttl = 5;
       var SP = 30; //needed absolute speed
       var q2 = Math.sqrt(Math.pow(SP, 2) / (Math.pow(t_x - f_x, 2) + Math.pow(t_y - f_y, 2)));
@@ -257,7 +250,7 @@ function startGame() {
       var x_to = aim[0];
       var y_from = spaceship.y;
       var y_to = aim[1];
-      weapons.add_unit(x_from, y_from, x_to, y_to, "" + document.getElementById("WeaponType").value);
+      weapons.add_unit(x_from, y_from, x_to, y_to, spaceship.guntype);
     }
   }, false);
   myGameArea.start();
@@ -312,6 +305,8 @@ function component(width, height, img, x, y) {
   this.hasdoird = false;
   this.hp_heal = 0;
   this.hour = 0; //where it is now 0 to 360
+  //current guntype
+  this.guntype=0;
   this.update = function() {
     var k = 0.7;
     this.width = k * this.image.naturalWidth;
@@ -374,6 +369,8 @@ function component(width, height, img, x, y) {
     if ((this.x < (FW / 2 - PIC_W) && this.speedX <= 0)) right = true;
     if ((this.y > FH / 2 && this.speedY >= 0)) up = true;
     if ((this.y < (FH / 2 - PIC_H) && this.speedY <= 0)) down = true;
+    this.offset_x=0;
+    this.offset_y=0;
     if (!(left || right || up || down)) {
       this.offset_x = this.speedX;
       this.offset_y = this.speedY;
@@ -503,12 +500,17 @@ function updateGameArea() {
       var B = myGameArea.keys[83];
       if (myGameArea.keys[49]) {
         document.getElementById("WeaponType").value = "rocket";
-      }
-      if (myGameArea.keys[50]) {
+        spaceship.guntype=0;
+      }else if(myGameArea.keys[50]) {
         document.getElementById("WeaponType").value = "laser";
-      }
-      if (myGameArea.keys[51]) {
+        spaceship.guntype=1;
+      }else if (myGameArea.keys[51]) {
         document.getElementById("WeaponType").value = "blaster";
+        spaceship.guntype=2;
+      }else if(myGameArea.keys[52]){
+        spaceship.guntype=3;
+      }else if(myGameArea.keys[53]){
+        spaceship.guntype=4;
       }
       if (L || F || R || B) {
 
@@ -603,9 +605,9 @@ function updateGameArea() {
       if(drops_arr[i].draw())drop_del=i;
     }
     if(drop_del!=-1)drops_arr.splice(drop_del,1);
-    document.getElementById("booms_rocket").innerHTML = weapons.units_num[0];
-    document.getElementById("booms_laser").innerHTML = weapons.units_num[1];
-    document.getElementById("booms_blaster").innerHTML = weapons.units_num[2];
+    document.getElementById("weapon1").innerHTML = weapons.units_num[0];
+    document.getElementById("weapon2").innerHTML = weapons.units_num[1];
+    document.getElementById("weapon3").innerHTML = weapons.units_num[2];
   }
 }
 
@@ -625,8 +627,8 @@ function draw_war_fog() {
   context = myGameArea.context;
   var x = spaceship.x;
   var y = spaceship.y;
-  var radius = 400; //inner
-  var oradius = 800; //800 good vision, 500 - middle, <300 - bad
+  var oradius = document.getElementById("radar_action_radius").value; //800 good vision, 500 - middle, <300 - bad
+  var radius = oradius/2; //inner
   context.beginPath();
   context.arc(x, y, oradius, 0, 2 * Math.PI, false);
   var grd = context.createRadialGradient(x, y, radius, x, y, oradius);

@@ -281,9 +281,11 @@ $cost = $hull_cost
           <option value="laser"      > Laser     </option>
         </select>
         <pre>Weapon unit count:
-        Rockets:    <a id="booms_rocket">10</a>
-        Blasters:   <a id="booms_blaster">9</a>
-        Laser:      <a id="booms_laser">8</a>
+        Weapon1:    <a id="weapon1">10</a>
+        Weapon2:    <a id="weapon2">9</a>
+        Weapon3:    <a id="weapon3">8</a>
+        Weapon4:    <a id="weapon4">0</a>
+        Weapon5:    <a id="weapon5">0</a>
         </pre>
         <br>
         <a>FUEL [</a><a id='fuel_v'><?php echo $fuel_tank_volume;?></a></a><a>]:</a>
