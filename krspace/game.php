@@ -235,7 +235,7 @@ $free_capacity = $full_capacity
         - $radar_weight
         - $repair_droid_weight - $magnetic_grip_weight
         - $weapon_1_weight - $weapon_2_weight - $weapon_3_weight - $weapon_4_weight - $weapon_5_weight;
-$speed = ((5000 * $free_capacity) + $engine_speed) / ($full_capacity * $full_capacity);
+$speed = ($engine_speed / $full_capacity) * (($free_capacity / $full_capacity) + 1);
 $cost = $hull_cost
         + $engine_cost + $fuel_tank_cost + $secondary_engine_cost
         + $radar_cost

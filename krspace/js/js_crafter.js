@@ -399,7 +399,7 @@ function UpdateSpaceshipParameters()
 
     var hp = hull_hp;
     var maneuverability = parseInt(hull_maneuverability) + parseInt(secondary_engine_maneuverability);
-    var speed = ((5000 * parseInt(free_capacity)) + parseInt(engine_speed)) / (parseInt(full_capacity) * parseInt(full_capacity));
+    var speed = (parseInt(engine_speed) / parseInt(full_capacity)) * ((parseInt(free_capacity) / parseInt(full_capacity)) + 1);
     var health_recovery = repair_droid_health_recovery;
     var cost = parseInt(hull_cost)
             + parseInt(engine_cost) + parseInt(fuel_tank_cost) + parseInt(secondary_engine_cost)
