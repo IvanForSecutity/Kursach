@@ -151,6 +151,8 @@ $weapons = loadWeapons();
         <link rel="stylesheet" href="style/tabs_style.css">
         <script type="text/javascript" src="js/jquery_tools.js"></script>
         <script type="text/javascript" src="js/js_tabs.js"></script>
+        
+        <script type="text/javascript" src="js/drag_and_drop.js"></script>
     </head>
     <body>
         <table  class="two_columns" cellspacing="0">
@@ -221,7 +223,7 @@ $weapons = loadWeapons();
                                         <tr>
                                             <td>
                                                 <div id="available_module_background">
-                                                    <img id="imgAvailableShipHull" src="<?= $cur_hull['image']."1.png"?>" class="available_module_image"> 
+                                                    <img id="<?= "imgShipHull".$cur_hull['name']?>" src="<?= $cur_hull['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragHull(event)">
                                                 </div>
                                             </td>
                                             <td>
@@ -256,7 +258,7 @@ $weapons = loadWeapons();
                                         <tr>
                                             <td>
                                                 <div id="available_module_background">
-                                                    <img id="imgAvailableShipEngine" src="<?= $cur_engine['image']."1.png"?>" class="available_module_image"> 
+                                                    <img id="<?= "imgShipEngine".$cur_engine['name']?>" src="<?= $cur_engine['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragEngine(event)">
                                                 </div> 
                                             </td>
                                             <td>
@@ -290,7 +292,7 @@ $weapons = loadWeapons();
                                         <tr>
                                             <td>
                                                 <div id="available_module_background">
-                                                    <img id="imgAvailableShipSecondaryEngine" src="<?= $cur_secondary_engine['image']."1.png"?>" class="available_module_image"> 
+                                                    <img id="<?= "imgShipSecondaryEngine".$cur_secondary_engine['name']?>" src="<?= $cur_secondary_engine['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragSecondaryEngine(event)">
                                                 </div>
                                             </td>
                                             <td>
@@ -324,7 +326,7 @@ $weapons = loadWeapons();
                                         <tr>
                                             <td>
                                                 <div id="available_module_background">
-                                                    <img id="imgAvailableShipFuelTank" src="<?= $cur_fuel_tank['image']."1.png"?>" class="available_module_image"> 
+                                                    <img id="<?= "imgShipFuelTank".$cur_fuel_tank['name']?>" src="<?= $cur_fuel_tank['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragFuelTank(event)">
                                                 </div>
                                             </td>
                                             <td>
@@ -358,7 +360,7 @@ $weapons = loadWeapons();
                                         <tr>
                                             <td>
                                                 <div id="available_module_background">
-                                                    <img id="imgAvailableShipRadar" src="<?= $cur_radar['image']."1.png"?>" class="available_module_image"> 
+                                                    <img id="<?= "imgShipRadar".$cur_radar['name']?>" src="<?= $cur_radar['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragRadar(event)">
                                                 </div>
                                             </td>
                                             <td>
@@ -392,7 +394,7 @@ $weapons = loadWeapons();
                                         <tr>
                                             <td>
                                                 <div id="available_module_background">
-                                                    <img id="imgAvailableShipRepairDroid" src="<?= $cur_repair_droid['image']."1.png"?>" class="available_module_image"> 
+                                                    <img id="<?= "imgShipRepairDroid".$cur_repair_droid['name']?>" src="<?= $cur_repair_droid['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragRepairDroid(event)">
                                                 </div>
                                             </td>
                                             <td>
@@ -426,7 +428,7 @@ $weapons = loadWeapons();
                                         <tr>
                                             <td>
                                                 <div id="available_module_background">
-                                                    <img id="imgAvailableShipMagneticGrip" src="<?= $cur_magnetic_grip['image']."1.png"?>" class="available_module_image"> 
+                                                    <img id="<?= "imgShipMagneticGrip".$cur_magnetic_grip['name']?>" src="<?= $cur_magnetic_grip['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragMagneticGrip(event)">
                                                 </div>
                                             </td>
                                             <td>
@@ -461,7 +463,7 @@ $weapons = loadWeapons();
                                         <tr>
                                             <td>
                                                 <div id="available_module_background">
-                                                    <img id="imgAvailableShipMagneticGrip" src="<?= $cur_weapon['image']."1.png"?>" class="available_module_image"> 
+                                                    <img id="<?= "imgShipWeapon".$cur_weapon['name']?>" src="<?= $cur_weapon['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragWeapon(event)">
                                                 </div>
                                             </td>
                                             <td>
@@ -500,175 +502,117 @@ $weapons = loadWeapons();
                             </p>
                         </div>
                     </div>
-                    
-                    
-
-                    Hull:
-                    <select id="selShipHull" name="selShipHull" class="select-multi" size="1" onchange="HullChanged()">
-                        <option value=""> </option>
-                        <?php foreach ($hulls as $cur_hull) : ?>
-                            <option data-path="<?= $cur_hull['image']?>1.png" value="<?= $cur_hull['name']?>"> <?= $cur_hull['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br>
-                    Engine:
-                    <select id="selShipEngine" name="selShipEngine" class="select-multi" size="1" onchange="EngineChanged()" disabled="true">
-                        <option value=""> </option>
-                        <?php foreach ($engines as $cur_engine) : ?>
-                            <option data-path="<?= $cur_engine['image']?>1.png" value="<?= $cur_engine['name']?>"> <?= $cur_engine['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br/>
-                    Secondary engines:
-                    <select id="selShipSecondaryEngine" name="selShipSecondaryEngine" class="select-multi" size="1" onchange="SecondaryEngineChanged()" disabled="true">
-                        <option value=""> </option>
-                        <?php foreach ($secondary_engines as $cur_secondary_engine) : ?>
-                            <option data-path="<?= $cur_secondary_engine['image']?>1.png" value="<?= $cur_secondary_engine['name']?>"> <?= $cur_secondary_engine['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br/>
-                    Fuel Tank:
-                    <select id="selShipFuelTank" name="selShipFuelTank" class="select-multi" size="1" onchange="FuelTankChanged()" disabled="true">
-                        <option value=""> </option>
-                        <?php foreach ($fuel_tanks as $cur_fuel_tank) : ?>
-                            <option data-path="<?= $cur_fuel_tank['image']?>1.png" value="<?= $cur_fuel_tank['name']?>"> <?= $cur_fuel_tank['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br/>
-                    Radar:
-                    <select id="selShipRadar" name="selShipRadar" class="select-multi" size="1" onchange="RadarChanged()" disabled="true">
-                        <option value=""> </option>
-                        <?php foreach ($radars as $cur_radar) : ?>
-                            <option data-path="<?= $cur_radar['image']?>1.png" value="<?= $cur_radar['name']?>"> <?= $cur_radar['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br/>
-                    Repair droid:
-                    <select id="selShipRepairDroid" name="selShipRepairDroid" class="select-multi" size="1" onchange="RepairDroidChanged()" disabled="true">
-                        <option value=""> </option>
-                        <?php foreach ($repair_droids as $cur_repair_droid) : ?>
-                            <option data-path="<?= $cur_repair_droid['image']?>1.png" value="<?= $cur_repair_droid['name']?>"> <?= $cur_repair_droid['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br/>
-                    Magnetic grip:
-                    <select id="selShipMagneticGrip" name="selShipMagneticGrip" class="select-multi" size="1" onchange="MagneticGripChanged()" disabled="true">
-                        <option value=""> </option>
-                        <?php foreach ($magnetic_grips as $cur_magnetic_grip) : ?>
-                            <option data-path="<?= $cur_magnetic_grip['image']?>1.png" value="<?= $cur_magnetic_grip['name']?>"> <?= $cur_magnetic_grip['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br/>
-                    Weapon 1:
-                    <select id="selShipWeapon1" name="selShipWeapon1" class="select-multi" size="1" onchange="Weapon1Changed()" disabled="true">
-                        <option value=""> </option>
-                        <?php foreach ($weapons as $cur_weapon) : ?>
-                            <option data-path="<?= $cur_weapon['image']?>1.png" value="<?= $cur_weapon['name']?>"> <?= $cur_weapon['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br/>
-                    Weapon 2:
-                    <select id="selShipWeapon2" name="selShipWeapon2" class="select-multi" size="1" onchange="Weapon2Changed()" disabled="true">
-                        <option value=""> </option>
-                        <?php foreach ($weapons as $cur_weapon) : ?>
-                            <option data-path="<?= $cur_weapon['image']?>1.png" value="<?= $cur_weapon['name']?>"> <?= $cur_weapon['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br/>
-                    Weapon 3:
-                    <select id="selShipWeapon3" name="selShipWeapon3" class="select-multi" size="1" onchange="Weapon3Changed()" disabled="true">
-                        <option value=""> </option>
-                        <?php foreach ($weapons as $cur_weapon) : ?>
-                            <option data-path="<?= $cur_weapon['image']?>1.png" value="<?= $cur_weapon['name']?>"> <?= $cur_weapon['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br/>
-                    Weapon 4:
-                    <select id="selShipWeapon4" name="selShipWeapon4" class="select-multi" size="1" onchange="Weapon4Changed()" disabled="true">
-                        <option value=""> </option>
-                        <?php foreach ($weapons as $cur_weapon) : ?>
-                            <option data-path="<?= $cur_weapon['image']?>1.png" value="<?= $cur_weapon['name']?>"> <?= $cur_weapon['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br/>
-                    Weapon 5:
-                    <select id="selShipWeapon5" name="selShipWeapon5" class="select-multi" size="1" onchange="Weapon5Changed()" disabled="true">
-                        <option value=""> </option>
-                        <?php foreach ($weapons as $cur_weapon) : ?>
-                            <option data-path="<?= $cur_weapon['image']?>1.png" value="<?= $cur_weapon['name']?>"> <?= $cur_weapon['name']?> </option>
-                        <?php endforeach ?>
-                    </select>
-                    <br/>
                 </td>
                 <td class="center_col">
                     <div class='circle-container'>
                         <c href='#' class='center'>
-                            <div id="ship_hull_cell" class="empty_hull_background">
-                                <img id="ship_hull" src="images/Icons/yes.png" class="hull_image">
+                            <div id="ship_hull_cell" class="empty_hull_background" ondrop="dropHull(event)" ondragover="allowDrop(event)">
+                                <img id="ship_hull" src="images/Icons/yes.png" class="hull_image" draggable="true" ondragstart="dragCurHull(event)">
                             </div>
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="txtHullChosen" value="false" readonly="true">
                         </a>
 
                         <a href='#' class='deg250'>
-                            <div id="ship_weapon_1_cell" class="blocked_module_background">
-                                <img id="ship_weapon_1" src="images/Icons/no.png" class="module_image"> 
+                            <div id="ship_weapon_1_cell" class="blocked_module_background" ondrop="dropWeapon1(event)" ondragover="allowDrop(event)">
+                                <img id="ship_weapon_1" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon1(event)"> 
                             </div>
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="txtWeapon1Allowed" value="false" readonly="true">
+                            <input type="hidden" id="txtWeapon1Chosen" value="false" readonly="true">
                         </a>
                         <a href='#' class='deg270'>
-                            <div id="ship_weapon_2_cell" class="blocked_module_background">
-                                <img id="ship_weapon_2" src="images/Icons/no.png" class="module_image"> 
+                            <div id="ship_weapon_2_cell" class="blocked_module_background" ondrop="dropWeapon2(event)" ondragover="allowDrop(event)">
+                                <img id="ship_weapon_2" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon2(event)"> 
                             </div>
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="txtWeapon2Allowed" value="false" readonly="true">
+                            <input type="hidden" id="txtWeapon2Chosen" value="false" readonly="true">
                         </a>
                         <a href='#' class='deg290'>
-                            <div id="ship_weapon_3_cell" class="blocked_module_background">
-                                <img id="ship_weapon_3" src="images/Icons/no.png" class="module_image"> 
+                            <div id="ship_weapon_3_cell" class="blocked_module_background" ondrop="dropWeapon3(event)" ondragover="allowDrop(event)">
+                                <img id="ship_weapon_3" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon3(event)"> 
                             </div>
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="txtWeapon3Allowed" value="false" readonly="true">
+                            <input type="hidden" id="txtWeapon3Chosen" value="false" readonly="true">
                         </a>
                         <a href='#' class='deg260'>
-                            <div id="ship_weapon_4_cell" class="blocked_module_background">
-                                <img id="ship_weapon_4" src="images/Icons/no.png" class="module_image"> 
+                            <div id="ship_weapon_4_cell" class="blocked_module_background" ondrop="dropWeapon4(event)" ondragover="allowDrop(event)">
+                                <img id="ship_weapon_4" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon4(event)"> 
                             </div>
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="txtWeapon4Allowed" value="false" readonly="true">
+                            <input type="hidden" id="txtWeapon4Chosen" value="false" readonly="true">
                         </a>
                         <a href='#' class='deg280'>
-                            <div id="ship_weapon_5_cell" class="blocked_module_background">
-                                <img id="ship_weapon_5" src="images/Icons/no.png" class="module_image"> 
+                            <div id="ship_weapon_5_cell" class="blocked_module_background" ondrop="dropWeapon5(event)" ondragover="allowDrop(event)">
+                                <img id="ship_weapon_5" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon5(event)"> 
                             </div>
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="txtWeapon5Allowed" value="false" readonly="true">
+                            <input type="hidden" id="txtWeapon5Chosen" value="false" readonly="true">
                         </a>
 
                         <a href='#' class='deg330'>
-                            <div id="ship_radar_cell" class="blocked_module_background">
-                                <img id="ship_radar" src="images/Icons/no.png" class="module_image"> 
+                            <div id="ship_radar_cell" class="blocked_module_background" ondrop="dropRadar(event)" ondragover="allowDrop(event)">
+                                <img id="ship_radar" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurRadar(event)"> 
                             </div>
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="txtRadarAllowed" value="false" readonly="true">
+                            <input type="hidden" id="txtRadarChosen" value="false" readonly="true">
                         </a>
                         <a href='#' class='deg30'>  <img src="images/stub.jpg"> </a>
 
                         <a href='#' class='deg70'>
-                            <div id="ship_magnetic_grip_cell" class="blocked_module_background">
-                                <img id="ship_magnetic_grip" src="images/Icons/no.png" class="module_image"> 
+                            <div id="ship_magnetic_grip_cell" class="blocked_module_background" ondrop="dropMagneticGrip(event)" ondragover="allowDrop(event)">
+                                <img id="ship_magnetic_grip" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurMagneticGrip(event)"> 
                             </div>
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="txtMagneticGripAllowed" value="false" readonly="true">
+                            <input type="hidden" id="txtMagneticGripChosen" value="false" readonly="true">
                         </a>
                         <a href='#' class='deg90'>  <img src="images/stub.jpg"> </a>
                         <a href='#' class='deg110'>
-                            <div id="ship_repair_droid_cell" class="blocked_module_background">
-                                <img id="ship_repair_droid" src="images/Icons/no.png" class="module_image"> 
+                            <div id="ship_repair_droid_cell" class="blocked_module_background" ondrop="dropRepairDroid(event)" ondragover="allowDrop(event)">
+                                <img id="ship_repair_droid" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurRepairDroid(event)"> 
                             </div>
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="txtRepairDroidAllowed" value="false" readonly="true">
+                            <input type="hidden" id="txtRepairDroidChosen" value="false" readonly="true">
                         </a>
                         
                         <a href='#' class='deg150'>
-                            <div id="ship_fuel_tank_cell" class="blocked_module_background">
-                                <img id="ship_fuel_tank" src="images/Icons/no.png" class="module_image"> 
+                            <div id="ship_fuel_tank_cell" class="blocked_module_background" ondrop="dropFuelTank(event)" ondragover="allowDrop(event)">
+                                <img id="ship_fuel_tank" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurFuelTank(event)"> 
                             </div>
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="txtFuelTankAllowed" value="false" readonly="true">
+                            <input type="hidden" id="txtFuelTankChosen" value="false" readonly="true">
                         </a>
                         <a href='#' class='deg180'>
-                            <div id="ship_secondary_engine_cell" class="blocked_module_background">
-                                <img id="ship_secondary_engine" src="images/Icons/no.png" class="module_image"> 
+                            <div id="ship_secondary_engine_cell" class="blocked_module_background" ondrop="dropSecondaryEngine(event)" ondragover="allowDrop(event)">
+                                <img id="ship_secondary_engine" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurSecondaryEngine(event)"> 
                             </div>
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="txtSecondaryEngineAllowed" value="false" readonly="true">
+                            <input type="hidden" id="txtSecondaryEngineChosen" value="false" readonly="true">
                         </a>
                         <a href='#' class='deg210'>
-                            <div id="ship_engine_cell" class="blocked_module_background">
-                                <img id="ship_engine" src="images/Icons/no.png" class="module_image"> 
+                            <div id="ship_engine_cell" class="blocked_module_background" ondrop="dropEngine(event)" ondragover="allowDrop(event)">
+                                <img id="ship_engine" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurEngine(event)"> 
                             </div>
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="txtEngineAllowed" value="false" readonly="true">
+                            <input type="hidden" id="txtEngineChosen" value="false" readonly="true">
                         </a>
-                    </div> 
+                    </div>
+
+                    <br/><br/><br/><br/><br/>
+                    
+                    <div id="ship_engine_cell" class="recycle_bin_background" ondrop="dropRecycleBin(event)" ondragover="allowDrop(event)">
+                        <img src="images/Icons/recycle_bin_empty.png" class="module_image">
+                    </div>
                 </td>
                 <td class="right_col">
                     Spaceship parameters:
@@ -694,57 +638,57 @@ $weapons = loadWeapons();
                     <br/>
                     Magnetic grip carrying capacity: <input type="text" id="txtMagneticGripCarryingCapacity" value="0" style="margin-top: 0.2em" readonly="true">
                     <br/> <br/>
-                    <div id="Weapon1Parameters">
+                    <div id="Weapon1Parameters" style='display:none;'>
                         Weapon 1. <br/>
-                        Type: <input id="txtWeapon1Type" value="0" readonly="true"> <br/>
-                        Damage: <input id="txtWeapon1Damage" value="0" readonly="true"> <br/>
-                        Ammunition: <input id="txtWeapon1Ammunition" value="0" readonly="true"> <br/>
-                        Recharge Time: <input id="txtWeapon1RechargeTime" value="0" readonly="true"> <br/>
-                        Range Of Fire:<input id="txtWeapon1RangeOfFire" value="0" readonly="true"> <br/>
+                        Type: <input type="hidden" id="txtWeapon1Type" value="0" readonly="true"> <br/>
+                        Damage: <input type="hidden" id="txtWeapon1Damage" value="0" readonly="true"> <br/>
+                        Ammunition: <input type="hidden" id="txtWeapon1Ammunition" value="0" readonly="true"> <br/>
+                        Recharge Time: <input type="hidden" id="txtWeapon1RechargeTime" value="0" readonly="true"> <br/>
+                        Range Of Fire:<input type="hidden" id="txtWeapon1RangeOfFire" value="0" readonly="true"> <br/>
                         <input type="hidden" id="txtWeapon1Weight" value="0" readonly="true">
                         <input type="hidden" id="txtWeapon1Cost" value="0" readonly="true">
                         <br/>
                     </div>
-                    <div id="Weapon2Parameters">
+                    <div id="Weapon2Parameters" style='display:none;'>
                         Weapon 2. <br/>
-                        Type: <input id="txtWeapon2Type" value="0" readonly="true"> <br/>
-                        Damage: <input id="txtWeapon2Damage" value="0" readonly="true"> <br/>
-                        Ammunition: <input id="txtWeapon2Ammunition" value="0" readonly="true"> <br/>
-                        Recharge Time: <input id="txtWeapon2RechargeTime" value="0" readonly="true"> <br/>
-                        Range Of Fire:<input id="txtWeapon2RangeOfFire" value="0" readonly="true"> <br/>
+                        Type: <input type="hidden" id="txtWeapon2Type" value="0" readonly="true"> <br/>
+                        Damage: <input type="hidden" id="txtWeapon2Damage" value="0" readonly="true"> <br/>
+                        Ammunition: <input type="hidden" id="txtWeapon2Ammunition" value="0" readonly="true"> <br/>
+                        Recharge Time: <input type="hidden" id="txtWeapon2RechargeTime" value="0" readonly="true"> <br/>
+                        Range Of Fire:<input type="hidden" id="txtWeapon2RangeOfFire" value="0" readonly="true"> <br/>
                         <input type="hidden" id="txtWeapon2Weight" value="0" readonly="true">
                         <input type="hidden" id="txtWeapon2Cost" value="0" readonly="true">
                         <br/>
                     </div>
-                    <div id="Weapon3Parameters">
+                    <div id="Weapon3Parameters" style='display:none;'>
                         Weapon 3. <br/>
-                        Type: <input id="txtWeapon3Type" value="0" readonly="true"> <br/>
-                        Damage: <input id="txtWeapon3Damage" value="0" readonly="true"> <br/>
-                        Ammunition: <input id="txtWeapon3Ammunition" value="0" readonly="true"> <br/>
-                        Recharge Time: <input id="txtWeapon3RechargeTime" value="0" readonly="true"> <br/>
-                        Range Of Fire:<input id="txtWeapon3RangeOfFire" value="0" readonly="true"> <br/>
+                        Type: <input type="hidden" id="txtWeapon3Type" value="0" readonly="true"> <br/>
+                        Damage: <input type="hidden" id="txtWeapon3Damage" value="0" readonly="true"> <br/>
+                        Ammunition: <input type="hidden" id="txtWeapon3Ammunition" value="0" readonly="true"> <br/>
+                        Recharge Time: <input type="hidden" id="txtWeapon3RechargeTime" value="0" readonly="true"> <br/>
+                        Range Of Fire:<input type="hidden" id="txtWeapon3RangeOfFire" value="0" readonly="true"> <br/>
                         <input type="hidden" id="txtWeapon3Weight" value="0" readonly="true">
                         <input type="hidden" id="txtWeapon3Cost" value="0" readonly="true">
                         <br/>
                     </div>
-                    <div id="Weapon4Parameters">
+                    <div id="Weapon4Parameters" style='display:none;'>
                         Weapon 4. <br/>
-                        Type: <input id="txtWeapon4Type" value="0" readonly="true"> <br/>
-                        Damage: <input id="txtWeapon4Damage" value="0" readonly="true"> <br/>
-                        Ammunition: <input id="txtWeapon4Ammunition" value="0" readonly="true"> <br/>
-                        Recharge Time: <input id="txtWeapon4RechargeTime" value="0" readonly="true"> <br/>
-                        Range Of Fire:<input id="txtWeapon4RangeOfFire" value="0" readonly="true"> <br/>
+                        Type: <input type="hidden" id="txtWeapon4Type" value="0" readonly="true"> <br/>
+                        Damage: <input type="hidden" id="txtWeapon4Damage" value="0" readonly="true"> <br/>
+                        Ammunition: <input type="hidden" id="txtWeapon4Ammunition" value="0" readonly="true"> <br/>
+                        Recharge Time: <input type="hidden" id="txtWeapon4RechargeTime" value="0" readonly="true"> <br/>
+                        Range Of Fire:<input type="hidden" id="txtWeapon4RangeOfFire" value="0" readonly="true"> <br/>
                         <input type="hidden" id="txtWeapon4Weight" value="0" readonly="true">
                         <input type="hidden" id="txtWeapon4Cost" value="0" readonly="true">
                         <br/>
                     </div>
-                    <div id="Weapon5Parameters">
+                    <div id="Weapon5Parameters" style='display:none;'>
                         Weapon 5. <br/>
-                        Type: <input id="txtWeapon5Type" value="0" readonly="true"> <br/>
-                        Damage: <input id="txtWeapon5Damage" value="0" readonly="true"> <br/>
-                        Ammunition: <input id="txtWeapon5Ammunition" value="0" readonly="true"> <br/>
-                        Recharge Time: <input id="txtWeapon5RechargeTime" value="0" readonly="true"> <br/>
-                        Range Of Fire:<input id="txtWeapon5RangeOfFire" value="0" readonly="true"> <br/>
+                        Type: <input type="hidden" id="txtWeapon5Type" value="0" readonly="true"> <br/>
+                        Damage: <input type="hidden" id="txtWeapon5Damage" value="0" readonly="true"> <br/>
+                        Ammunition: <input type="hidden" id="txtWeapon5Ammunition" value="0" readonly="true"> <br/>
+                        Recharge Time: <input type="hidden" id="txtWeapon5RechargeTime" value="0" readonly="true"> <br/>
+                        Range Of Fire:<input type="hidden" id="txtWeapon5RangeOfFire" value="0" readonly="true"> <br/>
                         <input type="hidden" id="txtWeapon5Weight" value="0" readonly="true">
                         <input type="hidden" id="txtWeapon5Cost" value="0" readonly="true">
                         <br/>
