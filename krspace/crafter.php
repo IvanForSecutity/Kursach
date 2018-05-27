@@ -511,101 +511,109 @@ $weapons = loadWeapons();
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtHullChosen" value="false" readonly="true">
-                        </a>
+                            Hull
+                        </c>
 
-                        <a href='#' class='deg250'>
+                        <z href='#' class='deg250'>
                             <div id="ship_weapon_1_cell" class="blocked_module_background" ondrop="dropWeapon1(event)" ondragover="allowDrop(event)">
                                 <img id="ship_weapon_1" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon1(event)"> 
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtWeapon1Allowed" value="false" readonly="true">
                             <input type="hidden" id="txtWeapon1Chosen" value="false" readonly="true">
-                        </a>
-                        <a href='#' class='deg270'>
+                        </z>
+                        <z href='#' class='deg270'>
                             <div id="ship_weapon_2_cell" class="blocked_module_background" ondrop="dropWeapon2(event)" ondragover="allowDrop(event)">
                                 <img id="ship_weapon_2" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon2(event)"> 
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtWeapon2Allowed" value="false" readonly="true">
                             <input type="hidden" id="txtWeapon2Chosen" value="false" readonly="true">
-                        </a>
-                        <a href='#' class='deg290'>
+                            Weapons
+                        </z>
+                        <z href='#' class='deg290'>
                             <div id="ship_weapon_3_cell" class="blocked_module_background" ondrop="dropWeapon3(event)" ondragover="allowDrop(event)">
                                 <img id="ship_weapon_3" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon3(event)"> 
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtWeapon3Allowed" value="false" readonly="true">
                             <input type="hidden" id="txtWeapon3Chosen" value="false" readonly="true">
-                        </a>
-                        <a href='#' class='deg260'>
+                        </z>
+                        <z href='#' class='deg260'>
                             <div id="ship_weapon_4_cell" class="blocked_module_background" ondrop="dropWeapon4(event)" ondragover="allowDrop(event)">
                                 <img id="ship_weapon_4" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon4(event)"> 
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtWeapon4Allowed" value="false" readonly="true">
                             <input type="hidden" id="txtWeapon4Chosen" value="false" readonly="true">
-                        </a>
-                        <a href='#' class='deg280'>
+                        </z>
+                        <z href='#' class='deg280'>
                             <div id="ship_weapon_5_cell" class="blocked_module_background" ondrop="dropWeapon5(event)" ondragover="allowDrop(event)">
                                 <img id="ship_weapon_5" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon5(event)"> 
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtWeapon5Allowed" value="false" readonly="true">
                             <input type="hidden" id="txtWeapon5Chosen" value="false" readonly="true">
-                        </a>
+                        </z>
 
-                        <a href='#' class='deg330'>
+                        <z href='#' class='deg325'>
                             <div id="ship_radar_cell" class="blocked_module_background" ondrop="dropRadar(event)" ondragover="allowDrop(event)">
                                 <img id="ship_radar" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurRadar(event)"> 
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtRadarAllowed" value="false" readonly="true">
                             <input type="hidden" id="txtRadarChosen" value="false" readonly="true">
-                        </a>
-                        <a href='#' class='deg30'>  <img src="images/stub.jpg"> </a>
+                            Radar
+                        </z>
+                        <z href='#' class='deg35'>  <img src="images/stub.jpg"> </z>
 
-                        <a href='#' class='deg70'>
+                        <z href='#' class='deg70'>
                             <div id="ship_magnetic_grip_cell" class="blocked_module_background" ondrop="dropMagneticGrip(event)" ondragover="allowDrop(event)">
                                 <img id="ship_magnetic_grip" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurMagneticGrip(event)"> 
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtMagneticGripAllowed" value="false" readonly="true">
                             <input type="hidden" id="txtMagneticGripChosen" value="false" readonly="true">
-                        </a>
-                        <a href='#' class='deg90'>  <img src="images/stub.jpg"> </a>
-                        <a href='#' class='deg110'>
+                            Magnetic grip
+                        </z>
+                        <z href='#' class='deg90'>  <img src="images/stub.jpg"> </z>
+                        <z href='#' class='deg110'>
                             <div id="ship_repair_droid_cell" class="blocked_module_background" ondrop="dropRepairDroid(event)" ondragover="allowDrop(event)">
                                 <img id="ship_repair_droid" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurRepairDroid(event)"> 
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtRepairDroidAllowed" value="false" readonly="true">
                             <input type="hidden" id="txtRepairDroidChosen" value="false" readonly="true">
-                        </a>
+                            Repair droid
+                        </z>
                         
-                        <a href='#' class='deg150'>
+                        <z href='#' class='deg145'>
                             <div id="ship_fuel_tank_cell" class="blocked_module_background" ondrop="dropFuelTank(event)" ondragover="allowDrop(event)">
                                 <img id="ship_fuel_tank" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurFuelTank(event)"> 
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtFuelTankAllowed" value="false" readonly="true">
                             <input type="hidden" id="txtFuelTankChosen" value="false" readonly="true">
-                        </a>
-                        <a href='#' class='deg180'>
+                            Fuel tank
+                        </z>
+                        <z href='#' class='deg180'>
                             <div id="ship_secondary_engine_cell" class="blocked_module_background" ondrop="dropSecondaryEngine(event)" ondragover="allowDrop(event)">
                                 <img id="ship_secondary_engine" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurSecondaryEngine(event)"> 
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtSecondaryEngineAllowed" value="false" readonly="true">
                             <input type="hidden" id="txtSecondaryEngineChosen" value="false" readonly="true">
-                        </a>
-                        <a href='#' class='deg210'>
+                            Secondary engine
+                        </z>
+                        <z href='#' class='deg215'>
                             <div id="ship_engine_cell" class="blocked_module_background" ondrop="dropEngine(event)" ondragover="allowDrop(event)">
                                 <img id="ship_engine" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurEngine(event)"> 
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtEngineAllowed" value="false" readonly="true">
                             <input type="hidden" id="txtEngineChosen" value="false" readonly="true">
-                        </a>
+                            Engine
+                        </z>
                     </div>
 
                     <br/><br/><br/><br/><br/>
