@@ -19,6 +19,9 @@ if(isset($_POST['btnReg']))
         <title>Authorisation</title>
     </head>
     <body>
+        <script>
+        
+        </script>
         <div style="align-content: center; text-align: center; margin-top: 10em">
             <em>Authorisation</em><br><br>
             <form action="" method="POST" id="frmLogin">
