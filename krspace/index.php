@@ -13,7 +13,7 @@
                  src="images/start_image.jpg" 
                  alt="Ship ship" >
             <br/><br/><br/>
-            <p style="width:50%">Добро пожаловать на наш сайт!</h1>
+            <p style="width:50%">Welcome to our site!</h1>
         </div>
     </body>
 </html>
