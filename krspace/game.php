@@ -253,7 +253,7 @@ $cost = $hull_cost
         <title>Spaceship test</title>
     </head>
 
-  <body onload="startGame()">
+  <body onload="StartGame()">
     <table  class="two_columns" cellspacing="0">
     <tr >
         <td>
