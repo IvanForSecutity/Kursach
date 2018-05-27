@@ -175,9 +175,10 @@ class unit_w {
           //resolve
           if(x0_laser>x1_laser){var t1 =x0_laser;x0_laser = x1_laser;x1_laser=t1;}
           if(y0_laser>y1_laser){var t2 =y0_laser;y0_laser = y1_laser;y1_laser=t2;}
-          var stepx = 1;
-          var stepy = 1*Math.abs(a/b);
+          var stepx = Math.abs(a/200);
+          var stepy = Math.abs(b/200);
           stepy = stepy.toFixed(4);
+          stepx = stepx.toFixed(4);
           var x=x0_laser;
           var y=Number.parseInt(y0_laser,10);
           var in_=false;
@@ -189,13 +190,13 @@ class unit_w {
                 in_=true;
                 break;
               }
-            x+=stepx;
+
+            x+=Number.parseFloat(stepx);
             y+=Number.parseFloat(stepy);
           }
           if(in_)
           {
             //beat obstacle
-              //alert(item.time);
               if(item.time==5)
               {
                 item.time=0;
