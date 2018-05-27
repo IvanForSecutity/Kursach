@@ -205,7 +205,7 @@ class unit_w {
                 {
                     var rand = gR(0,5);
                     var niiice = ["fuel","bullets"];
-                    if(rand!=5)drops_arr.push(new Drop(niiice[rand%2], dmg, item.x, item.y));
+                    if(rand!=5)drops_arr.push(new Drop(niiice[rand%2], 10, item.x, item.y));
                     item.image.src = "images/Obstacles/output-0.png";
                 }
               }else {
@@ -346,7 +346,7 @@ function startGame() {
     spaceship.add_grip(magnetic_grip_action_radius,magnetic_grip_carrying_capacity);
   }
   initialize_weapon();
-  myBackground = new component(PIC_W, PIC_H, "images/space.png", -PIC_W / 2 + FW / 2, -PIC_H / 2 + FH / 2);
+  myBackground = new component(PIC_W, PIC_H, "images/space.jpg", -PIC_W / 2 + FW / 2, -PIC_H / 2 + FH / 2);
   var obstacles = {
     start: this.interval = setInterval(gen_obstacles, 1000)
   };
@@ -676,7 +676,21 @@ function updateGameArea() {
           drops_arr.forEach(function(item,id,arr){
             var path_to_drop = Math.sqrt(Math.pow(spaceship.x - item.x,2)+Math.pow(spaceship.y - item.y,2));
             if(path_to_drop<4*spaceship.grip_radius)
-              tmp_drops_array.push(id);
+              {
+                if(item.type=="fuel")
+                {
+                  if(spaceship.fuel<=spaceship.fuel_i){
+                    if(spaceship.fuel+item.value>spaceship.fuel_i)spaceship.fuel=spaceship.fuel_i;
+                    else spaceship.fuel+=item.value;
+                  }
+                }else if(item.type=="bullets")
+                  {
+                    var arr = ["rocket","blaster","laser"];
+                    var weapon_id = arr.indexOf(document.getElementById("WeaponType").value);
+                    weapons.ammos[weapon_id]+=item.value;
+                  }
+                tmp_drops_array.push(id);
+              }
           });
         tmp_drops_array.forEach(function(item,id,arr){
           drops_arr.splice(item,1);
