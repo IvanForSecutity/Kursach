@@ -102,6 +102,54 @@ td.right_col
     text-align: right;
 }
 
+table.four_columns
+{
+    width:  100%;
+    border-spacing: 0;  /* Distance between cells */
+}
+table.four_columns td, th
+{
+    padding: 3px;
+}
+table.four_columns th
+{
+    background: black;
+    color: white;
+    border: 1px solid white;
+}
+table.four_columns td
+{
+    vertical-align: top;
+    text-align: center;
+    font-size: 70%;
+    border: 1px solid black;
+}
+td.wide_col
+{
+    width: 40%;
+    text-align: center;
+}
+td.last_col
+{
+    width: 10%;
+    text-align: center;
+}
+
+.available_module_image
+{
+    position: relative;
+    margin: auto;
+    border: 2px solid lime;
+    border-radius: 10px;
+    background-color: greenyellow;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    wigth: 60px;
+    height: 60px;
+}
+
 .module_background
 {
     position: relative;

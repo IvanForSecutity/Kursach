@@ -147,6 +147,10 @@ $weapons = loadWeapons();
         <link rel="stylesheet" href="style/page_style.css">
         <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
         <script type="text/javascript" src="js/js_crafter.js"></script>
+
+        <link rel="stylesheet" href="style/tabs_style.css">
+        <script type="text/javascript" src="js/jquery_tools.js"></script>
+        <script type="text/javascript" src="js/js_tabs.js"></script>
     </head>
     <body>
         <table  class="two_columns" cellspacing="0">
@@ -172,8 +176,7 @@ $weapons = loadWeapons();
             </div>
         </div>
 
-        <br/>
-        <br/>
+        <br/><br/><br/>
         
         <form action="" method="POST" id="frmCrafter">
             <table class="three_columns">
@@ -185,6 +188,290 @@ $weapons = loadWeapons();
                     Ship name: <input type="text" id="txtShipName" name="txtShipName" value="<?php echo $txtShipName;?>" style="margin-top: 0.2em">
                     <br>
                     <br>
+                    
+                    <ul class="tabs">
+                        <li><a href="#">Hulls</a></li>
+                        <li><a href="#" class="w1">Engines</a></li>
+                        <li><a href="#" class="w1">Secondary engines</a></li>
+                        <li><a href="#">Fuel tanks</a></li>
+                        <li><a href="#" class="w1">Radars</a></li>
+                        <li><a href="#" class="w1">Repair droids</a></li>
+                        <li><a href="#">Magnetic grips</a></li>
+                        <li><a href="#" class="w1">Weapons</a></li>
+                        
+                    </ul>
+                    
+                    <br/><br/>
+
+                    <!-- TODO: Исправить верхнюю границу панельки, которая идёт сразу после первого ряда табов. -->
+                    <!-- TODO: Перетаскивание модулей для их выбора. -->
+                    <!-- TODO: Поиск. -->
+                    <!-- tab "panes" --> 
+                    <div class="panes"> 
+                        <div><h2>Hulls</h2> 
+                            <p>
+                                Available hulls.
+                                <br/><br/>
+                                <table  class="four_columns" cellspacing="0">
+                                    <tr>
+                                        <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                    </tr>
+
+                                    <?php foreach ($hulls as $cur_hull) : ?>
+                                    <tr>
+                                        <td>
+                                            <img id="imgAvailableShipHull" src="<?= $cur_hull['image']."1.png"?>" class="available_module_image">  
+                                        </td>
+                                        <td>
+                                            <?= $cur_hull['name']?>
+                                        </td>
+                                        <td class="wide_col">
+                                            Hp: <?= $cur_hull['hp']?> <br/>
+                                            Maneuverability: <?= $cur_hull['maneuverability']?> <br/>
+                                            Capacity: <?= $cur_hull['capacity']?>
+                                        </td>
+                                        <td class="last_col">
+                                            <?= $cur_hull['cost']?> <br/>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach ?>
+                                </table>
+                            </p>
+                        </div>
+
+                        <div class="les"><h2>Engines</h2> 
+                            <p>
+                                Available engines.
+                                <br/><br/>
+                                <table  class="four_columns" cellspacing="0">
+                                    <tr>
+                                        <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                    </tr>
+
+                                    <?php foreach ($engines as $cur_engine) : ?>
+                                    <tr>
+                                        <td>
+                                            <img id="imgAvailableShipEngine" src="<?= $cur_engine['image']."1.png"?>" class="available_module_image">  
+                                        </td>
+                                        <td>
+                                            <?= $cur_engine['name']?>
+                                        </td>
+                                        <td class="wide_col">
+                                            Speed: <?= $cur_engine['speed']?> <br/>
+                                            Weigth: <?= $cur_engine['weight']?>
+                                        </td>
+                                        <td class="last_col">
+                                            <?= $cur_engine['cost']?> <br/>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach ?>
+                                </table>
+                            </p>
+                        </div>
+
+                        <div class="les"><h2>Secondary engines</h2> 
+                            <p>
+                                Available secondary engines.
+                                <br/><br/>
+                                <table  class="four_columns" cellspacing="0">
+                                    <tr>
+                                        <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                    </tr>
+
+                                    <?php foreach ($secondary_engines as $cur_secondary_engine) : ?>
+                                    <tr>
+                                        <td>
+                                            <img id="imgAvailableShipSecondaryEngine" src="<?= $cur_secondary_engine['image']."1.png"?>" class="available_module_image">  
+                                        </td>
+                                        <td>
+                                            <?= $cur_secondary_engine['name']?>
+                                        </td>
+                                        <td class="wide_col">
+                                            Maneuverability: <?= $cur_secondary_engine['maneuverability']?> <br/>
+                                            Weigth: <?= $cur_secondary_engine['weight']?>
+                                        </td>
+                                        <td class="last_col">
+                                            <?= $cur_secondary_engine['cost']?> <br/>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach ?>
+                                </table>
+                            </p>
+                        </div>
+
+                        <div class="les"><h2>Fuel tanks</h2> 
+                            <p>
+                                Available fuel tanks.
+                                <br/><br/>
+                                <table  class="four_columns" cellspacing="0">
+                                    <tr>
+                                        <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                    </tr>
+
+                                    <?php foreach ($fuel_tanks as $cur_fuel_tank) : ?>
+                                    <tr>
+                                        <td>
+                                            <img id="imgAvailableShipFuelTank" src="<?= $cur_fuel_tank['image']."1.png"?>" class="available_module_image">  
+                                        </td>
+                                        <td>
+                                            <?= $cur_fuel_tank['name']?>
+                                        </td>
+                                        <td class="wide_col">
+                                            Volume: <?= $cur_fuel_tank['volume']?> <br/>
+                                            Weigth: <?= $cur_fuel_tank['weight']?>
+                                        </td>
+                                        <td class="last_col">
+                                            <?= $cur_fuel_tank['cost']?> <br/>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach ?>
+                                </table>
+                            </p>
+                        </div>
+
+                        <div class="les"><h2>Radars.</h2> 
+                            <p>
+                                Available radars.
+                                <br/><br/>
+                                <table  class="four_columns" cellspacing="0">
+                                    <tr>
+                                        <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                    </tr>
+
+                                    <?php foreach ($radars as $cur_radar) : ?>
+                                    <tr>
+                                        <td>
+                                            <img id="imgAvailableShipRadar" src="<?= $cur_radar['image']."1.png"?>" class="available_module_image">  
+                                        </td>
+                                        <td>
+                                            <?= $cur_radar['name']?>
+                                        </td>
+                                        <td class="wide_col">
+                                            Action Radius: <?= $cur_radar['action_radius']?> <br/>
+                                            Weigth: <?= $cur_radar['weight']?>
+                                        </td>
+                                        <td class="last_col">
+                                            <?= $cur_radar['cost']?> <br/>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach ?>
+                                </table>
+                            </p>
+                        </div>
+                        
+                        <div class="les"><h2>Repair droids.</h2> 
+                            <p>
+                                Available repair droids.
+                                <br/><br/>
+                                <table  class="four_columns" cellspacing="0">
+                                    <tr>
+                                        <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                    </tr>
+
+                                    <?php foreach ($repair_droids as $cur_repair_droid) : ?>
+                                    <tr>
+                                        <td>
+                                            <img id="imgAvailableShipRepairDroid" src="<?= $cur_repair_droid['image']."1.png"?>" class="available_module_image">  
+                                        </td>
+                                        <td>
+                                            <?= $cur_repair_droid['name']?>
+                                        </td>
+                                        <td class="wide_col">
+                                            Health Recovery: <?= $cur_repair_droid['health_recovery']?> <br/>
+                                            Weigth: <?= $cur_repair_droid['weight']?>
+                                        </td>
+                                        <td class="last_col">
+                                            <?= $cur_repair_droid['cost']?> <br/>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach ?>
+                                </table>
+                            </p>
+                        </div>
+                        
+                        <div class="les"><h2>Magnetic grips.</h2> 
+                            <p>
+                                Available magnetic grips.
+                                <br/><br/>
+                                <table  class="four_columns" cellspacing="0">
+                                    <tr>
+                                        <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                    </tr>
+
+                                    <?php foreach ($magnetic_grips as $cur_magnetic_grip) : ?>
+                                    <tr>
+                                        <td>
+                                            <img id="imgAvailableShipMagneticGrip" src="<?= $cur_magnetic_grip['image']."1.png"?>" class="available_module_image">  
+                                        </td>
+                                        <td>
+                                            <?= $cur_magnetic_grip['name']?>
+                                        </td>
+                                        <td class="wide_col">
+                                            Action Radius: <?= $cur_magnetic_grip['action_radius']?> <br/>
+                                            Carrying Capacity: <?= $cur_magnetic_grip['carrying_capacity']?> <br/>
+                                            Weigth: <?= $cur_magnetic_grip['weight']?>
+                                        </td>
+                                        <td class="last_col">
+                                            <?= $cur_magnetic_grip['cost']?> <br/>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach ?>
+                                </table>
+                            </p>
+                        </div>
+                        
+                        <div class="les"><h2>Weapons.</h2> 
+                            <p>
+                                Available weapons.
+                                <br/><br/>
+                                <table  class="four_columns" cellspacing="0">
+                                    <tr>
+                                        <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                    </tr>
+
+                                    <?php foreach ($weapons as $cur_weapon) : ?>
+                                    <tr>
+                                        <td>
+                                            <img id="imgAvailableShipMagneticGrip" src="<?= $cur_weapon['image']."1.png"?>" class="available_module_image">  
+                                        </td>
+                                        <td>
+                                            <?= $cur_weapon['name']?>
+                                        </td>
+                                        <td class="wide_col">
+                                            Type: <?php switch ($cur_weapon['type'])
+                                            {
+                                                case "blaster":
+                                                    echo "Blaster";
+                                                    break;
+                                                case "laser_weapon":
+                                                    echo "Laser weapon";
+                                                    break;
+                                                case "missile_weapon":
+                                                    echo "Missile weapon";
+                                                    break;
+                                                case "plasma_weapon":
+                                                    echo "Plasma weapon";
+                                                    break;
+                                            }
+                                            ?> <br/>
+                                            Damage: <?= $cur_weapon['damage']?> <br/>
+                                            Ammunition: <?= $cur_weapon['ammunition']?> <br/>
+                                            Recharge Time: <?= $cur_weapon['recharge_time']?> <br/>
+                                            Range Of Fire: <?= $cur_weapon['range_of_fire']?> <br/>
+                                            Weigth: <?= $cur_weapon['weight']?>
+                                        </td>
+                                        <td class="last_col">
+                                            <?= $cur_weapon['cost']?> <br/>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach ?>
+                                </table>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    
+
                     Hull:
                     <select id="selShipHull" name="selShipHull" class="select-multi" size="1" onchange="HullChanged()">
                         <option value=""> </option>

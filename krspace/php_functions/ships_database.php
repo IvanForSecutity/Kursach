@@ -86,7 +86,7 @@ function loadHulls()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name`, `image` FROM `hulls`";
+    $sql = "SELECT * FROM `hulls`";
     $result = mysqli_query($link, $sql);
     $hulls = array();
     while ($cur_hull = mysqli_fetch_assoc($result))
@@ -104,7 +104,7 @@ function loadEngines()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name`, `image` FROM `engines`";
+    $sql = "SELECT * FROM `engines`";
     $result = mysqli_query($link, $sql);
     $engines = array();
     while ($cur_engine = mysqli_fetch_assoc($result))
@@ -122,7 +122,7 @@ function loadFuelTanks()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name`, `image` FROM `fuel_tanks`";
+    $sql = "SELECT * FROM `fuel_tanks`";
     $result = mysqli_query($link, $sql);
     $fuel_tanks = array();
     while ($cur_fuel_tank = mysqli_fetch_assoc($result))
@@ -140,7 +140,7 @@ function loadSecondaryEngines()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name`, `image` FROM `secondary_engines`";
+    $sql = "SELECT * FROM `secondary_engines`";
     $result = mysqli_query($link, $sql);
     $secondary_engines = array();
     while ($cur_secondary_engine = mysqli_fetch_assoc($result))
@@ -158,7 +158,7 @@ function loadRadars()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name`, `image` FROM `radars`";
+    $sql = "SELECT * FROM `radars`";
     $result = mysqli_query($link, $sql);
     $radars = array();
     while ($cur_radar = mysqli_fetch_assoc($result))
@@ -176,7 +176,7 @@ function loadRepairDroids()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name`, `image` FROM `repair_droids`";
+    $sql = "SELECT * FROM `repair_droids`";
     $result = mysqli_query($link, $sql);
     $repair_droids = array();
     while ($cur_repair_droid = mysqli_fetch_assoc($result))
@@ -194,7 +194,7 @@ function loadMagneticGrips()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name`, `image` FROM `magnetic_grips`";
+    $sql = "SELECT * FROM `magnetic_grips`";
     $result = mysqli_query($link, $sql);
     $magnetic_grips = array();
     while ($cur_magnetic_grip = mysqli_fetch_assoc($result))
@@ -212,7 +212,7 @@ function loadWeapons()
 {
     // Connect to DB
     $link = connect();
-    $sql = "SELECT `name`, `image` FROM `weapons`";
+    $sql = "SELECT * FROM `weapons`";
     $result = mysqli_query($link, $sql);
     $weapons = array();
     while ($cur_weapon = mysqli_fetch_assoc($result))
