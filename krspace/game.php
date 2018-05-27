@@ -253,7 +253,7 @@ $cost = $hull_cost
         <title>Spaceship test</title>
     </head>
 
-  <body onload="StartGame()">
+  <body onload="StartGame()" bgcolor="#0b0839">
     <table  class="two_columns" cellspacing="0">
     <tr >
         <td>
@@ -265,10 +265,9 @@ $cost = $hull_cost
     </tr>
     </table>
 
-
     <div id='gamediv' style="width:100%;height:95%;display:flex;">
       <div id='game_field' style="border: 4px double black;display:inline-block; width:100%;height:100%;">
-        <canvas id="canvas_field" width="222" height="222" ></canvas>
+        <canvas id="canvas_field" width="auto" height="auto" ></canvas>
         <script src='js/spaceshiptest.js'></script>
       </div>
 

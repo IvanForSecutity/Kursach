@@ -937,6 +937,7 @@ function UpdateGameArea() {
     context.stroke();
     context.restore();
     DrawAim();
+    DrawHpAndFuel();
 }
 
 function DrawAim() {
@@ -963,13 +964,13 @@ function DrawWarFog() {
   context.arc(x, y, oradius, 0, 2 * Math.PI, false);
   var grd = context.createRadialGradient(x, y, radius, x, y, oradius);
   grd.addColorStop(0, 'transparent');
-  grd.addColorStop(1, '#0000FF');
+  grd.addColorStop(1, '#030312');
   context.fillStyle = grd;
   context.fill();
   context.beginPath();
   context.arc(x, y, Math.sqrt(Math.pow(FH / 2, 2) + Math.pow(FW / 2, 2)), 0, 2 * Math.PI, false);
   context.lineWidth = (Math.sqrt(Math.pow(FH / 2, 2) + Math.pow(FW / 2, 2)) - oradius) * 2;
-  context.strokeStyle = '#0000FF';
+  context.strokeStyle = '#030312';
   context.stroke();
   context.beginPath();
   context.fillStyle = "yellow";
@@ -977,6 +978,17 @@ function DrawWarFog() {
   context.fillText("POINTS: " + POINTS, 0, 20);
 }
 
+function DrawHpAndFuel(){
+  var y = FH/5;
+  var x = 5;
+  var ctx = myGameArea.context;
+  ctx.moveTo(x,y);
+  ctx.lineTo(SPACESHIP.x+k*a, SPACESHIP.y+k*b);
+  ctx.lineWidth = 5;
+  ctx.strokeStyle="yellow"
+  ctx.stroke();
+
+}
 function GenObstacles() {
   if (!STOP) {
     var o_num = obstacles_arr.length % 3;
