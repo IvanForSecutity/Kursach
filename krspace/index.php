@@ -6,7 +6,7 @@
         Resize();
         </script>
     </head>
-    <body onresize="Resize()">
+    <body onresize="Resize()" bgcolor="#eafff7">
         <div id="buttons_div" style="margin-left: 50px; margin-right: 50px">
           <button id="login_button" class="main_page_button" onclick="window.location.href='login.php'" ><span>Log In</span></button>
           <button id="registration_button" class="main_page_button" onclick="window.location.href='registration.php'" ><span>Registration</span></button>
