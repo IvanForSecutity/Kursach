@@ -1,8 +1,8 @@
 var SPACESHIP;
 var MY_BACKGROUND;
 
-var FH = document.getElementById("canvas_field").height;
-var FW = document.getElementById("canvas_field").width;
+var FH = Number.parseInt(document.getElementById('canvas_field').clientHeight);
+var FW = Number.parseInt(document.getElementById('canvas_field').clientWidth);
 var TOP = document.getElementById("canvas_field").offsetTop;
 var LEFT = document.getElementById("canvas_field").offsetLeft;
 
@@ -421,6 +421,8 @@ class Spaceship {
     this.down = false;
   }
   update() {
+    this.x = FW/2;
+    this.y = FH/2;
     var k = 0.7;
     this.width = k * this.image.naturalWidth;
     this.height = k * this.image.naturalHeight;
@@ -657,6 +659,14 @@ function StartGame() {
 }
 
 function UpdateGameArea() {
+  //resize canvas
+  var w =document.getElementById('game_field').offsetWidth;
+  var h =document.getElementById('game_field').offsetHeight;
+  document.getElementById('canvas_field').height = window.innerHeight;
+  document.getElementById('canvas_field').width = window.innerWidth*0.78;
+  FH = Number.parseInt(document.getElementById('canvas_field').height);
+  FW = Number.parseInt(document.getElementById('canvas_field').width);
+  document.getElementById("helptext").innerHTML = FH.toFixed(1)+"|"+FW.toFixed(1);
   if (!STOP) {
     updateNum++;
     if (updateNum == 100) {
