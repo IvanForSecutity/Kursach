@@ -686,7 +686,7 @@ function updateGameArea() {
                 }else if(item.type=="bullets")
                   {
                     var arr = ["rocket","blaster","laser"];
-                    var weapon_id = arr.indexOf(document.getElementById("WeaponType").value);
+                    var weapon_id = spaceship.weapon_id;
                     weapons.ammos[weapon_id]+=item.value;
                   }
                 tmp_drops_array.push(id);
