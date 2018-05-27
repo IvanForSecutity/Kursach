@@ -122,6 +122,8 @@ else
 if ($weapon_1 != NULL)
 {
     $weapon_1_type = $weapon_1['type'];
+    $weapon_1_image = $weapon_1['image'];
+    $weapon_1_name = $weapon_1['name'];
     $weapon_1_damage = $weapon_1['damage'];
     $weapon_1_ammunition = $weapon_1['ammunition'];
     $weapon_1_recharge_time = $weapon_1['recharge_time'];
@@ -132,6 +134,8 @@ if ($weapon_1 != NULL)
 else
 {
     $weapon_1_type = "";
+    $weapon_1_name = "";
+    $weapon_1_image = "";
     $weapon_1_damage = 0;
     $weapon_1_ammunition = 0;
     $weapon_1_recharge_time = 0;
@@ -143,6 +147,8 @@ else
 if ($weapon_2 != NULL)
 {
     $weapon_2_type = $weapon_2['type'];
+    $weapon_2_image = $weapon_2['image'];
+    $weapon_2_name = $weapon_2['name'];
     $weapon_2_damage = $weapon_2['damage'];
     $weapon_2_ammunition = $weapon_2['ammunition'];
     $weapon_2_recharge_time = $weapon_2['recharge_time'];
@@ -153,6 +159,8 @@ if ($weapon_2 != NULL)
 else
 {
     $weapon_2_type = "";
+    $weapon_2_name = "";
+    $weapon_2_image = "";
     $weapon_2_damage = 0;
     $weapon_2_ammunition = 0;
     $weapon_2_recharge_time = 0;
@@ -164,6 +172,8 @@ else
 if ($weapon_3 != NULL)
 {
     $weapon_3_type = $weapon_3['type'];
+    $weapon_3_image = $weapon_3['image'];
+    $weapon_3_name = $weapon_3['name'];
     $weapon_3_damage = $weapon_3['damage'];
     $weapon_3_ammunition = $weapon_3['ammunition'];
     $weapon_3_recharge_time = $weapon_3['recharge_time'];
@@ -174,6 +184,8 @@ if ($weapon_3 != NULL)
 else
 {
     $weapon_3_type = "";
+    $weapon_3_name = "";
+    $weapon_3_image = "";
     $weapon_3_damage = 0;
     $weapon_3_ammunition = 0;
     $weapon_3_recharge_time = 0;
@@ -185,6 +197,8 @@ else
 if ($weapon_4 != NULL)
 {
     $weapon_4_type = $weapon_4['type'];
+    $weapon_4_image = $weapon_4['image'];
+    $weapon_4_name = $weapon_4['name'];
     $weapon_4_damage = $weapon_4['damage'];
     $weapon_4_ammunition = $weapon_4['ammunition'];
     $weapon_4_recharge_time = $weapon_4['recharge_time'];
@@ -195,6 +209,8 @@ if ($weapon_4 != NULL)
 else
 {
     $weapon_4_type = "";
+    $weapon_4_name = "";
+    $weapon_4_image = "";
     $weapon_4_damage = 0;
     $weapon_4_ammunition = 0;
     $weapon_4_recharge_time = 0;
@@ -206,6 +222,8 @@ else
 if ($weapon_5 != NULL)
 {
     $weapon_5_type = $weapon_5['type'];
+    $weapon_5_image = $weapon_5['image'];
+    $weapon_5_name = $weapon_5['name'];
     $weapon_5_damage = $weapon_5['damage'];
     $weapon_5_ammunition = $weapon_5['ammunition'];
     $weapon_5_recharge_time = $weapon_5['recharge_time'];
@@ -216,6 +234,8 @@ if ($weapon_5 != NULL)
 else
 {
     $weapon_5_type = "";
+    $weapon_5_name = "";
+    $weapon_5_image = "";
     $weapon_5_damage = 0;
     $weapon_5_ammunition = 0;
     $weapon_5_recharge_time = 0;
@@ -294,6 +314,8 @@ $cost = $hull_cost
         <div id="Weapon1Parameters">
             Weapon 1. <br/>
             Type: <input id="txtWeapon1Type" value="<?php echo $weapon_1_type;?>" readonly="true"> <br/>
+            <input id="txtWeapon1Image" value="<?php echo $weapon_1_image;?>" readonly="true"> <br/>
+            <input id="txtWeapon1Name" value="<?php echo $weapon_1_name;?>" readonly="true"> <br/>
             Damage: <input id="txtWeapon1Damage" value="<?php echo $weapon_1_damage;?>" readonly="true"> <br/>
             Ammunition: <input id="txtWeapon1Ammunition" value="<?php echo $weapon_1_ammunition;?>" readonly="true"> <br/>
             Recharge Time: <input id="txtWeapon1RechargeTime" value="<?php echo $weapon_1_recharge_time;?>" readonly="true"> <br/>
@@ -304,6 +326,8 @@ $cost = $hull_cost
         <div id="Weapon2Parameters">
             Weapon 2. <br/>
             Type: <input id="txtWeapon2Type" value="<?php echo $weapon_2_type;?>" readonly="true"> <br/>
+            Type: <input id="txtWeapon2Image" value="<?php echo $weapon_2_image;?>" readonly="true"> <br/>
+            Type: <input id="txtWeapon2Name" value="<?php echo $weapon_2_name;?>" readonly="true"> <br/>
             Damage: <input id="txtWeapon2Damage" value="<?php echo $weapon_2_damage;?>" readonly="true"> <br/>
             Ammunition: <input id="txtWeapon2Ammunition" value="<?php echo $weapon_2_ammunition;?>" readonly="true"> <br/>
             Recharge Time: <input id="txtWeapon2RechargeTime" value="<?php echo $weapon_2_recharge_time;?>" readonly="true"> <br/>
@@ -314,6 +338,8 @@ $cost = $hull_cost
         <div id="Weapon3Parameters">
             Weapon 3. <br/>
             Type: <input id="txtWeapon3Type" value="<?php echo $weapon_3_type;?>" readonly="true"> <br/>
+            Type: <input id="txtWeapon3Image" value="<?php echo $weapon_3_image;?>" readonly="true"> <br/>
+            Type: <input id="txtWeapon3Name" value="<?php echo $weapon_3_name;?>" readonly="true"> <br/>
             Damage: <input id="txtWeapon3Damage" value="<?php echo $weapon_3_damage;?>" readonly="true"> <br/>
             Ammunition: <input id="txtWeapon3Ammunition" value="<?php echo $weapon_3_ammunition;?>" readonly="true"> <br/>
             Recharge Time: <input id="txtWeapon3RechargeTime" value="<?php echo $weapon_3_recharge_time;?>" readonly="true"> <br/>
@@ -324,6 +350,8 @@ $cost = $hull_cost
         <div id="Weapon4Parameters">
             Weapon 4. <br/>
             Type: <input id="txtWeapon4Type" value="<?php echo $weapon_4_type;?>" readonly="true"> <br/>
+            Type: <input id="txtWeapon4Image" value="<?php echo $weapon_4_image;?>" readonly="true"> <br/>
+            Type: <input id="txtWeapon4Name" value="<?php echo $weapon_4_name;?>" readonly="true"> <br/>
             Damage: <input id="txtWeapon4Damage" value="<?php echo $weapon_4_damage;?>" readonly="true"> <br/>
             Ammunition: <input id="txtWeapon4Ammunition" value="<?php echo $weapon_4_ammunition;?>" readonly="true"> <br/>
             Recharge Time: <input id="txtWeapon4RechargeTime" value="<?php echo $weapon_4_recharge_time;?>" readonly="true"> <br/>
@@ -334,6 +362,8 @@ $cost = $hull_cost
         <div id="Weapon5Parameters">
             Weapon 5. <br/>
             Type: <input id="txtWeapon5Type" value="<?php echo $weapon_5_type;?>" readonly="true"> <br/>
+            Type: <input id="txtWeapon5Image" value="<?php echo $weapon_5_image;?>" readonly="true"> <br/>
+            Type: <input id="txtWeapon5Name" value="<?php echo $weapon_5_name;?>" readonly="true"> <br/>
             Damage: <input id="txtWeapon5Damage" value="<?php echo $weapon_5_damage;?>" readonly="true"> <br/>
             Ammunition: <input id="txtWeapon5Ammunition" value="<?php echo $weapon_5_ammunition;?>" readonly="true"> <br/>
             Recharge Time: <input id="txtWeapon5RechargeTime" value="<?php echo $weapon_5_recharge_time;?>" readonly="true"> <br/>

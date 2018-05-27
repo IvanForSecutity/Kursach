@@ -45,9 +45,11 @@ var myGameArea = {
 }
 
 class Weapons {
-  constructor(types,damages,ammos,recharges,ranges) {
+  constructor(types,names,images,damages,ammos,recharges,ranges) {
     this.units = [];
     this.types = types;
+    this.names = names;
+    this.images = images;
     this.damages = damages;
     this.ammos = ammos;
     this.recharges = recharges;
@@ -90,7 +92,7 @@ class Weapons {
         var niiice = ["fuel","bullets"];
         var val = -1;
         if (obstacles_arr[obstacles_id].image.src.indexOf("meteor_1") != -1) {
-          val=5
+          val=35
           POINTS += 5;
         }else if (obstacles_arr[obstacles_id].image.src.indexOf("meteor_2") != -1) {
           val=10;
@@ -304,9 +306,7 @@ class Drop {
         }
       }else if(this.type=="bullets")
         {
-          var arr = ["rocket","blaster","laser"];
-          var weapon_id = arr.indexOf(document.getElementById("WeaponType").value);
-          weapons.ammos[weapon_id]+=this.value;
+          weapons.ammos[SPACESHIP.weapon_id]+=this.value;
         }
       return true;
     }
@@ -577,8 +577,10 @@ class Obstacle {
   }
 }
 
-function IntializeWeapons(){
+function InitializeWeapons(){
   var types = [];
+  var names = [];
+  var images = [];
   var ranges = [];
   var ammos = [];
   var damages = [];
@@ -589,19 +591,23 @@ function IntializeWeapons(){
     if(weapon!=null)
     {
       types.push(     document.getElementById("txtWeapon"+(i+1)+"Type").value);
+      names.push(    document.getElementById("txtWeapon"+(i+1)+"Name" ).value);
+      images.push(    document.getElementById("txtWeapon"+(i+1)+"Image" ).value+"1.png");
       ranges.push(    Number.parseInt(document.getElementById("txtWeapon"+(i+1)+"RangeOfFire" ).value));
       ammos.push(     Number.parseInt(document.getElementById("txtWeapon"+(i+1)+"Ammunition"  ).value));
       damages.push(   Number.parseInt(document.getElementById("txtWeapon"+(i+1)+"Damage"      ).value));
       recharges.push( Number.parseInt(document.getElementById("txtWeapon"+(i+1)+"RechargeTime").value));
     }else {
       types.push(-1);
+      names.push("-1");
+      images.push("-1");
       ranges.push(-1);
       ammos.push(-1);
       damages.push(-1);
       recharges.push(-1);
     }
   }
-  weapons = new Weapons(types,damages,ammos,recharges,ranges);
+  weapons = new Weapons(types,names,images,damages,ammos,recharges,ranges);
 
 }
 
@@ -617,10 +623,10 @@ function StartGame() {
   if (magnetic_grip_action_radius!=0) {
     SPACESHIP.add_grip(magnetic_grip_action_radius,magnetic_grip_carrying_capacity);
   }
-  IntializeWeapons();
+  InitializeWeapons();
   MY_BACKGROUND = new Background(PIC_W, PIC_H, "images/space.jpg", -PIC_W / 2 + FW / 2, -PIC_H / 2 + FH / 2);
   var obstacles = {
-    start: this.interval = setInterval(GenObstacles, 1000)
+    start: this.interval = setInterval(GenObstacles, 200)
   };
   //handle stop_button
   var docStopBt = document.getElementById("stop_button");
@@ -662,7 +668,6 @@ function UpdateGameArea() {
   //resize canvas
   var w =document.getElementById('game_field').offsetWidth;
   var h =document.getElementById('game_field').offsetHeight;
-  //alert(window.innerHeight);
   document.getElementById('canvas_field').height = h-12;
   document.getElementById('canvas_field').width = w-12;
   FH = Number.parseInt(document.getElementById('canvas_field').height);
@@ -721,7 +726,13 @@ function UpdateGameArea() {
             var path_to_drop = Math.sqrt(Math.pow(SPACESHIP.x - item.x,2)+Math.pow(SPACESHIP.y - item.y,2));
             if(path_to_drop<4*SPACESHIP.grip_radius)
               {
-                if(item.type=="fuel")
+                //alert("1");
+                var dx =(SPACESHIP.x - item.x)/30;
+                var dy =(SPACESHIP.y - item.y)/30;
+                item.x+=dx;
+                item.y+=dy;
+                //alert(dx+"|"+dy);
+                /*if(item.type=="fuel")
                 {
                   if(SPACESHIP.fuel<=SPACESHIP.fuel_i){
                     if(SPACESHIP.fuel+item.value>SPACESHIP.fuel_i)SPACESHIP.fuel=SPACESHIP.fuel_i;
@@ -732,8 +743,8 @@ function UpdateGameArea() {
                     var arr = ["rocket","blaster","laser"];
                     var weapon_id = SPACESHIP.weapon_id;
                     weapons.ammos[weapon_id]+=item.value;
-                  }
-                tmp_drops_array.push(id);
+                  }*/
+                //tmp_drops_array.push(id);
               }
           });
         tmp_drops_array.forEach(function(item,id,arr){
@@ -783,15 +794,15 @@ function UpdateGameArea() {
           var audio = new Audio('audio/auch.mp3');
           audio.play();
           if (obstacles_arr[i].image.src.indexOf("meteor_1") != -1) {
-            SPACESHIP.health -= 5;
+            SPACESHIP.health -= 30;
             POINTS += 5;
           }
           if (obstacles_arr[i].image.src.indexOf("meteor_2") != -1) {
-            SPACESHIP.health -= 10;
+            SPACESHIP.health -= 60;
             POINTS += 10;
           }
           if (obstacles_arr[i].image.src.indexOf("meteor_3") != -1) {
-            SPACESHIP.health -= 20;
+            SPACESHIP.health -= 90;
             POINTS += 20;
           }
           if (SPACESHIP.health <= 0)
@@ -860,12 +871,19 @@ function UpdateGameArea() {
       ctx.lineWidth=5;
       ctx.stroke();
   }
-  //draw guns
+    //draw gun name
     context = myGameArea.context;
     context.beginPath();
     context.fillStyle = "#b8d1d1";
     context.font = "15px Arial";
-    context.fillText("Weapon " + (SPACESHIP.weapon_id+1) + "["+weapons.ammos[SPACESHIP.weapon_id]+"]", 5, FH-20);
+    context.fillText("Weapon: " +weapons.names[SPACESHIP.weapon_id]+" ["+weapons.ammos[SPACESHIP.weapon_id] + "]", 5, FH-120);
+    //draw gun image
+    context.beginPath();
+    var weapon_img = new Image();
+    weapon_img.src = weapons.images[SPACESHIP.weapon_id];
+    var w = weapon_img.naturalWidth;
+    var h = weapon_img.naturalHeight;
+    context.drawImage(weapon_img, 15, FH-100, w, h);
     //draw space
     context.save();
     var x_minimap=5;
@@ -985,6 +1003,13 @@ function DrawHpAndFuel(){
   var ctx = myGameArea.context;
   ctx.beginPath();
   ctx.save();
+  context.fillStyle = "#b8d1d1";
+  context.font = "10px Arial";
+  context.fillText("HP: "+SPACESHIP.health+"/"+SPACESHIP.health_i, x, y-10);
+  ctx.restore();
+
+  ctx.beginPath();
+  ctx.save();
   ctx.moveTo(x,y);
   ctx.lineTo(x+max_w, y);
   ctx.lineWidth = 10;
@@ -998,6 +1023,14 @@ function DrawHpAndFuel(){
   ctx.lineWidth = 10;
   ctx.strokeStyle="red"
   ctx.stroke();
+
+  //FUEL
+  ctx.beginPath();
+  ctx.save();
+  context.fillStyle = "#b8d1d1";
+  context.font = "10px Arial";
+  context.fillText("FUEL: "+SPACESHIP.fuel.toFixed(0)+"/"+SPACESHIP.fuel_i, x, y+40);
+  ctx.restore();
 
   ctx.beginPath();
   ctx.moveTo(x,y+50);
