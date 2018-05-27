@@ -275,18 +275,6 @@ $cost = $hull_cost
       <div style="border: 4px double black;display:inline">
         <button id='stop_button' type="button">STOP</button>
         <a id='helptext'>helptext</a>
-        Weapon type: <select id="WeaponType" class="select-multi" size="1" onchange="this.form.submit()">
-          <option value="rocket"     > Rocket    </option>
-          <option value="blaster"    > Blaster   </option>
-          <option value="laser"      > Laser     </option>
-        </select>
-        <pre>Weapon unit count:
-        Weapon1:    <a id="weapon1">10</a>
-        Weapon2:    <a id="weapon2">9</a>
-        Weapon3:    <a id="weapon3">8</a>
-        Weapon4:    <a id="weapon4">0</a>
-        Weapon5:    <a id="weapon5">0</a>
-        </pre>
         <br>
         <a>FUEL [</a><a id='fuel_v'><?php echo $fuel_tank_volume;?></a></a><a>]:</a>
         <div class='container'>
@@ -300,8 +288,8 @@ $cost = $hull_cost
         <br> Maneuverability: <input id='maneuverability' type="number" value="<?php echo $maneuverability;?>" style="margin-top: 0.2em">
         <br> Radar action radius: <input id='radar_action_radius' type="number" value="<?php echo $radar_action_radius;?>" style="margin-top: 0.2em">
         <br> Health recovery: <input id='hp_recovery' type="number" value="<?php echo $repair_droid_health_recovery;?>" style="margin-top: 0.2em">
-        <br> Magnetic grip action radius: <input id='hp' type="number" value="<?php echo $magnetic_grip_action_radius;?>" style="margin-top: 0.2em">
-        <br> Magnetic grip carrying capacity: <input id='hp' type="number" value="<?php echo $magnetic_grip_carrying_capacity;?>" style="margin-top: 0.2em">
+        <br> Magnetic grip action radius: <input id='magnetic_grip_action_radius' type="number" value="<?php echo $magnetic_grip_action_radius;?>" style="margin-top: 0.2em">
+        <br> Magnetic grip carrying capacity: <input id='magnetic_grip_carrying_capacity' type="number" value="<?php echo $magnetic_grip_carrying_capacity;?>" style="margin-top: 0.2em">
         <br>
         <?php if ($weapon_1 != NULL) { ?>
         <div id="Weapon1Parameters">

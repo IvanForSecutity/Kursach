@@ -80,6 +80,9 @@ class Weapons {
           if(obstacles_arr[obstacles_id].health<=0)
           {
               drops_arr.push(new Drop(niiice[rand%2], val, obstacles_arr[obstacles_id].x, obstacles_arr[obstacles_id].y));
+              if(obstacles_arr[obstacles_id].image.src.indexOf("meteor_1"))POINTS+=5;
+              if(obstacles_arr[obstacles_id].image.src.indexOf("meteor_2"))POINTS+=10;
+              if(obstacles_arr[obstacles_id].image.src.indexOf("meteor_3"))POINTS+=20;
               obstacles_arr[obstacles_id].image.src = "images/Obstacles/output-0.png";
           }
         }
@@ -93,7 +96,6 @@ class Weapons {
       });
       if (s != -1) this.units.splice(s, 1);
     }
-
   }
 }
 //weapon unit
@@ -332,11 +334,15 @@ function initialize_weapon(){
 }
 function startGame() {
   spaceship = new component(50, 50, "", FW / 2, FH / 2);
-  var thereisfckndroid = true;
-  if (thereisfckndroid) {
+  var hp_recovery = Number.parseInt(document.getElementById("hp_recovery").value);
+  var magnetic_grip_action_radius = Number.parseInt(document.getElementById("magnetic_grip_action_radius").value);
+  var magnetic_grip_carrying_capacity = Number.parseInt(document.getElementById("magnetic_grip_carrying_capacity").value);
+  if (hp_recovery!=0) {
     //// TODO: make spaceship a class aside background
-    var hp_heal_value = 1; //per second
-    spaceship.add_droid(document.getElementById("hp_recovery").value);
+    spaceship.add_droid(hp_recovery);
+  }
+  if (magnetic_grip_action_radius!=0) {
+    spaceship.add_grip(magnetic_grip_action_radius,magnetic_grip_carrying_capacity);
   }
   initialize_weapon();
   myBackground = new component(PIC_W, PIC_H, "images/space.png", -PIC_W / 2 + FW / 2, -PIC_H / 2 + FH / 2);
@@ -430,6 +436,15 @@ function component(width, height, img, x, y) {
   this.hour = 0; //where it is now 0 to 360
   //current weapon_id
   this.weapon_id=0;
+  //magnetic_grip
+  this.hasgrip=false;
+  this.grip_radius=0;
+  this.grip_capacity=0;
+  //
+     this.left = false;
+      this.right = false;
+      this.up = false;
+      this.down = false;
   this.update = function() {
     var k = 0.7;
     this.width = k * this.image.naturalWidth;
@@ -486,17 +501,17 @@ function component(width, height, img, x, y) {
     this.y += this.speedY;
   }
   this.newPosb = function() {
-    var left = false,
-      right = false,
-      up = false,
-      down = false; //shows that you go out of edges
-    if ((this.x > 0 && this.speedX >= 0)) left = true;
-    if ((this.x < (FW - PIC_W) && this.speedX <= 0)) right = true;
-    if ((this.y > 0 && this.speedY >= 0)) up = true;
-    if ((this.y < (FH - PIC_H) && this.speedY <= 0)) down = true;
+     this.left = false;
+      this.right = false;
+      this.up = false;
+      this.down = false; //shows that you go out of edges
+    if ((this.x > 0 && this.speedX >= 0)) this.left = true;
+    if ((this.x < (FW - PIC_W) && this.speedX <= 0)) this.right = true;
+    if ((this.y > 0 && this.speedY >= 0)) this.up = true;
+    if ((this.y < (FH - PIC_H) && this.speedY <= 0)) this.down = true;
     this.offset_x=0;
     this.offset_y=0;
-    if (!(left || right || up || down)) {
+    if (!(this.left || this.right || this.up || this.down)) {
       this.offset_x = this.speedX;
       this.offset_y = this.speedY;
       this.x += this.speedX;
@@ -509,6 +524,11 @@ function component(width, height, img, x, y) {
   this.add_droid = function(hp_heal) {
     this.hasdoird = true;
     this.hp_heal = hp_heal;
+  }
+  this.add_grip = function(radius,capacity){
+    this.hasgrip = true;
+    this.grip_radius = radius;
+    this.grip_capacity = capacity;
   }
 }
 
@@ -625,7 +645,7 @@ function updateGameArea() {
     if (updateNum >= 80 && updateNum < 100 && spaceship.stub == 0) {
       spaceship.ship_hull = document.getElementById("ship_hull").value + "5.png";
     }
-
+    var draw_grip_radius=false;
     myGameArea.clear();
     myBackground.speedY = 0;
     myBackground.speedX = 0;
@@ -638,20 +658,28 @@ function updateGameArea() {
       var F = myGameArea.keys[87];
       var B = myGameArea.keys[83];
       if (myGameArea.keys[49] && weapons.ammos[0]!=-1) {
-        document.getElementById("helptext").innerHTML = "weapon1";
         spaceship.weapon_id=0;
       }else if(myGameArea.keys[50] && weapons.ammos[1]!=-1) {
-        document.getElementById("helptext").innerHTML = "weapon2";
         spaceship.weapon_id=1;
       }else if (myGameArea.keys[51] && weapons.ammos[2]!=-1) {
-        document.getElementById("helptext").innerHTML = "weapon3";
         spaceship.weapon_id=2;
       }else if(myGameArea.keys[52] && weapons.ammos[3]!=-1){
-        document.getElementById("helptext").innerHTML = "weapon4";
         spaceship.weapon_id=3;
       }else if(myGameArea.keys[53] && weapons.ammos[4]!=-1){
-        document.getElementById("helptext").innerHTML = "weapon5";
         spaceship.weapon_id=4;
+      }
+      if(myGameArea.keys[16] && spaceship.hasgrip)//shift
+      {
+        draw_grip_radius=true;
+        var tmp_drops_array = [];
+          drops_arr.forEach(function(item,id,arr){
+            var path_to_drop = Math.sqrt(Math.pow(spaceship.x - item.x,2)+Math.pow(spaceship.y - item.y,2));
+            if(path_to_drop<4*spaceship.grip_radius)
+              tmp_drops_array.push(id);
+          });
+        tmp_drops_array.forEach(function(item,id,arr){
+          drops_arr.splice(item,1);
+        });
       }
       if (L || F || R || B) {
 
@@ -744,9 +772,6 @@ function updateGameArea() {
       if(drops_arr[i].draw())drop_del=i;
     }
     if(drop_del!=-1)drops_arr.splice(drop_del,1);
-    document.getElementById("weapon1").innerHTML = weapons.ammos[0];
-    document.getElementById("weapon2").innerHTML = weapons.ammos[1];
-    document.getElementById("weapon3").innerHTML = weapons.ammos[2];
     //update recharges times for guns
     weapons.cur_recharges.forEach(function(recharge, id, arr)
     {
@@ -759,25 +784,113 @@ function updateGameArea() {
         }
     });
   }
+  if(draw_grip_radius){
+      ctx = myGameArea.context;
+      ctx.beginPath();
+      ctx.arc(spaceship.x,spaceship.y,4*spaceship.grip_radius,0,2*Math.PI);
+      ctx.strokeStyle="yellow";
+      ctx.lineWidth=3;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(spaceship.x,spaceship.y,4*spaceship.grip_radius-2,0,2*Math.PI);
+      ctx.strokeStyle="red";
+      ctx.lineWidth=4;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(spaceship.x,spaceship.y,4*spaceship.grip_radius-3,0,2*Math.PI);
+      ctx.strokeStyle="green";
+      ctx.lineWidth=5;
+      ctx.stroke();
+  }
+  //draw guns
+    context = myGameArea.context;
+    context.beginPath();
+    context.fillStyle = "#b8d1d1";
+    context.font = "15px Arial";
+    context.fillText("Weapon " + (spaceship.weapon_id+1) + "["+weapons.ammos[spaceship.weapon_id]+"]", 5, FH-20);
+    //draw space
+    context.save();
+    var x_minimap=5;
+    var y_minimap=30;
+    var w_minimap = 50;
+    var h_minimap = 50;//100
+    //left
+    context.beginPath();
+    context.moveTo(5, y_minimap+h_minimap);
+    context.lineWidth=5;
+    context.globalAlpha=0.3;
+    context.strokeStyle = '#ff0000';
+    if(myBackground.left)
+    {
+      context.lineWidth=10;
+      context.globalAlpha=1;
+      context.strokeStyle = 'yellow';
+    }
+    context.lineTo(x_minimap, y_minimap);//50
+    context.stroke();
+    context.restore();
+    //top
+
+    context.save();
+    context.beginPath();
+    context.moveTo(x_minimap, y_minimap);
+    context.lineWidth=5;
+    context.globalAlpha=0.3;
+    context.strokeStyle = '#ff0000';
+    if(myBackground.up)
+    {
+      context.lineWidth=10;
+      context.globalAlpha=1;
+      context.strokeStyle = 'yellow';
+    }
+    context.lineTo(x_minimap+w_minimap, y_minimap);//50
+    context.stroke();
+    context.restore();
+    //right
+    context.save();
+    context.beginPath();
+    context.moveTo(x_minimap+w_minimap, y_minimap);
+    context.lineWidth=5;
+    context.globalAlpha=0.3;
+    context.strokeStyle = '#ff0000';
+    if(myBackground.right)
+    {
+      context.lineWidth=10;
+      context.globalAlpha=1;
+      context.strokeStyle = 'yellow';
+    }
+    context.lineTo(x_minimap+w_minimap, y_minimap+h_minimap);//100
+    context.stroke();
+    context.restore();
+    //down
+    context.save();
+    context.beginPath();
+    context.moveTo(x_minimap+w_minimap, y_minimap+h_minimap);
+    context.lineWidth=5;
+    context.globalAlpha=0.3;
+    context.strokeStyle = '#ff0000';
+    if(myBackground.down)
+    {
+      context.lineWidth=10;
+      context.globalAlpha=1;
+      context.strokeStyle = 'yellow';
+    }
+    context.lineTo(x_minimap, y_minimap+h_minimap);
+    context.stroke();
+    context.restore();
 }
 
 function draw_aim() {
   ctx = myGameArea.context;
-  var aim1 = new Image();
-  aim1.src = "images/aim_1.png";
-  var w = aim1.naturalWidth;
-  var h = aim1.naturalHeight;
-  ctx.drawImage(aim1,
-    aim[0],
-    aim[1],
-    w, h);
 }
 
 function draw_war_fog() {
   context = myGameArea.context;
   var x = spaceship.x;
   var y = spaceship.y;
-  var oradius = document.getElementById("radar_action_radius").value; //800 good vision, 500 - middle, <300 - bad
+  var oradius=200;
+  if(document.getElementById("radar_action_radius").value!=0 )
+  oradius+= Number.parseInt(document.getElementById("radar_action_radius").value,10); //800 good vision, 500 - middle, <300 - bad
   var radius = oradius/2; //inner
   context.beginPath();
   context.arc(x, y, oradius, 0, 2 * Math.PI, false);
