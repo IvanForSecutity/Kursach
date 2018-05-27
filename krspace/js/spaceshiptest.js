@@ -662,8 +662,9 @@ function UpdateGameArea() {
   //resize canvas
   var w =document.getElementById('game_field').offsetWidth;
   var h =document.getElementById('game_field').offsetHeight;
-  document.getElementById('canvas_field').height = window.innerHeight;
-  document.getElementById('canvas_field').width = window.innerWidth*0.78;
+  //alert(window.innerHeight);
+  document.getElementById('canvas_field').height = h-12;
+  document.getElementById('canvas_field').width = w-12;
   FH = Number.parseInt(document.getElementById('canvas_field').height);
   FW = Number.parseInt(document.getElementById('canvas_field').width);
   document.getElementById("helptext").innerHTML = FH.toFixed(1)+"|"+FW.toFixed(1);

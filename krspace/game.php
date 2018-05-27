@@ -266,13 +266,13 @@ $cost = $hull_cost
     </table>
 
 
-    <div id='gamediv' style="width:100%;height:auto;display:flex;">
-      <div id='game_field' style="border: 4px double black;display:inline-block; width:80%;height:auto;">
+    <div id='gamediv' style="width:100%;height:95%;display:flex;">
+      <div id='game_field' style="border: 4px double black;display:inline-block; width:100%;height:100%;">
         <canvas id="canvas_field" width="222" height="222" ></canvas>
         <script src='js/spaceshiptest.js'></script>
       </div>
 
-      <div style="border: 4px double black;display:inline-block;width:20%;height:100%;overflow-y: scroll;overflow-x: scroll;">
+      <div style="visibility:hidden;border: 4px double black;display:inline-block;width:0%;overflow-y: scroll;overflow-y: scroll;">
         <button id='stop_button' type="button">STOP</button>
         <a id='helptext'>helptext</a>
         <br>

@@ -3,6 +3,7 @@
   --hp-v:100%;
 }
 .container {
+  overflow:hidden;
   width: 90%;
   background-color: #ddd;
 }
