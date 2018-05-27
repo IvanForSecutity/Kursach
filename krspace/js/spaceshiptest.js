@@ -765,7 +765,6 @@ function updateGameArea() {
     if (obstacle_crashed != -1) {
       obstacles_arr[obstacle_crashed].image.src = "images/Obstacles/output-0.png";
     }
-    draw_aim();
     draw_war_fog();
     var drop_del=-1;
     for (var i = 0; i < drops_arr.length; i++) {
@@ -878,10 +877,19 @@ function updateGameArea() {
     context.lineTo(x_minimap, y_minimap+h_minimap);
     context.stroke();
     context.restore();
+    draw_aim();
 }
 
 function draw_aim() {
   ctx = myGameArea.context;
+  var aim1 = new Image();
+  aim1.src = "images/aim_1.png";
+  var w = aim1.naturalWidth;
+  var h = aim1.naturalHeight;
+  ctx.drawImage(aim1,
+    aim[0],
+    aim[1],
+    w, h);
 }
 
 function draw_war_fog() {
