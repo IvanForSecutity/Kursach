@@ -457,7 +457,7 @@ class Spaceship {
       this.fuel -= 0.03;
       if (this.fuel <= 0) {
         STOP = true;
-        alert("you are looser, hehe");
+        alert("you are out of fuel, game over");
       }
       //update fuel html
       var t = document.querySelector('.js1');
@@ -979,14 +979,41 @@ function DrawWarFog() {
 }
 
 function DrawHpAndFuel(){
-  var y = FH/5;
+  var y = 150;
   var x = 5;
+  var max_w=200-x;
   var ctx = myGameArea.context;
+  ctx.beginPath();
+  ctx.save();
   ctx.moveTo(x,y);
-  ctx.lineTo(SPACESHIP.x+k*a, SPACESHIP.y+k*b);
-  ctx.lineWidth = 5;
-  ctx.strokeStyle="yellow"
+  ctx.lineTo(x+max_w, y);
+  ctx.lineWidth = 10;
+  ctx.strokeStyle="white"
   ctx.stroke();
+
+  ctx.beginPath();
+  ctx.save();
+  ctx.moveTo(x,y);
+  ctx.lineTo(x+max_w*SPACESHIP.health/SPACESHIP.health_i, y);
+  ctx.lineWidth = 10;
+  ctx.strokeStyle="red"
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(x,y+50);
+  ctx.lineTo(x+max_w, y+50);
+  ctx.lineWidth = 10;
+  ctx.strokeStyle="white"
+  ctx.stroke();
+  ctx.restore();
+
+  ctx.beginPath();
+  ctx.moveTo(x,y+50);
+  ctx.lineTo(x+max_w*SPACESHIP.fuel/SPACESHIP.fuel_i, y+50);
+  ctx.lineWidth = 10;
+  ctx.strokeStyle="green"
+  ctx.stroke();
+  ctx.restore();
 
 }
 function GenObstacles() {
