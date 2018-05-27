@@ -135,19 +135,32 @@ td.last_col
     text-align: center;
 }
 
-.available_module_image
+.container
+{
+    height: 500px;
+    overflow: scroll;
+}
+
+#available_module_background
 {
     position: relative;
     margin: auto;
     border: 2px solid lime;
     border-radius: 10px;
     background-color: greenyellow;
+    width: 60px;
+    height: 60px;
+}
+.available_module_image
+{
+    position: absolute;
+    margin: auto;
     left: 0;
     top: 0;
     bottom: 0;
     right: 0;
-    wigth: 60px;
-    height: 60px;
+    max-width: 60px;
+    max-height: 60px;
 }
 
 .module_background
@@ -185,7 +198,7 @@ td.last_col
     top: 0;
     bottom: 0;
     right: 0;
-    max-wigth: 60px;
+    max-width: 60px;
     max-height: 60px;
 }
 
@@ -215,7 +228,7 @@ td.last_col
     top: 0;
     bottom: 0;
     right: 0;
-    max-wigth: 150px;
+    max-width: 150px;
     max-height: 150px;
 }
 

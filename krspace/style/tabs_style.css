@@ -13,8 +13,7 @@ a:active
     -moz-outline-style:none;
 }
 div.panes div
-{
-    display:none;		
+{		
     padding:15px 10px;
     border:1px solid #999;
     border-top:0;
@@ -103,11 +102,3 @@ ul.tabs a.w3.current    { background-position: -193px -62px; }
 ul.tabs a.w4            { background-position: -0px -0px; width:194px; }
 ul.tabs a.w4:hover      { background-position: -0px -31px; }
 ul.tabs a.w4.current    { background-position: -0px -62px; }
-
-
-/* initially all panes are hidden */ 
-div.panes div.pane
-{
-    display:none;		
-}
-
