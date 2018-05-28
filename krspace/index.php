@@ -2,14 +2,11 @@
     <head>
         <link rel="stylesheet" href="style/page_style.css">
         <title>Main page</title>
-        <script>
-        Resize();
-        </script>
     </head>
-    <body onresize="Resize()" bgcolor="#eafff7">
+    <body  >
         <div id="buttons_div" style="margin-left: 50px; margin-right: 50px">
           <button id="login_button" class="main_page_button" onclick="window.location.href='login.php'" ><span>Log In</span></button>
-          <button id="registration_button" class="main_page_button" onclick="window.location.href='registration.php'" ><span>Registration</span></button>
+          <button id="registration_button" style="float: right;" class="main_page_button" onclick="window.location.href='registration.php'" ><span>Registration</span></button>
           <script>
             function Resize(){
               var resize_koef=window.innerWidth/1920;

@@ -46,14 +46,12 @@
   border: none;
   color: #FFFFFF;
   text-align: center;
-  font-size: 28px;
-  padding: 20px;
-  width: auto;
+  font-size: 2vw;
+  padding: 1vw;
+  width: 25%;
   transition: all 0.5s;
   cursor: pointer;
-  margin-top: 10px;
   margin-right: 5px;
-  margin-left: 5px;
   margin-bottom: 5px;
 }
 
@@ -108,6 +106,12 @@
 }
 .cool_table th.last {
   border-right: none;
+}
+.error
+{
+    color: white;
+    background: #688080;
+    margin-left: 3px;
 }
 p.form-title
 {

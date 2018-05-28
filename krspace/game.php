@@ -266,24 +266,16 @@ $cost = $hull_cost
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style/page_style.css">
         <link rel="stylesheet" href="style/game_style.css">
         <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
         <script type="text/javascript" src="js/js_game.js"></script>
+            <link rel="stylesheet" href="style/game_style.css">
         <title>Spaceship test</title>
     </head>
 
   <body onload="StartGame()" bgcolor="#0b0839">
-    <table  class="two_columns" cellspacing="0">
-    <tr >
-        <td>
-            <a href="hangar.php" >To hangar</a>
-        </td>
-        <td class="right_col">
-            <a href="logout.php">Log Out</a>
-        </td>
-    </tr>
-    </table>
+    <button id="login_button" class="game_button_up" onclick="window.location.href='hangar.php'" ><span>To hangar</span></button>
+    <button id="registration_button" style="float: right;" class="game_button_up" onclick="window.location.href='logout.php'" ><span>Log Out</span></button>
 
     <div id='gamediv' style="width:100%;height:95%;display:flex;">
       <div id='game_field' style="border: 4px double black;display:inline-block; width:100%;height:100%;">

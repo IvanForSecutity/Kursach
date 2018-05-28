@@ -1,3 +1,9 @@
+body
+{
+  background-color: #eafff7;
+  margin-left: 50px;
+  margin-right: 50px;
+}
 .main_img
 {
     width:80%;
@@ -288,8 +294,8 @@ button.input_image
 }
 .error
 {
-    color: red;
-    background: yellow;
+    color: white;
+    background: #688080;
     margin-left: 3px;
 }
 
@@ -316,9 +322,9 @@ button.input_image
   border: none;
   color: #FFFFFF;
   text-align: center;
-  font-size: 28px;
-  padding: 20px;
-  width: auto;
+  font-size: 2em;
+  font-size: 2vw;
+  padding: 1vw;
   transition: all 0.5s;
   cursor: pointer;
   margin-right: 5px;

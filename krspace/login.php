@@ -21,7 +21,9 @@ if(isset($_POST['btnReg']))
         <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
         <title>Authorisation</title>
     </head>
-    <body class="login_body">
+    <body class="body_class">
+      <button  class="login_button_up" onclick="window.location.href='index.php'" ><span>Main page</span></button>
+
     <div class="container">
       <div class="row">
         <div class="col-md-12">

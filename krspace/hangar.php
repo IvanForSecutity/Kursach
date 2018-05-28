@@ -30,7 +30,7 @@ if(isset($_POST['btnStart']))
     }
     else
     {
-        $message = '<p>You should choose any available ship to start game!</p>';
+        $message = '<p class="error">You should choose any available ship to start game!</p><br>';
         print $message;
     }
 }
@@ -59,10 +59,10 @@ foreach ($ships as $cur_ship)
   <link rel="stylesheet" href="style/hangar_style.css">
 </head>
 
-<body bgcolor="#eafff7" onresize="Resize()">
+<body bgcolor="#eafff7" >
   <div>
     <button id="personal_area_button" class="hangar_button_up" onclick="window.location.href='personal_area.php'"><span>Personal Area</span></button>
-    <button id="logout_button" style="float: right;" class="hangar_button_up" onclick="window.location.href='logout.php'"><span>Log Out</span></button>
+    <button id="logout_button" style="float: right;margin-right:25px;" class="hangar_button_up" onclick="window.location.href='logout.php'"><span>Log Out</span></button>
   </div>
   <div style="float: center;text-align: left; padding-right: 50px; padding-top: 10px;">
     <p class="form-title" style="form-title">
