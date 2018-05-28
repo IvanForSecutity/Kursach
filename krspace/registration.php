@@ -26,19 +26,19 @@ require_once('php_functions/functions.php');
                     <label for="login">Enter login:</label>
                     <input type="text" name="txtLogin" id="txtLogin" value="" />
                     <div class="error" id="divLoginError"> </div>
-                    <div class="instruction" id="login-instruction">В имени пользователя могут быть только символы латинского алфавита, цифры, символы '_', '-', '.'. Длина имени пользователя должна быть не короче 4 символов и не длиннее 16 символов</div>
+                    <div class="instruction" id="login-instruction">The username can only contain Latin characters, numbers, symbols '_', '-', '.'. The length of the username must be at least 4 characters and not longer than 16 characters</div>
                 </div>
                 <div class="row">
                     <label for="password">Enter password:</label>
                     <input type="password"  name="txtPassword" id="txtPassword" value="" />
                     <div class="error" id="divPasswordError"> </div>
-                    <div class="instruction" id="password-instruction">В пароле вы можете использовать только символы латинского алфавита, цифры, символы '_', '!', '(', ')'. Пароль должен быть не короче 6 символов и не длиннее 16 символов</div>
+                    <div class="instruction" id="password-instruction">In the password you can use only Latin characters, numbers, symbols '_', '!', '(', ')'. The password must be at least 6 characters long and not longer than 16 characters</div>
                 </div>
                 <div class="row">
                     <label for="password_again">Confirm password:</label>
                     <input type="password" class="text" name="txtPasswordAgain" id="txtPasswordAgain" value="" />
                     <div class="error" id="divPasswordAgainError"> </div>
-                    <div class="instruction" id="password_again-instruction">Повторите введенный ранее пароль</div>
+                    <div class="instruction" id="password_again-instruction">Repeat the password you entered previously</div>
                 </div>
                 <div class="row">
                     <!-- Sending form data -->

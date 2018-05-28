@@ -1,0 +1,166 @@
+/* Left section */
+.available-container
+{
+    position: relative;
+    width: 5em;
+    height: 5em;
+    /*2.8em = 2em*1.4 (2em = half the width of a link with img, 1.4 = sqrt(2))*/
+    margin: auto;
+}
+.available-container .available_module_background
+{
+    position: relative;
+    margin: auto;
+    border: 2px solid lime;
+    border-radius: 10px;
+    background-color: greenyellow;
+    width: 98%;
+    height: 98%;
+}
+.available_module_background .available_module_image
+{
+    position: absolute;
+    margin: auto;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+
+/* Center section */
+.circle-container
+{
+    position: relative;
+    width: 24em;
+    height: 24em;
+    padding: 2.8em;
+    /*2.8em = 2em*1.4 (2em = half the width of a link with img, 1.4 = sqrt(2))*/
+    border: dashed 0px;
+    border-radius: 50%;
+    margin: 1.75em auto 0;
+    font-size: 15px;
+    font-family: 'The Darkest Night';
+}
+.circle-container z
+{
+    display: block;
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 4em; height: 4em;
+    margin: -2em;
+}
+.circle-container c
+{
+    display: block;
+    position: absolute;
+    top: 40%; left: 40%;
+    width: 10em; height: 10em;
+    margin: -2em;
+}
+.circle-container img { display: block; }
+.deg0 { transform: translate(12em); } /* 12em = half the width of the wrapper */
+.deg35 { transform: rotate(35deg) translate(12em) rotate(-35deg); }
+.deg70 { transform: rotate(70deg) translate(12.75em) rotate(-70deg); }
+.deg90 { transform: rotate(90deg) translate(12em) rotate(-90deg); }
+.deg90_far { transform: rotate(90deg) translate(20em) rotate(-90deg); }
+.deg110 { transform: rotate(110deg) translate(12.75em) rotate(-110deg); }
+.deg180 { transform: translate(-11em); }
+.deg145 { transform: rotate(145deg) translate(12em) rotate(-145deg); }
+.deg215 { transform: rotate(215deg) translate(12em) rotate(-215deg); }
+.deg250 { transform: rotate(250deg) translate(12.75em) rotate(-250deg); }
+.deg260 { transform: rotate(262deg) translate(17em) rotate(-262deg); }
+.deg270 { transform: rotate(270deg) translate(12em) rotate(-270deg); }
+.deg280 { transform: rotate(278deg) translate(17em) rotate(-278deg); }
+.deg290 { transform: rotate(290deg) translate(12.75em) rotate(-290deg); }
+.deg325 { transform: rotate(325deg) translate(12em) rotate(-325deg); }
+
+.module_background
+{
+    position: relative;
+    border: 2px solid #0019f7;
+    border-radius: 10px;
+    background-color: #bdfffe;
+    width: 98%;
+    height: 98%;
+}
+.empty_module_background
+{
+    position: relative;
+    border: 2px solid lime;
+    border-radius: 10px;
+    background-color: greenyellow;
+    width: 98%;
+    height: 98%;
+}
+.blocked_module_background
+{
+    position: relative;
+    border: 2px solid red;
+    border-radius: 10px;
+    background-color: salmon;
+    width: 98%;
+    height: 98%;
+}
+.module_image
+{
+    position: absolute;
+    margin: auto;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.hull_background
+{
+    position: relative;
+    border: 2px solid #0019f7;
+    border-radius: 10px;
+    background-color: #bdfffe;
+    width: 98%;
+    height: 98%;
+}
+.empty_hull_background
+{
+    position: relative;
+    border: 2px solid lime;
+    border-radius: 10px;
+    background-color: greenyellow;
+    width: 98%;
+    height: 98%;
+}
+.hull_image
+{
+    position: absolute;
+    margin: auto;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.recycle_bin_background
+{
+    position: relative;
+    margin: auto;
+    border: 2px solid;
+    border-radius: 10px;
+    width: 98%;
+    height: 98%;
+}
+
+@font-face
+{
+    font-family: "The Darkest Night"; 
+    src: url("../fonts/The Darkest Night Personal Use.ttf") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal; 
+} 

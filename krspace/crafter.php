@@ -156,6 +156,8 @@ $weapons = loadWeapons();
         
         <script type="text/javascript" src="js/js_search.js"></script>
         
+        <link rel="stylesheet" href="style/crafter_style.css">
+        
         <script> Resize(); </script>
     </head>
     <body onresize="Resize()" bgcolor="#eafff7">
@@ -165,8 +167,12 @@ $weapons = loadWeapons();
               var resize_koef = window.innerWidth / 1920;
               var new_text_size = (28*(resize_koef)).toFixed(0);
               document.getElementById("tblRefs").style["fontSize"] = new_text_size;
+
               document.getElementById("divShipModules").style["fontSize"] = new_text_size;
+              document.getElementById("divHullsPane").style["fontSize"] = new_text_size;
+              
               document.getElementById("divCircleContainer").style["fontSize"] = new_text_size;
+              
               document.getElementById("divShipParameters").style["fontSize"] = new_text_size;
             }
         </script>
@@ -226,7 +232,7 @@ $weapons = loadWeapons();
                         <!-- TODO: Перетаскивать модули за квадраты, а не картинки. --> 
                         <!-- tab "panes" --> 
                         <div class="panes"> 
-                            <div class="panes_div"><h2>Hulls</h2> 
+                            <div id="divHullsPane" class="panes_div"><h2>Hulls</h2> 
                                 <p>
                                     <!-- TODO: Поиск по доступным модулям... -->
                                     <!-- Search --> 
@@ -262,8 +268,10 @@ $weapons = loadWeapons();
                                             <?php foreach ($hulls as $cur_hull) : ?>
                                             <tr>
                                                 <td>
-                                                    <div id="available_module_background">
-                                                        <img id="<?= "imgShipHull".$cur_hull['name']?>" src="<?= $cur_hull['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragHull(event)">
+                                                    <div class='available-container'>
+                                                        <div class="available_module_background">
+                                                            <img id="<?= "imgShipHull".$cur_hull['name']?>" src="<?= $cur_hull['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragHull(event)">
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -315,9 +323,11 @@ $weapons = loadWeapons();
                                             <?php foreach ($engines as $cur_engine) : ?>
                                             <tr>
                                                 <td>
-                                                    <div id="available_module_background">
-                                                        <img id="<?= "imgShipEngine".$cur_engine['name']?>" src="<?= $cur_engine['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragEngine(event)">
-                                                    </div> 
+                                                    <div class='available-container'>
+                                                        <div class="available_module_background">
+                                                            <img id="<?= "imgShipEngine".$cur_engine['name']?>" src="<?= $cur_engine['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragEngine(event)">
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <?= $cur_engine['name']?>
@@ -367,8 +377,10 @@ $weapons = loadWeapons();
                                             <?php foreach ($secondary_engines as $cur_secondary_engine) : ?>
                                             <tr>
                                                 <td>
-                                                    <div id="available_module_background">
-                                                        <img id="<?= "imgShipSecondaryEngine".$cur_secondary_engine['name']?>" src="<?= $cur_secondary_engine['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragSecondaryEngine(event)">
+                                                    <div class='available-container'>
+                                                        <div class="available_module_background">
+                                                            <img id="<?= "imgShipSecondaryEngine".$cur_secondary_engine['name']?>" src="<?= $cur_secondary_engine['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragSecondaryEngine(event)">
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -419,8 +431,10 @@ $weapons = loadWeapons();
                                             <?php foreach ($fuel_tanks as $cur_fuel_tank) : ?>
                                             <tr>
                                                 <td>
-                                                    <div id="available_module_background">
-                                                        <img id="<?= "imgShipFuelTank".$cur_fuel_tank['name']?>" src="<?= $cur_fuel_tank['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragFuelTank(event)">
+                                                    <div class='available-container'>
+                                                        <div class="available_module_background">
+                                                            <img id="<?= "imgShipFuelTank".$cur_fuel_tank['name']?>" src="<?= $cur_fuel_tank['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragFuelTank(event)">
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -471,8 +485,10 @@ $weapons = loadWeapons();
                                             <?php foreach ($radars as $cur_radar) : ?>
                                             <tr>
                                                 <td>
-                                                    <div id="available_module_background">
-                                                        <img id="<?= "imgShipRadar".$cur_radar['name']?>" src="<?= $cur_radar['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragRadar(event)">
+                                                    <div class='available-container'>
+                                                        <div class="available_module_background">
+                                                            <img id="<?= "imgShipRadar".$cur_radar['name']?>" src="<?= $cur_radar['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragRadar(event)">
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -523,8 +539,10 @@ $weapons = loadWeapons();
                                             <?php foreach ($repair_droids as $cur_repair_droid) : ?>
                                             <tr>
                                                 <td>
-                                                    <div id="available_module_background">
-                                                        <img id="<?= "imgShipRepairDroid".$cur_repair_droid['name']?>" src="<?= $cur_repair_droid['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragRepairDroid(event)">
+                                                    <div class='available-container'>
+                                                        <div class="available_module_background">
+                                                            <img id="<?= "imgShipRepairDroid".$cur_repair_droid['name']?>" src="<?= $cur_repair_droid['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragRepairDroid(event)">
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -579,8 +597,10 @@ $weapons = loadWeapons();
                                             <?php foreach ($magnetic_grips as $cur_magnetic_grip) : ?>
                                             <tr>
                                                 <td>
-                                                    <div id="available_module_background">
-                                                        <img id="<?= "imgShipMagneticGrip".$cur_magnetic_grip['name']?>" src="<?= $cur_magnetic_grip['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragMagneticGrip(event)">
+                                                    <div class='available-container'>
+                                                        <div class="available_module_background">
+                                                            <img id="<?= "imgShipMagneticGrip".$cur_magnetic_grip['name']?>" src="<?= $cur_magnetic_grip['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragMagneticGrip(event)">
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -654,8 +674,10 @@ $weapons = loadWeapons();
                                             <?php foreach ($weapons as $cur_weapon) : ?>
                                             <tr>
                                                 <td>
-                                                    <div id="available_module_background">
-                                                        <img id="<?= "imgShipWeapon".$cur_weapon['name']?>" src="<?= $cur_weapon['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragWeapon(event)">
+                                                    <div class='available-container'>
+                                                        <div class="available_module_background">
+                                                            <img id="<?= "imgShipWeapon".$cur_weapon['name']?>" src="<?= $cur_weapon['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragWeapon(event)">
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td>
