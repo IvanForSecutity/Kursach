@@ -29,28 +29,27 @@ if(isset($_POST['btnDeleteAccount']))
 <html>
     <head>
         <title>Personal Area</title>
-        <link rel="stylesheet" href="style/page_style.css">
+        <link rel="stylesheet" href="style/page_style.css" >
+        <link rel="stylesheet" href="style/personal_area_style.css" >
     </head>
     <body>
-        <table  class="two_columns" cellspacing="0">
-        <tr>
-            <td>
-                <a href="hangar.php">To hangar</a>
-            </td>
-            <td class="right_col">
-                <a href="logout.php">Log Out</a>
-            </td>
-        </tr>
-        </table>
-        <div style="text-align: left; padding-right: 50px; padding-top: 10px;">
+        <div>
+            <button id="hangar_button" class="personal_area_button_up" onclick="window.location.href='hangar.php'"><span>To hangar</span></button>
+            <button id="logout_button" style="float: right;" class="personal_area_button_up" onclick="window.location.href='logout.php'"><span>Log Out</span></button>
+        </div>
+
+        <div style="text-align: center; padding-right: 5%; padding-top: 5%;">
             Your account
             <br><br>
             <form action="" method="POST">
-                <table  class="ships_table" cellspacing="0">
+                <table class="cool_table">
+                    <thead>
                     <tr>
                         <th>Parameter</th> <th>Value</th>
                     </tr>
+                    </thead>
                     
+                    <tbody>
                     <tr>
                         <td>
                             Login
@@ -59,7 +58,9 @@ if(isset($_POST['btnDeleteAccount']))
                             <input type="text" name="txtName" value="<?php echo $login;?>" style="margin-top: 0.2em" readonly="true">
                         </td>
                     </tr>
+                    </tbody>
                     
+                    <tbody>
                     <tr>
                         <td>
                             Registration date
@@ -68,10 +69,13 @@ if(isset($_POST['btnDeleteAccount']))
                             <input type="text" name="txtRegDate" value="<?php echo $reg_date['reg_date'];?>" style="margin-top: 0.2em" readonly="true">
                         </td>
                     </tr>
+                    </tbody>
                 </table>
                 <br/>
 
-                <input type="submit" name="btnDeleteAccount" value="Delete account" style="margin-top: 0.2em" ><br>
+                <div style="width:200px;margin: 0 auto;">
+                    <input type="submit" class="personal_area_button" name="btnDeleteAccount" value="Delete account" style="width:100%"><br>
+                </div>
             </form>
         </div>
     </body>

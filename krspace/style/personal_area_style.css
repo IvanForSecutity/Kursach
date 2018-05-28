@@ -1,0 +1,64 @@
+.personal_area_button
+{
+  display: inline-block;
+  background-color: #8bffd8;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  float:center;
+  font-size: 15px;
+  padding: 5px;
+  width: auto;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.personal_area_button_up
+{
+  display: inline-block;
+  background-color: #8bffd8;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: auto;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.cool_table {
+  font-family: 'Arial';
+  margin: 25px auto;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+  border-bottom: 2px solid #0a6f4d;
+}
+.cool_table tr:hover {
+  background: #f4f4f4;
+}
+.cool_table tr:hover td {
+  color: #555;
+}
+.cool_table th, .cool_table td {
+  color: #999;
+  border: 1px solid #eee;
+  padding: 12px 35px;
+  border-collapse: collapse;
+}
+.cool_table th {
+  background: #0a6f4d;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.cool_table th.last {
+  border-right: none;
+}

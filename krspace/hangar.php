@@ -74,7 +74,6 @@ foreach ($ships as $cur_ship)
             <th>Ship name</th>
             <th>Action</th>
           </tr>
-
         </thead>
         <?php foreach ($ships as $cur_ship) : ?>
         <tbody>
