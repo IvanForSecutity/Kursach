@@ -155,9 +155,23 @@ $weapons = loadWeapons();
         <script type="text/javascript" src="js/drag_and_drop.js"></script>
         
         <script type="text/javascript" src="js/js_search.js"></script>
+        
+        <script> Resize(); </script>
     </head>
-    <body>
-        <table class="two_columns" cellspacing="0">
+    <body onresize="Resize()" bgcolor="#eafff7">
+        <script>
+            function Resize()
+            {
+              var resize_koef = window.innerWidth / 1920;
+              var new_text_size = (28*(resize_koef)).toFixed(0);
+              document.getElementById("tblRefs").style["fontSize"] = new_text_size;
+              document.getElementById("divShipModules").style["fontSize"] = new_text_size;
+              document.getElementById("divCircleContainer").style["fontSize"] = new_text_size;
+              document.getElementById("divShipParameters").style["fontSize"] = new_text_size;
+            }
+        </script>
+        
+        <table id="tblRefs" class="two_columns" cellspacing="0">
         <tr>
             <td>
                 <a href="hangar.php">To hangar</a>
@@ -186,502 +200,504 @@ $weapons = loadWeapons();
             <table class="three_columns">
             <tr>
                 <td>
-                    Spaceship modules:
-                    <br>
-                    <br/>
-                    Ship name: <input type="text" id="txtShipName" name="txtShipName" value="<?php echo $txtShipName;?>" style="margin-top: 0.2em">
-                    <br>
-                    <br>
-                    
-                    <ul class="tabs">
-                        <li><a href="#">Hulls</a></li>
-                        <li><a href="#" class="w1">Engines</a></li>
-                        <li><a href="#" class="w1">Secondary engines</a></li>
-                        <li><a href="#">Fuel tanks</a></li>
-                        <li><a href="#" class="w1">Radars</a></li>
-                        <li><a href="#" class="w1">Repair droids</a></li>
-                        <li><a href="#">Magnetic grips</a></li>
-                        <li><a href="#" class="w1">Weapons</a></li>    
-                    </ul>
-                    
-                    <br/><br/>
+                    <div id="divShipModules" class="ship_modules">
+                        Spaceship modules
+                        <br>
+                        <br/>
+                        Ship name: <input type="text" id="txtShipName" name="txtShipName" value="<?php echo $txtShipName;?>" style="width: 75%;">
+                        <br>
+                        <br>
 
-                    <!-- TODO: Исправить верхнюю границу панельки, которая идёт сразу после первого ряда табов. -->
-                    <!-- TODO: Исправить перетаскивание установленных модулей из центра. -->
-                    <!-- TODO: Перетаскивать модули за квадраты, а не картинки. --> 
-                    <!-- tab "panes" --> 
-                    <div class="panes"> 
-                        <div class="panes_div"><h2>Hulls</h2> 
-                            <p>
-                                <!-- TODO: Поиск по доступным модулям... -->
-                                <!-- Search --> 
-                                <div class="main_search_field">
-                                    <input type="text" id="txtHullSearchString" class="main_search_string">
-                                    <input type="button" name="btnHullSearch" value="Search" class="main_search_button" onclick="SearchHulls()"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Hp </label>
-                                    <input type="text" id="txtHullHpFrom" placeholder="from" class="small_input"> <input type="text" id="txtHullHpTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label  class="small_input"> Maneuverability </label>
-                                    <input type="text" id="txtHullManeuverabilityFrom" placeholder="from" class="small_input"> <input type="text" id="txtHullManeuverabilityTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Capacity </label>
-                                    <input type="text" id="txtHullCapacityFrom" placeholder="from" class="small_input"> <input type="text" id="txtHullCapacityTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Cost </label>
-                                    <input type="text" id="txtHullCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtHullCostTo" placeholder="to" class="small_input"> <br/>
-                                </div>
+                        <ul class="tabs">
+                            <li><a href="#">Hulls</a></li>
+                            <li><a href="#" class="w1">Engines</a></li>
+                            <li><a href="#" class="w1">Secondary engines</a></li>
+                            <li><a href="#">Fuel tanks</a></li>
+                            <li><a href="#" class="w1">Radars</a></li>
+                            <li><a href="#" class="w1">Repair droids</a></li>
+                            <li><a href="#">Magnetic grips</a></li>
+                            <li><a href="#" class="w1">Weapons</a></li>    
+                        </ul>
 
-                                <br/><br/>
+                        <br/><br/>
 
-                                <div id="divAvailableHulls" class="container">
-                                    <table class="four_columns" cellspacing="0">
-                                        <tr>
-                                            <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
-                                        </tr>
+                        <!-- TODO: Исправить верхнюю границу панельки, которая идёт сразу после первого ряда табов. -->
+                        <!-- TODO: Исправить перетаскивание установленных модулей из центра. -->
+                        <!-- TODO: Перетаскивать модули за квадраты, а не картинки. --> 
+                        <!-- tab "panes" --> 
+                        <div class="panes"> 
+                            <div class="panes_div"><h2>Hulls</h2> 
+                                <p>
+                                    <!-- TODO: Поиск по доступным модулям... -->
+                                    <!-- Search --> 
+                                    <div class="main_search_field">
+                                        <input type="text" id="txtHullSearchString" class="main_search_string">
+                                        <input type="button" name="btnHullSearch" value="Search" class="main_search_button" onclick="SearchHulls()"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Hp </label>
+                                        <input type="text" id="txtHullHpFrom" placeholder="from" class="small_input"> <input type="text" id="txtHullHpTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label  class="small_input"> Maneuverability </label>
+                                        <input type="text" id="txtHullManeuverabilityFrom" placeholder="from" class="small_input"> <input type="text" id="txtHullManeuverabilityTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Capacity </label>
+                                        <input type="text" id="txtHullCapacityFrom" placeholder="from" class="small_input"> <input type="text" id="txtHullCapacityTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Cost </label>
+                                        <input type="text" id="txtHullCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtHullCostTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
 
-                                        <?php foreach ($hulls as $cur_hull) : ?>
-                                        <tr>
-                                            <td>
-                                                <div id="available_module_background">
-                                                    <img id="<?= "imgShipHull".$cur_hull['name']?>" src="<?= $cur_hull['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragHull(event)">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <?= $cur_hull['name']?>
-                                            </td>
-                                            <td class="wide_col">
-                                                Hp: <?= $cur_hull['hp']?> <br/>
-                                                Maneuverability: <?= $cur_hull['maneuverability']?> <br/>
-                                                Capacity: <?= $cur_hull['capacity']?>
-                                            </td>
-                                            <td class="last_col">
-                                                <?= $cur_hull['cost']?> <br/>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach ?>
-                                    </table>
-                                </div>
-                            </p>
-                        </div>
+                                    <br/><br/>
 
-                        <div class="panes_div"><h2>Engines</h2> 
-                            <p>
-                                <!-- Search --> 
-                                <div class="main_search_field">
-                                    <input type="text" id="txtEngineSearchString" class="main_search_string">
-                                    <input type="button" name="btnEngineSearch" value="Search" class="main_search_button" onclick="SearchEngines()"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Speed </label>
-                                    <input type="text" id="txtEngineSpeedFrom" placeholder="from" class="small_input"> <input type="text" id="txtEngineSpeedTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Weight </label>
-                                    <input type="text" id="txtEngineWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtEngineWeightTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Cost </label>
-                                    <input type="text" id="txtEngineCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtEngineCostTo" placeholder="to" class="small_input"> <br/>
-                                </div>
+                                    <div id="divAvailableHulls" class="container">
+                                        <table class="four_columns" cellspacing="0">
+                                            <tr>
+                                                <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                            </tr>
 
-                                <br/><br/>
+                                            <?php foreach ($hulls as $cur_hull) : ?>
+                                            <tr>
+                                                <td>
+                                                    <div id="available_module_background">
+                                                        <img id="<?= "imgShipHull".$cur_hull['name']?>" src="<?= $cur_hull['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragHull(event)">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <?= $cur_hull['name']?>
+                                                </td>
+                                                <td class="wide_col">
+                                                    Hp: <?= $cur_hull['hp']?> <br/>
+                                                    Maneuverability: <?= $cur_hull['maneuverability']?> <br/>
+                                                    Capacity: <?= $cur_hull['capacity']?>
+                                                </td>
+                                                <td class="last_col">
+                                                    <?= $cur_hull['cost']?> <br/>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach ?>
+                                        </table>
+                                    </div>
+                                </p>
+                            </div>
 
-                                <div id="divAvailableEngines" class="container">
-                                    <table class="four_columns" cellspacing="0">
-                                        <tr>
-                                            <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
-                                        </tr>
+                            <div class="panes_div"><h2>Engines</h2> 
+                                <p>
+                                    <!-- Search --> 
+                                    <div class="main_search_field">
+                                        <input type="text" id="txtEngineSearchString" class="main_search_string">
+                                        <input type="button" name="btnEngineSearch" value="Search" class="main_search_button" onclick="SearchEngines()"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Speed </label>
+                                        <input type="text" id="txtEngineSpeedFrom" placeholder="from" class="small_input"> <input type="text" id="txtEngineSpeedTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Weight </label>
+                                        <input type="text" id="txtEngineWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtEngineWeightTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Cost </label>
+                                        <input type="text" id="txtEngineCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtEngineCostTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
 
-                                        <?php foreach ($engines as $cur_engine) : ?>
-                                        <tr>
-                                            <td>
-                                                <div id="available_module_background">
-                                                    <img id="<?= "imgShipEngine".$cur_engine['name']?>" src="<?= $cur_engine['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragEngine(event)">
-                                                </div> 
-                                            </td>
-                                            <td>
-                                                <?= $cur_engine['name']?>
-                                            </td>
-                                            <td class="wide_col">
-                                                Speed: <?= $cur_engine['speed']?> <br/>
-                                                Weigth: <?= $cur_engine['weight']?>
-                                            </td>
-                                            <td class="last_col">
-                                                <?= $cur_engine['cost']?> <br/>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach ?>
-                                    </table>
-                                </div>
-                            </p>
-                        </div>
+                                    <br/><br/>
 
-                        <div class="panes_div"><h2>Secondary engines</h2> 
-                            <p>
-                                <!-- Search --> 
-                                <div class="main_search_field">
-                                    <input type="text" id="txtSecondaryEngineSearchString" class="main_search_string">
-                                    <input type="button" name="btnSecondaryEngineSearch" value="Search" class="main_search_button" onclick="SearchSecondaryEngines()"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Maneuverability </label>
-                                    <input type="text" id="txtSecondaryEngineManeuverabilityFrom" placeholder="from" class="small_input"> <input type="text" id="txtSecondaryEngineManeuverabilityTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Weight </label>
-                                    <input type="text" id="txtSecondaryEngineWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtSecondaryEngineWeightTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Cost </label>
-                                    <input type="text" id="txtSecondaryEngineCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtSecondaryEngineCostTo" placeholder="to" class="small_input"> <br/>
-                                </div>
+                                    <div id="divAvailableEngines" class="container">
+                                        <table class="four_columns" cellspacing="0">
+                                            <tr>
+                                                <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                            </tr>
 
-                                <br/><br/>
+                                            <?php foreach ($engines as $cur_engine) : ?>
+                                            <tr>
+                                                <td>
+                                                    <div id="available_module_background">
+                                                        <img id="<?= "imgShipEngine".$cur_engine['name']?>" src="<?= $cur_engine['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragEngine(event)">
+                                                    </div> 
+                                                </td>
+                                                <td>
+                                                    <?= $cur_engine['name']?>
+                                                </td>
+                                                <td class="wide_col">
+                                                    Speed: <?= $cur_engine['speed']?> <br/>
+                                                    Weigth: <?= $cur_engine['weight']?>
+                                                </td>
+                                                <td class="last_col">
+                                                    <?= $cur_engine['cost']?> <br/>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach ?>
+                                        </table>
+                                    </div>
+                                </p>
+                            </div>
 
-                                <div id="divAvailableSecondaryEngines" class="container">
-                                    <table class="four_columns" cellspacing="0">
-                                        <tr>
-                                            <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
-                                        </tr>
+                            <div class="panes_div"><h2>Secondary engines</h2> 
+                                <p>
+                                    <!-- Search --> 
+                                    <div class="main_search_field">
+                                        <input type="text" id="txtSecondaryEngineSearchString" class="main_search_string">
+                                        <input type="button" name="btnSecondaryEngineSearch" value="Search" class="main_search_button" onclick="SearchSecondaryEngines()"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Maneuverability </label>
+                                        <input type="text" id="txtSecondaryEngineManeuverabilityFrom" placeholder="from" class="small_input"> <input type="text" id="txtSecondaryEngineManeuverabilityTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Weight </label>
+                                        <input type="text" id="txtSecondaryEngineWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtSecondaryEngineWeightTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Cost </label>
+                                        <input type="text" id="txtSecondaryEngineCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtSecondaryEngineCostTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
 
-                                        <?php foreach ($secondary_engines as $cur_secondary_engine) : ?>
-                                        <tr>
-                                            <td>
-                                                <div id="available_module_background">
-                                                    <img id="<?= "imgShipSecondaryEngine".$cur_secondary_engine['name']?>" src="<?= $cur_secondary_engine['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragSecondaryEngine(event)">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <?= $cur_secondary_engine['name']?>
-                                            </td>
-                                            <td class="wide_col">
-                                                Maneuverability: <?= $cur_secondary_engine['maneuverability']?> <br/>
-                                                Weigth: <?= $cur_secondary_engine['weight']?>
-                                            </td>
-                                            <td class="last_col">
-                                                <?= $cur_secondary_engine['cost']?> <br/>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach ?>
-                                    </table>
-                                </div>
-                            </p>
-                        </div>
+                                    <br/><br/>
 
-                        <div class="panes_div"><h2>Fuel tanks</h2> 
-                            <p>
-                                <!-- Search --> 
-                                <div class="main_search_field">
-                                    <input type="text" id="txtFuelTankSearchString" class="main_search_string">
-                                    <input type="button" name="btnFuelTankSearch" value="Search" class="main_search_button" onclick="SearchFuelTanks()"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Volume </label>
-                                    <input type="text" id="txtFuelTankVolumeFrom" placeholder="from" class="small_input"> <input type="text" id="txtFuelTankVolumeTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Weight </label>
-                                    <input type="text" id="txtFuelTankWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtFuelTankWeightTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Cost </label>
-                                    <input type="text" id="txtFuelTankCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtFuelTankCostTo" placeholder="to" class="small_input"> <br/>
-                                </div>
+                                    <div id="divAvailableSecondaryEngines" class="container">
+                                        <table class="four_columns" cellspacing="0">
+                                            <tr>
+                                                <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                            </tr>
 
-                                <br/><br/>
+                                            <?php foreach ($secondary_engines as $cur_secondary_engine) : ?>
+                                            <tr>
+                                                <td>
+                                                    <div id="available_module_background">
+                                                        <img id="<?= "imgShipSecondaryEngine".$cur_secondary_engine['name']?>" src="<?= $cur_secondary_engine['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragSecondaryEngine(event)">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <?= $cur_secondary_engine['name']?>
+                                                </td>
+                                                <td class="wide_col">
+                                                    Maneuverability: <?= $cur_secondary_engine['maneuverability']?> <br/>
+                                                    Weigth: <?= $cur_secondary_engine['weight']?>
+                                                </td>
+                                                <td class="last_col">
+                                                    <?= $cur_secondary_engine['cost']?> <br/>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach ?>
+                                        </table>
+                                    </div>
+                                </p>
+                            </div>
 
-                                <div id="divAvailableFuelTanks" class="container">
-                                    <table class="four_columns" cellspacing="0">
-                                        <tr>
-                                            <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
-                                        </tr>
+                            <div class="panes_div"><h2>Fuel tanks</h2> 
+                                <p>
+                                    <!-- Search --> 
+                                    <div class="main_search_field">
+                                        <input type="text" id="txtFuelTankSearchString" class="main_search_string">
+                                        <input type="button" name="btnFuelTankSearch" value="Search" class="main_search_button" onclick="SearchFuelTanks()"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Volume </label>
+                                        <input type="text" id="txtFuelTankVolumeFrom" placeholder="from" class="small_input"> <input type="text" id="txtFuelTankVolumeTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Weight </label>
+                                        <input type="text" id="txtFuelTankWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtFuelTankWeightTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Cost </label>
+                                        <input type="text" id="txtFuelTankCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtFuelTankCostTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
 
-                                        <?php foreach ($fuel_tanks as $cur_fuel_tank) : ?>
-                                        <tr>
-                                            <td>
-                                                <div id="available_module_background">
-                                                    <img id="<?= "imgShipFuelTank".$cur_fuel_tank['name']?>" src="<?= $cur_fuel_tank['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragFuelTank(event)">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <?= $cur_fuel_tank['name']?>
-                                            </td>
-                                            <td class="wide_col">
-                                                Volume: <?= $cur_fuel_tank['volume']?> <br/>
-                                                Weigth: <?= $cur_fuel_tank['weight']?>
-                                            </td>
-                                            <td class="last_col">
-                                                <?= $cur_fuel_tank['cost']?> <br/>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach ?>
-                                    </table>
-                                </div>
-                            </p>
-                        </div>
+                                    <br/><br/>
 
-                        <div class="panes_div"><h2>Radars.</h2> 
-                            <p>
-                                <!-- Search --> 
-                                <div class="main_search_field">
-                                    <input type="text" id="txtRadarSearchString" class="main_search_string">
-                                    <input type="button" name="btnRadarSearch" value="Search" class="main_search_button" onclick="SearchRadars()"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Action radius </label>
-                                    <input type="text" id="txtRadarActionRadiusFrom" placeholder="from" class="small_input"> <input type="text" id="txtRadarActionRadiusTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Weight </label>
-                                    <input type="text" id="txtRadarWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtRadarWeightTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Cost </label>
-                                    <input type="text" id="txtRadarCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtRadarCostTo" placeholder="to" class="small_input"> <br/>
-                                </div>
+                                    <div id="divAvailableFuelTanks" class="container">
+                                        <table class="four_columns" cellspacing="0">
+                                            <tr>
+                                                <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                            </tr>
 
-                                <br/><br/>
+                                            <?php foreach ($fuel_tanks as $cur_fuel_tank) : ?>
+                                            <tr>
+                                                <td>
+                                                    <div id="available_module_background">
+                                                        <img id="<?= "imgShipFuelTank".$cur_fuel_tank['name']?>" src="<?= $cur_fuel_tank['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragFuelTank(event)">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <?= $cur_fuel_tank['name']?>
+                                                </td>
+                                                <td class="wide_col">
+                                                    Volume: <?= $cur_fuel_tank['volume']?> <br/>
+                                                    Weigth: <?= $cur_fuel_tank['weight']?>
+                                                </td>
+                                                <td class="last_col">
+                                                    <?= $cur_fuel_tank['cost']?> <br/>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach ?>
+                                        </table>
+                                    </div>
+                                </p>
+                            </div>
 
-                                <div id="divAvailableRadars" class="container">
-                                    <table class="four_columns" cellspacing="0">
-                                        <tr>
-                                            <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
-                                        </tr>
+                            <div class="panes_div"><h2>Radars</h2> 
+                                <p>
+                                    <!-- Search --> 
+                                    <div class="main_search_field">
+                                        <input type="text" id="txtRadarSearchString" class="main_search_string">
+                                        <input type="button" name="btnRadarSearch" value="Search" class="main_search_button" onclick="SearchRadars()"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Action radius </label>
+                                        <input type="text" id="txtRadarActionRadiusFrom" placeholder="from" class="small_input"> <input type="text" id="txtRadarActionRadiusTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Weight </label>
+                                        <input type="text" id="txtRadarWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtRadarWeightTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Cost </label>
+                                        <input type="text" id="txtRadarCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtRadarCostTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
 
-                                        <?php foreach ($radars as $cur_radar) : ?>
-                                        <tr>
-                                            <td>
-                                                <div id="available_module_background">
-                                                    <img id="<?= "imgShipRadar".$cur_radar['name']?>" src="<?= $cur_radar['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragRadar(event)">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <?= $cur_radar['name']?>
-                                            </td>
-                                            <td class="wide_col">
-                                                Action radius: <?= $cur_radar['action_radius']?> <br/>
-                                                Weigth: <?= $cur_radar['weight']?>
-                                            </td>
-                                            <td class="last_col">
-                                                <?= $cur_radar['cost']?> <br/>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach ?>
-                                    </table>
-                                </div>
-                            </p>
-                        </div>
-                        
-                        <div class="panes_div"><h2>Repair droids.</h2> 
-                            <p>
-                                <!-- Search --> 
-                                <div class="main_search_field">
-                                    <input type="text" id="txtRepairDroidSearchString" class="main_search_string">
-                                    <input type="button" name="btnRepairDroidSearch" value="Search" class="main_search_button" onclick="SearchRepairDroids()"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Health recovery </label>
-                                    <input type="text" id="txtRepairDroidHealthRecoveryFrom" placeholder="from" class="small_input"> <input type="text" id="txtRepairDroidHealthRecoveryTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Weight </label>
-                                    <input type="text" id="txtRepairDroidWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtRepairDroidWeightTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Cost </label>
-                                    <input type="text" id="txtRepairDroidCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtRepairDroidCostTo" placeholder="to" class="small_input"> <br/>
-                                </div>
+                                    <br/><br/>
 
-                                <br/><br/>
+                                    <div id="divAvailableRadars" class="container">
+                                        <table class="four_columns" cellspacing="0">
+                                            <tr>
+                                                <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                            </tr>
 
-                                <div id="divAvailableRepairDroids" class="container">
-                                    <table class="four_columns" cellspacing="0">
-                                        <tr>
-                                            <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
-                                        </tr>
+                                            <?php foreach ($radars as $cur_radar) : ?>
+                                            <tr>
+                                                <td>
+                                                    <div id="available_module_background">
+                                                        <img id="<?= "imgShipRadar".$cur_radar['name']?>" src="<?= $cur_radar['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragRadar(event)">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <?= $cur_radar['name']?>
+                                                </td>
+                                                <td class="wide_col">
+                                                    Action radius: <?= $cur_radar['action_radius']?> <br/>
+                                                    Weigth: <?= $cur_radar['weight']?>
+                                                </td>
+                                                <td class="last_col">
+                                                    <?= $cur_radar['cost']?> <br/>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach ?>
+                                        </table>
+                                    </div>
+                                </p>
+                            </div>
 
-                                        <?php foreach ($repair_droids as $cur_repair_droid) : ?>
-                                        <tr>
-                                            <td>
-                                                <div id="available_module_background">
-                                                    <img id="<?= "imgShipRepairDroid".$cur_repair_droid['name']?>" src="<?= $cur_repair_droid['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragRepairDroid(event)">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <?= $cur_repair_droid['name']?>
-                                            </td>
-                                            <td class="wide_col">
-                                                Health recovery: <?= $cur_repair_droid['health_recovery']?> <br/>
-                                                Weigth: <?= $cur_repair_droid['weight']?>
-                                            </td>
-                                            <td class="last_col">
-                                                <?= $cur_repair_droid['cost']?> <br/>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach ?>
-                                    </table>
-                                </div>
-                            </p>
-                        </div>
-                        
-                        <div class="panes_div"><h2>Magnetic grips.</h2> 
-                            <p>
-                                <!-- Search --> 
-                                <div class="main_search_field">
-                                    <input type="text" id="txtMagneticGripSearchString" class="main_search_string">
-                                    <input type="button" name="btnMagneticGripSearch" value="Search" class="main_search_button" onclick="SearchMagneticGrips()"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Action radius </label>
-                                    <input type="text" id="txtMagneticGripActionRadiusFrom" placeholder="from" class="small_input"> <input type="text" id="txtMagneticGripActionRadiusTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Carrying capacity </label>
-                                    <input type="text" id="txtMagneticGripCarryingCapacityFrom" placeholder="from" class="small_input"> <input type="text" id="txtMagneticGripCarryingCapacityTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Weight </label>
-                                    <input type="text" id="txtMagneticGripWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtMagneticGripWeightTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Cost </label>
-                                    <input type="text" id="txtMagneticGripCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtMagneticGripCostTo" placeholder="to" class="small_input"> <br/>
-                                </div>
+                            <div class="panes_div"><h2>Repair droids</h2> 
+                                <p>
+                                    <!-- Search --> 
+                                    <div class="main_search_field">
+                                        <input type="text" id="txtRepairDroidSearchString" class="main_search_string">
+                                        <input type="button" name="btnRepairDroidSearch" value="Search" class="main_search_button" onclick="SearchRepairDroids()"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Health recovery </label>
+                                        <input type="text" id="txtRepairDroidHealthRecoveryFrom" placeholder="from" class="small_input"> <input type="text" id="txtRepairDroidHealthRecoveryTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Weight </label>
+                                        <input type="text" id="txtRepairDroidWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtRepairDroidWeightTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Cost </label>
+                                        <input type="text" id="txtRepairDroidCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtRepairDroidCostTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
 
-                                <br/><br/>
+                                    <br/><br/>
 
-                                <div id="divAvailableMagneticGrips" class="container">
-                                    <table class="four_columns" cellspacing="0">
-                                        <tr>
-                                            <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
-                                        </tr>
+                                    <div id="divAvailableRepairDroids" class="container">
+                                        <table class="four_columns" cellspacing="0">
+                                            <tr>
+                                                <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                            </tr>
 
-                                        <?php foreach ($magnetic_grips as $cur_magnetic_grip) : ?>
-                                        <tr>
-                                            <td>
-                                                <div id="available_module_background">
-                                                    <img id="<?= "imgShipMagneticGrip".$cur_magnetic_grip['name']?>" src="<?= $cur_magnetic_grip['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragMagneticGrip(event)">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <?= $cur_magnetic_grip['name']?>
-                                            </td>
-                                            <td class="wide_col">
-                                                Action radius: <?= $cur_magnetic_grip['action_radius']?> <br/>
-                                                Carrying capacity: <?= $cur_magnetic_grip['carrying_capacity']?> <br/>
-                                                Weigth: <?= $cur_magnetic_grip['weight']?>
-                                            </td>
-                                            <td class="last_col">
-                                                <?= $cur_magnetic_grip['cost']?> <br/>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach ?>
-                                    </table>
-                                </div>
-                            </p>
-                        </div>
-                        
-                        <div class="panes_div"><h2>Weapons.</h2> 
-                            <p>
-                                <!-- Search --> 
-                                <div class="main_search_field">
-                                    <input type="text" id="txtWeaponSearchString" class="main_search_string">
-                                    <input type="button" name="btnWeaponSearch" value="Search" class="main_search_button" onclick="SearchWeapons()"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Type </label>
-                                    <select id="txtWeaponType" class="small_input" size="1">
-                                        <option value=""> </option>
-                                        <option value="blaster"> Blaster </option>
-                                        <option value="laser_weapon"> Laser weapon </option>
-                                        <option value="missile_weapon"> Missile weapon </option>
-                                        <option value="plasma_weapon"> Plasma weapon </option>
-                                    </select>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Damage </label>
-                                    <input type="text" id="txtWeaponDamageFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponDamageTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Ammunition </label>
-                                    <input type="text" id="txtWeaponAmmunitionFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponAmmunitionTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Recharge time </label>
-                                    <input type="text" id="txtWeaponRechargeTimeFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponRechargeTimeTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Range of fire: </label>
-                                    <input type="text" id="txtWeaponRangeOfFireFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponRangeOfFireTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Weight </label>
-                                    <input type="text" id="txtWeaponWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponWeightTo" placeholder="to" class="small_input"> <br/>
-                                </div>
-                                <div class="search_field">
-                                    <label class="small_input"> Cost </label>
-                                    <input type="text" id="txtWeaponCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponCostTo" placeholder="to" class="small_input"> <br/>
-                                </div>
+                                            <?php foreach ($repair_droids as $cur_repair_droid) : ?>
+                                            <tr>
+                                                <td>
+                                                    <div id="available_module_background">
+                                                        <img id="<?= "imgShipRepairDroid".$cur_repair_droid['name']?>" src="<?= $cur_repair_droid['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragRepairDroid(event)">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <?= $cur_repair_droid['name']?>
+                                                </td>
+                                                <td class="wide_col">
+                                                    Health recovery: <?= $cur_repair_droid['health_recovery']?> <br/>
+                                                    Weigth: <?= $cur_repair_droid['weight']?>
+                                                </td>
+                                                <td class="last_col">
+                                                    <?= $cur_repair_droid['cost']?> <br/>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach ?>
+                                        </table>
+                                    </div>
+                                </p>
+                            </div>
 
-                                <br/><br/>
+                            <div class="panes_div"><h2>Magnetic grips</h2> 
+                                <p>
+                                    <!-- Search --> 
+                                    <div class="main_search_field">
+                                        <input type="text" id="txtMagneticGripSearchString" class="main_search_string">
+                                        <input type="button" name="btnMagneticGripSearch" value="Search" class="main_search_button" onclick="SearchMagneticGrips()"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Action radius </label>
+                                        <input type="text" id="txtMagneticGripActionRadiusFrom" placeholder="from" class="small_input"> <input type="text" id="txtMagneticGripActionRadiusTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Carrying capacity </label>
+                                        <input type="text" id="txtMagneticGripCarryingCapacityFrom" placeholder="from" class="small_input"> <input type="text" id="txtMagneticGripCarryingCapacityTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Weight </label>
+                                        <input type="text" id="txtMagneticGripWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtMagneticGripWeightTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Cost </label>
+                                        <input type="text" id="txtMagneticGripCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtMagneticGripCostTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
 
-                                <div id="divAvailableWeapons" class="container">
-                                    <table class="four_columns" cellspacing="0">
-                                        <tr>
-                                            <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
-                                        </tr>
+                                    <br/><br/>
 
-                                        <?php foreach ($weapons as $cur_weapon) : ?>
-                                        <tr>
-                                            <td>
-                                                <div id="available_module_background">
-                                                    <img id="<?= "imgShipWeapon".$cur_weapon['name']?>" src="<?= $cur_weapon['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragWeapon(event)">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <?= $cur_weapon['name']?>
-                                            </td>
-                                            <td class="wide_col">
-                                                Type: <?php switch ($cur_weapon['type'])
-                                                {
-                                                    case "blaster":
-                                                        echo "Blaster";
-                                                        break;
-                                                    case "laser_weapon":
-                                                        echo "Laser weapon";
-                                                        break;
-                                                    case "missile_weapon":
-                                                        echo "Missile weapon";
-                                                        break;
-                                                    case "plasma_weapon":
-                                                        echo "Plasma weapon";
-                                                        break;
-                                                }
-                                                ?> <br/>
-                                                Damage: <?= $cur_weapon['damage']?> <br/>
-                                                Ammunition: <?= $cur_weapon['ammunition']?> <br/>
-                                                Recharge time: <?= $cur_weapon['recharge_time']?> <br/>
-                                                Range of fire: <?= $cur_weapon['range_of_fire']?> <br/>
-                                                Weigth: <?= $cur_weapon['weight']?>
-                                            </td>
-                                            <td class="last_col">
-                                                <?= $cur_weapon['cost']?> <br/>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach ?>
-                                    </table>
-                                </div>
-                            </p>
+                                    <div id="divAvailableMagneticGrips" class="container">
+                                        <table class="four_columns" cellspacing="0">
+                                            <tr>
+                                                <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                            </tr>
+
+                                            <?php foreach ($magnetic_grips as $cur_magnetic_grip) : ?>
+                                            <tr>
+                                                <td>
+                                                    <div id="available_module_background">
+                                                        <img id="<?= "imgShipMagneticGrip".$cur_magnetic_grip['name']?>" src="<?= $cur_magnetic_grip['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragMagneticGrip(event)">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <?= $cur_magnetic_grip['name']?>
+                                                </td>
+                                                <td class="wide_col">
+                                                    Action radius: <?= $cur_magnetic_grip['action_radius']?> <br/>
+                                                    Carrying capacity: <?= $cur_magnetic_grip['carrying_capacity']?> <br/>
+                                                    Weigth: <?= $cur_magnetic_grip['weight']?>
+                                                </td>
+                                                <td class="last_col">
+                                                    <?= $cur_magnetic_grip['cost']?> <br/>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach ?>
+                                        </table>
+                                    </div>
+                                </p>
+                            </div>
+
+                            <div class="panes_div"><h2>Weapons</h2> 
+                                <p>
+                                    <!-- Search --> 
+                                    <div class="main_search_field">
+                                        <input type="text" id="txtWeaponSearchString" class="main_search_string">
+                                        <input type="button" name="btnWeaponSearch" value="Search" class="main_search_button" onclick="SearchWeapons()"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Type </label>
+                                        <select id="txtWeaponType" class="small_input" size="1">
+                                            <option value=""> </option>
+                                            <option value="blaster"> Blaster </option>
+                                            <option value="laser_weapon"> Laser weapon </option>
+                                            <option value="missile_weapon"> Missile weapon </option>
+                                            <option value="plasma_weapon"> Plasma weapon </option>
+                                        </select>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Damage </label>
+                                        <input type="text" id="txtWeaponDamageFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponDamageTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Ammunition </label>
+                                        <input type="text" id="txtWeaponAmmunitionFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponAmmunitionTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Recharge time </label>
+                                        <input type="text" id="txtWeaponRechargeTimeFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponRechargeTimeTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Range of fire: </label>
+                                        <input type="text" id="txtWeaponRangeOfFireFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponRangeOfFireTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Weight </label>
+                                        <input type="text" id="txtWeaponWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponWeightTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+                                    <div class="search_field">
+                                        <label class="small_input"> Cost </label>
+                                        <input type="text" id="txtWeaponCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponCostTo" placeholder="to" class="small_input"> <br/>
+                                    </div>
+
+                                    <br/><br/>
+
+                                    <div id="divAvailableWeapons" class="container">
+                                        <table class="four_columns" cellspacing="0">
+                                            <tr>
+                                                <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
+                                            </tr>
+
+                                            <?php foreach ($weapons as $cur_weapon) : ?>
+                                            <tr>
+                                                <td>
+                                                    <div id="available_module_background">
+                                                        <img id="<?= "imgShipWeapon".$cur_weapon['name']?>" src="<?= $cur_weapon['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragWeapon(event)">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <?= $cur_weapon['name']?>
+                                                </td>
+                                                <td class="wide_col">
+                                                    Type: <?php switch ($cur_weapon['type'])
+                                                    {
+                                                        case "blaster":
+                                                            echo "Blaster";
+                                                            break;
+                                                        case "laser_weapon":
+                                                            echo "Laser weapon";
+                                                            break;
+                                                        case "missile_weapon":
+                                                            echo "Missile weapon";
+                                                            break;
+                                                        case "plasma_weapon":
+                                                            echo "Plasma weapon";
+                                                            break;
+                                                    }
+                                                    ?> <br/>
+                                                    Damage: <?= $cur_weapon['damage']?> <br/>
+                                                    Ammunition: <?= $cur_weapon['ammunition']?> <br/>
+                                                    Recharge time: <?= $cur_weapon['recharge_time']?> <br/>
+                                                    Range of fire: <?= $cur_weapon['range_of_fire']?> <br/>
+                                                    Weigth: <?= $cur_weapon['weight']?>
+                                                </td>
+                                                <td class="last_col">
+                                                    <?= $cur_weapon['cost']?> <br/>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach ?>
+                                        </table>
+                                    </div>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </td>
                 <td class="center_col">
-                    <div class='circle-container'>
+                    <div id="divCircleContainer" class='circle-container'>
                         <c href='#' class='center'>
                             <div id="ship_hull_cell" class="empty_hull_background" ondrop="dropHull(event)" ondragover="allowDrop(event)">
                                 <img id="ship_hull" src="images/Icons/yes.png" class="hull_image" draggable="true" ondragstart="dragCurHull(event)">
@@ -742,7 +758,11 @@ $weapons = loadWeapons();
                             <input type="hidden" id="txtRadarChosen" value="false" readonly="true">
                             Radar
                         </z>
-                        <z href='#' class='deg35'>  <img src="images/stub.jpg"> </z>
+                        <z href='#' class='deg35'>
+                            <div class="blocked_module_background">
+                                <img src="images/stub.jpg" class="module_image">
+                            </div>
+                        </z>
 
                         <z href='#' class='deg70'>
                             <div id="ship_magnetic_grip_cell" class="blocked_module_background" ondrop="dropMagneticGrip(event)" ondragover="allowDrop(event)">
@@ -753,7 +773,11 @@ $weapons = loadWeapons();
                             <input type="hidden" id="txtMagneticGripChosen" value="false" readonly="true">
                             Magnetic grip
                         </z>
-                        <z href='#' class='deg90'>  <img src="images/stub.jpg"> </z>
+                        <z href='#' class='deg90'>
+                            <div class="blocked_module_background">
+                                <img src="images/stub.jpg" class="module_image">
+                            </div>
+                        </z>
                         <z href='#' class='deg110'>
                             <div id="ship_repair_droid_cell" class="blocked_module_background" ondrop="dropRepairDroid(event)" ondragover="allowDrop(event)">
                                 <img id="ship_repair_droid" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurRepairDroid(event)"> 
@@ -791,147 +815,149 @@ $weapons = loadWeapons();
                             <input type="hidden" id="txtEngineChosen" value="false" readonly="true">
                             Engine
                         </z>
-                    </div>
-
-                    <br/><br/><br/><br/><br/>
-                    
-                    <div id="ship_engine_cell" class="recycle_bin_background" ondrop="dropRecycleBin(event)" ondragover="allowDrop(event)">
-                        <img src="images/Icons/recycle_bin_empty.png" class="module_image">
+                        
+                        <z href='#' class='deg90_far'>
+                            <div id="ship_engine_cell" class="recycle_bin_background" ondrop="dropRecycleBin(event)" ondragover="allowDrop(event)">
+                                <img src="images/Icons/recycle_bin_empty.png" class="module_image">
+                            </div>
+                        </z>
                     </div>
                 </td>
                 <td class="right_col">
-                    Spaceship parameters:
-                    <br/>
-                    <br>
-                    Capacity: <input type="text" id="txtFreeCapacity" value="0" style="margin-top: 0.2em" readonly="true">
-                    / <input type="text" id="txtFullCapacity" value="0" style="margin-top: 0.2em" readonly="true">
-                    <br/>
-                    <br/>
-                    Hp: <input type="text" id="txtHp" value="0" style="margin-top: 0.2em" readonly="true">
-                    <br/>
-                    Speed: <input type="text" id="txtSpeed" value="0" style="margin-top: 0.2em" readonly="true">
-                    <br/>
-                    Maneuverability: <input type="text" id="txtManeuverability" value="0" style="margin-top: 0.2em" readonly="true">
-                    <br/>
-                    Fuel tank volume: <input type="text" id="txtFuelTankVolume" value="0" style="margin-top: 0.2em" readonly="true">
-                    <br/>
-                    Radar action radius: <input type="text" id="txtRadarActionRadius" value="0" style="margin-top: 0.2em" readonly="true">
-                    <br/>
-                    Health recovery: <input type="text" id="txtHealthRecovery" value="0" style="margin-top: 0.2em" readonly="true">
-                    <br/>
-                    Magnetic grip action radius: <input type="text" id="txtMagneticGripActionRadius" value="0" style="margin-top: 0.2em" readonly="true">
-                    <br/>
-                    Magnetic grip carrying capacity: <input type="text" id="txtMagneticGripCarryingCapacity" value="0" style="margin-top: 0.2em" readonly="true">
-                    <br/> <br/>
-                    <div id="Weapon1Parameters" style='display:none;'>
-                        Weapon 1. <br/>
-                        <input type="hidden" name="txtWeapon1Name" id="txtWeapon1Name" value="" readonly="true">
-                        Type: <input type="hidden" id="txtWeapon1Type" value="0" readonly="true"> <br/>
-                        Damage: <input type="hidden" id="txtWeapon1Damage" value="0" readonly="true"> <br/>
-                        Ammunition: <input type="hidden" id="txtWeapon1Ammunition" value="0" readonly="true"> <br/>
-                        Recharge Time: <input type="hidden" id="txtWeapon1RechargeTime" value="0" readonly="true"> <br/>
-                        Range Of Fire:<input type="hidden" id="txtWeapon1RangeOfFire" value="0" readonly="true"> <br/>
-                        <input type="hidden" id="txtWeapon1Weight" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon1Cost" value="0" readonly="true">
+                    <div id="divShipParameters" class="ship_parameters">
+                        Spaceship parameters
                         <br/>
-                    </div>
-                    <div id="Weapon2Parameters" style='display:none;'>
-                        Weapon 2. <br/>
-                        <input type="hidden" name="txtWeapon2Name" id="txtWeapon2Name" value="" readonly="true">
-                        Type: <input type="hidden" id="txtWeapon2Type" value="0" readonly="true"> <br/>
-                        Damage: <input type="hidden" id="txtWeapon2Damage" value="0" readonly="true"> <br/>
-                        Ammunition: <input type="hidden" id="txtWeapon2Ammunition" value="0" readonly="true"> <br/>
-                        Recharge Time: <input type="hidden" id="txtWeapon2RechargeTime" value="0" readonly="true"> <br/>
-                        Range Of Fire:<input type="hidden" id="txtWeapon2RangeOfFire" value="0" readonly="true"> <br/>
-                        <input type="hidden" id="txtWeapon2Weight" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon2Cost" value="0" readonly="true">
+                        <br>
+                        Capacity: <input type="text" id="txtFreeCapacity" value="0" style="margin-top: 0.2em" readonly="true">
+                        / <input type="text" id="txtFullCapacity" value="0" style="margin-top: 0.2em" readonly="true">
                         <br/>
-                    </div>
-                    <div id="Weapon3Parameters" style='display:none;'>
-                        Weapon 3. <br/>
-                        <input type="hidden" name="txtWeapon3Name" id="txtWeapon3Name" value="" readonly="true">
-                        Type: <input type="hidden" id="txtWeapon3Type" value="0" readonly="true"> <br/>
-                        Damage: <input type="hidden" id="txtWeapon3Damage" value="0" readonly="true"> <br/>
-                        Ammunition: <input type="hidden" id="txtWeapon3Ammunition" value="0" readonly="true"> <br/>
-                        Recharge Time: <input type="hidden" id="txtWeapon3RechargeTime" value="0" readonly="true"> <br/>
-                        Range Of Fire:<input type="hidden" id="txtWeapon3RangeOfFire" value="0" readonly="true"> <br/>
-                        <input type="hidden" id="txtWeapon3Weight" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon3Cost" value="0" readonly="true">
                         <br/>
-                    </div>
-                    <div id="Weapon4Parameters" style='display:none;'>
-                        Weapon 4. <br/>
-                        <input type="hidden" name="txtWeapon4Name" id="txtWeapon4Name" value="" readonly="true">
-                        Type: <input type="hidden" id="txtWeapon4Type" value="0" readonly="true"> <br/>
-                        Damage: <input type="hidden" id="txtWeapon4Damage" value="0" readonly="true"> <br/>
-                        Ammunition: <input type="hidden" id="txtWeapon4Ammunition" value="0" readonly="true"> <br/>
-                        Recharge Time: <input type="hidden" id="txtWeapon4RechargeTime" value="0" readonly="true"> <br/>
-                        Range Of Fire:<input type="hidden" id="txtWeapon4RangeOfFire" value="0" readonly="true"> <br/>
-                        <input type="hidden" id="txtWeapon4Weight" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon4Cost" value="0" readonly="true">
+                        Hp: <input type="text" id="txtHp" value="0" style="margin-top: 0.2em" readonly="true">
                         <br/>
-                    </div>
-                    <div id="Weapon5Parameters" style='display:none;'>
-                        Weapon 5. <br/>
-                        <input type="hidden" name="txtWeapon5Name" id="txtWeapon5Name" value="" readonly="true">
-                        Type: <input type="hidden" id="txtWeapon5Type" value="0" readonly="true"> <br/>
-                        Damage: <input type="hidden" id="txtWeapon5Damage" value="0" readonly="true"> <br/>
-                        Ammunition: <input type="hidden" id="txtWeapon5Ammunition" value="0" readonly="true"> <br/>
-                        Recharge Time: <input type="hidden" id="txtWeapon5RechargeTime" value="0" readonly="true"> <br/>
-                        Range Of Fire:<input type="hidden" id="txtWeapon5RangeOfFire" value="0" readonly="true"> <br/>
-                        <input type="hidden" id="txtWeapon5Weight" value="0" readonly="true">
-                        <input type="hidden" id="txtWeapon5Cost" value="0" readonly="true">
+                        Speed: <input type="text" id="txtSpeed" value="0" style="margin-top: 0.2em" readonly="true">
                         <br/>
-                    </div>
-                    <br/>
-                    <br/>
-                    Cost: <input type="text" id="txtCost" value="0" style="margin-top: 0.2em" readonly="true">
+                        Maneuverability: <input type="text" id="txtManeuverability" value="0" style="margin-top: 0.2em" readonly="true">
+                        <br/>
+                        Fuel tank volume: <input type="text" id="txtFuelTankVolume" value="0" style="margin-top: 0.2em" readonly="true">
+                        <br/>
+                        Radar action radius: <input type="text" id="txtRadarActionRadius" value="0" style="margin-top: 0.2em" readonly="true">
+                        <br/>
+                        Health recovery: <input type="text" id="txtHealthRecovery" value="0" style="margin-top: 0.2em" readonly="true">
+                        <br/>
+                        Magnetic grip action radius: <input type="text" id="txtMagneticGripActionRadius" value="0" style="margin-top: 0.2em" readonly="true">
+                        <br/>
+                        Magnetic grip carrying capacity: <input type="text" id="txtMagneticGripCarryingCapacity" value="0" style="margin-top: 0.2em" readonly="true">
+                        <br/> <br/>
+                        <div id="Weapon1Parameters" style='display:none;'>
+                            Weapon 1. <br/>
+                            <input type="hidden" name="txtWeapon1Name" id="txtWeapon1Name" value="" readonly="true">
+                            Type: <input type="hidden" id="txtWeapon1Type" value="0" readonly="true"> <br/>
+                            Damage: <input type="hidden" id="txtWeapon1Damage" value="0" readonly="true"> <br/>
+                            Ammunition: <input type="hidden" id="txtWeapon1Ammunition" value="0" readonly="true"> <br/>
+                            Recharge Time: <input type="hidden" id="txtWeapon1RechargeTime" value="0" readonly="true"> <br/>
+                            Range Of Fire:<input type="hidden" id="txtWeapon1RangeOfFire" value="0" readonly="true"> <br/>
+                            <input type="hidden" id="txtWeapon1Weight" value="0" readonly="true">
+                            <input type="hidden" id="txtWeapon1Cost" value="0" readonly="true">
+                            <br/>
+                        </div>
+                        <div id="Weapon2Parameters" style='display:none;'>
+                            Weapon 2. <br/>
+                            <input type="hidden" name="txtWeapon2Name" id="txtWeapon2Name" value="" readonly="true">
+                            Type: <input type="hidden" id="txtWeapon2Type" value="0" readonly="true"> <br/>
+                            Damage: <input type="hidden" id="txtWeapon2Damage" value="0" readonly="true"> <br/>
+                            Ammunition: <input type="hidden" id="txtWeapon2Ammunition" value="0" readonly="true"> <br/>
+                            Recharge Time: <input type="hidden" id="txtWeapon2RechargeTime" value="0" readonly="true"> <br/>
+                            Range Of Fire:<input type="hidden" id="txtWeapon2RangeOfFire" value="0" readonly="true"> <br/>
+                            <input type="hidden" id="txtWeapon2Weight" value="0" readonly="true">
+                            <input type="hidden" id="txtWeapon2Cost" value="0" readonly="true">
+                            <br/>
+                        </div>
+                        <div id="Weapon3Parameters" style='display:none;'>
+                            Weapon 3. <br/>
+                            <input type="hidden" name="txtWeapon3Name" id="txtWeapon3Name" value="" readonly="true">
+                            Type: <input type="hidden" id="txtWeapon3Type" value="0" readonly="true"> <br/>
+                            Damage: <input type="hidden" id="txtWeapon3Damage" value="0" readonly="true"> <br/>
+                            Ammunition: <input type="hidden" id="txtWeapon3Ammunition" value="0" readonly="true"> <br/>
+                            Recharge Time: <input type="hidden" id="txtWeapon3RechargeTime" value="0" readonly="true"> <br/>
+                            Range Of Fire:<input type="hidden" id="txtWeapon3RangeOfFire" value="0" readonly="true"> <br/>
+                            <input type="hidden" id="txtWeapon3Weight" value="0" readonly="true">
+                            <input type="hidden" id="txtWeapon3Cost" value="0" readonly="true">
+                            <br/>
+                        </div>
+                        <div id="Weapon4Parameters" style='display:none;'>
+                            Weapon 4. <br/>
+                            <input type="hidden" name="txtWeapon4Name" id="txtWeapon4Name" value="" readonly="true">
+                            Type: <input type="hidden" id="txtWeapon4Type" value="0" readonly="true"> <br/>
+                            Damage: <input type="hidden" id="txtWeapon4Damage" value="0" readonly="true"> <br/>
+                            Ammunition: <input type="hidden" id="txtWeapon4Ammunition" value="0" readonly="true"> <br/>
+                            Recharge Time: <input type="hidden" id="txtWeapon4RechargeTime" value="0" readonly="true"> <br/>
+                            Range Of Fire:<input type="hidden" id="txtWeapon4RangeOfFire" value="0" readonly="true"> <br/>
+                            <input type="hidden" id="txtWeapon4Weight" value="0" readonly="true">
+                            <input type="hidden" id="txtWeapon4Cost" value="0" readonly="true">
+                            <br/>
+                        </div>
+                        <div id="Weapon5Parameters" style='display:none;'>
+                            Weapon 5. <br/>
+                            <input type="hidden" name="txtWeapon5Name" id="txtWeapon5Name" value="" readonly="true">
+                            Type: <input type="hidden" id="txtWeapon5Type" value="0" readonly="true"> <br/>
+                            Damage: <input type="hidden" id="txtWeapon5Damage" value="0" readonly="true"> <br/>
+                            Ammunition: <input type="hidden" id="txtWeapon5Ammunition" value="0" readonly="true"> <br/>
+                            Recharge Time: <input type="hidden" id="txtWeapon5RechargeTime" value="0" readonly="true"> <br/>
+                            Range Of Fire:<input type="hidden" id="txtWeapon5RangeOfFire" value="0" readonly="true"> <br/>
+                            <input type="hidden" id="txtWeapon5Weight" value="0" readonly="true">
+                            <input type="hidden" id="txtWeapon5Cost" value="0" readonly="true">
+                            <br/>
+                        </div>
+                        <br/>
+                        <br/>
+                        Cost: <input type="text" id="txtCost" value="0" style="margin-top: 0.2em" readonly="true">
 
-                    <!-- Hidden fields -->
+                        <!-- Hidden fields -->
 
-                    <div id="HullParameters">
-                        <input type="hidden" name="txtHullName" id="txtHullName" value="" readonly="true">
-                        <input type="hidden" id="txtHullHp" value="0" readonly="true">
-                        <input type="hidden" id="txtHullManeuverability" value="0" readonly="true">
-                        <input type="hidden" id="txtHullCapacity" value="0" readonly="true">
-                        <input type="hidden" id="txtHullCost" value="0" readonly="true">
-                    </div>
-                    <div id="EngineParameters">
-                        <input type="hidden" name="txtEngineName" id="txtEngineName" value="" readonly="true">
-                        <input type="hidden" id="txtEngineSpeed" value="0" readonly="true">
-                        <input type="hidden" id="txtEngineWeight" value="0" readonly="true">
-                        <input type="hidden" id="txtEngineCost" value="0" readonly="true">
-                    </div>
-                    <div id="SecondaryEngineParameters">
-                        <input type="hidden" name="txtSecondaryEngineName" id="txtSecondaryEngineName" value="" readonly="true">
-                        <input type="hidden" id="txtSecondaryEngineManeuverability" value="0" readonly="true">
-                        <input type="hidden" id="txtSecondaryEngineWeight" value="0" readonly="true">
-                        <input type="hidden" id="txtSecondaryEngineCost" value="0" readonly="true">
-                    </div>
-                    <div id="FuelTankParameters">
-                        <input type="hidden" name="txtFuelTankName" id="txtFuelTankName" value="" readonly="true">
-                        <input type="hidden" id="txtFuelTankVolume" value="0" readonly="true">
-                        <input type="hidden" id="txtFuelTankWeight" value="0" readonly="true">
-                        <input type="hidden" id="txtFuelTankCost" value="0" readonly="true">
-                    </div>
-                    <div id="RadarParameters">
-                        <input type="hidden" name="txtRadarName" id="txtRadarName" value="" readonly="true">
-                        <input type="hidden" id="txtRadarActionRadius" value="0" readonly="true">
-                        <input type="hidden" id="txtRadarWeight" value="0" readonly="true">
-                        <input type="hidden" id="txtRadarCost" value="0" readonly="true">
-                    </div>
-                    <div id="RepairDroidParameters">
-                        <input type="hidden" name="txtRepairDroidName" id="txtRepairDroidName" value="" readonly="true">
-                        <input type="hidden" id="txtRepairDroidHealthRecovery" value="0" readonly="true">
-                        <input type="hidden" id="txtRepairDroidWeight" value="0" readonly="true">
-                        <input type="hidden" id="txtRepairDroidCost" value="0" readonly="true">
-                    </div>
-                    <div id="MagneticGripParameters">
-                        <input type="hidden" name="txtMagneticGripName" id="txtMagneticGripName" value="" readonly="true">
-                        <input type="hidden" id="txtMagneticGripActionRadius" value="0" readonly="true">
-                        <input type="hidden" id="txtMagneticGripCarryingCapacity" value="0" readonly="true">
-                        <input type="hidden" id="txtMagneticGripWeight" value="0" readonly="true">
-                        <input type="hidden" id="txtMagneticGripCost" value="0" readonly="true">
+                        <div id="HullParameters">
+                            <input type="hidden" name="txtHullName" id="txtHullName" value="" readonly="true">
+                            <input type="hidden" id="txtHullHp" value="0" readonly="true">
+                            <input type="hidden" id="txtHullManeuverability" value="0" readonly="true">
+                            <input type="hidden" id="txtHullCapacity" value="0" readonly="true">
+                            <input type="hidden" id="txtHullCost" value="0" readonly="true">
+                        </div>
+                        <div id="EngineParameters">
+                            <input type="hidden" name="txtEngineName" id="txtEngineName" value="" readonly="true">
+                            <input type="hidden" id="txtEngineSpeed" value="0" readonly="true">
+                            <input type="hidden" id="txtEngineWeight" value="0" readonly="true">
+                            <input type="hidden" id="txtEngineCost" value="0" readonly="true">
+                        </div>
+                        <div id="SecondaryEngineParameters">
+                            <input type="hidden" name="txtSecondaryEngineName" id="txtSecondaryEngineName" value="" readonly="true">
+                            <input type="hidden" id="txtSecondaryEngineManeuverability" value="0" readonly="true">
+                            <input type="hidden" id="txtSecondaryEngineWeight" value="0" readonly="true">
+                            <input type="hidden" id="txtSecondaryEngineCost" value="0" readonly="true">
+                        </div>
+                        <div id="FuelTankParameters">
+                            <input type="hidden" name="txtFuelTankName" id="txtFuelTankName" value="" readonly="true">
+                            <input type="hidden" id="txtFuelTankVolume" value="0" readonly="true">
+                            <input type="hidden" id="txtFuelTankWeight" value="0" readonly="true">
+                            <input type="hidden" id="txtFuelTankCost" value="0" readonly="true">
+                        </div>
+                        <div id="RadarParameters">
+                            <input type="hidden" name="txtRadarName" id="txtRadarName" value="" readonly="true">
+                            <input type="hidden" id="txtRadarActionRadius" value="0" readonly="true">
+                            <input type="hidden" id="txtRadarWeight" value="0" readonly="true">
+                            <input type="hidden" id="txtRadarCost" value="0" readonly="true">
+                        </div>
+                        <div id="RepairDroidParameters">
+                            <input type="hidden" name="txtRepairDroidName" id="txtRepairDroidName" value="" readonly="true">
+                            <input type="hidden" id="txtRepairDroidHealthRecovery" value="0" readonly="true">
+                            <input type="hidden" id="txtRepairDroidWeight" value="0" readonly="true">
+                            <input type="hidden" id="txtRepairDroidCost" value="0" readonly="true">
+                        </div>
+                        <div id="MagneticGripParameters">
+                            <input type="hidden" name="txtMagneticGripName" id="txtMagneticGripName" value="" readonly="true">
+                            <input type="hidden" id="txtMagneticGripActionRadius" value="0" readonly="true">
+                            <input type="hidden" id="txtMagneticGripCarryingCapacity" value="0" readonly="true">
+                            <input type="hidden" id="txtMagneticGripWeight" value="0" readonly="true">
+                            <input type="hidden" id="txtMagneticGripCost" value="0" readonly="true">
+                        </div>
                     </div>
                 </td>
             </tr>

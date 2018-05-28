@@ -17,6 +17,7 @@
     border: dashed 0px;
     border-radius: 50%;
     margin: 1.75em auto 0;
+    font-size: 15px;
 }
 .circle-container z
 {
@@ -39,6 +40,7 @@
 .deg35 { transform: rotate(35deg) translate(12em) rotate(-35deg); }
 .deg70 { transform: rotate(70deg) translate(12.75em) rotate(-70deg); }
 .deg90 { transform: rotate(90deg) translate(12em) rotate(-90deg); }
+.deg90_far { transform: rotate(90deg) translate(20em) rotate(-90deg); }
 .deg110 { transform: rotate(110deg) translate(12.75em) rotate(-110deg); }
 .deg180 { transform: translate(-11em); }
 .deg145 { transform: rotate(145deg) translate(12em) rotate(-145deg); }
@@ -164,8 +166,8 @@ td.last_col
     border: 2px solid #0019f7;
     border-radius: 10px;
     background-color: #bdfffe;
-    width: 60px;
-    height: 60px;
+    width: 98%;
+    height: 98%;
 }
 .empty_module_background
 {
@@ -173,8 +175,8 @@ td.last_col
     border: 2px solid lime;
     border-radius: 10px;
     background-color: greenyellow;
-    width: 60px;
-    height: 60px;
+    width: 98%;
+    height: 98%;
 }
 .blocked_module_background
 {
@@ -182,8 +184,8 @@ td.last_col
     border: 2px solid red;
     border-radius: 10px;
     background-color: salmon;
-    width: 60px;
-    height: 60px;
+    width: 98%;
+    height: 98%;
 }
 .module_image
 {
@@ -193,8 +195,8 @@ td.last_col
     top: 0;
     bottom: 0;
     right: 0;
-    max-width: 60px;
-    max-height: 60px;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .hull_background
@@ -203,8 +205,8 @@ td.last_col
     border: 2px solid #0019f7;
     border-radius: 10px;
     background-color: #bdfffe;
-    width: 150px;
-    height: 150px;
+    width: 98%;
+    height: 98%;
 }
 .empty_hull_background
 {
@@ -212,8 +214,8 @@ td.last_col
     border: 2px solid lime;
     border-radius: 10px;
     background-color: greenyellow;
-    width: 150px;
-    height: 150px;
+    width: 98%;
+    height: 98%;
 }
 .hull_image
 {
@@ -223,8 +225,8 @@ td.last_col
     top: 0;
     bottom: 0;
     right: 0;
-    max-width: 150px;
-    max-height: 150px;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .recycle_bin_background
@@ -233,8 +235,8 @@ td.last_col
     margin: auto;
     border: 2px solid;
     border-radius: 10px;
-    width: 60px;
-    height: 60px;
+    width: 98%;
+    height: 98%;
 }
 
 p
@@ -279,33 +281,33 @@ button.input_image
 
 .instruction
 {
-    font-size:0.8em;
-    color:#aaaaaa;
-    margin-left:2px;
-    cursor:default;
+    font-size: 0.8em;
+    color: #aaaaaa;
+    margin-left: 2px;
+    cursor: default;
 }
 .error
 {
-    color:red;
-    background:yellow;
-    margin-left:3px;
+    color: red;
+    background: yellow;
+    margin-left: 3px;
 }
 
 .row
 {
     margin: auto;
-    margin-bottom:10px;
-    width:220px;
+    margin-bottom: 10px;
+    width: 220px;
 }
 .row label
 {
-    display:block;
-    font-weight:bold;
+    display: block;
+    font-weight: bold;
 }
 .row input.text
 {
-    font-size:1.2em;
-    padding:2px 5px;
+    font-size: 1.2em;
+    padding: 2px 5px;
 }
 
 .main_page_button {
@@ -375,4 +377,16 @@ button.input_image
 .small_input
 {
     width: 30%;
+}
+
+.ship_modules
+{
+    font-size: 15px;
+    text-align: center;
+}
+
+.ship_parameters
+{
+    font-size: 15px;
+    text-align: right;
 }
