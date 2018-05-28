@@ -55,7 +55,12 @@
     left: 0;
     z-index: 99;
 }
-
+.error
+{
+    color:red;
+    background:yellow;
+    margin-left:3px;
+}
 p.form-title
 {
     font-family: 'Open Sans' , sans-serif;

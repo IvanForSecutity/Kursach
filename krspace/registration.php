@@ -7,7 +7,7 @@ require_once('php_functions/functions.php');
 <html>
     <head>
         <title>Registration</title>
-        <link rel="stylesheet" href="style/page_style.css">
+        <link rel="stylesheet" href="style/login_style.css">
         <script type="text/javascript" src="js/sha512.js"></script>
         <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
         <script type="text/javascript" src="js/js_registration.js"></script>
@@ -16,19 +16,20 @@ require_once('php_functions/functions.php');
         <div style="text-align: left; padding-left: 50px; padding-top: 10px;">
             <a href="login.php">Back to Log In</a>
         </div>
-        
+
         <div style="align-content: center; text-align: center; margin-top: 10em">
-            <em>Registration</em><br><br>
+          <p class="form-title">
+            registration</p>
             <form action="" method="POST" id="frmRegistration">
                 <div class="row">
                     <label for="login">Enter login:</label>
-                    <input type="text" class="text" name="txtLogin" id="txtLogin" value="" />
+                    <input type="text" name="txtLogin" id="txtLogin" value="" />
                     <div class="error" id="divLoginError"> </div>
                     <div class="instruction" id="login-instruction">В имени пользователя могут быть только символы латинского алфавита, цифры, символы '_', '-', '.'. Длина имени пользователя должна быть не короче 4 символов и не длиннее 16 символов</div>
                 </div>
                 <div class="row">
                     <label for="password">Enter password:</label>
-                    <input type="password" class="text" name="txtPassword" id="txtPassword" value="" />
+                    <input type="password"  name="txtPassword" id="txtPassword" value="" />
                     <div class="error" id="divPasswordError"> </div>
                     <div class="instruction" id="password-instruction">В пароле вы можете использовать только символы латинского алфавита, цифры, символы '_', '!', '(', ')'. Пароль должен быть не короче 6 символов и не длиннее 16 символов</div>
                 </div>

@@ -52,50 +52,55 @@ foreach ($ships as $cur_ship)
 ?>
 
 <html>
-    <head>
-        <title>Hangar</title>
-        <link rel="stylesheet" href="style/page_style.css">
-    </head>
-    <body>
-        <table  class="two_columns" cellspacing="0">
-        <tr>
+
+<head>
+  <title>Hangar</title>
+  <link rel="stylesheet" href="style/page_style.css">
+  <link rel="stylesheet" href="style/hangar_style.css">
+</head>
+
+<body bgcolor="#eafff7" onresize="Resize()">
+  <div>
+    <button id="personal_area_button" class="hangar_button_up" onclick="window.location.href='personal_area.php'"><span>Personal Area</span></button>
+    <button id="logout_button" style="float: right;" class="hangar_button_up" onclick="window.location.href='logout.php'"><span>Log Out</span></button>
+  </div>
+  <div style="float: center;text-align: left; padding-right: 50px; padding-top: 10px;">
+    <p class="form-title" style="form-title">
+      Your ships</p>
+    <form action="" method="POST">
+      <table class="cool_table">
+        <thead>
+          <tr>
+            <th>Ship name</th>
+            <th>Action</th>
+          </tr>
+
+        </thead>
+        <?php foreach ($ships as $cur_ship) : ?>
+        <tbody>
+          <tr>
             <td>
-                <a href="personal_area.php">Personal Area</a>
+              <p> <input type="radio" name="rbtnAvailableShips" value="<?= $cur_ship['ship_name']?>" id="<?= $cur_ship['ship_name']?>" /> <label for="<?= $cur_ship['ship_name']?>"> <?= $cur_ship['ship_name']?> </label> </p>
             </td>
-            <td class="right_col">
-                <a href="logout.php">Log Out</a>
+            <td>
+              <button type="submit" name="<?= $cur_ship['ship_name']?>" class="input_image"><img src="images\Icons\no.png" weight="20px" height="20px"></button>
             </td>
-        </tr>
-        </table>
+          </tr>
+        </tbody>
+        <?php endforeach ?>
+      </table>
+      <br/>
+      <div style="width:200px;margin: 0 auto;">
+        <input type="submit" class="hangar_button" name="btnStart" value="Start" style="width:100%"><br>
+      </div>
+    </form>
 
-        <div style="text-align: left; padding-right: 50px; padding-top: 10px;">
-            Your ships
-            <br><br>
-            <form action="" method="POST">
-                <table  class="ships_table" cellspacing="0">
-                    <tr>
-                        <th>Ship name</th> <th>Action</th>
-                    </tr>
+    <form action="crafter.php" method="POST">
+    <div style="width:200px;margin: 0 auto;">
+      <input type="submit" class="hangar_button" name="btnCreate" value="Create new ship" style="width:100%"><br>
+    </div>
+    </form>
+  </div>
+</body>
 
-                    <?php foreach ($ships as $cur_ship) : ?>
-                        <tr>
-                            <td>
-                                <p> <input type="radio" name="rbtnAvailableShips" value="<?= $cur_ship['ship_name']?>" id="<?= $cur_ship['ship_name']?>"/> <label for="<?= $cur_ship['ship_name']?>"> <?= $cur_ship['ship_name']?> </label> </p>
-                            </td>
-                            <td>
-                                <button type="submit" name="<?= $cur_ship['ship_name']?>" class="input_image"><img src="images\Icons\no.png" weight="20px" height="20px"></button>
-                            </td>
-                        </tr>
-                    <?php endforeach ?>
-                </table>
-                <br/>
-
-                <input type="submit" name="btnStart" value="Start" style="margin-top: 0.2em" ><br>
-            </form>
-
-            <form action="crafter.php" method="POST">
-                <input type="submit" name="btnCreate" value="Create new ship" style="margin-top: 0.2em" ><br>
-            </form>
-        </div>
-    </body>
 </html>
