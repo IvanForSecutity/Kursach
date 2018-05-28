@@ -17,8 +17,8 @@ if(isset($_POST['btnReg']))
         <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
         <script type="text/javascript" src="js/js_login.js"></script>
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
         <title>Authorisation</title>
     </head>
     <body class="login_body">
@@ -41,14 +41,14 @@ if(isset($_POST['btnReg']))
               <div class="error" id="divLoginError"> </div>
               <input type="password" id="txtPassword" placeholder="password" />
               <div class="error" id="divPasswordError"> </div>
-              <input type="button" name="btnLogIn" id="btnLogIn" value="Log In" onclick="LogIn();" class="btn btn-success btn-sm" />
+              <input type="button" name="btnLogIn" id="btnLogIn" value="Log In" onclick="LogIn();" class="login_button" />
 
               <div class="remember-forgot">
                 <div class="row">
                   <div class="col-md-6">
-                    <div class="checkbox">
+                    <div class="checkbox" style="margin-left:7px">
                       <label>
-                            <input type="checkbox" id="cbxRemember" value='1'/>
+                            <input type="checkbox" id="cbxRemember"  value='1'/>
                             Remember Me
                         </label>
                     </div>

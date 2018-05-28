@@ -67,7 +67,7 @@ foreach ($ships as $cur_ship)
             </td>
         </tr>
         </table>
-        
+
         <div style="text-align: left; padding-right: 50px; padding-top: 10px;">
             Your ships
             <br><br>
@@ -91,8 +91,8 @@ foreach ($ships as $cur_ship)
                 <br/>
 
                 <input type="submit" name="btnStart" value="Start" style="margin-top: 0.2em" ><br>
-            </form>           
-            
+            </form>
+
             <form action="crafter.php" method="POST">
                 <input type="submit" name="btnCreate" value="Create new ship" style="margin-top: 0.2em" ><br>
             </form>
