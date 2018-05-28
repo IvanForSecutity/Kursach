@@ -533,6 +533,7 @@ function HullChanged(hull_name)
                 hull_modules_bitmask = data.modules_bitmask;
                 
                 document.getElementById("txtHullChosen").value = "true";
+                document.getElementById("txtHullName").value = hull_name;
 
                 ResetModules();
                 ApplyModulesBitmask(hull_modules_bitmask);
@@ -565,6 +566,7 @@ function HullChanged(hull_name)
         hull_modules_bitmask = 0;
         
         document.getElementById("txtHullChosen").value = "false";
+        document.getElementById("txtHullName").value = "";
 
         ResetModules();
         ApplyModulesBitmask(hull_modules_bitmask);
@@ -595,6 +597,7 @@ function EngineChanged(engine_name)
                 engine_cost = data.cost;
 
                 document.getElementById("txtEngineChosen").value = "true";
+                document.getElementById("txtEngineName").value = engine_name;
 
                 UpdateSpaceshipParameters();
 
@@ -622,6 +625,7 @@ function EngineChanged(engine_name)
         engine_cost = 0;
         
         document.getElementById("txtEngineChosen").value = "false";
+        document.getElementById("txtEngineName").value = "";
         
         UpdateSpaceshipParameters();
     }
@@ -650,6 +654,7 @@ function SecondaryEngineChanged(secondary_engine_name)
                 secondary_engine_cost = data.cost;
                 
                 document.getElementById("txtSecondaryEngineChosen").value = "true";
+                document.getElementById("txtSecondaryEngineName").value = secondary_engine_name;
 
                 UpdateSpaceshipParameters();
 
@@ -677,6 +682,7 @@ function SecondaryEngineChanged(secondary_engine_name)
         secondary_engine_cost = 0;
         
         document.getElementById("txtSecondaryEngineChosen").value = "false";
+        document.getElementById("txtSecondaryEngineName").value = "";
         
         UpdateSpaceshipParameters();
     }
@@ -705,6 +711,7 @@ function FuelTankChanged(fuel_tank_name)
                 fuel_tank_cost = data.cost;
                 
                 document.getElementById("txtFuelTankChosen").value = "true";
+                document.getElementById("txtFuelTankName").value = fuel_tank_name;
 
                 UpdateSpaceshipParameters();
 
@@ -732,6 +739,7 @@ function FuelTankChanged(fuel_tank_name)
         fuel_tank_cost = 0;
         
         document.getElementById("txtFuelTankChosen").value = "false";
+        document.getElementById("txtFuelTankName").value = "";
         
         UpdateSpaceshipParameters();
     }
@@ -760,6 +768,7 @@ function RadarChanged(radar_name)
                 radar_cost = data.cost;
                 
                 document.getElementById("txtRadarChosen").value = "true";
+                document.getElementById("txtRadarName").value = radar_name;
 
                 UpdateSpaceshipParameters();
 
@@ -787,6 +796,7 @@ function RadarChanged(radar_name)
         radar_cost = 0;
         
         document.getElementById("txtRadarChosen").value = "false";
+        document.getElementById("txtRadarName").value = "";
         
         UpdateSpaceshipParameters();
     }
@@ -815,6 +825,7 @@ function RepairDroidChanged(repair_droid_name)
                 repair_droid_cost = data.cost;
                 
                 document.getElementById("txtRepairDroidChosen").value = "true";
+                document.getElementById("txtRepairDroidName").value = repair_droid_name;
 
                 UpdateSpaceshipParameters();
 
@@ -842,6 +853,7 @@ function RepairDroidChanged(repair_droid_name)
         repair_droid_cost = 0;
         
         document.getElementById("txtRepairDroidChosen").value = "false";
+        document.getElementById("txtRepairDroidName").value = "";
         
         UpdateSpaceshipParameters();
     }
@@ -872,6 +884,7 @@ function MagneticGripChanged(magnetic_grip_name)
                 magnetic_grip_cost = data.cost;
                 
                 document.getElementById("txtMagneticGripChosen").value = "true";
+                document.getElementById("txtMagneticGripName").value = magnetic_grip_name;
 
                 UpdateSpaceshipParameters();
 
@@ -901,6 +914,7 @@ function MagneticGripChanged(magnetic_grip_name)
         magnetic_grip_cost = 0;
         
         document.getElementById("txtMagneticGripChosen").value = "false";
+        document.getElementById("txtMagneticGripName").value = "";
         
         UpdateSpaceshipParameters();
     }
@@ -937,6 +951,7 @@ function Weapon1Changed(weapon_name)
                 weapon_1_cost = data.cost;
                 
                 document.getElementById("txtWeapon1Chosen").value = "true";
+                document.getElementById("txtWeapon1Name").value = weapon_name;
 
                 UpdateSpaceshipParameters();
 
@@ -972,6 +987,7 @@ function Weapon1Changed(weapon_name)
         weapon_1_cost = 0;
         
         document.getElementById("txtWeapon1Chosen").value = "false";
+        document.getElementById("txtWeapon1Name").value = "";
 
         UpdateSpaceshipParameters();
     }
@@ -1008,6 +1024,7 @@ function Weapon2Changed(weapon_name)
                 weapon_2_cost = data.cost;
                 
                 document.getElementById("txtWeapon2Chosen").value = "true";
+                document.getElementById("txtWeapon2Name").value = weapon_name;
 
                 UpdateSpaceshipParameters();
 
@@ -1043,6 +1060,7 @@ function Weapon2Changed(weapon_name)
         weapon_2_cost = 0;
         
         document.getElementById("txtWeapon2Chosen").value = "false";
+        document.getElementById("txtWeapon2Name").value = "";
         
         UpdateSpaceshipParameters();
     }
@@ -1078,6 +1096,7 @@ function Weapon3Changed(weapon_name)
                 weapon_3_cost = data.cost;
                 
                 document.getElementById("txtWeapon3Chosen").value = "true";
+                document.getElementById("txtWeapon3Name").value = weapon_name;
 
                 UpdateSpaceshipParameters();
 
@@ -1113,6 +1132,7 @@ function Weapon3Changed(weapon_name)
         weapon_3_cost = 0;
         
         document.getElementById("txtWeapon3Chosen").value = "false";
+        document.getElementById("txtWeapon3Name").value = "";
         
         UpdateSpaceshipParameters();
     }
@@ -1148,6 +1168,7 @@ function Weapon4Changed(weapon_name)
                 weapon_4_cost = data.cost;
                 
                 document.getElementById("txtWeapon4Chosen").value = "true";
+                document.getElementById("txtWeapon4Name").value = weapon_name;
 
                 UpdateSpaceshipParameters();
 
@@ -1183,6 +1204,7 @@ function Weapon4Changed(weapon_name)
         weapon_4_cost = 0;
         
         document.getElementById("txtWeapon4Chosen").value = "false";
+        document.getElementById("txtWeapon4Name").value = "";
         
         UpdateSpaceshipParameters();
     }
@@ -1218,6 +1240,7 @@ function Weapon5Changed(weapon_name)
                 weapon_5_cost = data.cost;
                 
                 document.getElementById("txtWeapon5Chosen").value = "true";
+                document.getElementById("txtWeapon5Name").value = weapon_name;
 
                 UpdateSpaceshipParameters();
 
@@ -1253,6 +1276,7 @@ function Weapon5Changed(weapon_name)
         weapon_5_cost = 0;
         
         document.getElementById("txtWeapon5Chosen").value = "false";
+        document.getElementById("txtWeapon5Name").value = "";
         
         UpdateSpaceshipParameters();
     }

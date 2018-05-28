@@ -32,7 +32,7 @@ if(isset($_POST['btnStart']))
     $owner = $_SESSION['login'];
 
     // Hull
-    $hull = $_POST['selShipHull'];
+    $hull = $_POST['txtHullName'];
         
     $engine = NULL;
     $secondary_engine = NULL;
@@ -46,60 +46,60 @@ if(isset($_POST['btnStart']))
     $weapon_4 = NULL;
     $weapon_5 = NULL;
         
-    if(isset($_POST['selShipEngine']))
+    if(isset($_POST['txtEngineName']))
     {
         // Engine
-        $engine = $_POST['selShipEngine'];
+        $engine = $_POST['txtEngineName'];
     }
-    if(isset($_POST['selShipSecondaryEngine']))
+    if(isset($_POST['txtSecondaryEngineName']))
     {
         // Secondary engine
-        $secondary_engine = $_POST['selShipSecondaryEngine'];
+        $secondary_engine = $_POST['txtSecondaryEngineName'];
     }
-    if(isset($_POST['selShipFuelTank']))
+    if(isset($_POST['txtFuelTankName']))
     {
         // Fuel tank
-        $fuel_tank = $_POST['selShipFuelTank'];
+        $fuel_tank = $_POST['txtFuelTankName'];
     }
-    if(isset($_POST['selShipRadar']))
+    if(isset($_POST['txtRadarName']))
     {
         // Radar
-        $radar = $_POST['selShipRadar'];
+        $radar = $_POST['txtRadarName'];
     }
-    if(isset($_POST['selShipRepairDroid']))
+    if(isset($_POST['txtRepairDroidName']))
     {
         // Repair droid
-        $repair_droid = $_POST['selShipRepairDroid'];
+        $repair_droid = $_POST['txtRepairDroidName'];
     }
-    if(isset($_POST['selShipMagneticGrip']))
+    if(isset($_POST['txtMagneticGripName']))
     {
         // Magnetic grip
-        $magnetic_grip = $_POST['selShipMagneticGrip'];
+        $magnetic_grip = $_POST['txtMagneticGripName'];
     }
-    if(isset($_POST['selShipWeapon1']))
+    if(isset($_POST['txtWeapon1Name']))
     {
         // Weapon 1
-        $weapon_1 = $_POST['selShipWeapon1'];
+        $weapon_1 = $_POST['txtWeapon1Name'];
     }
-    if(isset($_POST['selShipWeapon2']))
+    if(isset($_POST['txtWeapon2Name']))
     {
         // Weapon 2
-        $weapon_2 = $_POST['selShipWeapon2'];
+        $weapon_2 = $_POST['txtWeapon2Name'];
     }
-    if(isset($_POST['selShipWeapon3']))
+    if(isset($_POST['txtWeapon3Name']))
     {
         // Weapon 3
-        $weapon_3 = $_POST['selShipWeapon3'];
+        $weapon_3 = $_POST['txtWeapon3Name'];
     }
-    if(isset($_POST['selShipWeapon4']))
+    if(isset($_POST['txtWeapon4Name']))
     {
         // Weapon 4
-        $weapon_4 = $_POST['selShipWeapon4'];
+        $weapon_4 = $_POST['txtWeapon4Name'];
     }
-    if(isset($_POST['selShipWeapon5']))
+    if(isset($_POST['txtWeapon5Name']))
     {
         // Weapon 5
-        $weapon_5 = $_POST['selShipWeapon5'];
+        $weapon_5 = $_POST['txtWeapon5Name'];
     }
 
     // Call the registration function
@@ -648,6 +648,7 @@ $weapons = loadWeapons();
                     <br/> <br/>
                     <div id="Weapon1Parameters" style='display:none;'>
                         Weapon 1. <br/>
+                        <input type="hidden" name="txtWeapon1Name" id="txtWeapon1Name" value="" readonly="true">
                         Type: <input type="hidden" id="txtWeapon1Type" value="0" readonly="true"> <br/>
                         Damage: <input type="hidden" id="txtWeapon1Damage" value="0" readonly="true"> <br/>
                         Ammunition: <input type="hidden" id="txtWeapon1Ammunition" value="0" readonly="true"> <br/>
@@ -659,6 +660,7 @@ $weapons = loadWeapons();
                     </div>
                     <div id="Weapon2Parameters" style='display:none;'>
                         Weapon 2. <br/>
+                        <input type="hidden" name="txtWeapon2Name" id="txtWeapon2Name" value="" readonly="true">
                         Type: <input type="hidden" id="txtWeapon2Type" value="0" readonly="true"> <br/>
                         Damage: <input type="hidden" id="txtWeapon2Damage" value="0" readonly="true"> <br/>
                         Ammunition: <input type="hidden" id="txtWeapon2Ammunition" value="0" readonly="true"> <br/>
@@ -670,6 +672,7 @@ $weapons = loadWeapons();
                     </div>
                     <div id="Weapon3Parameters" style='display:none;'>
                         Weapon 3. <br/>
+                        <input type="hidden" name="txtWeapon3Name" id="txtWeapon3Name" value="" readonly="true">
                         Type: <input type="hidden" id="txtWeapon3Type" value="0" readonly="true"> <br/>
                         Damage: <input type="hidden" id="txtWeapon3Damage" value="0" readonly="true"> <br/>
                         Ammunition: <input type="hidden" id="txtWeapon3Ammunition" value="0" readonly="true"> <br/>
@@ -681,6 +684,7 @@ $weapons = loadWeapons();
                     </div>
                     <div id="Weapon4Parameters" style='display:none;'>
                         Weapon 4. <br/>
+                        <input type="hidden" name="txtWeapon4Name" id="txtWeapon4Name" value="" readonly="true">
                         Type: <input type="hidden" id="txtWeapon4Type" value="0" readonly="true"> <br/>
                         Damage: <input type="hidden" id="txtWeapon4Damage" value="0" readonly="true"> <br/>
                         Ammunition: <input type="hidden" id="txtWeapon4Ammunition" value="0" readonly="true"> <br/>
@@ -692,6 +696,7 @@ $weapons = loadWeapons();
                     </div>
                     <div id="Weapon5Parameters" style='display:none;'>
                         Weapon 5. <br/>
+                        <input type="hidden" name="txtWeapon5Name" id="txtWeapon5Name" value="" readonly="true">
                         Type: <input type="hidden" id="txtWeapon5Type" value="0" readonly="true"> <br/>
                         Damage: <input type="hidden" id="txtWeapon5Damage" value="0" readonly="true"> <br/>
                         Ammunition: <input type="hidden" id="txtWeapon5Ammunition" value="0" readonly="true"> <br/>
@@ -708,37 +713,44 @@ $weapons = loadWeapons();
                     <!-- Hidden fields -->
 
                     <div id="HullParameters">
+                        <input type="hidden" name="txtHullName" id="txtHullName" value="" readonly="true">
                         <input type="hidden" id="txtHullHp" value="0" readonly="true">
                         <input type="hidden" id="txtHullManeuverability" value="0" readonly="true">
                         <input type="hidden" id="txtHullCapacity" value="0" readonly="true">
                         <input type="hidden" id="txtHullCost" value="0" readonly="true">
                     </div>
                     <div id="EngineParameters">
+                        <input type="hidden" name="txtEngineName" id="txtEngineName" value="" readonly="true">
                         <input type="hidden" id="txtEngineSpeed" value="0" readonly="true">
                         <input type="hidden" id="txtEngineWeight" value="0" readonly="true">
                         <input type="hidden" id="txtEngineCost" value="0" readonly="true">
                     </div>
                     <div id="SecondaryEngineParameters">
+                        <input type="hidden" name="txtSecondaryEnginePName" id="txtSecondaryEnginePName" value="" readonly="true">
                         <input type="hidden" id="txtSecondaryEngineManeuverability" value="0" readonly="true">
                         <input type="hidden" id="txtSecondaryEngineWeight" value="0" readonly="true">
                         <input type="hidden" id="txtSecondaryEngineCost" value="0" readonly="true">
                     </div>
                     <div id="FuelTankParameters">
+                        <input type="hidden" name="txtFuelTankName" id="txtFuelTankName" value="" readonly="true">
                         <input type="hidden" id="txtFuelTankVolume" value="0" readonly="true">
                         <input type="hidden" id="txtFuelTankWeight" value="0" readonly="true">
                         <input type="hidden" id="txtFuelTankCost" value="0" readonly="true">
                     </div>
                     <div id="RadarParameters">
+                        <input type="hidden" name="txtRadarName" id="txtRadarName" value="" readonly="true">
                         <input type="hidden" id="txtRadarActionRadius" value="0" readonly="true">
                         <input type="hidden" id="txtRadarWeight" value="0" readonly="true">
                         <input type="hidden" id="txtRadarCost" value="0" readonly="true">
                     </div>
                     <div id="RepairDroidParameters">
+                        <input type="hidden" name="txtRepairDroidName" id="txtRepairDroidName" value="" readonly="true">
                         <input type="hidden" id="txtRepairDroidHealthRecovery" value="0" readonly="true">
                         <input type="hidden" id="txtRepairDroidWeight" value="0" readonly="true">
                         <input type="hidden" id="txtRepairDroidCost" value="0" readonly="true">
                     </div>
                     <div id="MagneticGripParameters">
+                        <input type="hidden" name="txtMagneticGripName" id="txtMagneticGripName" value="" readonly="true">
                         <input type="hidden" id="txtMagneticGripActionRadius" value="0" readonly="true">
                         <input type="hidden" id="txtMagneticGripCarryingCapacity" value="0" readonly="true">
                         <input type="hidden" id="txtMagneticGripWeight" value="0" readonly="true">
