@@ -153,9 +153,11 @@ $weapons = loadWeapons();
         <script type="text/javascript" src="js/js_tabs.js"></script>
         
         <script type="text/javascript" src="js/drag_and_drop.js"></script>
+        
+        <script type="text/javascript" src="js/js_search.js"></script>
     </head>
     <body>
-        <table  class="two_columns" cellspacing="0">
+        <table class="two_columns" cellspacing="0">
         <tr>
             <td>
                 <a href="hangar.php">To hangar</a>
@@ -179,6 +181,7 @@ $weapons = loadWeapons();
         </div>
 
         <br/><br/><br/>
+        <input type="text" id="txtDebug" name="txtDebug" >
         
         <form action="" method="POST" id="frmCrafter">
             <table class="three_columns">
@@ -205,15 +208,38 @@ $weapons = loadWeapons();
                     <br/><br/>
 
                     <!-- TODO: Исправить верхнюю границу панельки, которая идёт сразу после первого ряда табов. -->
-                    <!-- TODO: Перетаскивание модулей для их выбора. -->
+                    <!-- TODO: Исправить перетаскивание установленных модулей из центра. -->
+                    <!-- TODO: Перетаскивать модули за квадраты, а не картинки. --> 
                     <!-- TODO: Поиск. -->
                     <!-- tab "panes" --> 
                     <div class="panes"> 
-                        <div><h2>Hulls</h2> 
+                        <div class="panes_div"><h2>Hulls</h2> 
                             <p>
-                                Available hulls.
+                                <!-- Search --> 
+                                <div class="main_search_field">
+                                    <input type="text" id="txtHullSearchString" class="main_search_string">
+                                    <input type="button" name="btnHullSearch" value="Search" class="main_search_button" onclick="SearchHulls()"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Hp </label>
+                                    <input type="text" id="txtHullHpFrom" placeholder="from" class="small_input"> <input type="text" id="txtHullHpTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label  class="small_input"> Maneuverability </label>
+                                    <input type="text" id="txtHullManeuverabilityFrom" placeholder="from" class="small_input"> <input type="text" id="txtHullManeuverabilityTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Capacity </label>
+                                    <input type="text" id="txtHullCapacityFrom" placeholder="from" class="small_input"> <input type="text" id="txtHullCapacityTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Cost </label>
+                                    <input type="text" id="txtHullCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtHullCostTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+
                                 <br/><br/>
-                                <div class="container">
+
+                                <div id="divAvailableHulls" class="container">
                                     <table class="four_columns" cellspacing="0">
                                         <tr>
                                             <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
@@ -244,7 +270,7 @@ $weapons = loadWeapons();
                             </p>
                         </div>
 
-                        <div class="les"><h2>Engines</h2> 
+                        <div class="panes_div"><h2>Engines</h2> 
                             <p>
                                 Available engines.
                                 <br/><br/>
@@ -278,7 +304,7 @@ $weapons = loadWeapons();
                             </p>
                         </div>
 
-                        <div class="les"><h2>Secondary engines</h2> 
+                        <div class="panes_div"><h2>Secondary engines</h2> 
                             <p>
                                 Available secondary engines.
                                 <br/><br/>
@@ -312,7 +338,7 @@ $weapons = loadWeapons();
                             </p>
                         </div>
 
-                        <div class="les"><h2>Fuel tanks</h2> 
+                        <div class="panes_div"><h2>Fuel tanks</h2> 
                             <p>
                                 Available fuel tanks.
                                 <br/><br/>
@@ -346,7 +372,7 @@ $weapons = loadWeapons();
                             </p>
                         </div>
 
-                        <div class="les"><h2>Radars.</h2> 
+                        <div class="panes_div"><h2>Radars.</h2> 
                             <p>
                                 Available radars.
                                 <br/><br/>
@@ -380,7 +406,7 @@ $weapons = loadWeapons();
                             </p>
                         </div>
                         
-                        <div class="les"><h2>Repair droids.</h2> 
+                        <div class="panes_div"><h2>Repair droids.</h2> 
                             <p>
                                 Available repair droids.
                                 <br/><br/>
@@ -414,7 +440,7 @@ $weapons = loadWeapons();
                             </p>
                         </div>
                         
-                        <div class="les"><h2>Magnetic grips.</h2> 
+                        <div class="panes_div"><h2>Magnetic grips.</h2> 
                             <p>
                                 Available magnetic grips.
                                 <br/><br/>
@@ -449,7 +475,7 @@ $weapons = loadWeapons();
                             </p>
                         </div>
                         
-                        <div class="les"><h2>Weapons.</h2> 
+                        <div class="panes_div"><h2>Weapons.</h2> 
                             <p>
                                 Available weapons.
                                 <br/><br/>

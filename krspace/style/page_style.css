@@ -7,15 +7,8 @@
     display:block
 }
 
-.green_color
+.circle-container
 {
-    background: url('images/green_color.jpg') no-repeat;
-    background-size: 20px;
-    padding-left: 25px;
-    background-position: 0 6px;
-}
-
-.circle-container {
     position: relative;
     width: 24em;
     height: 24em;
@@ -25,14 +18,16 @@
     border-radius: 50%;
     margin: 1.75em auto 0;
 }
-.circle-container z {
+.circle-container z
+{
     display: block;
     position: absolute;
     top: 50%; left: 50%;
     width: 4em; height: 4em;
     margin: -2em;
 }
-.circle-container c {
+.circle-container c
+{
     display: block;
     position: absolute;
     top: 40%; left: 40%;
@@ -351,4 +346,33 @@ button.input_image
 .main_page_button:hover span:after {
   opacity: 1;
   right: 0;
+}
+
+.main_search_field
+{
+    clear: both;
+    text-align: right;
+    margin-bottom: 2%;
+    width: 100%;
+}
+.main_search_field .main_search_string
+{
+    width: 75%;
+}
+.main_search_field .main_search_button
+{
+    width: 23%;
+}
+.search_field
+{
+    clear: both;
+    text-align: right;
+}
+.search_field label
+{
+    float: left;
+}
+.small_input
+{
+    width: 30%;
 }

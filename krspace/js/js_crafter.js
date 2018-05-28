@@ -517,7 +517,7 @@ function HullChanged(hull_name)
 
         $.ajax({
             type: "GET",
-            url: "ajax/load_ship_modules.php",
+            url: "ajax/load_modules.php",
             data: ajax_request,
             dataType: "json",
             success: function(data) {
@@ -584,7 +584,7 @@ function EngineChanged(engine_name)
 
         $.ajax({
             type: "GET",
-            url: "ajax/load_ship_modules.php",
+            url: "ajax/load_modules.php",
             data: ajax_request,
             dataType: "json",
             success: function(data) {
@@ -641,7 +641,7 @@ function SecondaryEngineChanged(secondary_engine_name)
 
         $.ajax({
             type: "GET",
-            url: "ajax/load_ship_modules.php",
+            url: "ajax/load_modules.php",
             data: ajax_request,
             dataType: "json",
             success: function(data) {
@@ -698,7 +698,7 @@ function FuelTankChanged(fuel_tank_name)
 
         $.ajax({
             type: "GET",
-            url: "ajax/load_ship_modules.php",
+            url: "ajax/load_modules.php",
             data: ajax_request,
             dataType: "json",
             success: function(data) {
@@ -755,7 +755,7 @@ function RadarChanged(radar_name)
 
         $.ajax({
             type: "GET",
-            url: "ajax/load_ship_modules.php",
+            url: "ajax/load_modules.php",
             data: ajax_request,
             dataType: "json",
             success: function(data) {
@@ -812,7 +812,7 @@ function RepairDroidChanged(repair_droid_name)
 
         $.ajax({
             type: "GET",
-            url: "ajax/load_ship_modules.php",
+            url: "ajax/load_modules.php",
             data: ajax_request,
             dataType: "json",
             success: function(data) {
@@ -869,7 +869,7 @@ function MagneticGripChanged(magnetic_grip_name)
 
         $.ajax({
             type: "GET",
-            url: "ajax/load_ship_modules.php",
+            url: "ajax/load_modules.php",
             data: ajax_request,
             dataType: "json",
             success: function(data) {
@@ -930,7 +930,7 @@ function Weapon1Changed(weapon_name)
 
         $.ajax({
             type: "GET",
-            url: "ajax/load_ship_modules.php",
+            url: "ajax/load_modules.php",
             data: ajax_request,
             dataType: "json",
             success: function(data) {
@@ -1003,7 +1003,7 @@ function Weapon2Changed(weapon_name)
 
         $.ajax({
             type: "GET",
-            url: "ajax/load_ship_modules.php",
+            url: "ajax/load_modules.php",
             data: ajax_request,
             dataType: "json",
             success: function(data) {
@@ -1075,7 +1075,7 @@ function Weapon3Changed(weapon_name)
 
         $.ajax({
             type: "GET",
-            url: "ajax/load_ship_modules.php",
+            url: "ajax/load_modules.php",
             data: ajax_request,
             dataType: "json",
             success: function(data) {
@@ -1147,7 +1147,7 @@ function Weapon4Changed(weapon_name)
 
         $.ajax({
             type: "GET",
-            url: "ajax/load_ship_modules.php",
+            url: "ajax/load_modules.php",
             data: ajax_request,
             dataType: "json",
             success: function(data) {
@@ -1219,7 +1219,7 @@ function Weapon5Changed(weapon_name)
 
         $.ajax({
             type: "GET",
-            url: "ajax/load_ship_modules.php",
+            url: "ajax/load_modules.php",
             data: ajax_request,
             dataType: "json",
             success: function(data) {

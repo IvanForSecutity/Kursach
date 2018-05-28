@@ -12,7 +12,7 @@ a:active
 {
     -moz-outline-style:none;
 }
-div.panes div
+div.panes div.panes_div
 {		
     padding:15px 10px;
     border:1px solid #999;

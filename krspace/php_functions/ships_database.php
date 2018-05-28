@@ -369,4 +369,56 @@ function loadShipWeapon($weapon_name)
     
     return $weapon;
 }
+
+function searchHulls($hull_search_string, $hull_search_hp_from, $hull_search_hp_to, $hull_search_maneuverability_from, $hull_search_maneuverability_to, $hull_search_capacity_from, $hull_search_capacity_to, $hull_search_cost_from, $hull_search_cost_to)
+{
+    // Connect to DB
+    $link = connect();
+
+    $sql = "SELECT * FROM `hulls` WHERE "
+            . "name LIKE '%$hull_search_string%' ";
+    if ($hull_search_hp_from !== NULL)
+    {
+        $sql = $sql."and hp >= $hull_search_hp_from ";
+    }
+    if ($hull_search_hp_to !== NULL)
+    {
+        $sql = $sql."and hp <= $hull_search_hp_to ";
+    }
+    if ($hull_search_maneuverability_from !== NULL)
+    {
+        $sql = $sql."and maneuverability >= $hull_search_maneuverability_from ";
+    }
+    if ($hull_search_maneuverability_to !== NULL)
+    {
+        $sql = $sql."and maneuverability <= $hull_search_maneuverability_to ";
+    }
+    if ($hull_search_capacity_from !== NULL)
+    {
+        $sql = $sql."and capacity >= $hull_search_capacity_from ";
+    }
+    if ($hull_search_capacity_to !== NULL)
+    {
+        $sql = $sql."and capacity <= $hull_search_capacity_to ";
+    }
+    if ($hull_search_cost_from !== NULL)
+    {
+        $sql = $sql."and cost >= $hull_search_cost_from ";
+    }
+    if ($hull_search_cost_to !== NULL)
+    {
+        $sql = $sql."and cost <= $hull_search_cost_to ";
+    }
+
+    $result = mysqli_query($link, $sql);
+    $hulls = array();
+    while ($cur_hull = mysqli_fetch_assoc($result))
+    {
+        $hulls[] = $cur_hull;
+    }
+
+    mysqli_close($link);
+    
+    return $hulls;
+}
 ?>
