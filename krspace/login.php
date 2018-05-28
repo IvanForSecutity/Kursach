@@ -16,15 +16,51 @@ if(isset($_POST['btnReg']))
         <script type="text/javascript" src="js/sha512.js"></script>
         <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
         <script type="text/javascript" src="js/js_login.js"></script>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
         <title>Authorisation</title>
     </head>
-    <body onresize="Resize()" bgcolor="#eafff7">
-        <script>
-        </script>
-        <div style="visibility:hidden; align-content: center; text-align: center; margin-top: 10em;">
-            <em>Authorisation</em><br><br>
-            <div style="border-style: solid; border-color: black;">
-            <form action="" method="POST" id="frmLogin">
+    <body class="login_body">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="pr-wrap">
+            <div class="pass-reset">
+              <label>
+                            Enter the email you signed up with</label>
+              <input type="email" placeholder="Email" />
+              <input type="submit" value="Submit" class="pass-reset-submit btn btn-success btn-sm" />
+            </div>
+          </div>
+          <div class="wrap">
+            <p class="form-title">
+              Sign In</p>
+            <form class="login" action="" method="POST" id="frmLogin">
+              <input type="text" name="txtLogin" id="txtLogin" placeholder="login" />
+              <div class="error" id="divLoginError"> </div>
+              <input type="password" id="txtPassword" placeholder="password" />
+              <div class="error" id="divPasswordError"> </div>
+              <input type="button" name="btnLogIn" id="btnLogIn" value="Log In" onclick="LogIn();" class="btn btn-success btn-sm" />
+
+              <div class="remember-forgot">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="checkbox">
+                      <label>
+                            <input type="checkbox" id="cbxRemember" value='1'/>
+                            Remember Me
+                        </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div><!--
+            <form action="" method="POST" id="frmLogin" >
                 <input type="text" name="txtLogin" id="txtLogin" placeholder="login" style="margin-top: 0.2em"><br>
                 <div class="error" id="divLoginError"> </div>
                 <input type="password" id="txtPassword" placeholder="password" style="margin-top: 0.2em"><br>
@@ -33,8 +69,7 @@ if(isset($_POST['btnReg']))
                 <input type="button" name="btnLogIn" id="btnLogIn" value="Log In" style="margin-top: 0.2em" onclick="LogIn()"><br>
                 <input type="submit" name="btnReg" id="btnReg" value="Registration" style="margin-top: 0.2em"><br>
             </form>
-          </div>
-        </div>
+            -->
         <!-- Block for displaying messages -->
         <div style="align-content: center; text-align: center;">
             <div id="divLoginResult"> </div>

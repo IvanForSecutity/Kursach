@@ -28,7 +28,7 @@ function ValidateLoginData()
     {
         document.getElementById("divLoginError").innerHTML = "";
     }
-    
+
     // If the password is empty, there will be an error message
     var error_password = (password !== "");
     if (error_password != true)
@@ -39,7 +39,7 @@ function ValidateLoginData()
     {
         document.getElementById("divPasswordError").innerHTML = "";
     }
-    
+
     if ((error_login === true) && (error_password === true))
     {
         return true;
@@ -59,7 +59,7 @@ function AuthorizeUser()
     // Removes spaces from the beginning and end of the line
     login = login.trim();
     password = password.trim();
-    
+
     // Calculate sha512 hash of password + local parameter
     new Sha512();
     var hashed_password = Sha512.hash(password + local_parameter);
@@ -88,16 +88,14 @@ function AuthorizeUser()
                 // Failure
                 document.getElementById("divLoginResult").className = "error";
                 document.getElementById("divLoginResult").innerHTML = data;
-            }            
+            }
 
             return true;
         },
-        error: function() { 
+        error: function() {
             msg(errorText,"error",5000);
 
             return false;
-        }	
+        }
     });
 }
-
-
