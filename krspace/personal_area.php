@@ -39,8 +39,8 @@ if(isset($_POST['btnDeleteAccount']))
         </div>
 
         <div style="text-align: center; padding-right: 5%; padding-top: 5%;">
-            Your account
-            <br><br>
+            <p class="form-title" style="form-title">
+              Your account</p>
             <form action="" method="POST">
                 <table class="cool_table">
                     <thead>
@@ -48,7 +48,7 @@ if(isset($_POST['btnDeleteAccount']))
                         <th>Parameter</th> <th>Value</th>
                     </tr>
                     </thead>
-                    
+
                     <tbody>
                     <tr>
                         <td>
@@ -59,7 +59,7 @@ if(isset($_POST['btnDeleteAccount']))
                         </td>
                     </tr>
                     </tbody>
-                    
+
                     <tbody>
                     <tr>
                         <td>
@@ -80,4 +80,3 @@ if(isset($_POST['btnDeleteAccount']))
         </div>
     </body>
 </html>
-

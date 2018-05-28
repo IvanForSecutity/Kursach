@@ -23,17 +23,25 @@
   border: none;
   color: #FFFFFF;
   text-align: center;
-  font-size: 28px;
-  padding: 20px;
-  width: auto;
+  font-size: 2vw;
+  padding: 1vw;
+  width: 25%;
   transition: all 0.5s;
   cursor: pointer;
-  margin-top: 10px;
   margin-right: 5px;
-  margin-left: 5px;
   margin-bottom: 5px;
 }
-
+p.form-title
+{
+    font-family: 'Open Sans' , sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: #0a6f4d;
+    margin-top: 5%;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
 .cool_table {
   font-family: 'Arial';
   margin: 25px auto;
