@@ -14,13 +14,14 @@ require_once('php_functions/functions.php');
     </head>
     <body>
         <div style="text-align: left; padding-left: 50px; padding-top: 10px;">
-            <a href="login.php">Back to Log In</a>
+            <button id="login_button" class="login_button_up" onclick="window.location.href='login.php'" ><span>Back to Log In</span></button>
+
         </div>
 
-        <div style="align-content: center; text-align: center; margin-top: 10em">
+        <div style="align-content: center; text-align: center; margin-top: 2em">
           <p class="form-title">
             registration</p>
-            <form action="" method="POST" id="frmRegistration">
+            <form class="login"  action="" method="POST" id="frmRegistration">
                 <div class="row">
                     <label for="login">Enter login:</label>
                     <input type="text" name="txtLogin" id="txtLogin" value="" />
@@ -41,10 +42,10 @@ require_once('php_functions/functions.php');
                 </div>
                 <div class="row">
                     <!-- Sending form data -->
-                    <input type="submit" name="btnSignUp" id="btnSignUp" value="Sign Up"/>
+                    <input type="submit" class="login_button" name="btnSignUp" id="btnSignUp" value="Sign Up"/>
 
                     <!-- Reset form fields to their original state -->
-                    <input type="reset" name="btnReset" id="btnReset" value="Reset" />
+                    <input type="reset" class="login_button" name="btnReset" id="btnReset" value="Reset" />
                 </div>
             </form>
         </div>

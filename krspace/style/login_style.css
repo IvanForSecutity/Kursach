@@ -96,8 +96,42 @@ form.login input[type="text"], form.login input[type="password"]
     color: #0a6f4d;
     outline: 0;
 }
-
+form.login label
+{
+    font-family: 'Open Sans' , sans-serif;
+    width: 100%;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 16px;
+    outline: 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+.instruction
+{
+  font-family: 'Open Sans' , sans-serif;
+  width: 100%;
+  font-size: 9px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 16px;
+  outline: 0;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
 form.login input[type="submit"]
+{
+    width: 100%;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 16px;
+    outline: 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+form.login input[type="reset"]
 {
     width: 100%;
     font-size: 14px;
@@ -153,4 +187,46 @@ form.login a:hover
     left: 0;
     z-index: 999;
     display: none;
+}
+
+.login_button_up {
+  display: inline-block;
+  background-color: #8bffd8;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: auto;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.login_button_up span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.login_button_up span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.login_button_up:hover span {
+  padding-right: 25px;
+}
+
+.login_button_up:hover span:after {
+  opacity: 1;
+  right: 0;
 }
