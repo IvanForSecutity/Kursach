@@ -181,7 +181,6 @@ $weapons = loadWeapons();
         </div>
 
         <br/><br/><br/>
-        <input type="text" id="txtDebug" name="txtDebug" >
         
         <form action="" method="POST" id="frmCrafter">
             <table class="three_columns">
@@ -210,11 +209,11 @@ $weapons = loadWeapons();
                     <!-- TODO: Исправить верхнюю границу панельки, которая идёт сразу после первого ряда табов. -->
                     <!-- TODO: Исправить перетаскивание установленных модулей из центра. -->
                     <!-- TODO: Перетаскивать модули за квадраты, а не картинки. --> 
-                    <!-- TODO: Поиск. -->
                     <!-- tab "panes" --> 
                     <div class="panes"> 
                         <div class="panes_div"><h2>Hulls</h2> 
                             <p>
+                                <!-- TODO: Поиск по доступным модулям... -->
                                 <!-- Search --> 
                                 <div class="main_search_field">
                                     <input type="text" id="txtHullSearchString" class="main_search_string">
@@ -272,9 +271,27 @@ $weapons = loadWeapons();
 
                         <div class="panes_div"><h2>Engines</h2> 
                             <p>
-                                Available engines.
+                                <!-- Search --> 
+                                <div class="main_search_field">
+                                    <input type="text" id="txtEngineSearchString" class="main_search_string">
+                                    <input type="button" name="btnEngineSearch" value="Search" class="main_search_button" onclick="SearchEngines()"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Speed </label>
+                                    <input type="text" id="txtEngineSpeedFrom" placeholder="from" class="small_input"> <input type="text" id="txtEngineSpeedTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Weight </label>
+                                    <input type="text" id="txtEngineWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtEngineWeightTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Cost </label>
+                                    <input type="text" id="txtEngineCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtEngineCostTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+
                                 <br/><br/>
-                                <div class="container">
+
+                                <div id="divAvailableEngines" class="container">
                                     <table class="four_columns" cellspacing="0">
                                         <tr>
                                             <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
@@ -306,9 +323,27 @@ $weapons = loadWeapons();
 
                         <div class="panes_div"><h2>Secondary engines</h2> 
                             <p>
-                                Available secondary engines.
+                                <!-- Search --> 
+                                <div class="main_search_field">
+                                    <input type="text" id="txtSecondaryEngineSearchString" class="main_search_string">
+                                    <input type="button" name="btnSecondaryEngineSearch" value="Search" class="main_search_button" onclick="SearchSecondaryEngines()"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Maneuverability </label>
+                                    <input type="text" id="txtSecondaryEngineManeuverabilityFrom" placeholder="from" class="small_input"> <input type="text" id="txtSecondaryEngineManeuverabilityTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Weight </label>
+                                    <input type="text" id="txtSecondaryEngineWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtSecondaryEngineWeightTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Cost </label>
+                                    <input type="text" id="txtSecondaryEngineCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtSecondaryEngineCostTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+
                                 <br/><br/>
-                                <div class="container">
+
+                                <div id="divAvailableSecondaryEngines" class="container">
                                     <table class="four_columns" cellspacing="0">
                                         <tr>
                                             <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
@@ -340,9 +375,27 @@ $weapons = loadWeapons();
 
                         <div class="panes_div"><h2>Fuel tanks</h2> 
                             <p>
-                                Available fuel tanks.
+                                <!-- Search --> 
+                                <div class="main_search_field">
+                                    <input type="text" id="txtFuelTankSearchString" class="main_search_string">
+                                    <input type="button" name="btnFuelTankSearch" value="Search" class="main_search_button" onclick="SearchFuelTanks()"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Volume </label>
+                                    <input type="text" id="txtFuelTankVolumeFrom" placeholder="from" class="small_input"> <input type="text" id="txtFuelTankVolumeTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Weight </label>
+                                    <input type="text" id="txtFuelTankWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtFuelTankWeightTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Cost </label>
+                                    <input type="text" id="txtFuelTankCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtFuelTankCostTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+
                                 <br/><br/>
-                                <div class="container">
+
+                                <div id="divAvailableFuelTanks" class="container">
                                     <table class="four_columns" cellspacing="0">
                                         <tr>
                                             <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
@@ -374,9 +427,27 @@ $weapons = loadWeapons();
 
                         <div class="panes_div"><h2>Radars.</h2> 
                             <p>
-                                Available radars.
+                                <!-- Search --> 
+                                <div class="main_search_field">
+                                    <input type="text" id="txtRadarSearchString" class="main_search_string">
+                                    <input type="button" name="btnRadarSearch" value="Search" class="main_search_button" onclick="SearchRadars()"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Action radius </label>
+                                    <input type="text" id="txtRadarActionRadiusFrom" placeholder="from" class="small_input"> <input type="text" id="txtRadarActionRadiusTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Weight </label>
+                                    <input type="text" id="txtRadarWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtRadarWeightTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Cost </label>
+                                    <input type="text" id="txtRadarCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtRadarCostTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+
                                 <br/><br/>
-                                <div class="container">
+
+                                <div id="divAvailableRadars" class="container">
                                     <table class="four_columns" cellspacing="0">
                                         <tr>
                                             <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
@@ -393,7 +464,7 @@ $weapons = loadWeapons();
                                                 <?= $cur_radar['name']?>
                                             </td>
                                             <td class="wide_col">
-                                                Action Radius: <?= $cur_radar['action_radius']?> <br/>
+                                                Action radius: <?= $cur_radar['action_radius']?> <br/>
                                                 Weigth: <?= $cur_radar['weight']?>
                                             </td>
                                             <td class="last_col">
@@ -408,9 +479,27 @@ $weapons = loadWeapons();
                         
                         <div class="panes_div"><h2>Repair droids.</h2> 
                             <p>
-                                Available repair droids.
+                                <!-- Search --> 
+                                <div class="main_search_field">
+                                    <input type="text" id="txtRepairDroidSearchString" class="main_search_string">
+                                    <input type="button" name="btnRepairDroidSearch" value="Search" class="main_search_button" onclick="SearchRepairDroids()"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Health recovery </label>
+                                    <input type="text" id="txtRepairDroidHealthRecoveryFrom" placeholder="from" class="small_input"> <input type="text" id="txtRepairDroidHealthRecoveryTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Weight </label>
+                                    <input type="text" id="txtRepairDroidWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtRepairDroidWeightTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Cost </label>
+                                    <input type="text" id="txtRepairDroidCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtRepairDroidCostTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+
                                 <br/><br/>
-                                <div class="container">
+
+                                <div id="divAvailableRepairDroids" class="container">
                                     <table class="four_columns" cellspacing="0">
                                         <tr>
                                             <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
@@ -427,7 +516,7 @@ $weapons = loadWeapons();
                                                 <?= $cur_repair_droid['name']?>
                                             </td>
                                             <td class="wide_col">
-                                                Health Recovery: <?= $cur_repair_droid['health_recovery']?> <br/>
+                                                Health recovery: <?= $cur_repair_droid['health_recovery']?> <br/>
                                                 Weigth: <?= $cur_repair_droid['weight']?>
                                             </td>
                                             <td class="last_col">
@@ -442,9 +531,31 @@ $weapons = loadWeapons();
                         
                         <div class="panes_div"><h2>Magnetic grips.</h2> 
                             <p>
-                                Available magnetic grips.
+                                <!-- Search --> 
+                                <div class="main_search_field">
+                                    <input type="text" id="txtMagneticGripSearchString" class="main_search_string">
+                                    <input type="button" name="btnMagneticGripSearch" value="Search" class="main_search_button" onclick="SearchMagneticGrips()"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Action radius </label>
+                                    <input type="text" id="txtMagneticGripActionRadiusFrom" placeholder="from" class="small_input"> <input type="text" id="txtMagneticGripActionRadiusTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Carrying capacity </label>
+                                    <input type="text" id="txtMagneticGripCarryingCapacityFrom" placeholder="from" class="small_input"> <input type="text" id="txtMagneticGripCarryingCapacityTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Weight </label>
+                                    <input type="text" id="txtMagneticGripWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtMagneticGripWeightTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Cost </label>
+                                    <input type="text" id="txtMagneticGripCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtMagneticGripCostTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+
                                 <br/><br/>
-                                <div class="container">
+
+                                <div id="divAvailableMagneticGrips" class="container">
                                     <table class="four_columns" cellspacing="0">
                                         <tr>
                                             <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
@@ -461,8 +572,8 @@ $weapons = loadWeapons();
                                                 <?= $cur_magnetic_grip['name']?>
                                             </td>
                                             <td class="wide_col">
-                                                Action Radius: <?= $cur_magnetic_grip['action_radius']?> <br/>
-                                                Carrying Capacity: <?= $cur_magnetic_grip['carrying_capacity']?> <br/>
+                                                Action radius: <?= $cur_magnetic_grip['action_radius']?> <br/>
+                                                Carrying capacity: <?= $cur_magnetic_grip['carrying_capacity']?> <br/>
                                                 Weigth: <?= $cur_magnetic_grip['weight']?>
                                             </td>
                                             <td class="last_col">
@@ -477,9 +588,49 @@ $weapons = loadWeapons();
                         
                         <div class="panes_div"><h2>Weapons.</h2> 
                             <p>
-                                Available weapons.
+                                <!-- Search --> 
+                                <div class="main_search_field">
+                                    <input type="text" id="txtWeaponSearchString" class="main_search_string">
+                                    <input type="button" name="btnWeaponSearch" value="Search" class="main_search_button" onclick="SearchWeapons()"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Type </label>
+                                    <select id="txtWeaponType" class="small_input" size="1">
+                                        <option value=""> </option>
+                                        <option value="blaster"> Blaster </option>
+                                        <option value="laser_weapon"> Laser weapon </option>
+                                        <option value="missile_weapon"> Missile weapon </option>
+                                        <option value="plasma_weapon"> Plasma weapon </option>
+                                    </select>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Damage </label>
+                                    <input type="text" id="txtWeaponDamageFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponDamageTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Ammunition </label>
+                                    <input type="text" id="txtWeaponAmmunitionFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponAmmunitionTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Recharge time </label>
+                                    <input type="text" id="txtWeaponRechargeTimeFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponRechargeTimeTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Range of fire: </label>
+                                    <input type="text" id="txtWeaponRangeOfFireFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponRangeOfFireTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Weight </label>
+                                    <input type="text" id="txtWeaponWeightFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponWeightTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+                                <div class="search_field">
+                                    <label class="small_input"> Cost </label>
+                                    <input type="text" id="txtWeaponCostFrom" placeholder="from" class="small_input"> <input type="text" id="txtWeaponCostTo" placeholder="to" class="small_input"> <br/>
+                                </div>
+
                                 <br/><br/>
-                                <div class="container">
+
+                                <div id="divAvailableWeapons" class="container">
                                     <table class="four_columns" cellspacing="0">
                                         <tr>
                                             <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
@@ -514,8 +665,8 @@ $weapons = loadWeapons();
                                                 ?> <br/>
                                                 Damage: <?= $cur_weapon['damage']?> <br/>
                                                 Ammunition: <?= $cur_weapon['ammunition']?> <br/>
-                                                Recharge Time: <?= $cur_weapon['recharge_time']?> <br/>
-                                                Range Of Fire: <?= $cur_weapon['range_of_fire']?> <br/>
+                                                Recharge time: <?= $cur_weapon['recharge_time']?> <br/>
+                                                Range of fire: <?= $cur_weapon['range_of_fire']?> <br/>
                                                 Weigth: <?= $cur_weapon['weight']?>
                                             </td>
                                             <td class="last_col">
@@ -752,7 +903,7 @@ $weapons = loadWeapons();
                         <input type="hidden" id="txtEngineCost" value="0" readonly="true">
                     </div>
                     <div id="SecondaryEngineParameters">
-                        <input type="hidden" name="txtSecondaryEnginePName" id="txtSecondaryEnginePName" value="" readonly="true">
+                        <input type="hidden" name="txtSecondaryEngineName" id="txtSecondaryEngineName" value="" readonly="true">
                         <input type="hidden" id="txtSecondaryEngineManeuverability" value="0" readonly="true">
                         <input type="hidden" id="txtSecondaryEngineWeight" value="0" readonly="true">
                         <input type="hidden" id="txtSecondaryEngineCost" value="0" readonly="true">

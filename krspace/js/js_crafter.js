@@ -648,11 +648,11 @@ function SecondaryEngineChanged(secondary_engine_name)
                 $('#txtSecondaryEngineManeuverability').val(data.maneuverability);
                 $('#txtSecondaryEngineWeight').val(data.weight);
                 $('#txtSecondaryEngineCost').val(data.cost);
-                
+
                 secondary_engine_maneuverability = data.maneuverability;
                 secondary_engine_weight = data.weight;
                 secondary_engine_cost = data.cost;
-                
+
                 document.getElementById("txtSecondaryEngineChosen").value = "true";
                 document.getElementById("txtSecondaryEngineName").value = secondary_engine_name;
 
@@ -676,11 +676,11 @@ function SecondaryEngineChanged(secondary_engine_name)
         $('#txtSecondaryEngineManeuverability').val(0);
         $('#txtSecondaryEngineWeight').val(0);
         $('#txtSecondaryEngineCost').val(0);
-        
+
         secondary_engine_maneuverability = 0;
         secondary_engine_weight = 0;
         secondary_engine_cost = 0;
-        
+
         document.getElementById("txtSecondaryEngineChosen").value = "false";
         document.getElementById("txtSecondaryEngineName").value = "";
         
