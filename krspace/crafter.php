@@ -295,7 +295,7 @@ $weapons = loadWeapons();
                               <!-- Search -->
                               <div class="main_search_field">
                                   <input type="text" id="txtEngineSearchString" class="main_search_string">
-                                  <input type="button" name="btnEngineSearch" value="Search" class="main_search_button" onclick="SearchEngines()"> <br/>
+                                  <input type="button" name="btnEngineSearch" value="Search" class="login_button" onclick="SearchEngines()"> <br/>
                               </div>
                               <div class="search_field">
                                   <label class="small_input"> Speed </label>
@@ -349,7 +349,7 @@ $weapons = loadWeapons();
                               <!-- Search -->
                               <div class="main_search_field">
                                   <input type="text" id="txtSecondaryEngineSearchString" class="main_search_string">
-                                  <input type="button" name="btnSecondaryEngineSearch" value="Search" class="main_search_button" onclick="SearchSecondaryEngines()"> <br/>
+                                  <input type="button" name="btnSecondaryEngineSearch" value="Search" class="login_button" onclick="SearchSecondaryEngines()"> <br/>
                               </div>
                               <div class="search_field">
                                   <label class="small_input"> Maneuverability </label>
@@ -403,7 +403,7 @@ $weapons = loadWeapons();
                               <!-- Search -->
                               <div class="main_search_field">
                                   <input type="text" id="txtFuelTankSearchString" class="main_search_string">
-                                  <input type="button" name="btnFuelTankSearch" value="Search" class="main_search_button" onclick="SearchFuelTanks()"> <br/>
+                                  <input type="button" name="btnFuelTankSearch" value="Search" class="login_button" onclick="SearchFuelTanks()"> <br/>
                               </div>
                               <div class="search_field">
                                   <label class="small_input"> Volume </label>
@@ -457,7 +457,7 @@ $weapons = loadWeapons();
                               <!-- Search -->
                               <div class="main_search_field">
                                   <input type="text" id="txtRadarSearchString" class="main_search_string">
-                                  <input type="button" name="btnRadarSearch" value="Search" class="main_search_button" onclick="SearchRadars()"> <br/>
+                                  <input type="button" name="btnRadarSearch" value="Search" class="login_button" onclick="SearchRadars()"> <br/>
                               </div>
                               <div class="search_field">
                                   <label class="small_input"> Action radius </label>
@@ -511,7 +511,7 @@ $weapons = loadWeapons();
                               <!-- Search -->
                               <div class="main_search_field">
                                   <input type="text" id="txtRepairDroidSearchString" class="main_search_string">
-                                  <input type="button" name="btnRepairDroidSearch" value="Search" class="main_search_button" onclick="SearchRepairDroids()"> <br/>
+                                  <input type="button" name="btnRepairDroidSearch" value="Search" class="login_button" onclick="SearchRepairDroids()"> <br/>
                               </div>
                               <div class="search_field">
                                   <label class="small_input"> Health recovery </label>
@@ -565,7 +565,7 @@ $weapons = loadWeapons();
                               <!-- Search -->
                               <div class="main_search_field">
                                   <input type="text" id="txtMagneticGripSearchString" class="main_search_string">
-                                  <input type="button" name="btnMagneticGripSearch" value="Search" class="main_search_button" onclick="SearchMagneticGrips()"> <br/>
+                                  <input type="button" name="btnMagneticGripSearch" value="Search" class="login_button" onclick="SearchMagneticGrips()"> <br/>
                               </div>
                               <div class="search_field">
                                   <label class="small_input"> Action radius </label>
@@ -624,7 +624,7 @@ $weapons = loadWeapons();
                               <!-- Search -->
                               <div class="main_search_field">
                                   <input type="text" id="txtWeaponSearchString" class="main_search_string">
-                                  <input type="button" name="btnWeaponSearch" value="Search" class="main_search_button" onclick="SearchWeapons()"> <br/>
+                                  <input type="button" name="btnWeaponSearch" value="Search" class="login_button" onclick="SearchWeapons()"> <br/>
                               </div>
                               <div class="search_field">
                                   <label class="small_input"> Type </label>
@@ -1180,7 +1180,7 @@ $weapons = loadWeapons();
                       <table class="cool_table2">
                           <tr>
                               <td> Cost </td>
-                              <td class="last_col">
+                              <td >
                                   <div class="parameter_field">
                                       <input type="text" id="txtCost" value="0" class="parameter_input" readonly="true">
                                   </div>

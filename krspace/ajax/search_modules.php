@@ -15,7 +15,7 @@ if (isset($_GET['hull_search_string']))
     $hull_search_capacity_to = NULL;
     $hull_search_cost_from = NULL;
     $hull_search_cost_to = NULL;
-    
+
     if (isset($_GET['hull_search_hp_from']))
     {
         $hull_search_hp_from = $_GET['hull_search_hp_from'];
@@ -70,8 +70,8 @@ if (isset($_GET['hull_search_string']))
     print '        <div class="available_module_background">';
     print "            <img id='imgShipHull$cur_hull[name]' src='$cur_hull[image]1.png' class='available_module_image' draggable='true' ondragstart='dragHull(event)'>";
     print '        </div>';
-    print '    </td>';
     print '    </div>';
+    print '    </td>';
     print '    <td>';
     print "        $cur_hull[name]";
     print '    </td>';
@@ -98,7 +98,7 @@ if (isset($_GET['engine_search_string']))
     $search_weight_to = NULL;
     $search_cost_from = NULL;
     $search_cost_to = NULL;
-    
+
     if (isset($_GET['engine_search_speed_from']))
     {
         $search_speed_from = $_GET['engine_search_speed_from'];
@@ -129,7 +129,7 @@ if (isset($_GET['engine_search_string']))
             $search_weight_from, $search_weight_to,
             $search_cost_from, $search_cost_to);
 
-    print '<table class="four_columns" cellspacing="0">';
+    print '<table class="parameters_table" >';
     print '<tr>';
     print '    <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>';
     print '</tr>';
@@ -137,8 +137,10 @@ if (isset($_GET['engine_search_string']))
     foreach ($engines as $cur_engine):
     print '<tr>';
     print '    <td>';
-    print '        <div id="available_module_background">';
+    print '        <div class="available-container">';
+    print '        <div class="available_module_background">';
     print "            <img id='imgShipEngine$cur_engine[name]' src='$cur_engine[image]1.png' class='available_module_image' draggable='true' ondragstart='dragEngine(event)'>";
+    print '        </div>';
     print '        </div>';
     print '    </td>';
     print '    <td>';
@@ -165,7 +167,7 @@ if (isset($_GET['secondary_engine_search_string']))
     $search_weight_to = NULL;
     $search_cost_from = NULL;
     $search_cost_to = NULL;
-    
+
     if (isset($_GET['secondary_engine_search_maneuverability_from']))
     {
         $search_maneuverability_from = $_GET['secondary_engine_search_maneuverability_from'];
@@ -196,7 +198,7 @@ if (isset($_GET['secondary_engine_search_string']))
             $search_weight_from, $search_weight_to,
             $search_cost_from, $search_cost_to);
 
-    print '<table class="four_columns" cellspacing="0">';
+    print '<table class="parameters_table" >';
     print '<tr>';
     print '    <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>';
     print '</tr>';
@@ -204,8 +206,10 @@ if (isset($_GET['secondary_engine_search_string']))
     foreach ($secondary_engines as $cur_secondary_engine):
     print '<tr>';
     print '    <td>';
-    print '        <div id="available_module_background">';
+    print '        <div class="available-container">';
+    print '        <div class="available_module_background">';
     print "            <img id='imgShipSecondaryEngine$cur_secondary_engine[name]' src='$cur_secondary_engine[image]1.png' class='available_module_image' draggable='true' ondragstart='dragSecondaryEngine(event)'>";
+    print '        </div>';
     print '        </div>';
     print '    </td>';
     print '    <td>';
@@ -232,7 +236,7 @@ if (isset($_GET['fuel_tank_search_string']))
     $search_weight_to = NULL;
     $search_cost_from = NULL;
     $search_cost_to = NULL;
-    
+
     if (isset($_GET['fuel_tank_search_volume_from']))
     {
         $search_volume_from = $_GET['fuel_tank_search_volume_from'];
@@ -263,7 +267,7 @@ if (isset($_GET['fuel_tank_search_string']))
             $search_weight_from, $search_weight_to,
             $search_cost_from, $search_cost_to);
 
-    print '<table class="four_columns" cellspacing="0">';
+    print '<table class="parameters_table" >';
     print '<tr>';
     print '    <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>';
     print '</tr>';
@@ -271,8 +275,10 @@ if (isset($_GET['fuel_tank_search_string']))
     foreach ($fuel_tanks as $cur_fuel_tank):
     print '<tr>';
     print '    <td>';
-    print '        <div id="available_module_background">';
+    print '        <div class="available-container">';
+    print '        <div class="available_module_background">';
     print "            <img id='imgShipFuelTank$cur_fuel_tank[name]' src='$cur_fuel_tank[image]1.png' class='available_module_image' draggable='true' ondragstart='dragFuelTank(event)'>";
+    print '        </div>';
     print '        </div>';
     print '    </td>';
     print '    <td>';
@@ -299,7 +305,7 @@ if (isset($_GET['radar_search_string']))
     $search_weight_to = NULL;
     $search_cost_from = NULL;
     $search_cost_to = NULL;
-    
+
     if (isset($_GET['radar_search_action_radius_from']))
     {
         $search_action_radius_from = $_GET['radar_search_action_radius_from'];
@@ -330,7 +336,7 @@ if (isset($_GET['radar_search_string']))
             $search_weight_from, $search_weight_to,
             $search_cost_from, $search_cost_to);
 
-    print '<table class="four_columns" cellspacing="0">';
+    print '<table class="parameters_table" >';
     print '<tr>';
     print '    <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>';
     print '</tr>';
@@ -338,8 +344,10 @@ if (isset($_GET['radar_search_string']))
     foreach ($radars as $cur_radar):
     print '<tr>';
     print '    <td>';
-    print '        <div id="available_module_background">';
+    print '        <div class="available-container">';
+    print '        <div class="available_module_background">';
     print "            <img id='imgShipRadar$cur_radar[name]' src='$cur_radar[image]1.png' class='available_module_image' draggable='true' ondragstart='dragRadar(event)'>";
+    print '        </div>';
     print '        </div>';
     print '    </td>';
     print '    <td>';
@@ -366,7 +374,7 @@ if (isset($_GET['repair_droid_search_string']))
     $search_weight_to = NULL;
     $search_cost_from = NULL;
     $search_cost_to = NULL;
-    
+
     if (isset($_GET['repair_droid_search_health_recovery_from']))
     {
         $search_health_recovery_from = $_GET['repair_droid_search_health_recovery_from'];
@@ -397,7 +405,7 @@ if (isset($_GET['repair_droid_search_string']))
             $search_weight_from, $search_weight_to,
             $search_cost_from, $search_cost_to);
 
-    print '<table class="four_columns" cellspacing="0">';
+    print '<table class="parameters_table" >';
     print '<tr>';
     print '    <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>';
     print '</tr>';
@@ -405,8 +413,10 @@ if (isset($_GET['repair_droid_search_string']))
     foreach ($repair_droids as $cur_repair_droid):
     print '<tr>';
     print '    <td>';
-    print '        <div id="available_module_background">';
+    print '        <div class="available-container">';
+    print '        <div class="available_module_background">';
     print "            <img id='imgShipRepairDroid$cur_repair_droid[name]' src='$cur_repair_droid[image]1.png' class='available_module_image' draggable='true' ondragstart='dragRepairDroid(event)'>";
+    print '        </div>';
     print '        </div>';
     print '    </td>';
     print '    <td>';
@@ -435,7 +445,7 @@ if (isset($_GET['magnetic_grip_search_string']))
     $search_weight_to = NULL;
     $search_cost_from = NULL;
     $search_cost_to = NULL;
-    
+
     if (isset($_GET['magnetic_grip_search_action_radius_from']))
     {
         $search_action_radius_from = $_GET['magnetic_grip_search_action_radius_from'];
@@ -475,7 +485,7 @@ if (isset($_GET['magnetic_grip_search_string']))
             $search_weight_from, $search_weight_to,
             $search_cost_from, $search_cost_to);
 
-    print '<table class="four_columns" cellspacing="0">';
+    print '<table class="parameters_table" >';
     print '<tr>';
     print '    <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>';
     print '</tr>';
@@ -483,8 +493,10 @@ if (isset($_GET['magnetic_grip_search_string']))
     foreach ($magnetic_grips as $cur_magnetic_grip):
     print '<tr>';
     print '    <td>';
-    print '        <div id="available_module_background">';
+    print '        <div class="available-container">';
+    print '        <div class="available_module_background">';
     print "            <img id='imgShipMagneticGrip$cur_magnetic_grip[name]' src='$cur_magnetic_grip[image]1.png' class='available_module_image' draggable='true' ondragstart='dragMagneticGrip(event)'>";
+    print '        </div>';
     print '        </div>';
     print '    </td>';
     print '    <td>';
@@ -519,7 +531,7 @@ if (isset($_GET['weapon_search_string']))
     $search_weight_to = NULL;
     $search_cost_from = NULL;
     $search_cost_to = NULL;
-    
+
     if (isset($_GET['weapon_search_type']))
     {
         $search_type = $_GET['weapon_search_type'];
@@ -581,7 +593,7 @@ if (isset($_GET['weapon_search_string']))
             $search_weight_from, $search_weight_to,
             $search_cost_from, $search_cost_to);
 
-    print '<table class="four_columns" cellspacing="0">';
+    print '<table class="parameters_table" >';
     print '<tr>';
     print '    <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>';
     print '</tr>';
@@ -589,8 +601,10 @@ if (isset($_GET['weapon_search_string']))
     foreach ($weapons as $cur_weapon):
     print '<tr>';
     print '    <td>';
-    print '        <div id="available_module_background">';
+    print '        <div class="available-container">';
+    print '        <div class="available_module_background">';
     print "            <img id='imgShipWeapon$cur_weapon[name]' src='$cur_weapon[image]1.png' class='available_module_image' draggable='true' ondragstart='dragWeapon(event)'>";
+    print '        </div>';
     print '        </div>';
     print '    </td>';
     print '    <td>';
