@@ -28,12 +28,12 @@ canvas
 
 table.three_columns
 {
-    width:  100%;
+    width:  93%;
     border-spacing: 0;  /* Distance between cells */
 }
 table.three_columns td
 {
-    width: 33%;
+    width: 31%;
     vertical-align: top;
 }
 td.center_col
@@ -238,4 +238,3 @@ button.input_image
 {
     width: 30%;
 }
-
