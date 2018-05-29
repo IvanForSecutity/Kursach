@@ -28,12 +28,12 @@ if(isset($_POST['btnStart']))
 {
     $ship_name = $_POST['txtShipName'];
     $txtShipName = $_POST['txtShipName'];
-    
+
     $owner = $_SESSION['login'];
 
     // Hull
     $hull = $_POST['txtHullName'];
-        
+
     $engine = NULL;
     $secondary_engine = NULL;
     $fuel_tank = NULL;
@@ -45,7 +45,7 @@ if(isset($_POST['btnStart']))
     $weapon_3 = NULL;
     $weapon_4 = NULL;
     $weapon_5 = NULL;
-        
+
     if(isset($_POST['txtEngineName']))
     {
         // Engine
@@ -115,7 +115,7 @@ if(isset($_POST['btnStart']))
         $_SESSION['cur_ship'] = $ship_name;
 
         // Redirect to game page
-        // TODO: Вариант с хедером мне нравится больше, чем это некошерное нечто. 
+        // TODO: Вариант с хедером мне нравится больше, чем это некошерное нечто.
         // Однако, на вариант с хедером php ругается, мол body уже послано...
         // Насколько я понял, если как-то сделать вызов registerNewShip ПОСЛЕ вызова header - все будет ОК.
         // Стрёмная какая-то ошибка...
@@ -151,13 +151,13 @@ $weapons = loadWeapons();
         <link rel="stylesheet" href="style/tabs_style.css">
         <script type="text/javascript" src="js/jquery_tools.js"></script>
         <script type="text/javascript" src="js/js_tabs.js"></script>
-        
+
         <script type="text/javascript" src="js/drag_and_drop.js"></script>
-        
+
         <script type="text/javascript" src="js/js_search.js"></script>
-        
+
         <link rel="stylesheet" href="style/crafter_style.css">
-        
+
         <script> Resize(); </script>
     </head>
     <body onresize="Resize()" bgcolor="#eafff7">
@@ -172,14 +172,14 @@ $weapons = loadWeapons();
               document.getElementById("divShipModulesTitle").style["fontSize"] = new_text_size;
               
               document.getElementById("divHullsPane").style["fontSize"] = new_text_size;
-              
+
               document.getElementById("divCircleContainer").style["fontSize"] = new_text_size;
-              
+
               document.getElementById("divShipParametersTitle").style["fontSize"] = new_text_size;
               document.getElementById("divShipParameters").style["fontSize"] = new_text_size;
             }
         </script>
-        
+
         <table id="tblRefs" class="two_columns" cellspacing="0">
         <tr>
             <td>
@@ -190,7 +190,7 @@ $weapons = loadWeapons();
             </td>
         </tr>
         </table>
-        
+
         <!-- Block for displaying error messages -->
         <div style="align-content: center; text-align: center;">
             <div class="error" id="divNameError"> </div>
@@ -204,7 +204,7 @@ $weapons = loadWeapons();
         </div>
 
         <br/><br/><br/>
-        
+
         <form action="" method="POST" id="frmCrafter">
             <table class="three_columns">
             <tr>
@@ -216,29 +216,29 @@ $weapons = loadWeapons();
                         Ship name: <input type="text" id="txtShipName" name="txtShipName" value="<?php echo $txtShipName;?>" style="width: 75%;">
                         <br>
                         <br>
-
+                        <div style="border: 1px solid #0a6f4d;margin:5px;">
+                        <div style="width:100%;">
                         <ul class="tabs">
                             <li><a href="#">Hulls</a></li>
-                            <li><a href="#" class="w1">Engines</a></li>
-                            <li><a href="#" class="w1">Secondary engines</a></li>
+                            <li><a href="#" >Engines</a></li>
+                            <li><a href="#" >Secondary engines</a></li>
                             <li><a href="#">Fuel tanks</a></li>
-                            <li><a href="#" class="w1">Radars</a></li>
-                            <li><a href="#" class="w1">Repair droids</a></li>
+                            <li><a href="#" >Radars</a></li>
+                            <li><a href="#" >Repair droids</a></li>
                             <li><a href="#">Magnetic grips</a></li>
-                            <li><a href="#" class="w1">Weapons</a></li>    
+                            <li><a href="#" >Weapons</a></li>
                         </ul>
-
-                        <br/><br/>
+                        </div>
 
                         <!-- TODO: Исправить верхнюю границу панельки, которая идёт сразу после первого ряда табов. -->
                         <!-- TODO: Исправить перетаскивание установленных модулей из центра. -->
-                        <!-- TODO: Перетаскивать модули за квадраты, а не картинки. --> 
-                        <!-- tab "panes" --> 
-                        <div class="panes"> 
-                            <div id="divHullsPane" class="panes_div"><h2>Hulls</h2> 
+                        <!-- TODO: Перетаскивать модули за квадраты, а не картинки. -->
+                        <!-- tab "panes" -->
+                        <div class="panes">
+                            <div id="divHullsPane" class="panes_div"><h2>Hulls</h2>
                                 <p>
                                     <!-- TODO: Поиск по доступным модулям... -->
-                                    <!-- Search --> 
+                                    <!-- Search -->
                                     <div class="main_search_field">
                                         <input type="text" id="txtHullSearchString" class="main_search_string">
                                         <input type="button" name="btnHullSearch" value="Search" class="main_search_button" onclick="SearchHulls()"> <br/>
@@ -295,9 +295,9 @@ $weapons = loadWeapons();
                                 </p>
                             </div>
 
-                            <div class="panes_div"><h2>Engines</h2> 
+                            <div class="panes_div"><h2>Engines</h2>
                                 <p>
-                                    <!-- Search --> 
+                                    <!-- Search -->
                                     <div class="main_search_field">
                                         <input type="text" id="txtEngineSearchString" class="main_search_string">
                                         <input type="button" name="btnEngineSearch" value="Search" class="main_search_button" onclick="SearchEngines()"> <br/>
@@ -349,9 +349,9 @@ $weapons = loadWeapons();
                                 </p>
                             </div>
 
-                            <div class="panes_div"><h2>Secondary engines</h2> 
+                            <div class="panes_div"><h2>Secondary engines</h2>
                                 <p>
-                                    <!-- Search --> 
+                                    <!-- Search -->
                                     <div class="main_search_field">
                                         <input type="text" id="txtSecondaryEngineSearchString" class="main_search_string">
                                         <input type="button" name="btnSecondaryEngineSearch" value="Search" class="main_search_button" onclick="SearchSecondaryEngines()"> <br/>
@@ -403,9 +403,9 @@ $weapons = loadWeapons();
                                 </p>
                             </div>
 
-                            <div class="panes_div"><h2>Fuel tanks</h2> 
+                            <div class="panes_div"><h2>Fuel tanks</h2>
                                 <p>
-                                    <!-- Search --> 
+                                    <!-- Search -->
                                     <div class="main_search_field">
                                         <input type="text" id="txtFuelTankSearchString" class="main_search_string">
                                         <input type="button" name="btnFuelTankSearch" value="Search" class="main_search_button" onclick="SearchFuelTanks()"> <br/>
@@ -457,9 +457,9 @@ $weapons = loadWeapons();
                                 </p>
                             </div>
 
-                            <div class="panes_div"><h2>Radars</h2> 
+                            <div class="panes_div"><h2>Radars</h2>
                                 <p>
-                                    <!-- Search --> 
+                                    <!-- Search -->
                                     <div class="main_search_field">
                                         <input type="text" id="txtRadarSearchString" class="main_search_string">
                                         <input type="button" name="btnRadarSearch" value="Search" class="main_search_button" onclick="SearchRadars()"> <br/>
@@ -511,9 +511,9 @@ $weapons = loadWeapons();
                                 </p>
                             </div>
 
-                            <div class="panes_div"><h2>Repair droids</h2> 
+                            <div class="panes_div"><h2>Repair droids</h2>
                                 <p>
-                                    <!-- Search --> 
+                                    <!-- Search -->
                                     <div class="main_search_field">
                                         <input type="text" id="txtRepairDroidSearchString" class="main_search_string">
                                         <input type="button" name="btnRepairDroidSearch" value="Search" class="main_search_button" onclick="SearchRepairDroids()"> <br/>
@@ -565,9 +565,9 @@ $weapons = loadWeapons();
                                 </p>
                             </div>
 
-                            <div class="panes_div"><h2>Magnetic grips</h2> 
+                            <div class="panes_div"><h2>Magnetic grips</h2>
                                 <p>
-                                    <!-- Search --> 
+                                    <!-- Search -->
                                     <div class="main_search_field">
                                         <input type="text" id="txtMagneticGripSearchString" class="main_search_string">
                                         <input type="button" name="btnMagneticGripSearch" value="Search" class="main_search_button" onclick="SearchMagneticGrips()"> <br/>
@@ -624,9 +624,9 @@ $weapons = loadWeapons();
                                 </p>
                             </div>
 
-                            <div class="panes_div"><h2>Weapons</h2> 
+                            <div class="panes_div"><h2>Weapons</h2>
                                 <p>
-                                    <!-- Search --> 
+                                    <!-- Search -->
                                     <div class="main_search_field">
                                         <input type="text" id="txtWeaponSearchString" class="main_search_string">
                                         <input type="button" name="btnWeaponSearch" value="Search" class="main_search_button" onclick="SearchWeapons()"> <br/>
@@ -720,7 +720,11 @@ $weapons = loadWeapons();
                             </div>
                         </div>
                     </div>
+                  </div>
                 </td>
+                <!-- CENTER COLUMN -->
+                <!-- _____________ -->
+                <!-- ____________ -->
                 <td class="center_col">
                     <div id="divCircleContainer" class='circle-container'>
                         <c href='#' class='center'>
@@ -734,7 +738,7 @@ $weapons = loadWeapons();
 
                         <z href='#' class='deg250'>
                             <div id="ship_weapon_1_cell" class="blocked_module_background" ondrop="dropWeapon1(event)" ondragover="allowDrop(event)">
-                                <img id="ship_weapon_1" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon1(event)"> 
+                                <img id="ship_weapon_1" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon1(event)">
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtWeapon1Allowed" value="false" readonly="true">
@@ -742,7 +746,7 @@ $weapons = loadWeapons();
                         </z>
                         <z href='#' class='deg270'>
                             <div id="ship_weapon_2_cell" class="blocked_module_background" ondrop="dropWeapon2(event)" ondragover="allowDrop(event)">
-                                <img id="ship_weapon_2" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon2(event)"> 
+                                <img id="ship_weapon_2" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon2(event)">
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtWeapon2Allowed" value="false" readonly="true">
@@ -751,7 +755,7 @@ $weapons = loadWeapons();
                         </z>
                         <z href='#' class='deg290'>
                             <div id="ship_weapon_3_cell" class="blocked_module_background" ondrop="dropWeapon3(event)" ondragover="allowDrop(event)">
-                                <img id="ship_weapon_3" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon3(event)"> 
+                                <img id="ship_weapon_3" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon3(event)">
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtWeapon3Allowed" value="false" readonly="true">
@@ -759,7 +763,7 @@ $weapons = loadWeapons();
                         </z>
                         <z href='#' class='deg260'>
                             <div id="ship_weapon_4_cell" class="blocked_module_background" ondrop="dropWeapon4(event)" ondragover="allowDrop(event)">
-                                <img id="ship_weapon_4" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon4(event)"> 
+                                <img id="ship_weapon_4" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon4(event)">
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtWeapon4Allowed" value="false" readonly="true">
@@ -767,7 +771,7 @@ $weapons = loadWeapons();
                         </z>
                         <z href='#' class='deg280'>
                             <div id="ship_weapon_5_cell" class="blocked_module_background" ondrop="dropWeapon5(event)" ondragover="allowDrop(event)">
-                                <img id="ship_weapon_5" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon5(event)"> 
+                                <img id="ship_weapon_5" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurWeapon5(event)">
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtWeapon5Allowed" value="false" readonly="true">
@@ -776,7 +780,7 @@ $weapons = loadWeapons();
 
                         <z href='#' class='deg325'>
                             <div id="ship_radar_cell" class="blocked_module_background" ondrop="dropRadar(event)" ondragover="allowDrop(event)">
-                                <img id="ship_radar" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurRadar(event)"> 
+                                <img id="ship_radar" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurRadar(event)">
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtRadarAllowed" value="false" readonly="true">
@@ -791,7 +795,7 @@ $weapons = loadWeapons();
 
                         <z href='#' class='deg70'>
                             <div id="ship_magnetic_grip_cell" class="blocked_module_background" ondrop="dropMagneticGrip(event)" ondragover="allowDrop(event)">
-                                <img id="ship_magnetic_grip" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurMagneticGrip(event)"> 
+                                <img id="ship_magnetic_grip" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurMagneticGrip(event)">
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtMagneticGripAllowed" value="false" readonly="true">
@@ -805,17 +809,17 @@ $weapons = loadWeapons();
                         </z>
                         <z href='#' class='deg110'>
                             <div id="ship_repair_droid_cell" class="blocked_module_background" ondrop="dropRepairDroid(event)" ondragover="allowDrop(event)">
-                                <img id="ship_repair_droid" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurRepairDroid(event)"> 
+                                <img id="ship_repair_droid" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurRepairDroid(event)">
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtRepairDroidAllowed" value="false" readonly="true">
                             <input type="hidden" id="txtRepairDroidChosen" value="false" readonly="true">
                             Repair droid
                         </z>
-                        
+
                         <z href='#' class='deg145'>
                             <div id="ship_fuel_tank_cell" class="blocked_module_background" ondrop="dropFuelTank(event)" ondragover="allowDrop(event)">
-                                <img id="ship_fuel_tank" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurFuelTank(event)"> 
+                                <img id="ship_fuel_tank" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurFuelTank(event)">
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtFuelTankAllowed" value="false" readonly="true">
@@ -824,7 +828,7 @@ $weapons = loadWeapons();
                         </z>
                         <z href='#' class='deg180'>
                             <div id="ship_secondary_engine_cell" class="blocked_module_background" ondrop="dropSecondaryEngine(event)" ondragover="allowDrop(event)">
-                                <img id="ship_secondary_engine" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurSecondaryEngine(event)"> 
+                                <img id="ship_secondary_engine" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurSecondaryEngine(event)">
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtSecondaryEngineAllowed" value="false" readonly="true">
@@ -833,14 +837,14 @@ $weapons = loadWeapons();
                         </z>
                         <z href='#' class='deg215'>
                             <div id="ship_engine_cell" class="blocked_module_background" ondrop="dropEngine(event)" ondragover="allowDrop(event)">
-                                <img id="ship_engine" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurEngine(event)"> 
+                                <img id="ship_engine" src="images/Icons/no.png" class="module_image" draggable="true" ondragstart="dragCurEngine(event)">
                             </div>
                             <!-- Hidden fields -->
                             <input type="hidden" id="txtEngineAllowed" value="false" readonly="true">
                             <input type="hidden" id="txtEngineChosen" value="false" readonly="true">
                             Engine
                         </z>
-                        
+
                         <z href='#' class='deg90_far'>
                             <div id="ship_engine_cell" class="recycle_bin_background" ondrop="dropRecycleBin(event)" ondragover="allowDrop(event)">
                                 <img src="images/Icons/recycle_bin_empty.png" class="module_image">
