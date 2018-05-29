@@ -170,12 +170,12 @@ $weapons = loadWeapons();
 
               document.getElementById("divShipModules").style["fontSize"] = new_text_size;
               document.getElementById("divShipModulesTitle").style["fontSize"] = new_text_size;
-              
+
               document.getElementById("divHullsPane").style["fontSize"] = new_text_size;
 
               document.getElementById("divCircleContainer").style["fontSize"] = new_text_size;
 <<<<<<< HEAD
-              
+
               document.getElementById("divShipParametersTitle").style["fontSize"] = new_text_size;
 =======
 
@@ -267,7 +267,7 @@ $weapons = loadWeapons();
                                     <br/><br/>
 
                                     <div id="divAvailableHulls" class="container">
-                                        <table class="four_columns" cellspacing="0">
+                                        <table class="parameters_table" cellspacing="0">
                                             <tr>
                                                 <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
                                             </tr>
@@ -322,7 +322,7 @@ $weapons = loadWeapons();
                                     <br/><br/>
 
                                     <div id="divAvailableEngines" class="container">
-                                        <table class="four_columns" cellspacing="0">
+                                        <table class="parameters_table" cellspacing="0">
                                             <tr>
                                                 <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
                                             </tr>
@@ -376,7 +376,7 @@ $weapons = loadWeapons();
                                     <br/><br/>
 
                                     <div id="divAvailableSecondaryEngines" class="container">
-                                        <table class="four_columns" cellspacing="0">
+                                        <table class="parameters_table" cellspacing="0">
                                             <tr>
                                                 <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
                                             </tr>
@@ -430,7 +430,7 @@ $weapons = loadWeapons();
                                     <br/><br/>
 
                                     <div id="divAvailableFuelTanks" class="container">
-                                        <table class="four_columns" cellspacing="0">
+                                        <table class="parameters_table" cellspacing="0">
                                             <tr>
                                                 <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
                                             </tr>
@@ -484,7 +484,7 @@ $weapons = loadWeapons();
                                     <br/><br/>
 
                                     <div id="divAvailableRadars" class="container">
-                                        <table class="four_columns" cellspacing="0">
+                                        <table class="parameters_table" cellspacing="0">
                                             <tr>
                                                 <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
                                             </tr>
@@ -538,7 +538,7 @@ $weapons = loadWeapons();
                                     <br/><br/>
 
                                     <div id="divAvailableRepairDroids" class="container">
-                                        <table class="four_columns" cellspacing="0">
+                                        <table class="parameters_table" cellspacing="0">
                                             <tr>
                                                 <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
                                             </tr>
@@ -596,7 +596,7 @@ $weapons = loadWeapons();
                                     <br/><br/>
 
                                     <div id="divAvailableMagneticGrips" class="container">
-                                        <table class="four_columns" cellspacing="0">
+                                        <table class="parameters_table" cellspacing="0">
                                             <tr>
                                                 <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
                                             </tr>
@@ -673,7 +673,7 @@ $weapons = loadWeapons();
                                     <br/><br/>
 
                                     <div id="divAvailableWeapons" class="container">
-                                        <table class="four_columns" cellspacing="0">
+                                        <table class="parameters_table" cellspacing="0">
                                             <tr>
                                                 <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
                                             </tr>
@@ -1197,7 +1197,7 @@ $weapons = loadWeapons();
                                 </td>
                             </tr>
                         </table>
-                        
+
                         <!-- Hidden fields -->
 
                         <div id="HullParameters">
