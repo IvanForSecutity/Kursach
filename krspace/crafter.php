@@ -160,13 +160,15 @@ $weapons = loadWeapons();
 
         <script> Resize(); </script>
     </head>
-    <body onresize="Resize()" bgcolor="#eafff7">
+    <body id="bigbob" onresize="Resize()" bgcolor="#eafff7">
         <script>
             function Resize()
             {
               var resize_koef = window.innerWidth / 1920;
               var new_text_size = (28*(resize_koef)).toFixed(0);
-              document.getElementById("tblRefs").style["fontSize"] = new_text_size;
+              var new_body_margin_size = (50*(resize_koef)).toFixed(0);
+              document.getElementById("bigbob").style["margin-left"] = new_body_margin_size;
+            //  alert();
 
               document.getElementById("divShipModules").style["fontSize"] = new_text_size;
               document.getElementById("divShipModulesTitle").style["fontSize"] = new_text_size;
@@ -255,7 +257,7 @@ $weapons = loadWeapons();
                                     <br/><br/>
 
                                     <div id="divAvailableHulls" class="container">
-                                        <table class="cool_table2" >
+                                        <table class="parameters_table" >
                                           <thead>
                                             <tr>
                                                 <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>

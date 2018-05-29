@@ -346,6 +346,7 @@ table.parameters_table
   border-collapse: collapse;
   border: 1px solid #eee;
   border-bottom: 2px solid #0a6f4d;
+  width:23vw;
 }
 .cool_table2 tr:hover {
   background: #f4f4f4;
