@@ -47,7 +47,7 @@ ul.tabs li
 ul.tabs a
 {
   background-color: #8bffd8;
-    font-size: 11px;
+  font-size: 1.2vw;
     display: block;
     height: 30px;
     line-height: 30px;

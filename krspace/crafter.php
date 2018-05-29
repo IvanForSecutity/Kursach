@@ -158,10 +158,12 @@ $weapons = loadWeapons();
 
         <link rel="stylesheet" href="style/crafter_style.css">
 
-        <script> Resize(); </script>
     </head>
     <body class="crafter_body" onresize="Resize()" bgcolor="#eafff7">
         <script>
+            window.onload = function() {
+            Resize();
+            };
             function Resize()
             {
               var resize_koef = window.innerWidth / 1920;
