@@ -320,6 +320,7 @@ function ApplyModulesBitmask(modules_bitmask)
         $('#ship_weapon_1').attr('src', "images/Icons/yes.png");
         
         document.getElementById("Weapon1Parameters").style = "";
+        document.getElementById("txtWeapon1Name").type = "";
         document.getElementById("txtWeapon1Type").type = "";
         document.getElementById("txtWeapon1Damage").type = "";
         document.getElementById("txtWeapon1Ammunition").type = "";
@@ -333,6 +334,7 @@ function ApplyModulesBitmask(modules_bitmask)
         $('#ship_weapon_1').attr('src', "images/Icons/no.png");
         
         document.getElementById("Weapon1Parameters").style = "display:none;";
+        document.getElementById("txtWeapon1Name").type = "hidden";
         document.getElementById("txtWeapon1Type").type = "hidden";
         document.getElementById("txtWeapon1Damage").type = "hidden";
         document.getElementById("txtWeapon1Ammunition").type = "hidden";
@@ -346,6 +348,7 @@ function ApplyModulesBitmask(modules_bitmask)
         $('#ship_weapon_2').attr('src', "images/Icons/yes.png");
         
         document.getElementById("Weapon2Parameters").style = "";
+        document.getElementById("txtWeapon2Name").type = "";
         document.getElementById("txtWeapon2Type").type = "";
         document.getElementById("txtWeapon2Damage").type = "";
         document.getElementById("txtWeapon2Ammunition").type = "";
@@ -359,6 +362,7 @@ function ApplyModulesBitmask(modules_bitmask)
         $('#ship_weapon_2').attr('src', "images/Icons/no.png");
         
         document.getElementById("Weapon2Parameters").style = "display:none;";
+        document.getElementById("txtWeapon2Name").type = "hidden";
         document.getElementById("txtWeapon2Type").type = "hidden";
         document.getElementById("txtWeapon2Damage").type = "hidden";
         document.getElementById("txtWeapon2Ammunition").type = "hidden";
@@ -372,6 +376,7 @@ function ApplyModulesBitmask(modules_bitmask)
         $('#ship_weapon_3').attr('src', "images/Icons/yes.png");
         
         document.getElementById("Weapon3Parameters").style = "";
+        document.getElementById("txtWeapon3Name").type = "";
         document.getElementById("txtWeapon3Type").type = "";
         document.getElementById("txtWeapon3Damage").type = "";
         document.getElementById("txtWeapon3Ammunition").type = "";
@@ -385,6 +390,7 @@ function ApplyModulesBitmask(modules_bitmask)
         $('#ship_weapon_3').attr('src', "images/Icons/no.png");
         
         document.getElementById("Weapon3Parameters").style = "display:none;";
+        document.getElementById("txtWeapon3Name").type = "hidden";
         document.getElementById("txtWeapon3Type").type = "hidden";
         document.getElementById("txtWeapon3Damage").type = "hidden";
         document.getElementById("txtWeapon3Ammunition").type = "hidden";
@@ -398,6 +404,7 @@ function ApplyModulesBitmask(modules_bitmask)
         $('#ship_weapon_4').attr('src', "images/Icons/yes.png");
         
         document.getElementById("Weapon4Parameters").style = "";
+        document.getElementById("txtWeapon4Name").type = "";
         document.getElementById("txtWeapon4Type").type = "";
         document.getElementById("txtWeapon4Damage").type = "";
         document.getElementById("txtWeapon4Ammunition").type = "";
@@ -411,6 +418,7 @@ function ApplyModulesBitmask(modules_bitmask)
         $('#ship_weapon_4').attr('src', "images/Icons/no.png");
         
         document.getElementById("Weapon4Parameters").style = "display:none;";
+        document.getElementById("txtWeapon4Name").type = "hidden";
         document.getElementById("txtWeapon4Type").type = "hidden";
         document.getElementById("txtWeapon4Damage").type = "hidden";
         document.getElementById("txtWeapon4Ammunition").type = "hidden";
@@ -424,6 +432,7 @@ function ApplyModulesBitmask(modules_bitmask)
         $('#ship_weapon_5').attr('src', "images/Icons/yes.png");
         
         document.getElementById("Weapon5Parameters").style = "";
+        document.getElementById("txtWeapon5Name").type = "";
         document.getElementById("txtWeapon5Type").type = "";
         document.getElementById("txtWeapon5Damage").type = "";
         document.getElementById("txtWeapon5Ammunition").type = "";
@@ -437,6 +446,7 @@ function ApplyModulesBitmask(modules_bitmask)
         $('#ship_weapon_5').attr('src', "images/Icons/no.png");
         
         document.getElementById("Weapon5Parameters").style = "display:none;";
+        document.getElementById("txtWeapon5Name").type = "hidden";
         document.getElementById("txtWeapon5Type").type = "hidden";
         document.getElementById("txtWeapon5Damage").type = "hidden";
         document.getElementById("txtWeapon5Ammunition").type = "hidden";

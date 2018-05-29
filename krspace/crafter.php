@@ -169,10 +169,13 @@ $weapons = loadWeapons();
               document.getElementById("tblRefs").style["fontSize"] = new_text_size;
 
               document.getElementById("divShipModules").style["fontSize"] = new_text_size;
+              document.getElementById("divShipModulesTitle").style["fontSize"] = new_text_size;
+              
               document.getElementById("divHullsPane").style["fontSize"] = new_text_size;
               
               document.getElementById("divCircleContainer").style["fontSize"] = new_text_size;
               
+              document.getElementById("divShipParametersTitle").style["fontSize"] = new_text_size;
               document.getElementById("divShipParameters").style["fontSize"] = new_text_size;
             }
         </script>
@@ -207,7 +210,7 @@ $weapons = loadWeapons();
             <tr>
                 <td>
                     <div id="divShipModules" class="ship_modules">
-                        Spaceship modules
+                        <div id="divShipModulesTitle" class="ship_modules_title"> Spaceship modules </div>
                         <br>
                         <br/>
                         Ship name: <input type="text" id="txtShipName" name="txtShipName" value="<?php echo $txtShipName;?>" style="width: 75%;">
@@ -847,93 +850,346 @@ $weapons = loadWeapons();
                 </td>
                 <td class="right_col">
                     <div id="divShipParameters" class="ship_parameters">
-                        Spaceship parameters
-                        <br/>
-                        <br>
-                        Capacity: <input type="text" id="txtFreeCapacity" value="0" style="margin-top: 0.2em" readonly="true">
-                        / <input type="text" id="txtFullCapacity" value="0" style="margin-top: 0.2em" readonly="true">
-                        <br/>
-                        <br/>
-                        Hp: <input type="text" id="txtHp" value="0" style="margin-top: 0.2em" readonly="true">
-                        <br/>
-                        Speed: <input type="text" id="txtSpeed" value="0" style="margin-top: 0.2em" readonly="true">
-                        <br/>
-                        Maneuverability: <input type="text" id="txtManeuverability" value="0" style="margin-top: 0.2em" readonly="true">
-                        <br/>
-                        Fuel tank volume: <input type="text" id="txtFuelTankVolume" value="0" style="margin-top: 0.2em" readonly="true">
-                        <br/>
-                        Radar action radius: <input type="text" id="txtRadarActionRadius" value="0" style="margin-top: 0.2em" readonly="true">
-                        <br/>
-                        Health recovery: <input type="text" id="txtHealthRecovery" value="0" style="margin-top: 0.2em" readonly="true">
-                        <br/>
-                        Magnetic grip action radius: <input type="text" id="txtMagneticGripActionRadius" value="0" style="margin-top: 0.2em" readonly="true">
-                        <br/>
-                        Magnetic grip carrying capacity: <input type="text" id="txtMagneticGripCarryingCapacity" value="0" style="margin-top: 0.2em" readonly="true">
-                        <br/> <br/>
-                        <div id="Weapon1Parameters" style='display:none;'>
-                            Weapon 1. <br/>
-                            <input type="hidden" name="txtWeapon1Name" id="txtWeapon1Name" value="" readonly="true">
-                            Type: <input type="hidden" id="txtWeapon1Type" value="0" readonly="true"> <br/>
-                            Damage: <input type="hidden" id="txtWeapon1Damage" value="0" readonly="true"> <br/>
-                            Ammunition: <input type="hidden" id="txtWeapon1Ammunition" value="0" readonly="true"> <br/>
-                            Recharge Time: <input type="hidden" id="txtWeapon1RechargeTime" value="0" readonly="true"> <br/>
-                            Range Of Fire:<input type="hidden" id="txtWeapon1RangeOfFire" value="0" readonly="true"> <br/>
-                            <input type="hidden" id="txtWeapon1Weight" value="0" readonly="true">
-                            <input type="hidden" id="txtWeapon1Cost" value="0" readonly="true">
-                            <br/>
-                        </div>
-                        <div id="Weapon2Parameters" style='display:none;'>
-                            Weapon 2. <br/>
-                            <input type="hidden" name="txtWeapon2Name" id="txtWeapon2Name" value="" readonly="true">
-                            Type: <input type="hidden" id="txtWeapon2Type" value="0" readonly="true"> <br/>
-                            Damage: <input type="hidden" id="txtWeapon2Damage" value="0" readonly="true"> <br/>
-                            Ammunition: <input type="hidden" id="txtWeapon2Ammunition" value="0" readonly="true"> <br/>
-                            Recharge Time: <input type="hidden" id="txtWeapon2RechargeTime" value="0" readonly="true"> <br/>
-                            Range Of Fire:<input type="hidden" id="txtWeapon2RangeOfFire" value="0" readonly="true"> <br/>
-                            <input type="hidden" id="txtWeapon2Weight" value="0" readonly="true">
-                            <input type="hidden" id="txtWeapon2Cost" value="0" readonly="true">
-                            <br/>
-                        </div>
-                        <div id="Weapon3Parameters" style='display:none;'>
-                            Weapon 3. <br/>
-                            <input type="hidden" name="txtWeapon3Name" id="txtWeapon3Name" value="" readonly="true">
-                            Type: <input type="hidden" id="txtWeapon3Type" value="0" readonly="true"> <br/>
-                            Damage: <input type="hidden" id="txtWeapon3Damage" value="0" readonly="true"> <br/>
-                            Ammunition: <input type="hidden" id="txtWeapon3Ammunition" value="0" readonly="true"> <br/>
-                            Recharge Time: <input type="hidden" id="txtWeapon3RechargeTime" value="0" readonly="true"> <br/>
-                            Range Of Fire:<input type="hidden" id="txtWeapon3RangeOfFire" value="0" readonly="true"> <br/>
-                            <input type="hidden" id="txtWeapon3Weight" value="0" readonly="true">
-                            <input type="hidden" id="txtWeapon3Cost" value="0" readonly="true">
-                            <br/>
-                        </div>
-                        <div id="Weapon4Parameters" style='display:none;'>
-                            Weapon 4. <br/>
-                            <input type="hidden" name="txtWeapon4Name" id="txtWeapon4Name" value="" readonly="true">
-                            Type: <input type="hidden" id="txtWeapon4Type" value="0" readonly="true"> <br/>
-                            Damage: <input type="hidden" id="txtWeapon4Damage" value="0" readonly="true"> <br/>
-                            Ammunition: <input type="hidden" id="txtWeapon4Ammunition" value="0" readonly="true"> <br/>
-                            Recharge Time: <input type="hidden" id="txtWeapon4RechargeTime" value="0" readonly="true"> <br/>
-                            Range Of Fire:<input type="hidden" id="txtWeapon4RangeOfFire" value="0" readonly="true"> <br/>
-                            <input type="hidden" id="txtWeapon4Weight" value="0" readonly="true">
-                            <input type="hidden" id="txtWeapon4Cost" value="0" readonly="true">
-                            <br/>
-                        </div>
-                        <div id="Weapon5Parameters" style='display:none;'>
-                            Weapon 5. <br/>
-                            <input type="hidden" name="txtWeapon5Name" id="txtWeapon5Name" value="" readonly="true">
-                            Type: <input type="hidden" id="txtWeapon5Type" value="0" readonly="true"> <br/>
-                            Damage: <input type="hidden" id="txtWeapon5Damage" value="0" readonly="true"> <br/>
-                            Ammunition: <input type="hidden" id="txtWeapon5Ammunition" value="0" readonly="true"> <br/>
-                            Recharge Time: <input type="hidden" id="txtWeapon5RechargeTime" value="0" readonly="true"> <br/>
-                            Range Of Fire:<input type="hidden" id="txtWeapon5RangeOfFire" value="0" readonly="true"> <br/>
-                            <input type="hidden" id="txtWeapon5Weight" value="0" readonly="true">
-                            <input type="hidden" id="txtWeapon5Cost" value="0" readonly="true">
-                            <br/>
-                        </div>
-                        <br/>
-                        <br/>
-                        Cost: <input type="text" id="txtCost" value="0" style="margin-top: 0.2em" readonly="true">
+                        <div id="divShipParametersTitle" class="ship_parameters_title"> Spaceship parameters </div>
+                        <br/><br/>
+                        <table class="parameters_table">
+                            <tr>
+                                <th>Parameter</th> <th>Value</th>
+                            </tr>
 
+                            <tr>
+                                <td> Capacity </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="text" id="txtFreeCapacity" value="0" class="parameter_small_input" readonly="true"> /
+                                        <input type="text" id="txtFullCapacity" value="0" class="parameter_small_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Hp </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="text" id="txtHp" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Speed </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="text" id="txtSpeed" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Maneuverability </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="text" id="txtManeuverability" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Fuel tank volume </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="text" id="txtFuelTankVolume" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Radar action radius </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="text" id="txtRadarActionRadius" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Health recovery </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="text" id="txtHealthRecovery" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Magnetic grip action radius </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="text" id="txtMagneticGripActionRadius" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Magnetic grip carrying capacity </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="text" id="txtMagneticGripCarryingCapacity" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <table id="Weapon1Parameters" class="parameters_table" style="display: none;">
+                            <tr>
+                                <th>Weapon 1</th> <th><input type="hidden" name="txtWeapon1Name" id="txtWeapon1Name" value="" class="weapon_name_input" readonly="true"></th>
+                            </tr>
+                            <tr>
+                                <td> Type </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon1Type" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Damage </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon1Damage" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Ammunition </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon1Ammunition" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Recharge Time </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon1RechargeTime" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Range Of Fire </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon1RangeOfFire" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                                <div class="parameter_field">
+                                    <input type="hidden" id="txtWeapon1Weight" value="0" readonly="true">
+                                    <input type="hidden" id="txtWeapon1Cost" value="0" readonly="true">
+                                </div>
+                        </table>
+                        <table id="Weapon2Parameters" class="parameters_table" style="display: none;">
+                            <tr>
+                                <th>Weapon 2</th> <th><input type="hidden" name="txtWeapon2Name" id="txtWeapon2Name" value="" class="weapon_name_input" readonly="true"></th>
+                            </tr>
+                            <tr>
+                                <td> Type </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon2Type" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Damage </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon2Damage" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Ammunition </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon2Ammunition" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Recharge Time </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon2RechargeTime" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Range Of Fire </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon2RangeOfFire" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                                <div class="parameter_field">
+                                    <input type="hidden" id="txtWeapon2Weight" value="0" readonly="true">
+                                    <input type="hidden" id="txtWeapon2Cost" value="0" readonly="true">
+                                </div>
+                        </table>
+                        <table id="Weapon3Parameters" class="parameters_table" style="display: none;">
+                            <tr>
+                                <th>Weapon 3</th> <th><input type="hidden" name="txtWeapon3Name" id="txtWeapon3Name" value="" class="weapon_name_input" readonly="true"></th>
+                            </tr>
+                            <tr>
+                                <td> Type </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon3Type" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Damage </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon3Damage" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Ammunition </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon3Ammunition" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Recharge Time </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon3RechargeTime" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Range Of Fire </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon3RangeOfFire" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                                <div class="parameter_field">
+                                    <input type="hidden" id="txtWeapon3Weight" value="0" readonly="true">
+                                    <input type="hidden" id="txtWeapon3Cost" value="0" readonly="true">
+                                </div>
+                        </table>
+                        <table id="Weapon4Parameters" class="parameters_table" style="display: none;">
+                            <tr>
+                                <th>Weapon 4</th> <th><input type="hidden" name="txtWeapon4Name" id="txtWeapon4Name" value="" class="weapon_name_input" readonly="true"></th>
+                            </tr>
+                            <tr>
+                                <td> Type </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon4Type" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Damage </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon4Damage" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Ammunition </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon4Ammunition" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Recharge Time </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon4RechargeTime" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Range Of Fire </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon4RangeOfFire" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                                <div class="parameter_field">
+                                    <input type="hidden" id="txtWeapon4Weight" value="0" readonly="true">
+                                    <input type="hidden" id="txtWeapon4Cost" value="0" readonly="true">
+                                </div>
+                        </table>
+                        <table id="Weapon5Parameters" class="parameters_table" style="display: none;">
+                            <tr>
+                                <th>Weapon 5</th> <th><input type="hidden" name="txtWeapon5Name" id="txtWeapon5Name" value="" class="weapon_name_input" readonly="true"></th>
+                            </tr>
+                            <tr>
+                                <td> Type </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon5Type" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Damage </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon5Damage" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Ammunition </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon5Ammunition" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Recharge Time </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon5RechargeTime" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Range Of Fire </td>
+                                <td>
+                                    <div class="parameter_field">
+                                        <input type="hidden" id="txtWeapon5RangeOfFire" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                                <div class="parameter_field">
+                                    <input type="hidden" id="txtWeapon5Weight" value="0" readonly="true">
+                                    <input type="hidden" id="txtWeapon5Cost" value="0" readonly="true">
+                                </div>
+                        </table>
+
+                        <br/><br/>
+
+                        <table class="parameters_table">
+                            <tr>
+                                <td> Cost </td>
+                                <td class="last_col">
+                                    <div class="parameter_field">
+                                        <input type="text" id="txtCost" value="0" class="parameter_input" readonly="true">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        
                         <!-- Hidden fields -->
 
                         <div id="HullParameters">

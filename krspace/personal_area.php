@@ -55,7 +55,7 @@ if(isset($_POST['btnDeleteAccount']))
                             Login
                         </td>
                         <td>
-                            <input type="text" name="txtName" value="<?php echo $login;?>" style="margin-top: 0.2em" readonly="true">
+                            <input type="text" name="txtName" value="<?php echo $login;?>" style="background-color: transparent;" readonly="true">
                         </td>
                     </tr>
                     </tbody>
@@ -66,7 +66,7 @@ if(isset($_POST['btnDeleteAccount']))
                             Registration date
                         </td>
                         <td>
-                            <input type="text" name="txtRegDate" value="<?php echo $reg_date['reg_date'];?>" style="margin-top: 0.2em" readonly="true">
+                            <input type="text" name="txtRegDate" value="<?php echo $reg_date['reg_date'];?>" style="background-color: transparent;" readonly="true">
                         </td>
                     </tr>
                     </tbody>

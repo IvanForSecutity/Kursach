@@ -1,4 +1,16 @@
 /* Left section */
+.ship_modules
+{
+    font-size: 15px;
+    text-align: center;
+}
+.ship_modules_title
+{
+    font-size: 20px;
+    text-align: center;
+    font-family: 'The Darkest Night';
+}
+
 .available-container
 {
     position: relative;
@@ -156,6 +168,88 @@
     width: 98%;
     height: 98%;
 }
+
+/* Right section */
+.ship_parameters
+{
+    font-size: 15px;
+    text-align: center;
+}
+.ship_parameters_title
+{
+    font-size: 20px;
+    text-align: center;
+    font-family: 'The Darkest Night';
+}
+
+table.parameters_table
+{
+    font-family: 'Arial';
+    border-collapse: collapse;
+    width: 100%;
+    border-spacing: 0;
+}
+.parameters_table tr:hover
+{
+  background: #f4f4f4;
+}
+.parameters_table tr:hover td
+{
+  color: #555;
+}
+.parameters_table th, .cool_table td
+{
+  color: #999;
+  border: 1px solid #eee;
+  padding: 12px 35px;
+  border-collapse: collapse;
+}
+.parameters_table th
+{
+  background: #0a6f4d;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.parameters_table td
+{
+    width: 50%;
+    vertical-align: central;
+    border: 1px solid black;
+}
+
+.weapon_name_input
+{
+    background-color: transparent;
+    border: 0px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+}
+.parameter_field
+{
+    clear: both;
+    text-align: right;
+}
+.parameter_input
+{
+    background-color: transparent;
+    border: 0px;
+    text-align: right;
+    color: #0a6f4d;
+    width: 100%;
+}
+.parameter_small_input
+{
+    background-color: transparent;
+    border: 0px;
+    text-align: right;
+    color: #0a6f4d;
+    width: 45%;
+}
+
+
 
 @font-face
 {

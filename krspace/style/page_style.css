@@ -47,13 +47,13 @@ td.right_col
 
 table.two_columns
 {
-    width:  100%;
+    width: 100%;
     border-spacing: 0;
 }
 table.two_columns td
 {
     width: 50%;
-    vertical-align: top;
+    vertical-align: central;
 }
 td.right_col
 {
@@ -239,14 +239,3 @@ button.input_image
     width: 30%;
 }
 
-.ship_modules
-{
-    font-size: 15px;
-    text-align: center;
-}
-
-.ship_parameters
-{
-    font-size: 15px;
-    text-align: right;
-}
