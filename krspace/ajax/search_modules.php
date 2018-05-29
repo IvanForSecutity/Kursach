@@ -55,18 +55,23 @@ if (isset($_GET['hull_search_string']))
             $hull_search_capacity_from, $hull_search_capacity_to,
             $hull_search_cost_from, $hull_search_cost_to);
 
-    print '<table class="four_columns" cellspacing="0">';
+    print '<table class="parameters_table" cellspacing="0">';
+    print '<thead>';
     print '<tr>';
     print '    <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>';
     print '</tr>';
+    print '</thead>';
 
+    print '<tbody>';
     foreach ($hulls as $cur_hull):
     print '<tr>';
     print '    <td>';
-    print '        <div id="available_module_background">';
+    print '    <div class="available-container">';
+    print '        <div class="available_module_background">';
     print "            <img id='imgShipHull$cur_hull[name]' src='$cur_hull[image]1.png' class='available_module_image' draggable='true' ondragstart='dragHull(event)'>";
     print '        </div>';
     print '    </td>';
+    print '    </div>';
     print '    <td>';
     print "        $cur_hull[name]";
     print '    </td>';
@@ -80,6 +85,7 @@ if (isset($_GET['hull_search_string']))
     print '    </td>';
     print '</tr>';
     endforeach;
+    print '</tbody>';
     print '</table>';
 }
 
