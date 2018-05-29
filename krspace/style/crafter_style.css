@@ -1,4 +1,85 @@
+.login_button {
+  display: inline-block;
+  background-color: #8bffd8;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 5px;
+  width: auto;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.login_button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.login_button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.login_button:hover span {
+  padding-right: 25px;
+}
+
+.login_button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.hangar_button_up {
+  display: inline-block;
+  background-color: #8bffd8;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 2vw;
+  padding: 1vw;
+  width: 25%;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.hangar_button_up span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.hangar_button_up span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.hangar_button_up:hover span {
+  padding-right: 25px;
+}
+
+.hangar_button_up:hover span:after {
+  opacity: 1;
+  right: 0;
+}
 /* Left section */
+
 .ship_modules
 {
     font-size: 15px;
@@ -230,13 +311,13 @@ table.parameters_table
 .parameter_field
 {
     clear: both;
-    text-align: right;
+    text-align: center;
 }
 .parameter_input
 {
     background-color: transparent;
     border: 0px;
-    text-align: right;
+    text-align: center;
     color: #0a6f4d;
     width: 100%;
 }
@@ -244,7 +325,7 @@ table.parameters_table
 {
     background-color: transparent;
     border: 0px;
-    text-align: right;
+    text-align: center;
     color: #0a6f4d;
     width: 45%;
 }
@@ -253,8 +334,37 @@ table.parameters_table
 
 @font-face
 {
-    font-family: "The Darkest Night"; 
-    src: url("../fonts/The Darkest Night Personal Use.ttf") format("truetype"); 
-    font-style: normal; 
-    font-weight: normal; 
-} 
+    font-family: "The Darkest Night";
+    src: url("../fonts/The Darkest Night Personal Use.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+.cool_table2 {
+  font-family: 'Arial';
+  margin: 25px auto;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+  border-bottom: 2px solid #0a6f4d;
+}
+.cool_table2 tr:hover {
+  background: #f4f4f4;
+}
+.cool_table2 tr:hover td {
+  color: #555;
+}
+.cool_table2 th, .cool_table td {
+  color: #999;
+  border: 1px solid #eee;
+  padding: 12px 35px;
+  border-collapse: collapse;
+}
+.cool_table2 th {
+  background: #0a6f4d;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.cool_table2 th.last {
+  border-right: none;
+}

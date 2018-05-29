@@ -170,19 +170,31 @@ $weapons = loadWeapons();
 
               document.getElementById("divShipModules").style["fontSize"] = new_text_size;
               document.getElementById("divShipModulesTitle").style["fontSize"] = new_text_size;
-
+              
               document.getElementById("divHullsPane").style["fontSize"] = new_text_size;
 
               document.getElementById("divCircleContainer").style["fontSize"] = new_text_size;
-
+<<<<<<< HEAD
+              
               document.getElementById("divShipParametersTitle").style["fontSize"] = new_text_size;
+=======
+
+>>>>>>> [left column changes]
               document.getElementById("divShipParameters").style["fontSize"] = new_text_size;
             }
         </script>
-        <div>
-          <button id="hangar_button" class="hangar_button_up" onclick="window.location.href='hangar.php'"><span>To hangar</span></button>
-          <button id="logout_button" style="float: right;margin-right:25px;" class="hangar_button_up" onclick="window.location.href='logout.php'"><span>Log Out</span></button>
-        </div>
+
+        <table id="tblRefs" class="two_columns" cellspacing="0">
+        <tr>
+            <td>
+                <a href="hangar.php">To hangar</a>
+            </td>
+            <td class="right_col">
+                <a href="logout.php">Log Out</a>
+            </td>
+        </tr>
+        </table>
+
         <!-- Block for displaying error messages -->
         <div style="align-content: center; text-align: center;">
             <div class="error" id="divNameError"> </div>
@@ -233,7 +245,7 @@ $weapons = loadWeapons();
                                     <!-- Search -->
                                     <div class="main_search_field">
                                         <input type="text" id="txtHullSearchString" class="main_search_string">
-                                        <input type="button" name="btnHullSearch" value="Search" class="login_button" onclick="SearchHulls()"> <br/>
+                                        <input type="button" name="btnHullSearch" value="Search" class="main_search_button" onclick="SearchHulls()"> <br/>
                                     </div>
                                     <div class="search_field">
                                         <label class="small_input"> Hp </label>
@@ -255,38 +267,33 @@ $weapons = loadWeapons();
                                     <br/><br/>
 
                                     <div id="divAvailableHulls" class="container">
-                                        <table class="cool_table2" >
-                                          <thead>
+                                        <table class="four_columns" cellspacing="0">
                                             <tr>
                                                 <th>Img</th> <th>Name</th> <th>Parameters</th> <th>Cost</th>
                                             </tr>
-                                          </thead>
-                                          <tbody>
+
                                             <?php foreach ($hulls as $cur_hull) : ?>
-                                          <tr>
-                                              <td>
-                                                  <div class='available-container'>
-                                                      <div class="available_module_background">
-                                                          <img id="<?= "imgShipHull".$cur_hull['name']?>" src="<?= $cur_hull['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragHull(event)">
-                                                      </div>
-                                                  </div>
-                                              </td>
-                                              <td>
-                                                  <?= $cur_hull['name']?>
-                                              </td>
-                                              <td class="wide_col">
-                                                  Hp: <?= $cur_hull['hp']?> <br/>
-                                                  Maneuverability: <?= $cur_hull['maneuverability']?> <br/>
-                                                  Capacity: <?= $cur_hull['capacity']?>
-                                              </td>
-                                              <td class="last_col">
-                                                  <?= $cur_hull['cost']?> <br/>
-                                              </td>
-                                          </tr>
-                                          <?php endforeach ?>
-
-                                          </tbody>
-
+                                            <tr>
+                                                <td>
+                                                    <div class='available-container'>
+                                                        <div class="available_module_background">
+                                                            <img id="<?= "imgShipHull".$cur_hull['name']?>" src="<?= $cur_hull['image']."1.png"?>" class="available_module_image" draggable="true" ondragstart="dragHull(event)">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <?= $cur_hull['name']?>
+                                                </td>
+                                                <td class="wide_col">
+                                                    Hp: <?= $cur_hull['hp']?> <br/>
+                                                    Maneuverability: <?= $cur_hull['maneuverability']?> <br/>
+                                                    Capacity: <?= $cur_hull['capacity']?>
+                                                </td>
+                                                <td class="last_col">
+                                                    <?= $cur_hull['cost']?> <br/>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach ?>
                                         </table>
                                     </div>
                                 </p>
@@ -853,7 +860,7 @@ $weapons = loadWeapons();
                     <div id="divShipParameters" class="ship_parameters">
                         <div id="divShipParametersTitle" class="ship_parameters_title"> Spaceship parameters </div>
                         <br/><br/>
-                        <table class="cool_table2">
+                        <table class="parameters_table">
                             <tr>
                                 <th>Parameter</th> <th>Value</th>
                             </tr>
@@ -1190,7 +1197,7 @@ $weapons = loadWeapons();
                                 </td>
                             </tr>
                         </table>
-
+                        
                         <!-- Hidden fields -->
 
                         <div id="HullParameters">
@@ -1243,7 +1250,7 @@ $weapons = loadWeapons();
             </table>
 
             <div style="text-align: center; padding-top: 50px;">
-                <input type="submit" name="btnStart" value="Start" class="login_button" style="margin-top: 0.2em" ><br>
+                <input type="submit" name="btnStart" value="Start" style="margin-top: 0.2em" ><br>
             </div>
         </form>
     </body>
