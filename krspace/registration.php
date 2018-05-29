@@ -23,22 +23,22 @@ require_once('php_functions/functions.php');
             registration</p>
             <form class="login"  action="" method="POST" id="frmRegistration">
                 <div class="row">
-                    <label for="login" style="font-size: 1.2vw;">Enter login:</label>
+                    <label for="login" style="font-size: 1.1vw;">Enter login:</label>
                     <input type="text" name="txtLogin" id="txtLogin" value="" />
                     <div class="error" id="divLoginError"> </div>
-                    <div class="instruction" id="login-instruction" style="font-size: 1vw;">The username can only contain Latin characters, numbers, symbols '_', '-', '.'. The length of the username must be at least 4 characters and not longer than 16 characters</div>
+                    <div class="instruction" id="login-instruction" style="font-size: 0.7vw;">The username can only contain Latin characters, numbers, symbols '_', '-', '.'. The length of the username must be at least 4 characters and not longer than 16 characters</div>
                 </div>
                 <div class="row">
-                    <label for="password" style="font-size: 1.2vw;">Enter password:</label>
+                    <label for="password" style="font-size: 1.1vw;">Enter password:</label>
                     <input type="password"  name="txtPassword" id="txtPassword" value="" />
                     <div class="error" id="divPasswordError"> </div>
-                    <div class="instruction" id="password-instruction" style="font-size: 1vw;">In the password you can use only Latin characters, numbers, symbols '_', '!', '(', ')'. The password must be at least 6 characters long and not longer than 16 characters</div>
+                    <div class="instruction" id="password-instruction" style="font-size: 0.7vw;">In the password you can use only Latin characters, numbers, symbols '_', '!', '(', ')'. The password must be at least 6 characters long and not longer than 16 characters</div>
                 </div>
                 <div class="row">
-                    <label for="password_again" style="font-size: 1.2vw;">Confirm password:</label>
+                    <label for="password_again" style="font-size: 1.1vw;">Confirm password:</label>
                     <input type="password" class="text" name="txtPasswordAgain" id="txtPasswordAgain" value="" />
                     <div class="error" id="divPasswordAgainError"> </div>
-                    <div class="instruction" id="password_again-instruction" style="font-size: 1vw;">Repeat the password you entered previously</div>
+                    <div class="instruction" id="password_again-instruction" style="font-size: 0.7vw;">Repeat the password you entered previously</div>
                 </div>
                 <div class="row" style="width:20vw">
                     <!-- Sending form data -->

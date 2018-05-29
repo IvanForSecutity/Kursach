@@ -62,17 +62,7 @@ if(isset($_POST['btnReg']))
           </div>
         </div>
       </div>
-    </div><!--
-            <form action="" method="POST" id="frmLogin" >
-                <input type="text" name="txtLogin" id="txtLogin" placeholder="login" style="margin-top: 0.2em"><br>
-                <div class="error" id="divLoginError"> </div>
-                <input type="password" id="txtPassword" placeholder="password" style="margin-top: 0.2em"><br>
-                <div class="error" id="divPasswordError"> </div>
-                <input type="checkbox" name="cbxRemember" id="cbxRemember" value='1'> Witness me!!!<br>
-                <input type="button" name="btnLogIn" id="btnLogIn" value="Log In" style="margin-top: 0.2em" onclick="LogIn()"><br>
-                <input type="submit" name="btnReg" id="btnReg" value="Registration" style="margin-top: 0.2em"><br>
-            </form>
-            -->
+    </div>
         <!-- Block for displaying messages -->
         <div style="align-content: center; text-align: center;">
             <div id="divLoginResult"> </div>
