@@ -21,8 +21,8 @@
   border: none;
   color: #FFFFFF;
   text-align: center;
-  font-size: 15px;
-  padding: 5px;
+  font-size: 1.2vw;
+  padding: 1vw;
   width: auto;
   transition: all 0.5s;
   cursor: pointer;
@@ -69,7 +69,7 @@
 p.form-title
 {
     font-family: 'Open Sans' , sans-serif;
-    font-size: 20px;
+    font-size: 1.5vw;
     font-weight: 600;
     text-align: center;
     color: #0a6f4d;
@@ -94,7 +94,7 @@ form.login input[type="text"], form.login input[type="password"]
     border-bottom: 1px solid #0a6f4d;
     outline: 0;
     font-style: italic;
-    font-size: 12px;
+    font-size: 1vw;
     font-weight: 400;
     letter-spacing: 1px;
     margin-bottom: 5px;
@@ -147,7 +147,6 @@ form.login input[type="reset"]
     cursor: pointer;
     letter-spacing: 1px;
 }
-
 form.login input[type="submit"]:hover
 {
     transition: background-color 0.5s ease;
@@ -167,7 +166,7 @@ form.login .forgot-pass-content
 }
 form.login label, form.login a
 {
-    font-size: 12px;
+    font-size: 1vw;
     font-weight: 400;
     color: #0a6f4d;
 }

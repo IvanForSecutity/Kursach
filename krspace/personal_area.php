@@ -51,30 +51,30 @@ if(isset($_POST['btnDeleteAccount']))
 
                     <tbody>
                     <tr>
-                        <td>
+                        <td style="font-size:1vw;">
                             Login
                         </td>
                         <td>
-                            <a type="text" name="txtName"  style="margin-top: 0.2em" readonly="true"><?php echo $login;?></a>
+                            <a type="text" name="txtName"  style="margin-top: 0.2em;font-size:1vw" readonly="true"><?php echo $login;?></a>
                         </td>
                     </tr>
                     </tbody>
 
                     <tbody>
                     <tr>
-                        <td>
+                        <td style="font-size:1vw;">
                             Registration date
                         </td>
                         <td>
-                            <a type="text" name="txtRegDate"  style="margin-top: 0.2em" readonly="true"><?php echo $reg_date['reg_date'];?></a>
+                            <a type="text" name="txtRegDate"  style="margin-top: 0.2em;font-size:1vw;" readonly="true"><?php echo $reg_date['reg_date'];?></a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
                 <br/>
 
-                <div style="width:200px;margin: 0 auto;">
-                    <input type="submit" class="personal_area_button" name="btnDeleteAccount" value="Delete account" style="width:100%"><br>
+                <div style="width:20vw;margin: 0 auto;">
+                    <input type="submit" class="personal_area_button" name="btnDeleteAccount" value="Delete account" style="width:100%;font-size:1.2vw;"><br>
                 </div>
             </form>
         </div>

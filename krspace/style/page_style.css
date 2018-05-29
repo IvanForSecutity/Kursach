@@ -137,6 +137,8 @@ button.input_image
 {
     border: 0px;
     padding: 0px;
+    width:1.2vw;
+    height:1.2vw;
     background-color: transparent;
 }
 

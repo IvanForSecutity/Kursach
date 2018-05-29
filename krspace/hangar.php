@@ -82,21 +82,21 @@ foreach ($ships as $cur_ship)
               <p> <input type="radio" name="rbtnAvailableShips" value="<?= $cur_ship['ship_name']?>" id="<?= $cur_ship['ship_name']?>" /> <label for="<?= $cur_ship['ship_name']?>"> <?= $cur_ship['ship_name']?> </label> </p>
             </td>
             <td>
-              <button type="submit" name="<?= $cur_ship['ship_name']?>" class="input_image"><img src="images\Icons\no.png" weight="20px" height="20px"></button>
+              <button type="submit" name="<?= $cur_ship['ship_name']?>" class="input_image"><img src="images\Icons\no.png" weight="100%" height="100%"></button>
             </td>
           </tr>
         </tbody>
         <?php endforeach ?>
       </table>
       <br/>
-      <div style="width:200px;margin: 0 auto;">
-        <input type="submit" class="hangar_button" name="btnStart" value="Start" style="width:100%"><br>
+      <div style="width:20vw;margin: 0 auto;">
+        <input type="submit" class="hangar_button" name="btnStart" value="Start" style="width:100%;font-size:1.2vw;"><br>
       </div>
     </form>
 
     <form action="crafter.php" method="POST">
-    <div style="width:200px;margin: 0 auto;">
-      <input type="submit" class="hangar_button" name="btnCreate" value="Create new ship" style="width:100%"><br>
+    <div style="width:20vw;margin: 0 auto;">
+      <input type="submit" class="hangar_button" name="btnCreate" value="Create new ship" style="width:100%;font-size:1.2vw;"><br>
     </div>
     </form>
   </div>

@@ -23,29 +23,29 @@ require_once('php_functions/functions.php');
             registration</p>
             <form class="login"  action="" method="POST" id="frmRegistration">
                 <div class="row">
-                    <label for="login">Enter login:</label>
+                    <label for="login" style="font-size: 1.2vw;">Enter login:</label>
                     <input type="text" name="txtLogin" id="txtLogin" value="" />
                     <div class="error" id="divLoginError"> </div>
-                    <div class="instruction" id="login-instruction">The username can only contain Latin characters, numbers, symbols '_', '-', '.'. The length of the username must be at least 4 characters and not longer than 16 characters</div>
+                    <div class="instruction" id="login-instruction" style="font-size: 1vw;">The username can only contain Latin characters, numbers, symbols '_', '-', '.'. The length of the username must be at least 4 characters and not longer than 16 characters</div>
                 </div>
                 <div class="row">
-                    <label for="password">Enter password:</label>
+                    <label for="password" style="font-size: 1.2vw;">Enter password:</label>
                     <input type="password"  name="txtPassword" id="txtPassword" value="" />
                     <div class="error" id="divPasswordError"> </div>
-                    <div class="instruction" id="password-instruction">In the password you can use only Latin characters, numbers, symbols '_', '!', '(', ')'. The password must be at least 6 characters long and not longer than 16 characters</div>
+                    <div class="instruction" id="password-instruction" style="font-size: 1vw;">In the password you can use only Latin characters, numbers, symbols '_', '!', '(', ')'. The password must be at least 6 characters long and not longer than 16 characters</div>
                 </div>
                 <div class="row">
-                    <label for="password_again">Confirm password:</label>
+                    <label for="password_again" style="font-size: 1.2vw;">Confirm password:</label>
                     <input type="password" class="text" name="txtPasswordAgain" id="txtPasswordAgain" value="" />
                     <div class="error" id="divPasswordAgainError"> </div>
-                    <div class="instruction" id="password_again-instruction">Repeat the password you entered previously</div>
+                    <div class="instruction" id="password_again-instruction" style="font-size: 1vw;">Repeat the password you entered previously</div>
                 </div>
-                <div class="row">
+                <div class="row" style="width:20vw">
                     <!-- Sending form data -->
-                    <input type="submit" class="login_button" name="btnSignUp" id="btnSignUp" value="Sign Up"/>
+                    <input type="submit" class="login_button" name="btnSignUp" id="btnSignUp" value="Sign Up" style="width:100%;font-size:1.2vw;"/>
 
                     <!-- Reset form fields to their original state -->
-                    <input type="reset" class="login_button" name="btnReset" id="btnReset" value="Reset" />
+                    <input type="reset" class="login_button" name="btnReset" id="btnReset" value="Reset" style="width:100%;font-size:1.2vw;"/>
                 </div>
             </form>
         </div>

@@ -49,10 +49,10 @@ if(isset($_POST['btnReg']))
               <div class="remember-forgot">
                 <div class="row">
                   <div class="col-md-6">
-                    <div class="checkbox" style="margin-left:7px">
+                    <div class="checkbox" style="margin-left:7px;">
                       <label>
                             <input type="checkbox" id="cbxRemember"  value='1'/>
-                            Remember Me
+                            Witness me
                         </label>
                     </div>
                   </div>
