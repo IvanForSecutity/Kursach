@@ -168,12 +168,13 @@ function authorization($login, $password, $remember)
         // TODO: Время жизни сессии ограничить!
         session_start();
         $session_hash = randHash(32);
-        $sql = "UPDATE users SET session_hash='". $session_hash ."' WHERE `login`='".$login."'";
+        $session_user_agent = hash('sha512', $_SERVER['HTTP_USER_AGENT']);
+        $sql = "UPDATE users SET session_hash='". $session_hash ."', session_user_agent='". $session_user_agent ."' WHERE `login`='".$login."'";
         mysqli_query($link, $sql);
         $_SESSION['login'] = $login;
         $_SESSION['session_hash'] = $session_hash;
         // To prevent the ability to use a session from another browser (computer), you need to enter a validation of the HTTP-header field user-agent.
-        $_SESSION['HTTP_USER_AGENT'] = hash('sha512', $_SERVER['HTTP_USER_AGENT']);
+        $_SESSION['HTTP_USER_AGENT'] = $session_user_agent;
 
         // Check if button "Witness me" was pressed
         if ($remember == 1)
@@ -181,12 +182,13 @@ function authorization($login, $password, $remember)
             // Create cookie
 
             $cookie_key = randHash(32);
-            $sql = "UPDATE users SET cookie='". $cookie_key ."' WHERE `login`='".$login."'";
+            $cookie_user_agent = hash('sha512', $_SERVER['HTTP_USER_AGENT']);
+            $sql = "UPDATE users SET cookie='". $cookie_key ."', cookie_user_agent='". $cookie_user_agent ."' WHERE `login`='".$login."'";
             mysqli_query($link, $sql);
             // Life time is now + month
             setcookie('login', $login, time()+60*60*24*30, '/');
             setcookie('cookie_key', $cookie_key, time()+60*60*24*30, '/');
-            setcookie('HTTP_USER_AGENT', hash('sha512', $_SERVER['HTTP_USER_AGENT']), time()+60*60*24*30, '/');
+            setcookie('HTTP_USER_AGENT', $cookie_user_agent, time()+60*60*24*30, '/');
         }
     }
     else
@@ -201,7 +203,7 @@ function authorization($login, $password, $remember)
     return true;
 }
 
-function checkSession($login, $session_hash)
+function checkSession($login, $session_hash, $session_user_agent)
 {
     // If strings are empty - return false
     if(!$login || !$session_hash)
@@ -213,7 +215,7 @@ function checkSession($login, $session_hash)
     // Connect to DB
     $link = connect();
 
-    $sql = "SELECT `id` FROM `users` WHERE `login`='".$login."' AND `session_hash`='".$session_hash."'";
+    $sql = "SELECT `id` FROM `users` WHERE `login`='".$login."' AND `session_hash`='".$session_hash."' AND `session_user_agent`='".$session_user_agent."'";
     // Execute query
     $query = mysqli_query($link, $sql);
 
@@ -229,7 +231,7 @@ function checkSession($login, $session_hash)
     return true;
 }
 
-function checkCookie($login, $cookie_key)
+function checkCookie($login, $cookie_key, $cookie_user_agent)
 {
     // If strings are empty - return false
     if(!$login || !$cookie_key)
@@ -241,7 +243,7 @@ function checkCookie($login, $cookie_key)
     // Connect to DB
     $link = connect();
 
-    $sql = "SELECT `id` FROM `users` WHERE `login`='".$login."' AND `cookie`='".$cookie_key."'";
+    $sql = "SELECT `id` FROM `users` WHERE `login`='".$login."' AND `cookie`='".$cookie_key."' AND `cookie_user_agent`='".$cookie_user_agent."'";
     // Execute query
     $query = mysqli_query($link, $sql);
 

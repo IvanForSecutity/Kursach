@@ -20,10 +20,7 @@ require_once('php_functions/functions.php');
 if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['session_hash']) && $_SESSION['session_hash'] && isset($_SESSION['HTTP_USER_AGENT']) && $_SESSION['HTTP_USER_AGENT'])
 {
     // If validation of existing data fails
-    if(
-        !checkSession($_SESSION['login'], $_SESSION['session_hash']) ||
-        $_SESSION['HTTP_USER_AGENT'] != hash('sha512', $_SERVER['HTTP_USER_AGENT'])
-        )
+    if(!checkSession($_SESSION['login'], $_SESSION['session_hash'], $_SESSION['HTTP_USER_AGENT']))
     {
         // Redirect user to the authorization page
         header('location: login.php');
@@ -37,20 +34,18 @@ else
     {
         $login = $_COOKIE['login'];
         // If cookies are correct
-        if(
-            checkCookie($login, $_COOKIE['cookie_key']) &&
-            $_COOKIE['HTTP_USER_AGENT'] === hash('sha512', $_SERVER['HTTP_USER_AGENT'])
-            )
+        if(checkCookie($login, $_COOKIE['cookie_key'], $_COOKIE['HTTP_USER_AGENT']))
         {
             // Start new session
             $session_hash = randHash(32);
+            $session_user_agent = hash('sha512', $_SERVER['HTTP_USER_AGENT']);
             // Connect to DB
             $link = connect();
-            $sql = "UPDATE users SET session_hash='". $session_hash ."' WHERE `login`='".$login."'";
+            $sql = "UPDATE users SET session_hash='". $session_hash ."', session_user_agent='". $session_user_agent ."' WHERE `login`='".$login."'";
             mysqli_query($link, $sql);
             $_SESSION['login'] = $login;
             $_SESSION['session_hash'] = $session_hash;
-            $_SESSION['HTTP_USER_AGENT'] = hash('sha512', $_SERVER['HTTP_USER_AGENT']);
+            $_SESSION['HTTP_USER_AGENT'] = $session_user_agent;
             mysqli_close($link);
         }
         else
