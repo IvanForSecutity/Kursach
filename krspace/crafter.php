@@ -24,7 +24,8 @@ $errors['reg_error'] = '';
 $txtShipName = "";
 
 // If game starts
-if(isset($_POST['btnStart']))
+if(isset($_POST['btnStart']) &&
+        ($_SESSION['token'] == $_POST['token']))
 {
     $ship_name = $_POST['txtShipName'];
     $txtShipName = $_POST['txtShipName'];
@@ -130,6 +131,9 @@ if(isset($_POST['btnStart']))
     }
 }
 
+// Anti-CSRF token
+require_once('php_functions/token.php');
+
 // Load ships modules
 $hulls = loadHulls();
 $engines = loadEngines();
@@ -198,8 +202,8 @@ $weapons = loadWeapons();
 
         <br/><br/><br/>
 
-        <form action="" method="POST" id="frmCrafter" >
-          <div style="width:99%;display:flex;">
+        <form action="" method="POST" id="frmCrafter">
+            <div style="width:99%;display:flex;">
             <div style="display: inline-block;width:33%;float:top">
               <div id="divShipModules" class="ship_modules">
                   <div id="divShipModulesTitle" class="ship_modules_title"> Spaceship modules </div>
@@ -1238,10 +1242,12 @@ $weapons = loadWeapons();
                       </div>
                   </div>
                 </div>
-          </div>
+            </div>
             <div style="text-align: center; padding-top: 50px;">
                 <input type="submit" name="btnStart" value="Start" class="login_button" style="margin-top: 0.2em" ><br>
             </div>
+            
+            <input name="token" type="hidden" value="<?= $token?>">
         </form>
     </body>
 </html>

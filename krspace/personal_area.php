@@ -19,11 +19,15 @@ $login = $_SESSION['login'];
 $reg_date = getUserRegDate($login);
 
 // Check if delete button was pressed
-if(isset($_POST['btnDeleteAccount']))
+if(isset($_POST['btnDeleteAccount']) &&
+        ($_SESSION['token'] == $_POST['token']))
 {
     deleteUser($login);
     header('location: logout.php');
 }
+
+// Anti-CSRF token
+require_once('php_functions/token.php');
 ?>
 
 <html>
@@ -76,6 +80,8 @@ if(isset($_POST['btnDeleteAccount']))
                 <div style="width:20vw;margin: 0 auto;">
                     <input type="submit" class="personal_area_button" name="btnDeleteAccount" value="Delete account" style="width:100%;font-size:1.2vw;"><br>
                 </div>
+                
+                <input name="token" type="hidden" value="<?= $token?>">
             </form>
         </div>
     </body>
