@@ -16,7 +16,6 @@ if(isset($_POST['btnReg']))
         <script type="text/javascript" src="js/sha512.js"></script>
         <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
         <script type="text/javascript" src="js/js_login.js"></script>
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
         <title>Authorisation</title>
@@ -44,7 +43,7 @@ if(isset($_POST['btnReg']))
               <input type="password" id="txtPassword" placeholder="password" />
               <div class="error" id="divPasswordError"> </div>
               <input type="button" name="btnLogIn" id="btnLogIn" value="Log In" onclick="LogIn();" class="login_button" />
-              <input type="button" name="btnReg" id="btnReg" value="Registration" onclick="window.location.href='registration.php'" class="login_button" style="float:right"/>
+              <input type="button" name="btnReg"  id="btnReg" value="Registration" onclick="window.location.href='registration.php'" class="login_button" style="float:right"/>
 
               <div class="remember-forgot">
                 <div class="row">
